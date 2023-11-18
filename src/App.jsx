@@ -1,13 +1,10 @@
-
-
 function App() {
+  return <>
+  
+  <div className="container">
 
-  return (
-    <>
-
-    </>
-  )
-
+  </div>
+  </>;
 }
 
-export default App
+export default App;
