@@ -4,9 +4,9 @@ import UserCard from "./UserCard";
 export default function UserDetails() {
   return (
     <section
-      id="message-panel"
+      id="user-details"
       className="border border-primary"
-      style={{ overflow: scroll }}>
+      style={{ overflow: scroll}}>
       <UserCard />
     </section>
   );
