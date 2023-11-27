@@ -1,43 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import Maps from "./Maps";
 import UserDetails from "./UserDetails";
 import MessageInterface from "./MessageInterface";
-import ProduceSearch from "./ProduceSearch";
-import { getProduce } from "../api/api";
+import ProduceFinder from "./ProduceFinder";
 
 export default function Exchange() {
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
-  let [allProduce, setAllProduce] = useState([]);
-
-  useEffect(() => {
-    setIsLoading(true);
-    setError(null);
-    getProduce()
-      .then(({ produce }) => {
-        setIsLoading(false);
-        setAllProduce(produce);
-      })
-      .catch(
-        ({
-          response: {
-            status,
-            data: { message },
-          },
-        }) => {
-          setIsLoading(false);
-          setError({ status, message: message });
-        }
-      );
-  }, []);
-
-  if (isLoading) return <p>Just a moment...</p>;
-  if (error)
-    return (
-      <p>
-        Error {error.status} {error.message}
-      </p>
-    );
+  const [filteredProduce, setFilteredProduce] = useState([]);
 
   return (
     <>
@@ -46,14 +14,16 @@ export default function Exchange() {
           className="border border-success"
           style={{ width: "1fr" }}>
           <Maps />
-          <UserDetails style={{ height: "auto" }} />
+          <UserDetails />
         </div>
         <div
           className="border border-warning"
           style={{ width: "auto" }}>
-          <ProduceSearch
-            allProduce = {allProduce}
+          <ProduceFinder
+            filteredProduce={filteredProduce}
+            setFilteredProduce={setFilteredProduce}
           />
+          <button>Search</button>
           <MessageInterface />
         </div>
       </section>
