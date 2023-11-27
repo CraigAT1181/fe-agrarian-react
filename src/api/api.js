@@ -1,8 +1,13 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://agrarian-pw89.onrender.com/",
+  baseURL: "https://agrarian-pw89.onrender.com",
 });
 
 export default api;
 
+export const getProduce = async () => {
+  const { data } = await api.get("/produce");
+
+  return data;
+};
