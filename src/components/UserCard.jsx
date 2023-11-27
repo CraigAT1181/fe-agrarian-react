@@ -1,20 +1,26 @@
 import React from "react";
 
-export default function UserCard() {
+export default function UserCard({ users }) {
   return (
     <>
-      <section
-        className="card border border-danger"
-        style={{
-          width: "auto",
-          height: "5rem",
-          margin: "1rem",
-          padding: "0.5rem",
-        }}>
-        <div className="d-flex justify-content-center">
-          <p>Ian Smith</p>
-        </div>
-      </section>
+      {users.map((user) => {
+        return (
+          <article
+            className="card border border-danger"
+            key={user.user_id}
+            style={{
+              width: "auto",
+              height: "5rem",
+              margin: "1rem",
+              padding: "0.5rem",
+            }}>
+            <div className="d-flex justify-content-center">
+              <p>{user.user_name}</p>
+            </div>
+            <button>Message</button>
+          </article>
+        );
+      })}
     </>
   );
 }
