@@ -16,6 +16,11 @@ export default function UserCard({ users }) {
             }}>
             <div className="d-flex justify-content-center">
               <p>{user.user_name}</p>
+              <ul key={user.produce}>
+                {user.produce.map((produce)=>{
+return <p>{produce}</p>
+                })}
+              </ul>
             </div>
             <button>Message</button>
           </article>
