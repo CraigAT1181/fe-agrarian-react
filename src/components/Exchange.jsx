@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Maps from "./Maps";
 import MessageInterface from "./MessageInterface";
 import ProduceFinder from "./ProduceFinder";
 import { getUsersByProduceName } from "../api/api";
-import UserCard from "./UserCard";
-import { getUsers } from "../api/api";
+import UserPanel from "./UserPanel";
 
 export default function Exchange() {
   const [isLoading, setIsLoading] = useState(false);
@@ -13,11 +12,9 @@ export default function Exchange() {
   const [users, setUsers] = useState([]);
 
   function handleUserSearch() {
-    
     getUsersByProduceName(filteredProduce)
       .then(({ users }) => {
         setUsers(users);
-        
       })
       .catch(
         ({
@@ -51,7 +48,7 @@ export default function Exchange() {
             id="user-details"
             className="border border-primary"
             style={{ overflow: scroll }}>
-            <UserCard users={users} />
+            <UserPanel setUsers={setUsers} users={users} />
           </section>
         </div>
 
