@@ -4,6 +4,7 @@ import MessageInterface from "./MessageInterface";
 import ProduceFinder from "./ProduceFinder";
 import { getUsersByProduceName } from "../api/api";
 import UserCard from "./UserCard";
+import { getUsers } from "../api/api";
 
 export default function Exchange() {
   const [isLoading, setIsLoading] = useState(false);
@@ -11,22 +12,24 @@ export default function Exchange() {
   const [filteredProduce, setFilteredProduce] = useState([]);
   const [users, setUsers] = useState([]);
 
-  function handleUserSearch () {
+  function handleUserSearch() {
+    
     getUsersByProduceName(filteredProduce)
-    .then(({ users }) => {
-      setUsers(users);
-    })
-    .catch(
-      ({
-        response: {
-          status,
-          data: { message },
-        },
-      }) => {
-        setIsLoading(false);
-        setError({ status, message: message });
-      }
-    );
+      .then(({ users }) => {
+        setUsers(users);
+        
+      })
+      .catch(
+        ({
+          response: {
+            status,
+            data: { message },
+          },
+        }) => {
+          setIsLoading(false);
+          setError({ status, message: message });
+        }
+      );
   }
 
   if (isLoading) return <p>Just a moment...</p>;
@@ -45,12 +48,13 @@ export default function Exchange() {
           style={{ width: "1fr" }}>
           <Maps />
           <section
-      id="user-details"
-      className="border border-primary"
-      style={{ overflow: scroll}}>
-      <UserCard users={users}/>
-    </section>
+            id="user-details"
+            className="border border-primary"
+            style={{ overflow: scroll }}>
+            <UserCard users={users} />
+          </section>
         </div>
+
         <div
           className="border border-warning"
           style={{ width: "auto" }}>

@@ -10,16 +10,16 @@ export default function UserCard({ users }) {
             key={user.user_id}
             style={{
               width: "auto",
-              height: "5rem",
+              height: "7rem",
               margin: "1rem",
               padding: "0.5rem",
             }}>
             <div className="d-flex justify-content-center">
               <p>{user.user_name}</p>
-              <ul key={user.produce}>
-                {user.produce.map((produce)=>{
-return <p>{produce}</p>
-                })}
+              <hr />
+              <ul
+                className="d-flex"
+                >
               </ul>
             </div>
             <button>Message</button>

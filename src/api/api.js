@@ -6,6 +6,12 @@ const api = axios.create({
 
 export default api;
 
+export const getUsers = async () => {
+  const { data } = await api.get(`/users`);
+
+  return data;
+};
+
 export const getProduce = async () => {
   const { data } = await api.get("/produce");
 
@@ -13,8 +19,7 @@ export const getProduce = async () => {
 };
 
 export const getUsersByProduceName = async (produceList) => {
-  
-  const {data} = await api.get(`/users/${produceList}`);
+  const { data } = await api.get(`/users/${produceList}`);
 
   return data;
-}
+};
