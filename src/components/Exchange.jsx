@@ -40,21 +40,20 @@ export default function Exchange() {
   return (
     <>
       <section className="d-flex">
-        <div
-          className="border border-success"
-          style={{ width: "1fr" }}>
+        <div style={{ width: "1fr" }}>
           <Maps />
           <section
+            
             id="user-details"
-            className="border border-primary"
             style={{ overflow: scroll }}>
-            <UserPanel setUsers={setUsers} users={users} />
+            <UserPanel
+              setUsers={setUsers}
+              users={users}
+            />
           </section>
         </div>
 
-        <div
-          className="border border-warning"
-          style={{ width: "auto" }}>
+        <div style={{ width: "auto" }}>
           <ProduceFinder
             filteredProduce={filteredProduce}
             setFilteredProduce={setFilteredProduce}

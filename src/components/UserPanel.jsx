@@ -2,15 +2,14 @@ import React, { useState, useEffect } from "react";
 import { getUsers } from "../api/api";
 import UserCard from "./UserCard";
 
-export default function UserPanel({users, setUsers}) {
-const [isLoading, setIsLoading] = useState(true);
-const [error, setError] = useState(null);
-
+export default function UserPanel({ users, setUsers }) {
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     setIsLoading(true);
     setError(null);
-    
+
     getUsers()
       .then(({ users }) => {
         setIsLoading(false);
@@ -37,7 +36,9 @@ const [error, setError] = useState(null);
       </p>
     );
 
-    return (
-        <UserCard users={users}/>
-    )
+  return (
+    <section className="card shadow-sm p-3 mb-5 bg-white rounded">
+      <UserCard users={users} />
+    </section>
+  );
 }
