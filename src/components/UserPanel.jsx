@@ -37,8 +37,12 @@ export default function UserPanel({ users, setUsers }) {
     );
 
   return (
-    <section className="card shadow-sm p-3 mb-5 bg-white rounded">
-      <UserCard users={users} />
+    <section className="container d-flex justify-content-center">
+      <div className="row">
+        <div className="col-md-6">
+          <UserCard users={users} />
+        </div>
+      </div>
     </section>
   );
 }

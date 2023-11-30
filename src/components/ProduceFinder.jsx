@@ -1,8 +1,13 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { getProduce } from "../api/api";
+import { getUsersByProduceName } from "../api/api";
 
-export default function ProduceFinder({ filteredProduce, setFilteredProduce }) {
+export default function ProduceFinder({
+  setUsers,
+  filteredProduce,
+  setFilteredProduce,
+}) {
   const [selectedItem, setSelectedItem] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -55,32 +60,66 @@ export default function ProduceFinder({ filteredProduce, setFilteredProduce }) {
     }
   }
 
-  return (
-    <section className="flex-column justify-content-center border border-primary">
-      <p>Find Local Growers</p>
+  function handleUserSearch() {
+    getUsersByProduceName(filteredProduce)
+      .then(({ users }) => {
+        setUsers(users);
+      })
+      .catch(
+        ({
+          response: {
+            status,
+            data: { message },
+          },
+        }) => {
+          setIsLoading(false);
+          setError({ status, message: message });
+        }
+      );
+  }
 
-      <form>
-        <select
-          id="produce-select"
-          onChange={handleProduceSelection}>
-          <option
-            value=""
-            hidden>
-            Select Produce
-          </option>
-          {sortAllProduce().map((item) => (
+  return (
+    <section className="container">
+      <div className="d-flex-col m-1 mt-2 mb-2 justify-content-center">
+        <p>Find Local Growers</p>
+        <form>
+          <select
+            id="produce-select"
+            onChange={handleProduceSelection}>
             <option
-              key={item}
-              value={item}>
-              {item}
+              value=""
+              hidden>
+              Select Produce
             </option>
-          ))}
-        </select>
-      </form>
-      <div>
-        {filteredProduce.map((item) => {
-          return <p key={item}>{item}</p>;
-        })}
+            {sortAllProduce().map((item) => (
+              <option
+                key={item}
+                value={item}>
+                {item}
+              </option>
+            ))}
+          </select>
+        </form>
+      </div>
+      <div className="d-flex m-1 mt-2 mb-2 justify-content-center">
+        
+          {filteredProduce.map((item, index) => {
+            return (
+              <p
+                className="p-1 m-2 border"
+                key={index}>
+                {item}
+              </p>
+            );
+          })}
+        
+
+        <button
+          className="btn btn-success mt-2"
+          style={{ width: "8rem" }}
+          onClick={handleUserSearch}>
+          Search
+        </button>
       </div>
     </section>
   );

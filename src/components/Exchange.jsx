@@ -2,64 +2,38 @@ import React, { useState } from "react";
 import Maps from "./Maps";
 import MessageInterface from "./MessageInterface";
 import ProduceFinder from "./ProduceFinder";
-import { getUsersByProduceName } from "../api/api";
 import UserPanel from "./UserPanel";
 
 export default function Exchange() {
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
   const [filteredProduce, setFilteredProduce] = useState([]);
   const [users, setUsers] = useState([]);
 
-  function handleUserSearch() {
-    getUsersByProduceName(filteredProduce)
-      .then(({ users }) => {
-        setUsers(users);
-      })
-      .catch(
-        ({
-          response: {
-            status,
-            data: { message },
-          },
-        }) => {
-          setIsLoading(false);
-          setError({ status, message: message });
-        }
-      );
-  }
-
-  if (isLoading) return <p>Just a moment...</p>;
-  if (error)
-    return (
-      <p>
-        Error {error.status} {error.message}
-      </p>
-    );
-
   return (
     <>
-      <section className="d-flex">
-        <div style={{ width: "1fr" }}>
-          <Maps />
-          <section
-            
-            id="user-details"
-            style={{ overflow: scroll }}>
+      <section className="container">
+        <div className="row">
+          <div className="col-md-6">
+            <Maps />
+          </div>
+          <div className="col-md-6">
+            <ProduceFinder
+              setUsers={setUsers}
+              filteredProduce={filteredProduce}
+              setFilteredProduce={setFilteredProduce}
+            />
+          </div>
+        </div>
+
+        <div className="row">
+          <div className="col-md-6">
             <UserPanel
               setUsers={setUsers}
               users={users}
             />
-          </section>
-        </div>
-
-        <div style={{ width: "auto" }}>
-          <ProduceFinder
-            filteredProduce={filteredProduce}
-            setFilteredProduce={setFilteredProduce}
-          />
-          <button onClick={handleUserSearch}>Search</button>
-          <MessageInterface />
+          </div>
+          <div className="col-md-6">
+            <MessageInterface />
+          </div>
         </div>
       </section>
     </>
