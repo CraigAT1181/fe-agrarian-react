@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { getProduce } from "../api/api";
+import { getProduce, getUsers } from "../api/api";
 import { getUsersByProduceName } from "../api/api";
 import { Dropdown, Card } from "react-bootstrap";
 import "../App.css";
@@ -111,7 +111,7 @@ export default function ProduceFinder({
                 .map((item, index) => (
                   <p
                     className="custom-outline-success"
-                    style={{marginLeft: "1rem"}}
+                    style={{ marginLeft: "1rem" }}
                     key={index}>
                     {item}
                   </p>
@@ -132,6 +132,9 @@ export default function ProduceFinder({
           style={{ width: "8rem", marginLeft: "2rem" }}
           onClick={() => {
             setFilteredProduce([]);
+            getUsers().then(({ users }) => {
+              setUsers(users);
+            });
           }}>
           Clear
         </button>

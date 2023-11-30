@@ -15,7 +15,7 @@ export default function Exchange() {
           <div className="col-md-6">
             <Maps />
           </div>
-          <div className="col-md-6">
+          <div className="col-md-6 mt-5 pt-4">
             <ProduceFinder
               setUsers={setUsers}
               filteredProduce={filteredProduce}
