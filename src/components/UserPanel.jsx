@@ -37,8 +37,12 @@ export default function UserPanel({ users, setUsers }) {
     );
 
   return (
-    <section className="container d-flex justify-content-center">
-      <div className="row">
+    <section
+      className="container d-flex justify-content-center"
+      style={{ marginTop: "2rem" }}>
+      <div
+        className="row"
+        style={{ height: "400px", overflowY: "auto" }}>
         <div className="col-md-6">
           <UserCard users={users} />
         </div>
