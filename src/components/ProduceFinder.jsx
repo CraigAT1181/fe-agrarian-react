@@ -17,7 +17,7 @@ export default function ProduceFinder({
 
   useEffect(() => {
     setIsLoading(true);
-    setError(null);
+    
     getProduce()
       .then(({ produce }) => {
         setIsLoading(false);

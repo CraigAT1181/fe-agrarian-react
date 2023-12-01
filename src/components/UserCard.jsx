@@ -8,6 +8,7 @@ export default function UserCard({ users }) {
       {users.map((user) => {
         return (
           <article
+          id="UserCard"
             className="card shadow mt-4 "
             key={user.user_id}
             style={{

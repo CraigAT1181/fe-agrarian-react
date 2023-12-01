@@ -13,7 +13,7 @@ export default function Exchange() {
       <section className="container">
         <div className="row">
           <div className="col-md-6">
-            <Maps />
+            <Maps users={users}/>
           </div>
           <div className="col-md-6 mt-5 pt-4">
             <ProduceFinder
