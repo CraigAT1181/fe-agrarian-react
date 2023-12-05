@@ -23,3 +23,9 @@ export const getUsersByProduceName = async (produceList) => {
 
   return data;
 };
+
+export const getConversationsByUserID = async (user_id) => {
+  const { data } = await api.get(`/users/${user_id}/conversations`);
+
+  return data;
+};
