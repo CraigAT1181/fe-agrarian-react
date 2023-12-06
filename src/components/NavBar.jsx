@@ -8,22 +8,22 @@ export default function NavBar() {
         <h5 className="nav-item">
           <Link
             to="/"
-            className="nav-link">
-            <span className="text-success">Home</span>
+            className="nav-link m-3">
+            <li className="text-success">Home</li>
           </Link>
         </h5>
         <h5 className="nav-item">
           <Link
             to="/exchange"
-            className="nav-link">
-            <span className="text-success">Exchange</span>
+            className="nav-link m-3">
+            <li className="text-success">Exchange</li>
           </Link>
         </h5>
         <h5 className="nav-item">
           <Link
             to="/messenger"
-            className="nav-link">
-            <span className="text-success">Messenger</span>
+            className="nav-link m-3">
+            <li className="text-success">Messenger</li>
           </Link>
         </h5>
       </ul>
