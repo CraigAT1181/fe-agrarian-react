@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { register } from "../api/api";
 import { useNavigate } from "react-router-dom";
 
 export default function Register() {
@@ -8,6 +9,8 @@ export default function Register() {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [postcode, setPostcode] = useState("");
+
+  const navigate = useNavigate("/");
 
   const usernameHandler = (e) => {
     setUsername(e.target.value);
@@ -25,25 +28,12 @@ export default function Register() {
     setPostcode(e.target.value);
   };
 
-  const registrationHandler = () => {};
-
-  const loginHandler = () => {
+  const registrationHandler = () => {
     setIsLoading(true);
-    login(username, password)
-      .then((data) => {
+    register(username, email, password, postcode)
+      .then(() => {
         setIsLoading(false);
-        if (data) {
-          setLoggedIn(true);
-          setLoggedUser({
-            user_id: data.user_id,
-            user_name: data.user_name,
-            email: data.email,
-            postcode: data.postcode,
-            produce: data.produce,
-          });
-
-          navigate("/");
-        }
+        navigate("/login");
       })
       .catch(
         ({

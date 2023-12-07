@@ -20,11 +20,10 @@ export default function App() {
 
   return (
     <>
-    {console.log(loggedUser)}
       <Header
         loggedIn={loggedIn}
         loggedUser={loggedUser}
-        setLoggedUser={setLoggedIn}
+        setLoggedIn={setLoggedIn}
       />
       <main>
         <Routes>

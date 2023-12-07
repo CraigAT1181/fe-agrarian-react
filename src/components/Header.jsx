@@ -3,7 +3,7 @@ import NavBar from "./NavBar";
 import Profile from "./Profile";
 import { useNavigate } from "react-router-dom";
 
-export default function Header({ loggedIn, loggedUser, setLoggedIn }) {
+export default function Header({ loggedIn, loggedUser, setLoggedIn}) {
   const navigate = useNavigate();
 
   return (

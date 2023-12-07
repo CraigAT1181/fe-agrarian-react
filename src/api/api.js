@@ -33,8 +33,23 @@ export const getConversationsByUserID = async (user_id) => {
 export const login = async (username, password) => {
   const { data } = await api.post("/authenticate", {
     username: username,
-    password: password
+    password: password,
   });
 
   return data;
+};
+
+export const register = async (username, email, password, postcode) => {
+  const { data } = await api.post("/users", {
+    user_name: username,
+    email: email,
+    password: password,
+    postcode: postcode,
+  });
+
+  return data;
+};
+
+export const deleteUser = async (user_id) => {
+  await api.delete(`/users/${user_id}`);
 };
