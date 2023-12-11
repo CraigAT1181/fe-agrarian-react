@@ -16,7 +16,7 @@ export default function Messenger() {
       .then(({ conversations }) => {
         setIsLoading(false);
         setConversations(conversations);
-        console.log(conversations);
+        
       })
       .catch(
         ({

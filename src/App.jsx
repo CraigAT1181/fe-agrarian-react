@@ -29,11 +29,11 @@ export default function App() {
         <Routes>
           <Route
             path="/"
-            element={<Home />}
+            element={<Home loggedUser={loggedUser}/>}
           />
           <Route
             path="/home"
-            element={<Home />}
+            element={<Home loggedUser={loggedUser}/>}
           />
           <Route
             path="/exchange"

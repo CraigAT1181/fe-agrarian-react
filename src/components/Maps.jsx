@@ -60,7 +60,7 @@ export default function Maps({ users }) {
           console.error(
             "Geocode was not successful for the following reason: " + status
           );
-          reject(null); // Resolve with null for failed geocoding
+          reject(new Error(status)); // Resolve with null for failed geocoding
         }
       });
     });
@@ -86,7 +86,7 @@ export default function Maps({ users }) {
             mapContainerStyle={{ width: "600px", height: "400px" }}>
             {postcodes.map((postcode, index) => (
               <Marker
-                key={index}
+                key={postcode.user.user_id}
                 position={postcode.position}
                 title={postcode.title}
                 onClick={() => handleMarkerClick(postcode.user, index)}

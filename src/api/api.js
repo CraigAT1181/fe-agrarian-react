@@ -53,3 +53,9 @@ export const register = async (username, email, password, postcode) => {
 export const deleteUser = async (user_id) => {
   await api.delete(`/users/${user_id}`);
 };
+
+export const setUserProduce = async (user_id, userProduce) => {
+  const { data } = await api.patch(`/users/${user_id}`, userProduce);
+
+  return data;
+};
