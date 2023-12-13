@@ -7,7 +7,7 @@ import {
   InfoWindow,
 } from "@react-google-maps/api";
 
-const googleMapsApiKey = "AIzaSyBPEL9RgJfKnr58ff5ZEPSAituv9TMxRXY"; // Replace with your actual API key
+const googleMapsApiKey = "AIzaSyBPEL9RgJfKnr58ff5ZEPSAituv9TMxRXY";
 
 export default function Maps({ users }) {
   const [postcodes, setPostcodes] = useState([]);
@@ -27,12 +27,10 @@ export default function Maps({ users }) {
             })
           );
 
-          // Filter out any null values (failed geocoding)
           const validPostcodes = userPostcodes.filter(
             (postcode) => postcode !== null
           );
 
-          // Set center for the first marker
           if (validPostcodes.length > 0) {
             setCenter(validPostcodes[0].position);
           }
@@ -60,7 +58,7 @@ export default function Maps({ users }) {
           console.error(
             "Geocode was not successful for the following reason: " + status
           );
-          reject(new Error(status)); // Resolve with null for failed geocoding
+          reject(new Error(status));
         }
       });
     });

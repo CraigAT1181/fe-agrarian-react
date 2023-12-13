@@ -4,7 +4,7 @@ import MessageInput from "./MessageInput";
 import MessageList from "./MessageList";
 import { getConversationsByUserID } from "../api/api";
 
-export default function Messenger() {
+export default function Messenger({ loggedUser }) {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [messages, setMessages] = useState([]);
@@ -12,23 +12,27 @@ export default function Messenger() {
 
   useEffect(() => {
     setIsLoading(true);
-    getConversationsByUserID(4)
-      .then(({ conversations }) => {
-        setIsLoading(false);
-        setConversations(conversations);
-        
-      })
-      .catch(
-        ({
-          response: {
-            status,
-            data: { message },
-          },
-        }) => {
+    if (loggedUser.user_id > 0) {
+      getConversationsByUserID(loggedUser)
+        .then(({ conversations }) => {
           setIsLoading(false);
-          setError({ status, message: message });
-        }
-      );
+          setConversations(conversations);
+          console.log(loggedUser);
+        })
+        .catch(
+          ({
+            response: {
+              status,
+              data: { message },
+            },
+          }) => {
+            setIsLoading(false);
+            setError({ status, message: message });
+          }
+        );
+    } else {
+      setIsLoading(false);
+    }
   }, []);
 
   if (isLoading) return <p>Just a moment...</p>;

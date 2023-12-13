@@ -41,7 +41,7 @@ export default function App() {
           />
           <Route
             path="/messenger"
-            element={<Messenger />}
+            element={<Messenger loggedUser={loggedUser} />}
           />
           <Route
             path="/*"
