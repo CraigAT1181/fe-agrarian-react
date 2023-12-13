@@ -17,6 +17,8 @@ export default function App() {
     postcode: "",
     produce: [],
   });
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
   return (
     <>
@@ -24,16 +26,19 @@ export default function App() {
         loggedIn={loggedIn}
         loggedUser={loggedUser}
         setLoggedIn={setLoggedIn}
+        setLoggedUser={setLoggedUser}
+        setUsername={setUsername}
+        setPassword={setPassword}
       />
       <main>
         <Routes>
           <Route
             path="/"
-            element={<Home loggedUser={loggedUser}/>}
+            element={<Home loggedUser={loggedUser} />}
           />
           <Route
             path="/home"
-            element={<Home loggedUser={loggedUser}/>}
+            element={<Home loggedUser={loggedUser} />}
           />
           <Route
             path="/exchange"
@@ -51,8 +56,12 @@ export default function App() {
             path="/login"
             element={
               <Login
-                setLoggedUser={setLoggedUser}
                 setLoggedIn={setLoggedIn}
+                setLoggedUser={setLoggedUser}
+                username={username}
+                password={password}
+                setUsername={setUsername}
+                setPassword={setPassword}
               />
             }
           />

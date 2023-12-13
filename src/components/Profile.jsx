@@ -1,8 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { deleteUser } from "../api/api";
 import { useNavigate } from "react-router-dom";
 
-export default function Profile({ loggedUser, setLoggedIn }) {
+export default function Profile({
+  loggedUser,
+  setLoggedIn,
+  setLoggedUser,
+  setUsername,
+  setPassword,
+}) {
   const navigate = useNavigate();
 
   const handleDelete = () => {
@@ -11,6 +17,24 @@ export default function Profile({ loggedUser, setLoggedIn }) {
       navigate("/");
     });
   };
+
+  const handleLogout = () => {
+    setLoggedIn(false);
+    setLoggedUser({});
+    setUsername("");
+    setPassword("");
+    localStorage.clear();
+  };
+
+  useEffect(() => {
+    const loggedInUser = localStorage.getItem("user");
+    if (loggedInUser) {
+      const foundUser = JSON.parse(loggedInUser);
+      console.log(foundUser, "found");
+      setLoggedUser(foundUser);
+      setLoggedIn(true);
+    }
+  }, []); // Run this effect only once on component mount
 
   return (
     <>
@@ -21,9 +45,7 @@ export default function Profile({ loggedUser, setLoggedIn }) {
       <div>
         <button
           className="btn btn-outline-success m-2"
-          onClick={() => {
-            setLoggedIn(false);
-          }}>
+          onClick={handleLogout}>
           Log Out
         </button>
         <button

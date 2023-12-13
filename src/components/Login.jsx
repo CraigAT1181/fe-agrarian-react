@@ -1,40 +1,31 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { login } from "../api/api";
 import { useNavigate } from "react-router-dom";
 
-export default function Login({ setLoggedIn, setLoggedUser }) {
+export default function Login({
+  setLoggedIn,
+  setLoggedUser,
+  username,
+  password,
+  setUsername,
+  setPassword,
+}) {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
 
-  const usernameHandler = (e) => {
-    setUsername(e.target.value);
-  };
-
-  const passwordHandler = (e) => {
-    setPassword(e.target.value);
-  };
-
-  const loginHandler = () => {
+  const loginHandler = async (e) => {
+    e.preventDefault();
     setIsLoading(true);
     login(username, password)
       .then((data) => {
-        setIsLoading(false);
-        if (data) {
-          setLoggedIn(true);
-          setLoggedUser({
-            user_id: data.user_id,
-            user_name: data.user_name,
-            email: data.email,
-            postcode: data.postcode,
-            produce: data.produce,
-          });
-
-          navigate("/");
-        }
+        console.log(data);
+        setLoggedUser(data);
+        setLoggedIn(true);
+        // Store user data in localStorage
+        localStorage.setItem("user", JSON.stringify(data));
+        navigate("/"); // Redirect to the home page or any other page after login
       })
       .catch(
         ({
@@ -49,29 +40,44 @@ export default function Login({ setLoggedIn, setLoggedUser }) {
       );
   };
 
+  useEffect(() => {
+    const loggedInUser = localStorage.getItem("user");
+    if (loggedInUser) {
+      const foundUser = JSON.parse(loggedInUser);
+      setLoggedUser(foundUser);
+      setLoggedIn(true);
+    }
+  }, []); // Run this effect only once on component mount
+
+  if (isLoading) return <p>Just a moment...</p>;
+  if (error)
+    return (
+      <p>
+        Error {error.status} {error.message}
+      </p>
+    );
+
   return (
     <section className="container">
       <div className="d-flex justify-content-center">
-        <form>
+        <form onSubmit={loginHandler}>
           <label htmlFor="username">Username</label>
           <input
             id="username"
             type="text"
-            onChange={usernameHandler}
+            value={username}
+            onChange={({ target }) => setUsername(target.value)}
           />
 
           <label htmlFor="password">Password</label>
           <input
             id="password"
             type="password"
-            onChange={passwordHandler}
+            value={password}
+            onChange={({ target }) => setPassword(target.value)}
           />
 
-          <button
-            type="button"
-            onClick={loginHandler}>
-            {isLoading ? "Logging in..." : "Login"}
-          </button>
+          <button type="submit">Login</button>
         </form>
       </div>
       {error && (
