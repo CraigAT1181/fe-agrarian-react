@@ -20,12 +20,13 @@ export default function Login({
     setIsLoading(true);
     login(username, password)
       .then((data) => {
-        console.log(data);
         setLoggedUser(data);
         setLoggedIn(true);
-        // Store user data in localStorage
-        localStorage.setItem("user", JSON.stringify(data));
-        navigate("/"); // Redirect to the home page or any other page after login
+
+        const expiryTime = new Date().getTime() + 60 * 60 * 1000;
+
+        localStorage.setItem("user", JSON.stringify({ data, expiryTime }));
+        navigate("/");
       })
       .catch(
         ({
@@ -41,13 +42,29 @@ export default function Login({
   };
 
   useEffect(() => {
-    const loggedInUser = localStorage.getItem("user");
-    if (loggedInUser) {
-      const foundUser = JSON.parse(loggedInUser);
-      setLoggedUser(foundUser);
-      setLoggedIn(true);
-    }
-  }, []); // Run this effect only once on component mount
+    const checkUserSession = () => {
+      const loggedInUser = localStorage.getItem("user");
+      if (loggedInUser) {
+        const { data, expiryTime } = JSON.parse(loggedInUser);
+        const currentTime = new Date().getTime();
+
+        if (currentTime < expiryTime) {
+          setLoggedUser(data);
+          setLoggedIn(true);
+        } else {
+          localStorage.removeItem("user");
+        }
+      }
+    };
+
+    checkUserSession();
+
+    const intervalId = setInterval(() => {
+      checkUserSession();
+    }, 1000);
+
+    return () => clearInterval(intervalId);
+  }, [setLoggedIn, setLoggedUser]);
 
   if (isLoading) return <p>Just a moment...</p>;
   if (error)

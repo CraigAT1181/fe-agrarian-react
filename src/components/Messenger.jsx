@@ -35,6 +35,31 @@ export default function Messenger({ loggedUser }) {
     }
   }, []);
 
+  useEffect(() => {
+    const checkUserSession = () => {
+      const loggedInUser = localStorage.getItem("user");
+      if (loggedInUser) {
+        const { data, expiryTime } = JSON.parse(loggedInUser);
+        const currentTime = new Date().getTime();
+
+        if (currentTime < expiryTime) {
+          setLoggedUser(data);
+          setLoggedIn(true);
+        } else {
+          localStorage.removeItem("user");
+        }
+      }
+    };
+
+    checkUserSession();
+
+    const intervalId = setInterval(() => {
+      checkUserSession();
+    }, 1000);
+
+    return () => clearInterval(intervalId);
+  }, [setLoggedIn, setLoggedUser]);
+
   if (isLoading) return <p>Just a moment...</p>;
   if (error)
     return (

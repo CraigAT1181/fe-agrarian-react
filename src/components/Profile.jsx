@@ -27,14 +27,29 @@ export default function Profile({
   };
 
   useEffect(() => {
-    const loggedInUser = localStorage.getItem("user");
-    if (loggedInUser) {
-      const foundUser = JSON.parse(loggedInUser);
-      console.log(foundUser, "found");
-      setLoggedUser(foundUser);
-      setLoggedIn(true);
-    }
-  }, []); // Run this effect only once on component mount
+    const checkUserSession = () => {
+      const loggedInUser = localStorage.getItem("user");
+      if (loggedInUser) {
+        const { data, expiryTime } = JSON.parse(loggedInUser);
+        const currentTime = new Date().getTime();
+
+        if (currentTime < expiryTime) {
+          setLoggedUser(data);
+          setLoggedIn(true);
+        } else {
+          localStorage.removeItem("user");
+        }
+      }
+    };
+
+    checkUserSession();
+
+    const intervalId = setInterval(() => {
+      checkUserSession();
+    }, 1000);
+
+    return () => clearInterval(intervalId);
+  }, [setLoggedIn, setLoggedUser]);
 
   return (
     <>

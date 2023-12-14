@@ -12,22 +12,6 @@ export default function Register() {
 
   const navigate = useNavigate("/");
 
-  const usernameHandler = (e) => {
-    setUsername(e.target.value);
-  };
-
-  const passwordHandler = (e) => {
-    setPassword(e.target.value);
-  };
-
-  const emailHandler = (e) => {
-    setEmail(e.target.value);
-  };
-
-  const postcodeHandler = (e) => {
-    setPostcode(e.target.value);
-  };
-
   const registrationHandler = () => {
     setIsLoading(true);
     register(username, email, password, postcode)
@@ -56,28 +40,28 @@ export default function Register() {
           <input
             id="username"
             type="text"
-            onChange={usernameHandler}
+            onChange={({ target }) => setUsername(target.value)}
           />
 
           <label htmlFor="password">Password</label>
           <input
             id="password"
             type="password"
-            onChange={passwordHandler}
+            onChange={({ target }) => setPassword(target.value)}
           />
 
           <label htmlFor="email">Email</label>
           <input
             id="email"
             type="text"
-            onChange={emailHandler}
+            onChange={({ target }) => setEmail(target.value)}
           />
 
           <label htmlFor="postcode">Postcode</label>
           <input
             id="postcode"
             type="text"
-            onChange={postcodeHandler}
+            onChange={({ target }) => setPostcode(target.value)}
           />
 
           <button
