@@ -1,10 +1,11 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import { useAuth } from "./AuthContext";
 import { getProduce, setUserProduce } from "../api/api";
 import { Dropdown, Card, Alert } from "react-bootstrap";
 import "../App.css";
 
-export default function Home({ loggedUser }) {
+export default function Home() {
+  const { user } = useAuth();
   const [selectedItem, setSelectedItem] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -12,8 +13,6 @@ export default function Home({ loggedUser }) {
   const [filteredUserProduce, setFilteredUserProduce] = useState([]);
   const [updatedUserProduce, setUpdatedUserProduce] = useState([]);
   const [produceUpdated, setProduceUpdated] = useState(false);
-
-  const user_id = loggedUser.user_id;
 
   useEffect(() => {
     setIsLoading(true);
@@ -42,21 +41,13 @@ export default function Home({ loggedUser }) {
     if (produceUpdated) {
       timeout = setTimeout(() => {
         setProduceUpdated(false);
-      }, 3000); // Adjust the timeout duration as needed
+      }, 3000);
     }
 
     return () => {
       clearTimeout(timeout);
     };
   }, [updatedUserProduce]);
-
-  if (isLoading) return <p>Just a moment...</p>;
-  if (error)
-    return (
-      <p>
-        Error {error.status} {error.message}
-      </p>
-    );
 
   function sortAllProduce() {
     const produceNames = allProduce.map((item) => {
@@ -94,9 +85,17 @@ export default function Home({ loggedUser }) {
       );
   }
 
+  if (isLoading) return <p>Just a moment...</p>;
+  if (error)
+    return (
+      <p>
+        Error {error.status} {error.message}
+      </p>
+    );
+
   return (
     <section className="container">
-      {loggedUser.user_id > 0 ? (
+      {user !== null ? (
         <div className="col text-center m-1 mt-2 mb-2 justify-content-center">
           <p>Your produce:</p>
           <Dropdown
@@ -138,7 +137,7 @@ export default function Home({ loggedUser }) {
               className="btn btn-success mt-2"
               style={{ width: "8rem" }}
               onClick={() =>
-                handleConfirmProduce(user_id, filteredUserProduce)
+                handleConfirmProduce(user.user_id, filteredUserProduce)
               }>
               Confirm
             </button>

@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { login } from "../api/api";
+import { userLogin } from "../api/api";
+import { useAuth } from "./AuthContext";
 import { useNavigate } from "react-router-dom";
 
 export default function Login({
-  setLoggedIn,
-  setLoggedUser,
   username,
   password,
   setUsername,
@@ -12,20 +11,17 @@ export default function Login({
 }) {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const { user, login, logout } = useAuth();
 
   const navigate = useNavigate();
 
   const loginHandler = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    login(username, password)
+    userLogin(username, password)
       .then((data) => {
-        setLoggedUser(data);
-        setLoggedIn(true);
+        login(data);
 
-        const expiryTime = new Date().getTime() + 60 * 60 * 1000;
-
-        localStorage.setItem("user", JSON.stringify({ data, expiryTime }));
         navigate("/");
       })
       .catch(
@@ -40,31 +36,6 @@ export default function Login({
         }
       );
   };
-
-  useEffect(() => {
-    const checkUserSession = () => {
-      const loggedInUser = localStorage.getItem("user");
-      if (loggedInUser) {
-        const { data, expiryTime } = JSON.parse(loggedInUser);
-        const currentTime = new Date().getTime();
-
-        if (currentTime < expiryTime) {
-          setLoggedUser(data);
-          setLoggedIn(true);
-        } else {
-          localStorage.removeItem("user");
-        }
-      }
-    };
-
-    checkUserSession();
-
-    const intervalId = setInterval(() => {
-      checkUserSession();
-    }, 1000);
-
-    return () => clearInterval(intervalId);
-  }, [setLoggedIn, setLoggedUser]);
 
   if (isLoading) return <p>Just a moment...</p>;
   if (error)

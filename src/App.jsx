@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Routes, Route } from "react-router-dom";
+import { AuthProvider } from "./components/AuthContext";
 import Header from "./components/Header";
 import Home from "./components/Home";
 import Exchange from "./components/Exchange";
@@ -22,6 +23,7 @@ export default function App() {
 
   return (
     <>
+    <AuthProvider>
       <Header
         loggedIn={loggedIn}
         loggedUser={loggedUser}
@@ -71,6 +73,7 @@ export default function App() {
           />
         </Routes>
       </main>
+      </AuthProvider>
     </>
   );
 }
