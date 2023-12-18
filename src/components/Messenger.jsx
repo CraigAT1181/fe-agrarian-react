@@ -1,23 +1,26 @@
 import React, { useState, useEffect } from "react";
+import { useAuth } from "./AuthContext";
 import ContactList from "./ContactList";
 import MessageInput from "./MessageInput";
 import MessageList from "./MessageList";
 import { getConversationsByUserID } from "../api/api";
 
-export default function Messenger({ loggedUser }) {
+export default function Messenger() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { user } = useAuth();
   const [messages, setMessages] = useState([]);
   const [conversations, setConversations] = useState([]);
 
   useEffect(() => {
     setIsLoading(true);
-    if (loggedUser.user_id > 0) {
-      getConversationsByUserID(loggedUser)
+    if (user) {
+      console.log(user.user_id);
+      getConversationsByUserID(user.user_id)
         .then(({ conversations }) => {
           setIsLoading(false);
           setConversations(conversations);
-          
+          console.log(conversations);
         })
         .catch(
           ({
@@ -34,32 +37,7 @@ export default function Messenger({ loggedUser }) {
       setIsLoading(false);
     }
   }, []);
-
-  useEffect(() => {
-    const checkUserSession = () => {
-      const loggedInUser = localStorage.getItem("user");
-      if (loggedInUser) {
-        const { data, expiryTime } = JSON.parse(loggedInUser);
-        const currentTime = new Date().getTime();
-
-        if (currentTime < expiryTime) {
-          setLoggedUser(data);
-          setLoggedIn(true);
-        } else {
-          localStorage.removeItem("user");
-        }
-      }
-    };
-
-    checkUserSession();
-
-    const intervalId = setInterval(() => {
-      checkUserSession();
-    }, 1000);
-
-    return () => clearInterval(intervalId);
-  }, [setLoggedIn, setLoggedUser]);
-
+  
   if (isLoading) return <p>Just a moment...</p>;
   if (error)
     return (
@@ -76,7 +54,7 @@ export default function Messenger({ loggedUser }) {
     <section className="container">
       <div className="row">
         <div className="col">
-          <ContactList />
+          <ContactList conversations={conversations}/>
         </div>
         <div className="col-6">
           <div>

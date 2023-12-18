@@ -1,14 +1,21 @@
 import React from "react";
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route, Link, useNavigate } from "react-router-dom";
 import "../App.css";
 
 export default function UserCard({ users }) {
+  const navigate = useNavigate();
+
+  const handleMessageClick = () => {
+    navigate("/messenger");
+
+    // After completing Messenger functionality - use code to complete this button functionality.
+  };
   return (
     <>
       {users.map((user) => {
         return (
           <article
-          id="UserCard"
+            id="UserCard"
             className="card shadow mt-4 "
             key={user.user_id}
             style={{
@@ -32,7 +39,8 @@ export default function UserCard({ users }) {
                   <div className="mb-1">
                     <button
                       className="btn btn-success mt-2"
-                      style={{ width: "8rem" }}>
+                      style={{ width: "8rem" }}
+                      onClick={handleMessageClick}>
                       Message
                     </button>
                   </div>
@@ -40,16 +48,24 @@ export default function UserCard({ users }) {
               </div>
             </div>
             <div className="d-flex m-1 mt-2 mb-2 justify-content-start">
-              {user.produce.map((item, index) => {
-                return (
-                  <p
-                    className="custom-outline-success"
-                    style={{ marginLeft: "1rem" }}
-                    key={index}>
-                    {item}
-                  </p>
-                );
-              })}
+              {user.produce.length > 0 ? (
+                user.produce.map((item, index) => {
+                  return (
+                    <p
+                      className="custom-outline-success"
+                      style={{ marginLeft: "1rem" }}
+                      key={index}>
+                      {item}
+                    </p>
+                  );
+                })
+              ) : (
+                <p
+                  className="custom-outline-danger"
+                  style={{ marginLeft: "1rem" }}>
+                  No produce available.
+                </p>
+              )}
             </div>
             <div className="row"></div>
           </article>

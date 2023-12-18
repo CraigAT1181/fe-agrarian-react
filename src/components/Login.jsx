@@ -1,17 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { userLogin } from "../api/api";
 import { useAuth } from "./AuthContext";
 import { useNavigate } from "react-router-dom";
 
-export default function Login({
-  username,
-  password,
-  setUsername,
-  setPassword,
-}) {
+export default function Login() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  const { user, login, logout } = useAuth();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const { login } = useAuth();
 
   const navigate = useNavigate();
 
