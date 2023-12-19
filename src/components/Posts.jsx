@@ -1,22 +1,37 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Dropdown } from "react-bootstrap";
 import { ToggleButtonGroup, ToggleButton } from "react-bootstrap";
 import "../App.css";
-
-const posts = [
-  { id: 1, content: "Post 1" },
-  { id: 2, content: "Post 2" },
-  { id: 3, content: "Post 3" },
-  { id: 4, content: "Post 4" },
-  { id: 5, content: "Post 5" },
-  { id: 6, content: "Post 6" },
-  { id: 7, content: "Post 7" },
-  // Add more posts as needed
-];
+import { getPosts } from "../api/api";
+import PostCard from "./PostCard";
 
 export default function Posts() {
   const [display, setDisplay] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+  let [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    setIsLoading(true);
+
+    getPosts()
+      .then(({ posts }) => {
+        setIsLoading(false);
+        setPosts(posts);
+      })
+      .catch(
+        ({
+          response: {
+            status,
+            data: { message },
+          },
+        }) => {
+          setIsLoading(false);
+          setError({ status, message: message });
+        }
+      );
+  }, []);
+
   const handlePostSelection = (selectedItem) => {
     if (selectedItem === "seeds") {
       setDisplay("seeds");
@@ -24,6 +39,14 @@ export default function Posts() {
       setDisplay("produce");
     }
   };
+
+  if (isLoading) return <p>Just a moment...</p>;
+  if (error)
+    return (
+      <p>
+        Error {error.status} {error.message}
+      </p>
+    );
 
   return (
     <>
@@ -49,9 +72,9 @@ export default function Posts() {
         <div className="post-display">
           {posts.map((post) => (
             <div
-              key={post.id}
+              key={post.post_id}
               className="post">
-              {post.content}
+              <PostCard post={post}/>
             </div>
           ))}
         </div>

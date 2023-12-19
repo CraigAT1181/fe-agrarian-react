@@ -17,7 +17,7 @@ export default function ProduceFinder({
 
   useEffect(() => {
     setIsLoading(true);
-    
+
     getProduce()
       .then(({ produce }) => {
         setIsLoading(false);
@@ -35,14 +35,6 @@ export default function ProduceFinder({
         }
       );
   }, []);
-
-  if (isLoading) return <p>Just a moment...</p>;
-  if (error)
-    return (
-      <p>
-        Error {error.status} {error.message}
-      </p>
-    );
 
   function sortAllProduce() {
     const produceNames = allProduce.map((item) => {
@@ -79,10 +71,18 @@ export default function ProduceFinder({
       );
   }
 
+  if (isLoading) return <p>Just a moment...</p>;
+  if (error)
+    return (
+      <p>
+        Error {error.status} {error.message}
+      </p>
+    );
+
   return (
     <section className="container">
       <h3>Find Local Growers</h3>
-            <div className="d-flex m-1 mt-2 mb-2 justify-content-center">
+      <div className="d-flex m-1 mt-2 mb-2 justify-content-center">
         <button
           className="btn btn-success mt-2"
           style={{ width: "8rem" }}
@@ -103,7 +103,6 @@ export default function ProduceFinder({
       </div>
       <div className="d-flex-col m-1 mt-2 mb-2 justify-content-center">
         <div className="row text-center">
-          
           <Dropdown
             onSelect={(selectedItem) => handleProduceSelection(selectedItem)}>
             <Dropdown.Toggle
@@ -140,7 +139,6 @@ export default function ProduceFinder({
           </Card>
         </div>
       </div>
-
     </section>
   );
 }
