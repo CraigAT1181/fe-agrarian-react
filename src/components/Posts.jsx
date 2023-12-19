@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Dropdown } from "react-bootstrap";
+import { ToggleButtonGroup, ToggleButton } from "react-bootstrap";
+import "../App.css";
 
 const posts = [
   { id: 1, content: "Post 1" },
@@ -25,26 +27,30 @@ export default function Posts() {
 
   return (
     <>
-      <div className="d-flex flex-column align-items-center">
-        <p>Showing all posts</p>
-        <p>Click below to filter between seeds or produce</p>
-        <Dropdown
-          onSelect={(selectedItem) => handlePostSelection(selectedItem)}
-        >
-          <Dropdown.Toggle variant="success" id="dropdown-basic">
-            Select
-          </Dropdown.Toggle>
-
-          <Dropdown.Menu>
-            <Dropdown.Item eventKey="seeds">Seeds</Dropdown.Item>
-            <Dropdown.Item eventKey="produce">Produce</Dropdown.Item>
-          </Dropdown.Menu>
-        </Dropdown>
+      <div className="post-header">
+        <div className="d-flex flex-column align-items-center p-3">
+          <ToggleButtonGroup
+            type="radio"
+            name="options">
+            <ToggleButton variant="success">Available</ToggleButton>
+            <ToggleButton variant="outline-success">Wanted</ToggleButton>
+          </ToggleButtonGroup>
+        </div>
+        <div className="d-flex flex-column align-items-center p-3">
+          <ToggleButtonGroup
+            type="radio"
+            name="options">
+            <ToggleButton variant="success">Seeds</ToggleButton>
+            <ToggleButton variant="outline-success">Produce</ToggleButton>
+          </ToggleButtonGroup>
+        </div>
       </div>
-      <div className="container">
-        <div className="row d-flex justify-content-center">
+      <div className="container text-center">
+        <div className="post-display">
           {posts.map((post) => (
-            <div key={post.id} className="col-12 col-sm-6 col-md-3">
+            <div
+              key={post.id}
+              className="post">
               {post.content}
             </div>
           ))}

@@ -81,9 +81,29 @@ export default function ProduceFinder({
 
   return (
     <section className="container">
+      <h3>Find Local Growers</h3>
+            <div className="d-flex m-1 mt-2 mb-2 justify-content-center">
+        <button
+          className="btn btn-success mt-2"
+          style={{ width: "8rem" }}
+          onClick={handleUserSearch}>
+          Search
+        </button>
+        <button
+          className="btn btn-outline-success mt-2"
+          style={{ width: "8rem", marginLeft: "2rem" }}
+          onClick={() => {
+            setFilteredProduce([]);
+            getUsers().then(({ users }) => {
+              setUsers(users);
+            });
+          }}>
+          Clear
+        </button>
+      </div>
       <div className="d-flex-col m-1 mt-2 mb-2 justify-content-center">
         <div className="row text-center">
-          <h3>Find Local Growers</h3>
+          
           <Dropdown
             onSelect={(selectedItem) => handleProduceSelection(selectedItem)}>
             <Dropdown.Toggle
@@ -120,25 +140,7 @@ export default function ProduceFinder({
           </Card>
         </div>
       </div>
-      <div className="d-flex m-1 mt-2 mb-2 justify-content-center">
-        <button
-          className="btn btn-success mt-2"
-          style={{ width: "8rem" }}
-          onClick={handleUserSearch}>
-          Search
-        </button>
-        <button
-          className="btn btn-outline-success mt-2"
-          style={{ width: "8rem", marginLeft: "2rem" }}
-          onClick={() => {
-            setFilteredProduce([]);
-            getUsers().then(({ users }) => {
-              setUsers(users);
-            });
-          }}>
-          Clear
-        </button>
-      </div>
+
     </section>
   );
 }

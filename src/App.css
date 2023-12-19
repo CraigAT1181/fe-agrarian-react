@@ -12,6 +12,34 @@
   display: inline-block;
 }
 
+.post-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.post-display {
+  display: grid;
+  grid-template-columns: 25% 25% 25% 25%;
+  justify-content: center;
+  padding: 2rem;
+}
+
+@media (max-width: 767px) {
+  .post-display {
+    grid-template-columns: 100%; /* Display only one column on smaller screens */
+  }
+}
+
+.post {
+  border: 1px solid black;
+  margin-bottom: 1rem;
+  margin-left: 1rem;
+  height: 12rem;
+}
+
 .fade-alert {
   transition: opacity 1s ease-in-out;
 }
