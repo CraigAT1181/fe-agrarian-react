@@ -1,12 +1,36 @@
 import React from "react";
+import "../App.css";
 
-export default function PostCard({post}) {
-    console.log({post});
+export default function PostCard({ post }) {
+  console.log({ post });
   return (
-    <div className="card">
-        <div className="card-title">{post.type}</div>
-        <div className="card-body">{post.body}</div>
-        <div className="card-body">{post.posted_by}</div>
-    </div>
-  )
+    <article className="container post-card">
+      <div className="row m-4">
+        <div className="col text-start">{post.status}</div>
+        <div className="col">
+          <h5>{post.item}</h5>
+        </div>
+        <div className="col text-end">{post.type}</div>
+      </div>
+      <div className="row m-4">
+        <div className="col"></div>
+        <div className="col">
+          <span>{post.body}</span>
+        </div>
+        <div className="col"></div>
+      </div>
+      <div className="row m-4">
+        <div className="col text-start align-self-end">
+          <p className="mb-0">{post.posted_by}<br />
+          {post.postcode}</p>
+        </div>
+        <div className="col align-self-center">
+          <button className="btn btn-success">message</button>
+        </div>
+        <div className="col text-end align-self-center">
+          Posted: {post.created_at}
+        </div>
+      </div>
+    </article>
+  );
 }

@@ -4,6 +4,7 @@ import { ToggleButtonGroup, ToggleButton } from "react-bootstrap";
 import "../App.css";
 import { getPosts } from "../api/api";
 import PostCard from "./PostCard";
+import Maps from "./Maps";
 
 export default function Posts() {
   const [display, setDisplay] = useState("");
@@ -71,11 +72,10 @@ export default function Posts() {
       <div className="container text-center">
         <div className="post-display">
           {posts.map((post) => (
-            <div
+            <PostCard
               key={post.post_id}
-              className="post">
-              <PostCard post={post}/>
-            </div>
+              post={post}
+            />
           ))}
         </div>
       </div>
