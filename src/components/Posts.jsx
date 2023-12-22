@@ -11,6 +11,8 @@ export default function Posts() {
   let [posts, setPosts] = useState([]);
   let [availableVariant, setAvailableVariant] = useState("outline-success");
   let [wantedVariant, setWantedVariant] = useState("outline-danger");
+  let [seedsVariant, setSeedsVariant] = useState("outline-secondary");
+  let [produceVariant, setProduceVariant] = useState("outline-primary");
   const [filteredPosts, setFilteredPosts] = useState([]);
 
   useEffect(() => {
@@ -34,20 +36,87 @@ export default function Posts() {
       );
   }, [filteredPosts]);
 
-  const handlePostSelection = (selectedItem) => {};
+  const handleSelectedType = (value) => {
+    if (value === "Seeds") {
+      setSeedsVariant("secondary");
+      setProduceVariant("outline-primary");
+      if (availableVariant === "success") {
+        setFilteredPosts(
+          posts.filter(
+            (post) => post.type === "seed" && post.status === "Available"
+          )
+        );
+      } else if (wantedVariant === "danger") {
+        setFilteredPosts(
+          posts.filter(
+            (post) => post.type === "seed" && post.status === "Wanted"
+          )
+        );
+      } else {
+        setFilteredPosts(posts.filter((post) => post.type === "seed"));
+      }
+    }
+
+    if (value === "Produce") {
+      setSeedsVariant("outline-secondary");
+      setProduceVariant("primary");
+      if (availableVariant === "success") {
+        setFilteredPosts(
+          posts.filter(
+            (post) => post.type === "produce" && post.status === "Available"
+          )
+        );
+      } else if (wantedVariant === "danger") {
+        setFilteredPosts(
+          posts.filter(
+            (post) => post.type === "produce" && post.status === "Wanted"
+          )
+        );
+      } else {
+        setFilteredPosts(posts.filter((post) => post.type === "produce"));
+      }
+    }
+  };
 
   const handleSelectedStatus = (value) => {
-    console.log(value);
     if (value === "Available") {
       setAvailableVariant("success");
       setWantedVariant("outline-danger");
-      setFilteredPosts(posts.filter((post) => post.status === "Available"));
+      if (seedsVariant === "secondary") {
+        setFilteredPosts(
+          posts.filter(
+            (post) => post.type === "seed" && post.status === "Available"
+          )
+        );
+      } else if (produceVariant === "primary") {
+        setFilteredPosts(
+          posts.filter(
+            (post) => post.type === "produce" && post.status === "Available"
+          )
+        );
+      } else {
+        setFilteredPosts(posts.filter((post) => post.status === "Available"));
+      }
     }
 
     if (value === "Wanted") {
       setWantedVariant("danger");
       setAvailableVariant("outline-success");
-      setFilteredPosts(posts.filter((post) => post.status === "Wanted"));
+      if (seedsVariant === "secondary") {
+        setFilteredPosts(
+          posts.filter(
+            (post) => post.type === "seed" && post.status === "Wanted"
+          )
+        );
+      } else if (produceVariant === "primary") {
+        setFilteredPosts(
+          posts.filter(
+            (post) => post.type === "produce" && post.status === "Wanted"
+          )
+        );
+      } else {
+        setFilteredPosts(posts.filter((post) => post.status === "Wanted"));
+      }
     }
   };
 
@@ -68,8 +137,10 @@ export default function Posts() {
               setFilteredPosts([]);
               setAvailableVariant("outline-success");
               setWantedVariant("outline-danger");
+              setSeedsVariant("outline-secondary");
+              setProduceVariant("outline-primary");
             }}
-            class="fa-solid fa-arrow-rotate-left m-2"
+            className="fa-solid fa-arrow-rotate-left m-2"
             style={{ color: "#28a745", cursor: "pointer" }}></i>
           <ToggleButtonGroup
             type="radio"
@@ -92,8 +163,18 @@ export default function Posts() {
           <ToggleButtonGroup
             type="radio"
             name="options">
-            <ToggleButton variant="success">Seeds</ToggleButton>
-            <ToggleButton variant="outline-success">Produce</ToggleButton>
+            <ToggleButton
+              onChange={() => handleSelectedType("Seeds")}
+              variant={seedsVariant}
+              id="Seeds">
+              Seeds
+            </ToggleButton>
+            <ToggleButton
+              onChange={() => handleSelectedType("Produce")}
+              variant={produceVariant}
+              id="Produce">
+              Produce
+            </ToggleButton>
           </ToggleButtonGroup>
         </div>
       </div>
