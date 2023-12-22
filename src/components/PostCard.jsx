@@ -6,7 +6,20 @@ export default function PostCard({ post }) {
   return (
     <article className="container post-card">
       <div className="row m-4">
-        <div className="col text-start">{post.status}</div>
+        {post.status === "Available" ? (
+          <div
+            className="col text-start"
+            style={{ color: "#28a745", fontWeight: "bold" }}>
+            {post.status}
+          </div>
+        ) : (
+          <div
+            className="col text-start"
+            style={{ color: "red", fontWeight: "bold" }}>
+            {post.status}
+          </div>
+        )}
+
         <div className="col">
           <h5>{post.item}</h5>
         </div>
@@ -21,8 +34,11 @@ export default function PostCard({ post }) {
       </div>
       <div className="row m-4">
         <div className="col text-start align-self-end">
-          <p className="mb-0">{post.posted_by}<br />
-          {post.postcode}</p>
+          <p className="mb-0">
+            {post.posted_by}
+            <br />
+            {post.postcode}
+          </p>
         </div>
         <div className="col align-self-center">
           <button className="btn btn-success">message</button>

@@ -4,13 +4,14 @@ import { ToggleButtonGroup, ToggleButton } from "react-bootstrap";
 import "../App.css";
 import { getPosts } from "../api/api";
 import PostCard from "./PostCard";
-import Maps from "./Maps";
 
 export default function Posts() {
-  const [display, setDisplay] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   let [posts, setPosts] = useState([]);
+  let [availableVariant, setAvailableVariant] = useState("outline-success");
+  let [wantedVariant, setWantedVariant] = useState("outline-danger");
+  const [filteredPosts, setFilteredPosts] = useState([]);
 
   useEffect(() => {
     setIsLoading(true);
@@ -31,13 +32,22 @@ export default function Posts() {
           setError({ status, message: message });
         }
       );
-  }, []);
+  }, [filteredPosts]);
 
-  const handlePostSelection = (selectedItem) => {
-    if (selectedItem === "seeds") {
-      setDisplay("seeds");
-    } else if (selectedItem === "produce") {
-      setDisplay("produce");
+  const handlePostSelection = (selectedItem) => {};
+
+  const handleSelectedStatus = (value) => {
+    console.log(value);
+    if (value === "Available") {
+      setAvailableVariant("success");
+      setWantedVariant("outline-danger");
+      setFilteredPosts(posts.filter((post) => post.status === "Available"));
+    }
+
+    if (value === "Wanted") {
+      setWantedVariant("danger");
+      setAvailableVariant("outline-success");
+      setFilteredPosts(posts.filter((post) => post.status === "Wanted"));
     }
   };
 
@@ -52,12 +62,30 @@ export default function Posts() {
   return (
     <>
       <div className="post-header">
-        <div className="d-flex flex-column align-items-center p-3">
+        <div className="d-flex align-items-center p-3">
+          <i
+            onClick={() => {
+              setFilteredPosts([]);
+              setAvailableVariant("outline-success");
+              setWantedVariant("outline-danger");
+            }}
+            class="fa-solid fa-arrow-rotate-left m-2"
+            style={{ color: "#28a745", cursor: "pointer" }}></i>
           <ToggleButtonGroup
             type="radio"
             name="options">
-            <ToggleButton variant="success">Available</ToggleButton>
-            <ToggleButton variant="outline-success">Wanted</ToggleButton>
+            <ToggleButton
+              variant={availableVariant}
+              id="Available"
+              onChange={() => handleSelectedStatus("Available")}>
+              Available
+            </ToggleButton>
+            <ToggleButton
+              variant={wantedVariant}
+              id="Wanted"
+              onChange={() => handleSelectedStatus("Wanted")}>
+              Wanted
+            </ToggleButton>
           </ToggleButtonGroup>
         </div>
         <div className="d-flex flex-column align-items-center p-3">
@@ -71,12 +99,19 @@ export default function Posts() {
       </div>
       <div className="container text-center">
         <div className="post-display">
-          {posts.map((post) => (
-            <PostCard
-              key={post.post_id}
-              post={post}
-            />
-          ))}
+          {filteredPosts.length > 0
+            ? filteredPosts.map((post) => (
+                <PostCard
+                  key={post.post_id}
+                  post={post}
+                />
+              ))
+            : posts.map((post) => (
+                <PostCard
+                  key={post.post_id}
+                  post={post}
+                />
+              ))}
         </div>
       </div>
     </>
