@@ -1,8 +1,12 @@
 import React from "react";
 import "../App.css";
+import { formatDistanceToNow } from "date-fns";
 
 export default function PostCard({ post }) {
-  console.log({ post });
+  const formattedDate = formatDistanceToNow(new Date(post.created_at), {
+    addSuffix: true,
+  });
+
   return (
     <article className="container post-card">
       <div className="row m-4">
@@ -23,7 +27,19 @@ export default function PostCard({ post }) {
         <div className="col">
           <h5>{post.item}</h5>
         </div>
-        <div className="col text-end">{post.type}</div>
+        {post.type === "Seed" ? (
+          <div
+            className="col text-end"
+            style={{ color: "#6C757D", fontWeight: "bold" }}>
+            {post.type}
+          </div>
+        ) : (
+          <div
+            className="col text-end"
+            style={{ color: "#007BFF", fontWeight: "bold" }}>
+            {post.type}
+          </div>
+        )}
       </div>
       <div className="row m-4">
         <div className="col"></div>
@@ -43,9 +59,7 @@ export default function PostCard({ post }) {
         <div className="col align-self-center">
           <button className="btn btn-success">message</button>
         </div>
-        <div className="col text-end align-self-center">
-          Posted: {post.created_at}
-        </div>
+        <div className="col text-end align-self-center">{formattedDate}</div>
       </div>
     </article>
   );

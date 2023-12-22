@@ -11,7 +11,7 @@ export default function Posts() {
   let [posts, setPosts] = useState([]);
   let [availableVariant, setAvailableVariant] = useState("outline-success");
   let [wantedVariant, setWantedVariant] = useState("outline-danger");
-  let [seedsVariant, setSeedsVariant] = useState("outline-secondary");
+  let [SeedsVariant, setSeedsVariant] = useState("outline-secondary");
   let [produceVariant, setProduceVariant] = useState("outline-primary");
   const [filteredPosts, setFilteredPosts] = useState([]);
 
@@ -43,17 +43,17 @@ export default function Posts() {
       if (availableVariant === "success") {
         setFilteredPosts(
           posts.filter(
-            (post) => post.type === "seed" && post.status === "Available"
+            (post) => post.type === "Seed" && post.status === "Available"
           )
         );
       } else if (wantedVariant === "danger") {
         setFilteredPosts(
           posts.filter(
-            (post) => post.type === "seed" && post.status === "Wanted"
+            (post) => post.type === "Seed" && post.status === "Wanted"
           )
         );
       } else {
-        setFilteredPosts(posts.filter((post) => post.type === "seed"));
+        setFilteredPosts(posts.filter((post) => post.type === "Seed"));
       }
     }
 
@@ -63,17 +63,17 @@ export default function Posts() {
       if (availableVariant === "success") {
         setFilteredPosts(
           posts.filter(
-            (post) => post.type === "produce" && post.status === "Available"
+            (post) => post.type === "Produce" && post.status === "Available"
           )
         );
       } else if (wantedVariant === "danger") {
         setFilteredPosts(
           posts.filter(
-            (post) => post.type === "produce" && post.status === "Wanted"
+            (post) => post.type === "Produce" && post.status === "Wanted"
           )
         );
       } else {
-        setFilteredPosts(posts.filter((post) => post.type === "produce"));
+        setFilteredPosts(posts.filter((post) => post.type === "Produce"));
       }
     }
   };
@@ -82,16 +82,16 @@ export default function Posts() {
     if (value === "Available") {
       setAvailableVariant("success");
       setWantedVariant("outline-danger");
-      if (seedsVariant === "secondary") {
+      if (SeedsVariant === "secondary") {
         setFilteredPosts(
           posts.filter(
-            (post) => post.type === "seed" && post.status === "Available"
+            (post) => post.type === "Seed" && post.status === "Available"
           )
         );
       } else if (produceVariant === "primary") {
         setFilteredPosts(
           posts.filter(
-            (post) => post.type === "produce" && post.status === "Available"
+            (post) => post.type === "Produce" && post.status === "Available"
           )
         );
       } else {
@@ -102,16 +102,16 @@ export default function Posts() {
     if (value === "Wanted") {
       setWantedVariant("danger");
       setAvailableVariant("outline-success");
-      if (seedsVariant === "secondary") {
+      if (SeedsVariant === "secondary") {
         setFilteredPosts(
           posts.filter(
-            (post) => post.type === "seed" && post.status === "Wanted"
+            (post) => post.type === "Seed" && post.status === "Wanted"
           )
         );
       } else if (produceVariant === "primary") {
         setFilteredPosts(
           posts.filter(
-            (post) => post.type === "produce" && post.status === "Wanted"
+            (post) => post.type === "Produce" && post.status === "Wanted"
           )
         );
       } else {
@@ -165,7 +165,7 @@ export default function Posts() {
             name="options">
             <ToggleButton
               onChange={() => handleSelectedType("Seeds")}
-              variant={seedsVariant}
+              variant={SeedsVariant}
               id="Seeds">
               Seeds
             </ToggleButton>
