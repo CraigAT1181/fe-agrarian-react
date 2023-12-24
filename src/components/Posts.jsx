@@ -3,23 +3,22 @@ import { ToggleButtonGroup, ToggleButton } from "react-bootstrap";
 import "../App.css";
 import { getPosts } from "../api/api";
 import PostCard from "./PostCard";
-import SearchQuery from "./SearchQuery";
 export default function Posts() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   let [posts, setPosts] = useState([]);
-  let [availableVariant, setAvailableVariant] = useState("outline-success");
-  let [wantedVariant, setWantedVariant] = useState("outline-danger");
-  let [SeedsVariant, setSeedsVariant] = useState("outline-secondary");
-  let [produceVariant, setProduceVariant] = useState("outline-primary");
   const [notFound, setNotFound] = useState(null);
   const [searchParams, setSearchParams] = useState();
   const [filteredPosts, setFilteredPosts] = useState([]);
+  let [availableVariant, setAvailableVariant] = useState("outline-success");
+  let [wantedVariant, setWantedVariant] = useState("outline-danger");
+  let [seedsVariant, setSeedsVariant] = useState("outline-secondary");
+  let [produceVariant, setProduceVariant] = useState("outline-primary");
 
   useEffect(() => {
     setIsLoading(true);
 
-    getPosts()
+    getPosts(searchParams)
       .then(({ posts }) => {
         setIsLoading(false);
         setPosts(posts);
@@ -37,6 +36,33 @@ export default function Posts() {
       );
     setNotFound(null);
   }, [filteredPosts]);
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    getPosts(searchParams)
+      .then(({ posts, message }) => {
+        setIsLoading(false);
+
+        if (Array.isArray(posts)) {
+          setFilteredPosts(posts);
+          setSearchParams("");
+        } else if (message) {
+          setNotFound(message);
+        }
+      })
+      .catch(
+        ({
+          response: {
+            status,
+            data: { message },
+          },
+        }) => {
+          setIsLoading(false);
+          setError({ status, message });
+        }
+      );
+  };
 
   const handleSelectedType = (value) => {
     if (value === "Seeds") {
@@ -84,7 +110,7 @@ export default function Posts() {
     if (value === "Available") {
       setAvailableVariant("success");
       setWantedVariant("outline-danger");
-      if (SeedsVariant === "secondary") {
+      if (seedsVariant === "secondary") {
         setFilteredPosts(
           posts.filter(
             (post) => post.type === "Seed" && post.status === "Available"
@@ -104,7 +130,7 @@ export default function Posts() {
     if (value === "Wanted") {
       setWantedVariant("danger");
       setAvailableVariant("outline-success");
-      if (SeedsVariant === "secondary") {
+      if (seedsVariant === "secondary") {
         setFilteredPosts(
           posts.filter(
             (post) => post.type === "Seed" && post.status === "Wanted"
@@ -143,59 +169,86 @@ export default function Posts() {
               setProduceVariant("outline-primary");
             }}
             className="fa-solid fa-arrow-rotate-left m-2"
-            style={{ color: "#28a745", cursor: "pointer" }}
-          ></i>
+            style={{ color: "#28a745", cursor: "pointer" }}></i>
 
-          <ToggleButtonGroup className="mx-3" type="radio" name="options">
+          <ToggleButtonGroup
+            className="mx-3"
+            type="radio"
+            name="options">
             <ToggleButton
               variant={availableVariant}
               id="Available"
-              onChange={() => handleSelectedStatus("Available")}
-            >
+              onChange={() => handleSelectedStatus("Available")}>
               Available
             </ToggleButton>
             <ToggleButton
               variant={wantedVariant}
               id="Wanted"
-              onChange={() => handleSelectedStatus("Wanted")}
-            >
+              onChange={() => handleSelectedStatus("Wanted")}>
               Wanted
             </ToggleButton>
           </ToggleButtonGroup>
 
-          <ToggleButtonGroup className="mx-3" type="radio" name="options">
+          <ToggleButtonGroup
+            className="mx-3"
+            type="radio"
+            name="options">
             <ToggleButton
               onChange={() => handleSelectedType("Seeds")}
-              variant={SeedsVariant}
-              id="Seeds"
-            >
+              variant={seedsVariant}
+              id="Seeds">
               Seeds
             </ToggleButton>
             <ToggleButton
               onChange={() => handleSelectedType("Produce")}
               variant={produceVariant}
-              id="Produce"
-            >
+              id="Produce">
               Produce
             </ToggleButton>
           </ToggleButtonGroup>
-
-          <SearchQuery
-            setNotFound={setNotFound}
-            setFilteredPosts={setFilteredPosts}
-            searchParams={searchParams}
-            setSearchParams={setSearchParams}
-          />
         </div>
+      </div>
+      <div className="d-flex justify-content-center my-4">
+        <form
+          className="mx-5 w-25"
+          onSubmit={(e) => handleSearch(e)}>
+          <div className="input-group">
+            <label
+              htmlFor="item-search"
+              className="form-label"
+              aria-label="Search"
+              aria-describedby="button-addon2"></label>
+            <input
+              id="item-search"
+              className="form-control"
+              onChange={({ target }) => setSearchParams(`item=${target.value}`)}
+              type="text"
+              placeholder="What are you looking for?"
+            />
+            <button
+              className="btn btn-success"
+              id="button-addon2">
+              Search
+            </button>
+          </div>
+        </form>
       </div>
       <div className="container text-center">
         <div className="post-display">
           {notFound ? <h5>{notFound}</h5> : null}
           {filteredPosts.length > 0
             ? filteredPosts.map((post) => (
-                <PostCard key={post.post_id} post={post} />
+                <PostCard
+                  key={post.post_id}
+                  post={post}
+                />
               ))
-            : posts.map((post) => <PostCard key={post.post_id} post={post} />)}
+            : posts.map((post) => (
+                <PostCard
+                  key={post.post_id}
+                  post={post}
+                />
+              ))}
         </div>
       </div>
     </>
