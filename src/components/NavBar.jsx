@@ -8,21 +8,21 @@ export default function NavBar() {
   return (
     <nav>
       <ul className="nav d-flex justify-content-around p-4">
-        <h5 className="nav-item">
+        <h5 className="nav-item m-0">
           <Link
             to="/"
             className="nav-link m-3">
             <li className="text-success">Home</li>
           </Link>
         </h5>
-        <h5 className="nav-item">
+        <h5 className="nav-item m-0">
           <Link
             to="/exchange"
             className="nav-link m-3">
             <li className="text-success">Exchange</li>
           </Link>
         </h5>
-        <h5 className="nav-item">
+        <h5 className="nav-item m-0">
           <Link
             to="/posts"
             className="nav-link m-3">
@@ -30,7 +30,7 @@ export default function NavBar() {
           </Link>
         </h5>
         {user ? (
-          <h5 className="nav-item">
+          <h5 className="nav-item m-0">
             <Link
               to="/messenger"
               className="nav-link m-3">

@@ -1,4 +1,5 @@
 import React from "react";
+import { Dropdown } from "react-bootstrap";
 import { useAuth } from "./AuthContext";
 import { deleteUser } from "../api/api";
 import { useNavigate } from "react-router-dom";
@@ -10,7 +11,7 @@ export default function Profile() {
   const handleDelete = () => {
     deleteUser(user.user_id).then(() => {
       logout();
-      localStorage.removeItem("user")
+      localStorage.removeItem("user");
       navigate("/");
     });
   };
@@ -21,23 +22,58 @@ export default function Profile() {
 
   return (
     <>
-      <div>
-        <h3>Welcome back</h3>
-        <h5>{user.user_name}</h5>
-      </div>
-      <div>
-        <button
-          className="btn btn-outline-success m-2"
-          onClick={handleLogout}>
-          Log Out
-        </button>
-        <button
-          className="btn btn-outline-danger"
-          onClick={() => {
-            handleDelete();
-          }}>
-          Delete Account
-        </button>
+      <div
+        className="container"
+        style={{ width: "12rem" }}>
+        <div className="dropdown text-center">
+          <Dropdown>
+            <Dropdown.Toggle
+              className="bg-success"
+              id="dropdownMenuButton">
+              <i className="fa-solid fa-user"></i>
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              <Dropdown.Item
+                className="text-success"
+                onClick={() => navigate("/")}
+                style={{ backgroundColor: "transparent" }}>
+                Home
+              </Dropdown.Item>
+
+              <Dropdown.Item
+                className="text-success"
+                onClick={() => navigate("/exchange")}
+                style={{ backgroundColor: "transparent" }}>
+                Exchange
+              </Dropdown.Item>
+
+              <Dropdown.Item
+                className="text-success"
+                onClick={() => navigate("/posts")}
+                style={{ backgroundColor: "transparent" }}>
+                Posts
+              </Dropdown.Item>
+
+              <Dropdown.Item
+                className="text-success"
+                onClick={() => navigate("/messenger")}
+                style={{ backgroundColor: "transparent" }}>
+                Messenger
+              </Dropdown.Item>
+
+              <Dropdown.Item
+                className="text-danger"
+                onClick={handleLogout}>
+                Logout
+              </Dropdown.Item>
+              <Dropdown.Item
+                className="text-danger"
+                onClick={handleDelete}>
+                Delete Account
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+        </div>
       </div>
     </>
   );

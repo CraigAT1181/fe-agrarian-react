@@ -9,19 +9,24 @@ export default function Header() {
   const navigate = useNavigate();
 
   return (
-    <header className="d-flex flex-column flex-md-row justify-content-between align-items-center border-bottom border-success-subtle">
+    <header
+      className="d-flex flex-md-row justify-content-between align-items-center border-bottom border-success-subtle mb-4"
+      style={{ height: "8rem" }}>
+      <h1 className="display-5 text-success m-4">Agrarian</h1>
 
-        <h1 className="display-3 text-success m-4">Agrarian</h1>
-
-      <NavBar />
-      <div className="p-2 m-4">
-        {user ? (
+      {user ? (
+        <div>
           <Profile />
-        ) : (
-          <div className="d-flex flex-column flex-md-row">
+        </div>
+      ) : (
+        <>
+          <div>
+            <NavBar />
+          </div>
+          <div className="d-flex flex-column flex-md-row mx-4">
             <button
               onClick={() => navigate("/login")}
-              className="btn btn-outline-success m-2">
+              className="btn btn-success m-2">
               Login
             </button>
             <button
@@ -30,8 +35,8 @@ export default function Header() {
               Register
             </button>
           </div>
-        )}
-      </div>
+        </>
+      )}
     </header>
   );
 }
