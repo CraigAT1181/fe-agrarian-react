@@ -4,7 +4,6 @@ import { ToggleButtonGroup, ToggleButton } from "react-bootstrap";
 import "../App.css";
 import { getPosts } from "../api/api";
 import PostCard from "./PostCard";
-
 export default function Posts() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -130,8 +129,8 @@ export default function Posts() {
 
   return (
     <>
-      <div className="post-header">
-        <div className="d-flex align-items-center p-3">
+      <div className="container bg-success p-3">
+        <div className="d-flex p-4 bg-white justify-content-center my-5">
           <i
             onClick={() => {
               setFilteredPosts([]);
@@ -142,7 +141,9 @@ export default function Posts() {
             }}
             className="fa-solid fa-arrow-rotate-left m-2"
             style={{ color: "#28a745", cursor: "pointer" }}></i>
+
           <ToggleButtonGroup
+            className="mx-3"
             type="radio"
             name="options">
             <ToggleButton
@@ -158,9 +159,9 @@ export default function Posts() {
               Wanted
             </ToggleButton>
           </ToggleButtonGroup>
-        </div>
-        <div className="d-flex flex-column align-items-center p-3">
+
           <ToggleButtonGroup
+            className="mx-3"
             type="radio"
             name="options">
             <ToggleButton
@@ -176,6 +177,28 @@ export default function Posts() {
               Produce
             </ToggleButton>
           </ToggleButtonGroup>
+
+          <form className="mx-5">
+            <div className="input-group">
+              <label
+                htmlFor="item-search"
+                className="form-label"
+                aria-label="Search"
+                aria-describedby="button-addon2"></label>
+              <input
+                id="item-search"
+                className="form-control"
+                type="text"
+                placeholder="What are you looking for?"
+              />
+              <button
+                className="btn btn-success"
+                type="button"
+                id="button-addon2">
+                Search
+              </button>
+            </div>
+          </form>
         </div>
       </div>
       <div className="container text-center">

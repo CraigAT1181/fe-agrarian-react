@@ -12,19 +12,21 @@
   display: inline-block;
 }
 
-.post-header {
+.input-group input.form-control:focus {
+  box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 1);
+}
+
+.post-filtering,
+.post-search {
   display: flex;
-  flex-direction: row;
   justify-content: center;
-  margin-top: 2rem;
-  margin-bottom: 2rem;
 }
 
 .post-display {
   /* display: grid;
   grid-template-columns: 50% 50%; */
   justify-content: center;
-  padding: 2rem;
+  margin: 2rem;
 }
 
 @media (max-width: 767px) {
