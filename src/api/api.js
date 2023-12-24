@@ -60,8 +60,9 @@ export const setUserProduce = async (user_id, userProduce) => {
   return data;
 };
 
-export const getPosts = async () => {
-  const { data } = await api.get(`/posts`);
+export const getPosts = async (searchQuery) => {
+
+    const { data } = await api.get(`/posts?${searchQuery}`);
 
   return data;
 };

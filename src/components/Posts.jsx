@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { ToggleButtonGroup, ToggleButton } from "react-bootstrap";
 import "../App.css";
 import { getPosts } from "../api/api";
 import PostCard from "./PostCard";
+import SearchQuery from "./SearchQuery";
 export default function Posts() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -12,6 +12,8 @@ export default function Posts() {
   let [wantedVariant, setWantedVariant] = useState("outline-danger");
   let [SeedsVariant, setSeedsVariant] = useState("outline-secondary");
   let [produceVariant, setProduceVariant] = useState("outline-primary");
+  const [notFound, setNotFound] = useState(null);
+  const [searchParams, setSearchParams] = useState();
   const [filteredPosts, setFilteredPosts] = useState([]);
 
   useEffect(() => {
@@ -33,6 +35,7 @@ export default function Posts() {
           setError({ status, message: message });
         }
       );
+    setNotFound(null);
   }, [filteredPosts]);
 
   const handleSelectedType = (value) => {
@@ -140,82 +143,59 @@ export default function Posts() {
               setProduceVariant("outline-primary");
             }}
             className="fa-solid fa-arrow-rotate-left m-2"
-            style={{ color: "#28a745", cursor: "pointer" }}></i>
+            style={{ color: "#28a745", cursor: "pointer" }}
+          ></i>
 
-          <ToggleButtonGroup
-            className="mx-3"
-            type="radio"
-            name="options">
+          <ToggleButtonGroup className="mx-3" type="radio" name="options">
             <ToggleButton
               variant={availableVariant}
               id="Available"
-              onChange={() => handleSelectedStatus("Available")}>
+              onChange={() => handleSelectedStatus("Available")}
+            >
               Available
             </ToggleButton>
             <ToggleButton
               variant={wantedVariant}
               id="Wanted"
-              onChange={() => handleSelectedStatus("Wanted")}>
+              onChange={() => handleSelectedStatus("Wanted")}
+            >
               Wanted
             </ToggleButton>
           </ToggleButtonGroup>
 
-          <ToggleButtonGroup
-            className="mx-3"
-            type="radio"
-            name="options">
+          <ToggleButtonGroup className="mx-3" type="radio" name="options">
             <ToggleButton
               onChange={() => handleSelectedType("Seeds")}
               variant={SeedsVariant}
-              id="Seeds">
+              id="Seeds"
+            >
               Seeds
             </ToggleButton>
             <ToggleButton
               onChange={() => handleSelectedType("Produce")}
               variant={produceVariant}
-              id="Produce">
+              id="Produce"
+            >
               Produce
             </ToggleButton>
           </ToggleButtonGroup>
 
-          <form className="mx-5">
-            <div className="input-group">
-              <label
-                htmlFor="item-search"
-                className="form-label"
-                aria-label="Search"
-                aria-describedby="button-addon2"></label>
-              <input
-                id="item-search"
-                className="form-control"
-                type="text"
-                placeholder="What are you looking for?"
-              />
-              <button
-                className="btn btn-success"
-                type="button"
-                id="button-addon2">
-                Search
-              </button>
-            </div>
-          </form>
+          <SearchQuery
+            setNotFound={setNotFound}
+            setFilteredPosts={setFilteredPosts}
+            searchParams={searchParams}
+            setSearchParams={setSearchParams}
+          />
         </div>
       </div>
       <div className="container text-center">
         <div className="post-display">
+          {notFound ? <h5>{notFound}</h5> : null}
           {filteredPosts.length > 0
             ? filteredPosts.map((post) => (
-                <PostCard
-                  key={post.post_id}
-                  post={post}
-                />
+                <PostCard key={post.post_id} post={post} />
               ))
-            : posts.map((post) => (
-                <PostCard
-                  key={post.post_id}
-                  post={post}
-                />
-              ))}
+            : posts.map((post) => <PostCard key={post.post_id} post={post} />)}
         </div>
       </div>
     </>
