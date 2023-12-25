@@ -14,31 +14,26 @@ export default function Header() {
       style={{ height: "8rem" }}
     >
       <h1 className="display-5 text-success m-4">Agrarian</h1>
-
+      <NavBar />
       {user ? (
         <div>
           <Profile />
         </div>
       ) : (
-        <>
-          <div>
-            <NavBar />
-          </div>
-          <div className="d-flex flex-column flex-md-row mx-4">
-            <button
-              onClick={() => navigate("/login")}
-              className="btn btn-success m-2"
-            >
-              Login
-            </button>
-            <button
-              onClick={() => navigate("/register")}
-              className="btn btn-outline-success m-2"
-            >
-              Register
-            </button>
-          </div>
-        </>
+        <div className="d-flex flex-column flex-md-row mx-4">
+          <button
+            onClick={() => navigate("/login")}
+            className="btn btn-success m-2"
+          >
+            Login
+          </button>
+          <button
+            onClick={() => navigate("/register")}
+            className="btn btn-outline-success m-2"
+          >
+            Register
+          </button>
+        </div>
       )}
     </header>
   );

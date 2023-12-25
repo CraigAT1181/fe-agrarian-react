@@ -37,7 +37,7 @@ export default function Profile() {
                 onClick={() => navigate("/")}
                 style={{ backgroundColor: "transparent" }}
               >
-                Home
+                Edit your produce
               </Dropdown.Item>
 
               <Dropdown.Item
@@ -45,7 +45,7 @@ export default function Profile() {
                 onClick={() => navigate("/exchange")}
                 style={{ backgroundColor: "transparent" }}
               >
-                Exchange
+                Find other growers
               </Dropdown.Item>
 
               <Dropdown.Item
@@ -53,7 +53,7 @@ export default function Profile() {
                 onClick={() => navigate("/posts")}
                 style={{ backgroundColor: "transparent" }}
               >
-                Posts
+                View your posts
               </Dropdown.Item>
 
               <Dropdown.Item
@@ -61,7 +61,7 @@ export default function Profile() {
                 onClick={() => navigate("/messenger")}
                 style={{ backgroundColor: "transparent" }}
               >
-                Messenger
+                View your messages
               </Dropdown.Item>
 
               <Dropdown.Item className="text-danger" onClick={handleLogout}>
