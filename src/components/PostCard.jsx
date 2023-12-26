@@ -1,8 +1,11 @@
 import React from "react";
 import "../App.css";
 import { formatDistanceToNow } from "date-fns";
+import { useAuth } from "./AuthContext";
 
 export default function PostCard({ post }) {
+  const { user } = useAuth();
+
   const formattedDate = formatDistanceToNow(new Date(post.created_at), {
     addSuffix: true,
   });
@@ -57,7 +60,12 @@ export default function PostCard({ post }) {
           </p>
         </div>
         <div className="col align-self-center">
-          <button className="btn btn-success">message</button>
+          {user &&
+            (user.user_id === post.user_id ? (
+              <button className="btn btn-outline-danger">Delete Post</button>
+            ) : (
+              <button className="btn btn-success">Message</button>
+            ))}
         </div>
         <div className="col text-end align-self-center">{formattedDate}</div>
       </div>
