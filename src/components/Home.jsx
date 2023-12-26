@@ -2,7 +2,6 @@ import React from "react";
 import { useAuth } from "./AuthContext";
 import MyProduce from "./MyProduce";
 import MyPosts from "./MyPosts";
-
 import "../App.css";
 
 export default function Home() {

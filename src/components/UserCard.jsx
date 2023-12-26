@@ -1,8 +1,10 @@
 import React from "react";
 import { Routes, Route, Link, useNavigate } from "react-router-dom";
+import { useAuth } from "./AuthContext";
 import "../App.css";
 
 export default function UserCard({ users }) {
+  const { loggedUser } = useAuth();
   const navigate = useNavigate();
 
   const handleMessageClick = () => {
@@ -35,19 +37,21 @@ export default function UserCard({ users }) {
               <div className="col text-center">
                 <div className="d-flex-col mt-4">
                   <h4 className="card-title">{user.user_name}</h4>
-                  <Link to="#">{`View Garden`}</Link>
+
                   <div className="mb-1">
-                    <button
-                      className="btn btn-success mt-2"
-                      style={{ width: "8rem" }}
-                      onClick={handleMessageClick}>
-                      Message
-                    </button>
+                    {loggedUser ? (
+                      <button
+                        className="btn btn-success mt-2"
+                        style={{ width: "8rem" }}
+                        onClick={handleMessageClick}>
+                        Message
+                      </button>
+                    ) : null}
                   </div>
                 </div>
               </div>
             </div>
-            <div className="d-flex m-1 mt-2 mb-2 justify-content-start">
+            <div className="d-flex m-1 mt-2 mb-2 justify-content-center">
               {user.produce.length > 0 ? (
                 user.produce.map((item, index) => {
                   return (
