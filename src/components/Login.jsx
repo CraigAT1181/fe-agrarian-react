@@ -45,25 +45,34 @@ export default function Login() {
   return (
     <section className="container">
       <div className="d-flex justify-content-center">
-
         <form onSubmit={loginHandler}>
-          <label htmlFor="username">Username</label>
-          <input
-            id="username"
-            type="text"
-            value={username}
-            onChange={({ target }) => setUsername(target.value)}
-          />
-
-          <label htmlFor="password">Password</label>
-          <input
-            id="password"
-            type="password"
-            value={password}
-            onChange={({ target }) => setPassword(target.value)}
-          />
-
-          <button type="submit">Login</button>
+          <div className="form-group mt-2">
+            <label htmlFor="username">Username</label>
+            <input
+              id="username"
+              type="text"
+              className="form-control"
+              value={username}
+              onChange={({ target }) => setUsername(target.value)}
+            />
+          </div>
+          <div className="form-group mt-2">
+            <label htmlFor="password">Password</label>
+            <input
+              id="password"
+              type="password"
+              className="form-control"
+              value={password}
+              onChange={({ target }) => setPassword(target.value)}
+            />
+          </div>
+          <div className="d-flex justify-content-center mt-4">
+            <button
+              className="btn btn-success"
+              type="submit">
+              Login
+            </button>
+          </div>
         </form>
       </div>
       {error && (
