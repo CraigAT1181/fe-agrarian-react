@@ -94,10 +94,11 @@ export default function MyProduce() {
     );
 
   return (
-    <section className="container">
-      <div className="col text-center m-1 mt-2 mb-2 justify-content-center">
-        <p>Your produce:</p>
+    <section className="container post-card">
+      <div className="text-center m-1 mt-2 mb-2 justify-content-center">
+        <h5>What produce do you have available?</h5>
         <Dropdown
+          className="mt-3"
           onSelect={(selectedItem) => handleProduceSelection(selectedItem)}>
           <Dropdown.Toggle
             variant="success"
@@ -117,32 +118,20 @@ export default function MyProduce() {
         </Dropdown>
         <Card
           className="rounded"
-          style={{ marginTop: "2rem", marginBottom: "1rem", border: "none" }}>
+          style={{ marginTop: "1rem", border: "none" }}>
           <Card.Body className="d-flex flex-row justify-content-center">
-            {filteredUserProduce
-              .filter((item, index, array) => array.indexOf(item) === index)
-              .map((item, index) => (
-                <p
-                  className="custom-outline-success"
-                  style={{ marginLeft: "1rem" }}
-                  key={index}>
-                  {item}
-                </p>
-              ))}
-          </Card.Body>
-        </Card>
-        <div className="d-flex-col justify-content-center">
-          <button
-            className="btn btn-success mt-2"
-            style={{ width: "8rem" }}
-            onClick={() =>
-              handleConfirmProduce(user.user_id, filteredUserProduce)
-            }>
-            Confirm
-          </button>
-          <div
-            className="d-flex justify-content-center mt-4"
-            style={{ width: "400px" }}>
+            {produceUpdated
+              ? null
+              : filteredUserProduce
+                  .filter((item, index, array) => array.indexOf(item) === index)
+                  .map((item, index) => (
+                    <p
+                      className="custom-outline-success"
+                      style={{ marginLeft: "1rem" }}
+                      key={index}>
+                      {item}
+                    </p>
+                  ))}
             {produceUpdated ? (
               <Alert
                 variant="success"
@@ -151,7 +140,22 @@ export default function MyProduce() {
                 Produce updated!
               </Alert>
             ) : null}
-          </div>
+          </Card.Body>
+        </Card>
+        <div className="d-flex-col justify-content-center">
+          <button
+            className="btn btn-success mx-2"
+            style={{ width: "8rem" }}
+            onClick={() =>
+              handleConfirmProduce(user.user_id, filteredUserProduce)
+            }>
+            Confirm
+          </button>
+          <button
+            onClick={() => setFilteredUserProduce([])}
+            className="btn btn-outline-danger">
+            Clear
+          </button>
         </div>
       </div>
     </section>

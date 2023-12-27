@@ -10,7 +10,7 @@ export default function Header() {
 
   return (
     <header
-      className="d-flex flex-md-row justify-content-between align-items-center border-bottom border-success-subtle mb-4"
+      className="d-flex flex-md-row justify-content-between align-items-center border-bottom border-success-subtle mb-5"
       style={{ height: "8rem" }}
     >
       <h1 className="display-5 text-success m-4">Agrarian</h1>

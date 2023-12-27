@@ -9,6 +9,7 @@ import ErrorHandling from "./components/ErrorHandling";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import Posts from "./components/Posts";
+import Footer from "./components/Footer";
 
 export default function App() {
   return (
@@ -51,6 +52,8 @@ export default function App() {
             />
           </Routes>
         </main>
+
+        <Footer />
       </AuthProvider>
     </>
   );

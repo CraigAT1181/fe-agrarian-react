@@ -11,8 +11,12 @@ export default function Home() {
     <section className="container">
       {user !== null ? (
         <>
-          <MyProduce />
-          <MyPosts />
+          <div className="p-4 mb-2">
+            <MyProduce />
+          </div>
+          <div className="p-4 mb-2">
+            <MyPosts />
+          </div>
         </>
       ) : (
         <div className="text-center">
