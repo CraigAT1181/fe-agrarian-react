@@ -61,8 +61,19 @@ export const setUserProduce = async (user_id, userProduce) => {
 };
 
 export const getPosts = async (searchQuery) => {
+  const { data } = await api.get(`/posts?${searchQuery}`);
 
-    const { data } = await api.get(`/posts?${searchQuery}`);
+  return data;
+};
+
+export const createPost = async (user_id, status, type, item, image, body) => {
+  const { data } = await api.post(`/posts/${user_id}`, {
+    status: status,
+    type: type,
+    item: item,
+    image: image,
+    body: body,
+  });
 
   return data;
 };

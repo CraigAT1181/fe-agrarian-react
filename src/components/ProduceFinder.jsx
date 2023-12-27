@@ -54,21 +54,23 @@ export default function ProduceFinder({
   }
 
   function handleUserSearch() {
-    getUsersByProduceName(filteredProduce)
-      .then(({ users }) => {
-        setUsers(users);
-      })
-      .catch(
-        ({
-          response: {
-            status,
-            data: { message },
-          },
-        }) => {
-          setIsLoading(false);
-          setError({ status, message: message });
-        }
-      );
+    if (filteredProduce.length !== 0) {
+      getUsersByProduceName(filteredProduce)
+        .then(({ users }) => {
+          setUsers(users);
+        })
+        .catch(
+          ({
+            response: {
+              status,
+              data: { message },
+            },
+          }) => {
+            setIsLoading(false);
+            setError({ status, message: message });
+          }
+        );
+    }
   }
 
   if (isLoading) return <p>Just a moment...</p>;

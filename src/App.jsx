@@ -16,7 +16,7 @@ export default function App() {
     <>
       <AuthProvider>
         <Header />
-        <main>
+        <main className="d-flex-col mb-5 p-4">
           <Routes>
             <Route
               path="/"

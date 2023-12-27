@@ -3,6 +3,7 @@ import { ToggleButtonGroup, ToggleButton } from "react-bootstrap";
 import "../App.css";
 import { getPosts } from "../api/api";
 import PostCard from "./PostCard";
+
 export default function Posts() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
