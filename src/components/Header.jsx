@@ -10,10 +10,10 @@ export default function Header() {
 
   return (
     <header
-      className="d-flex flex-md-row justify-content-between align-items-center border-bottom border-success-subtle mb-5"
+      className="d-flex flex-md-row justify-content-between align-items-center bg-success"
       style={{ height: "8rem" }}
     >
-      <h1 className="display-5 text-success m-4">Agrarian</h1>
+      <h1 className="display-5 text-white m-4">Agrarian</h1>
       <NavBar />
       {user ? (
         <div>
@@ -23,13 +23,13 @@ export default function Header() {
         <div className="d-flex flex-column flex-md-row mx-4">
           <button
             onClick={() => navigate("/login")}
-            className="btn btn-success m-2"
+            className="btn bg-white text-success m-2"
           >
             Login
           </button>
           <button
             onClick={() => navigate("/register")}
-            className="btn btn-outline-success m-2"
+            className="btn bg-white text-success m-2"
           >
             Register
           </button>

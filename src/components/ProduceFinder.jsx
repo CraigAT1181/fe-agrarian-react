@@ -83,62 +83,76 @@ export default function ProduceFinder({
 
   return (
     <section className="container">
-      <h3>Find Local Growers</h3>
-      <div className="d-flex m-1 mt-2 mb-2 justify-content-center">
-        <button
-          className="btn btn-success mt-2"
-          style={{ width: "8rem" }}
-          onClick={handleUserSearch}>
-          Search
-        </button>
-        <button
-          className="btn btn-outline-success mt-2"
-          style={{ width: "8rem", marginLeft: "2rem" }}
-          onClick={() => {
-            setFilteredProduce([]);
-            getUsers().then(({ users }) => {
-              setUsers(users);
-            });
-          }}>
-          Clear
-        </button>
-      </div>
-      <div className="d-flex-col m-1 mt-2 mb-2 justify-content-center">
-        <div className="row text-center">
-          <Dropdown
-            onSelect={(selectedItem) => handleProduceSelection(selectedItem)}>
-            <Dropdown.Toggle
-              variant="success"
-              id="dropdown-basic">
-              Select Produce
-            </Dropdown.Toggle>
+      <div className="d-flex justify-content-center">
+        <div
+          className="post-card col-md-6"
+          style={{ maxHeight: "16rem" }}>
+          <div className="text-start">
+            <h3>Find Local Growers</h3>
+          </div>
+          <div className="mb-2">
+            <Dropdown
+              onSelect={(selectedItem) => handleProduceSelection(selectedItem)}>
+              <Dropdown.Toggle
+                variant="success"
+                id="dropdown-basic">
+                Select Produce
+              </Dropdown.Toggle>
 
-            <Dropdown.Menu>
-              {sortAllProduce().map((item) => (
-                <Dropdown.Item
-                  key={item}
-                  eventKey={item}>
-                  {item}
-                </Dropdown.Item>
-              ))}
-            </Dropdown.Menu>
-          </Dropdown>
-          <Card
-            className="rounded"
-            style={{ marginTop: "2rem", marginBottom: "1rem", border: "none" }}>
-            <Card.Body className="d-flex flex-row justify-content-center">
-              {filteredProduce
-                .filter((item, index, array) => array.indexOf(item) === index)
-                .map((item, index) => (
-                  <p
-                    className="custom-outline-success"
-                    style={{ marginLeft: "1rem" }}
-                    key={index}>
+              <Dropdown.Menu>
+                {sortAllProduce().map((item) => (
+                  <Dropdown.Item
+                    key={item}
+                    eventKey={item}>
                     {item}
-                  </p>
+                  </Dropdown.Item>
                 ))}
-            </Card.Body>
-          </Card>
+              </Dropdown.Menu>
+            </Dropdown>
+          </div>
+          <div
+            className="d-flex"
+            style={{ maxHeight: "5rem", overflowX: "auto" }}>
+            <Card
+              className="rounded"
+              style={{ border: "none" }}>
+              <Card.Body className="d-flex flex-row justify-content-center">
+                {filteredProduce
+                  .filter((item, index, array) => array.indexOf(item) === index)
+                  .map((item, index) => (
+                    <p
+                      className="custom-outline-success"
+                      style={{ marginLeft: "1rem" }}
+                      key={index}>
+                      {item}
+                    </p>
+                  ))}
+              </Card.Body>
+            </Card>
+          </div>
+
+          <div className="d-flex m-1 mt-2 mb-2 justify-content-center">
+            <button
+              className="btn btn-success mt-2"
+              style={{ width: "8rem" }}
+              onClick={handleUserSearch}>
+              Search
+            </button>
+            <button
+              className="btn btn-outline-success mt-2"
+              style={{ width: "8rem", marginLeft: "2rem" }}
+              onClick={() => {
+                setFilteredProduce([]);
+                getUsers().then(({ users }) => {
+                  setUsers(users);
+                });
+              }}>
+              Clear
+            </button>
+          </div>
+        </div>
+        <div className="d-flex-col m-1 mt-2 mb-2 justify-content-center">
+          <div className="row text-center"></div>
         </div>
       </div>
     </section>

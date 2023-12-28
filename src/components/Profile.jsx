@@ -24,11 +24,11 @@ export default function Profile() {
     <>
       <div className="container" style={{ width: "12rem" }}>
         <div className="text-center" style={{ width: "auto" }}>
-          <p style={{ fontWeight: "bold" }}>{user.user_name}</p>
+          <p style={{ fontWeight: "bold", color: "white" }}>{user.user_name}</p>
         </div>
         <div className="dropdown text-center">
           <Dropdown>
-            <Dropdown.Toggle className="bg-success" id="dropdownMenuButton">
+            <Dropdown.Toggle className="bg-success" id="dropdownMenuButton" style={{border: "none"}}>
               <i className="fa-solid fa-user"></i>
             </Dropdown.Toggle>
             <Dropdown.Menu>

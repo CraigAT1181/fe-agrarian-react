@@ -39,7 +39,7 @@ export default function UserPanel({ users, setUsers }) {
   return (
     <section
       className="container d-flex justify-content-center"
-      style={{ marginTop: "2rem" }}>
+      >
       <div
         className="row"
         style={{ height: "400px", overflowY: "auto" }}>

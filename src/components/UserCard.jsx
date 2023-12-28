@@ -54,13 +54,13 @@ export default function UserCard({ users }) {
                 </div>
               </div>
             </div>
-            <div className="d-flex m-1 mt-2 mb-2 justify-content-center">
+            <div className="d-flex m-1 mt-2 mb-2 justify-content-center" style={{overflowX: "auto" }}>
               {person.produce.length > 0 ? (
                 person.produce.map((item, index) => {
                   return (
                     <p
                       className="custom-outline-success"
-                      style={{ marginLeft: "1rem" }}
+                      style={{ marginLeft: "1rem"}}
                       key={index}
                     >
                       {item}

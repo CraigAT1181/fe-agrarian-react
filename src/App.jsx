@@ -16,7 +16,7 @@ export default function App() {
     <>
       <AuthProvider>
         <Header />
-        <main className="d-flex-col mb-5 p-4" style={{ minHeight: "100vh" }}>
+        <main className="d-flex-col p-4" style={{ minHeight: "100vh" }}>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/home" element={<Home />} />

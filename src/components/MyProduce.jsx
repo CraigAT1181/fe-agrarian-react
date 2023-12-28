@@ -142,7 +142,7 @@ export default function MyProduce() {
             ) : null}
           </Card.Body>
         </Card>
-        <div className="d-flex-col justify-content-center">
+        <div className="d-flex-col justify-content-center mt-4">
           <button
             className="btn btn-success mx-2"
             style={{ width: "8rem" }}

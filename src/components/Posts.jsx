@@ -159,8 +159,8 @@ export default function Posts() {
 
   return (
     <>
-      <div className="container bg-success p-3">
-        <div className="d-flex p-4 bg-white justify-content-center my-5">
+      <div className="container p-3">
+        <div className="d-flex p-4 post-card justify-content-center my-5">
           <i
             onClick={() => {
               setFilteredPosts([]);
@@ -209,7 +209,7 @@ export default function Posts() {
           </ToggleButtonGroup>
         </div>
       </div>
-      <div className="d-flex justify-content-center my-4">
+      <div className="d-flex justify-content-center mb-4">
         <form
           className="mx-5 w-25"
           onSubmit={(e) => handleSearch(e)}>

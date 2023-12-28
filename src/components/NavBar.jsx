@@ -12,21 +12,21 @@ export default function NavBar() {
           <Link
             to="/"
             className="nav-link m-3">
-            <li className="text-success">Home</li>
+            <li className="text-white">Home</li>
           </Link>
         </h5>
         <h5 className="nav-item m-0">
           <Link
             to="/exchange"
             className="nav-link m-3">
-            <li className="text-success">Exchange</li>
+            <li className="text-white">Exchange</li>
           </Link>
         </h5>
         <h5 className="nav-item m-0">
           <Link
             to="/posts"
             className="nav-link m-3">
-            <li className="text-success">Posts</li>
+            <li className="text-white">Posts</li>
           </Link>
         </h5>
         {user ? (
@@ -34,7 +34,7 @@ export default function NavBar() {
             <Link
               to="/messenger"
               className="nav-link m-3">
-              <li className="text-success">Messenger</li>
+              <li className="text-white">Messenger</li>
             </Link>
           </h5>
         ) : null}

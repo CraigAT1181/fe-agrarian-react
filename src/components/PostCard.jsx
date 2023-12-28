@@ -27,7 +27,7 @@ export default function PostCard({ post }) {
           </div>
         )}
 
-        <div className="col">
+        <div className="col text-center">
           <h5>{post.item}</h5>
         </div>
         {post.type === "Seed" ? (
@@ -45,11 +45,9 @@ export default function PostCard({ post }) {
         )}
       </div>
       <div className="row m-4">
-        <div className="col"></div>
-        <div className="col">
+        <div className="col text-center">
           <span>{post.body}</span>
         </div>
-        <div className="col"></div>
       </div>
       <div className="row m-4">
         <div className="col text-start align-self-end">
@@ -59,7 +57,7 @@ export default function PostCard({ post }) {
             {post.postcode}
           </p>
         </div>
-        <div className="col align-self-center">
+        <div className="col text-center">
           {user &&
             (user.user_id === post.user_id ? (
               <button className="btn btn-outline-danger">Delete Post</button>
