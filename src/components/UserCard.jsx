@@ -4,7 +4,7 @@ import { useAuth } from "./AuthContext";
 import "../App.css";
 
 export default function UserCard({ users }) {
-  const { loggedUser } = useAuth();
+  const { user } = useAuth();
   const navigate = useNavigate();
 
   const handleMessageClick = () => {
@@ -14,17 +14,18 @@ export default function UserCard({ users }) {
   };
   return (
     <>
-      {users.map((user) => {
+      {users.map((person) => {
         return (
           <article
             id="UserCard"
             className="card shadow mt-4 "
-            key={user.user_id}
+            key={person.user_id}
             style={{
               width: "25rem",
               height: "auto",
               marginRight: "3rem",
-            }}>
+            }}
+          >
             <div className="row no-gutters">
               <div className="col-md-4">
                 <img
@@ -36,29 +37,32 @@ export default function UserCard({ users }) {
               </div>
               <div className="col text-center">
                 <div className="d-flex-col mt-4">
-                  <h4 className="card-title">{user.user_name}</h4>
+                  <h4 className="card-title">{person.user_name}</h4>
 
                   <div className="mb-1">
-                    {loggedUser ? (
-                      <button
-                        className="btn btn-success mt-2"
-                        style={{ width: "8rem" }}
-                        onClick={handleMessageClick}>
-                        Message
-                      </button>
-                    ) : null}
+                    {user &&
+                      (user.user_id !== person.user_id ? (
+                        <button
+                          className="btn btn-success mt-2"
+                          style={{ width: "8rem" }}
+                          onClick={handleMessageClick}
+                        >
+                          Message
+                        </button>
+                      ) : null)}
                   </div>
                 </div>
               </div>
             </div>
             <div className="d-flex m-1 mt-2 mb-2 justify-content-center">
-              {user.produce.length > 0 ? (
-                user.produce.map((item, index) => {
+              {person.produce.length > 0 ? (
+                person.produce.map((item, index) => {
                   return (
                     <p
                       className="custom-outline-success"
                       style={{ marginLeft: "1rem" }}
-                      key={index}>
+                      key={index}
+                    >
                       {item}
                     </p>
                   );
@@ -66,7 +70,8 @@ export default function UserCard({ users }) {
               ) : (
                 <p
                   className="custom-outline-danger"
-                  style={{ marginLeft: "1rem" }}>
+                  style={{ marginLeft: "1rem" }}
+                >
                   No produce available.
                 </p>
               )}

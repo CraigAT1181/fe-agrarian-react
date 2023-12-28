@@ -16,40 +16,16 @@ export default function App() {
     <>
       <AuthProvider>
         <Header />
-        <main className="d-flex-col mb-5 p-4">
+        <main className="d-flex-col mb-5 p-4" style={{ minHeight: "100vh" }}>
           <Routes>
-            <Route
-              path="/"
-              element={<Home />}
-            />
-            <Route
-              path="/home"
-              element={<Home />}
-            />
-            <Route
-              path="/exchange"
-              element={<Exchange />}
-            />
-            <Route
-              path="/messenger"
-              element={<Messenger />}
-            />
-            <Route
-              path="/posts"
-              element={<Posts />}
-            />
-            <Route
-              path="/*"
-              element={<ErrorHandling />}
-            />
-            <Route
-              path="/login"
-              element={<Login />}
-            />
-            <Route
-              path="/register"
-              element={<Register />}
-            />
+            <Route path="/" element={<Home />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/exchange" element={<Exchange />} />
+            <Route path="/messenger" element={<Messenger />} />
+            <Route path="/posts" element={<Posts />} />
+            <Route path="/*" element={<ErrorHandling />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
           </Routes>
         </main>
 
