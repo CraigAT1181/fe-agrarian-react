@@ -1,14 +1,21 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../App.css";
 import { formatDistanceToNow } from "date-fns";
 import { useAuth } from "./AuthContext";
+import { deletePost } from "../api/api";
 
-export default function PostCard({ post }) {
+export default function PostCard({ post, setPostDeleted }) {
   const { user } = useAuth();
 
   const formattedDate = formatDistanceToNow(new Date(post.created_at), {
     addSuffix: true,
   });
+
+  const handleDelete = (post_id) => {
+    deletePost(post_id).then(() => {
+      setPostDeleted(true);
+    });
+  };
 
   return (
     <article className="container post-card">
@@ -60,7 +67,11 @@ export default function PostCard({ post }) {
         <div className="col text-center">
           {user &&
             (user.user_id === post.user_id ? (
-              <button className="btn btn-outline-danger">Delete Post</button>
+              <button
+                onClick={() => handleDelete(post.post_id)}
+                className="btn btn-outline-danger">
+                Delete Post
+              </button>
             ) : (
               <button className="btn btn-success">Message</button>
             ))}

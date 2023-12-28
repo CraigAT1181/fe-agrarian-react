@@ -77,3 +77,7 @@ export const createPost = async (user_id, status, type, item, image, body) => {
 
   return data;
 };
+
+export const deletePost = async (post_id) => {
+  await api.delete(`/posts/${post_id}`);
+};

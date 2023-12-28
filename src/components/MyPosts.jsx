@@ -13,6 +13,7 @@ export default function MyPosts() {
   const [userPosts, setUserPosts] = useState();
   const [showModal, setShowModal] = useState(false);
   let [newPost, setNewPost] = useState({});
+  const [postDeleted, setPostDeleted] = useState(false);
 
   useEffect(() => {
     setIsLoading(true);
@@ -32,7 +33,7 @@ export default function MyPosts() {
           setError({ status, message: message });
         }
       );
-  }, [newPost]);
+  }, [newPost, postDeleted]);
 
   const handleShow = () => setShowModal(true);
   const handleClose = () => setShowModal(false);
@@ -63,6 +64,7 @@ export default function MyPosts() {
             <PostCard
               key={post.post_id}
               post={post}
+              setPostDeleted={setPostDeleted}
             />
           ))
         ) : (

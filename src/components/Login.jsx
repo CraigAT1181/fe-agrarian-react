@@ -34,7 +34,7 @@ export default function Login() {
       );
   };
 
-  if (isLoading) return <p>Just a moment...</p>;
+  if (isLoading) return <p>Logging you in...</p>;
   if (error)
     return (
       <p>

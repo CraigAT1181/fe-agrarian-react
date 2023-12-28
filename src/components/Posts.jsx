@@ -15,6 +15,7 @@ export default function Posts() {
   let [wantedVariant, setWantedVariant] = useState("outline-danger");
   let [seedsVariant, setSeedsVariant] = useState("outline-secondary");
   let [produceVariant, setProduceVariant] = useState("outline-primary");
+  const [postDeleted, setPostDeleted] = useState(false);
 
   useEffect(() => {
     setIsLoading(true);
@@ -36,7 +37,7 @@ export default function Posts() {
         }
       );
     setNotFound(null);
-  }, [filteredPosts]);
+  }, [filteredPosts, postDeleted]);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -242,12 +243,14 @@ export default function Posts() {
                 <PostCard
                   key={post.post_id}
                   post={post}
+                  setPostDeleted={setPostDeleted}
                 />
               ))
             : posts.map((post) => (
                 <PostCard
                   key={post.post_id}
                   post={post}
+                  setPostDeleted={setPostDeleted}
                 />
               ))}
         </div>
