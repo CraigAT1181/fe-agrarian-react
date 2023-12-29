@@ -1,24 +1,22 @@
-  useEffect(() => {
-    const checkUserSession = () => {
-      const loggedInUser = localStorage.getItem("user");
-      if (loggedInUser) {
-        const { data, expiryTime } = JSON.parse(loggedInUser);
-        const currentTime = new Date().getTime();
+To do:
 
-        if (currentTime < expiryTime) {
-          setLoggedUser(data);
-          setLoggedIn(true);
-        } else {
-          localStorage.removeItem("user");
-        }
-      }
-    };
+1. Login Reset Password functionality.
 
-    checkUserSession();
+Involves:
 
-    const intervalId = setInterval(() => {
-      checkUserSession();
-    }, 1000);
+a User email input to allow user to request link to Reset
+b Generate reset token to verify identity during reset
+c Send email to user containing token
+d Create ResetPassword component
+e Update password on backend on submit
+f Develop backend further to include this process
+e Include increased error handling
+f Include token expiration and validation
 
-    return () => clearInterval(intervalId);
-  }, [setLoggedIn, setLoggedUser]);
+2. Implement token functionality above into current localstorage functionality
+
+3. Front-end testing
+
+4. SQLAlchemy / resolve connection pool exhausted error on backend
+
+5. 

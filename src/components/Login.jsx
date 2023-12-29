@@ -2,15 +2,22 @@ import React, { useState } from "react";
 import { userLogin } from "../api/api";
 import { useAuth } from "./AuthContext";
 import { useNavigate } from "react-router-dom";
+import { Modal, Alert } from "react-bootstrap";
 
 export default function Login() {
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [show, setShow] = useState(true);
   const { login } = useAuth();
 
   const navigate = useNavigate();
+
+  const handleClose = () => {
+    setShow(false);
+    navigate("/");
+  };
 
   const loginHandler = async (e) => {
     e.preventDefault();
@@ -21,30 +28,23 @@ export default function Login() {
 
         navigate("/");
       })
-      .catch(
-        ({
-          response: {
-            status,
-            data: { message },
-          },
-        }) => {
-          setIsLoading(false);
-          setError({ status, message: message });
-        }
-      );
+      .catch(() => {
+        setIsLoading(false);
+        setError("Invalid username or password.");
+      });
   };
 
   if (isLoading) return <p>Logging you in...</p>;
-  if (error)
-    return (
-      <p>
-        Error {error.status} {error.message}
-      </p>
-    );
 
   return (
-    <section className="container">
-      <div className="d-flex justify-content-center">
+    <Modal
+      show={show}
+      onHide={handleClose}>
+      <Modal.Header closeButton>
+        <Modal.Title>Login</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        {error && <Alert variant="danger">{error}</Alert>}
         <form onSubmit={loginHandler}>
           <div className="form-group mt-2">
             <label htmlFor="username">Username</label>
@@ -70,16 +70,11 @@ export default function Login() {
             <button
               className="btn btn-success"
               type="submit">
-              Login
+              Confirm
             </button>
           </div>
         </form>
-      </div>
-      {error && (
-        <p>
-          Error: {error.status} - {error.message}
-        </p>
-      )}
-    </section>
+      </Modal.Body>
+    </Modal>
   );
 }
