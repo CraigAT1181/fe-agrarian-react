@@ -49,7 +49,7 @@ export default function UserCard({ users }) {
                         >
                           Message
                         </button>
-                      ) : null)}
+                      ) : <p style={{color: "red"}}>(You)</p>)}
                   </div>
                 </div>
               </div>
