@@ -1,6 +1,6 @@
 To do:
 
-1. Login Reset Password functionality.
+1. Login Reset Password functionality
 
 Involves:
 
@@ -19,4 +19,7 @@ f Include token expiration and validation
 
 4. SQLAlchemy / resolve connection pool exhausted error on backend
 
-5. 
+5. Expiry time to be added to both token and local storage
+
+6. Filter required on MyPosts
+
