@@ -1,45 +1,47 @@
 import React, { useState } from "react";
 import { register } from "../api/api";
 import { useNavigate } from "react-router-dom";
+import { Modal, Alert } from "react-bootstrap";
 
 export default function Register() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");
-  const [postcode, setPostcode] = useState("");
   const [show, setShow] = useState(true);
+  const [formData, setformData] = useState({
+    user_name: "",
+    password: "",
+    email: "",
+    postcode: "",
+  });
 
   const navigate = useNavigate();
 
-  const handleUsername = (value) => {
-    setUsername(value);
+  const handleInput = (e) => {
+    const { name, value } = e.target;
+    setformData((curr) => ({
+      ...curr,
+      [name]: value,
+    }));
   };
 
-  const handlePassword = (value) => {
-    setPassword(value);
-  };
-
-  const handleEmail = (value) => {
-    setEmail(value);
-  };
-
-  const handlePostcode = (value) => {
-    setPostcode(value);
-  };
-
-  const registrationHandler = () => {
+  const registrationHandler = async (e) => {
+    e.preventDefault();
     setIsLoading(true);
-    register(username, email, password, postcode)
+    const { user_name, password, email, postcode } = formData;
+
+    register(user_name, email, password, postcode)
       .then(() => {
         setIsLoading(false);
         navigate("/login");
       })
-      .catch(() => {
+      .catch((error) => {
         setIsLoading(false);
-        setError("Please complete all fields.");
+        setError({ message: error.message });
       });
+  };
+
+  const handleClose = () => {
+    setShow(false);
   };
 
   return (
@@ -51,15 +53,16 @@ export default function Register() {
       </Modal.Header>
       <Modal.Body>
         {error && <Alert variant="danger">{error}</Alert>}
-        <form onSubmit={loginHandler}>
+        <form onSubmit={registrationHandler}>
           <div className="form-group mt-2">
-            <label htmlFor="username">Username</label>
+            <label htmlFor="user_name">Username</label>
             <input
-              id="username"
+              id="user_name"
               type="text"
               className="form-control"
-              value={username}
-              onChange={({ target }) => setUsername(target.value)}
+              name="user_name"
+              value={formData.user_name}
+              onChange={handleInput}
             />
           </div>
           <div className="form-group mt-2">
@@ -68,8 +71,31 @@ export default function Register() {
               id="password"
               type="password"
               className="form-control"
-              value={password}
-              onChange={({ target }) => setPassword(target.value)}
+              name="password"
+              value={formData.password}
+              onChange={handleInput}
+            />
+          </div>
+          <div className="form-group mt-2">
+            <label htmlFor="email">Email</label>
+            <input
+              id="email"
+              type="text"
+              className="form-control"
+              name="email"
+              value={formData.email}
+              onChange={handleInput}
+            />
+          </div>
+          <div className="form-group mt-2">
+            <label htmlFor="postcode">Postcode</label>
+            <input
+              id="postcode"
+              type="text"
+              className="form-control"
+              name="postcode"
+              value={formData.postcode}
+              onChange={handleInput}
             />
           </div>
           <div className="d-flex justify-content-center mt-4">
