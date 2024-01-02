@@ -41,7 +41,7 @@ export default function CreatePostModal({ show, handleClose, setNewPost }) {
 
   const handleTypeSelection = (value) => {
     if (value === "Seeds") {
-      setType("Seeds");
+      setType("Seed");
       setSeedsVariant("secondary");
       setProduceVariant("outline-primary");
     } else if (value === "Produce") {

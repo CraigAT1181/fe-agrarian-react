@@ -199,7 +199,7 @@ export default function Posts() {
               onChange={() => handleSelectedType("Seeds")}
               variant={seedsVariant}
               id="Seeds">
-              Seeds
+              Seed
             </ToggleButton>
             <ToggleButton
               onChange={() => handleSelectedType("Produce")}
