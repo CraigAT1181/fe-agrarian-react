@@ -76,14 +76,23 @@ export default function Maps({ users }) {
 
     const latRad = (lat) => (lat * Math.PI) / 180;
 
-    const latFraction = (latRad(bounds.getNorthEast().lat()) - latRad(bounds.getSouthWest().lat())) / Math.PI;
+    const latFraction =
+      (latRad(bounds.getNorthEast().lat()) -
+        latRad(bounds.getSouthWest().lat())) /
+      Math.PI;
 
     const lngDiff = bounds.getNorthEast().lng() - bounds.getSouthWest().lng();
-    const lngFraction = ((lngDiff < 0) ? (lngDiff + 360) : lngDiff) / 360;
+    const lngFraction = (lngDiff < 0 ? lngDiff + 360 : lngDiff) / 360;
 
-    const latZoom = zoom => Math.round(Math.log(mapDim.height / WORLD_DIM.height / latFraction) / Math.LN2);
+    const latZoom = (zoom) =>
+      Math.round(
+        Math.log(mapDim.height / WORLD_DIM.height / latFraction) / Math.LN2
+      );
 
-    const lngZoom = zoom => Math.round(Math.log(mapDim.width / WORLD_DIM.width / lngFraction) / Math.LN2);
+    const lngZoom = (zoom) =>
+      Math.round(
+        Math.log(mapDim.width / WORLD_DIM.width / lngFraction) / Math.LN2
+      );
 
     return Math.min(latZoom(), lngZoom(), ZOOM_MAX);
   };
@@ -122,7 +131,8 @@ export default function Maps({ users }) {
           <GoogleMap
             center={center}
             zoom={zoom}
-            mapContainerStyle={{ width: "600px", height: "400px" }}>
+            mapContainerStyle={{ width: "600px", height: "400px" }}
+          >
             {postcodes.map((postcode, index) => (
               <Marker
                 key={postcode.user.user_id}
@@ -135,9 +145,10 @@ export default function Maps({ users }) {
             {selectedMarkerIndex !== null && !loading && (
               <InfoWindow
                 position={postcodes[selectedMarkerIndex].position}
-                onCloseClick={handleInfoWindowClose}>
+                onCloseClick={handleInfoWindowClose}
+              >
                 <div style={{ maxWidth: "auto", padding: "4px" }}>
-                  <h6>{selectedUser.user_name}</h6>
+                  <h6>{selectedUser.username}</h6>
                 </div>
               </InfoWindow>
             )}

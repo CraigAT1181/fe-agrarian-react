@@ -41,7 +41,7 @@ export const userLogin = async (username, password) => {
 
 export const register = async (username, email, password, postcode) => {
   const { data } = await api.post("/users", {
-    user_name: username,
+    username: username,
     email: email,
     password: password,
     postcode: postcode,

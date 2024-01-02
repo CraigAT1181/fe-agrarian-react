@@ -37,7 +37,7 @@ export default function UserCard({ users }) {
               </div>
               <div className="col text-center">
                 <div className="d-flex-col mt-4">
-                  <h4 className="card-title">{person.user_name}</h4>
+                  <h4 className="card-title">{person.username}</h4>
 
                   <div className="mb-1">
                     {user &&
@@ -49,18 +49,23 @@ export default function UserCard({ users }) {
                         >
                           Message
                         </button>
-                      ) : <p style={{color: "red"}}>(You)</p>)}
+                      ) : (
+                        <p style={{ color: "red" }}>(You)</p>
+                      ))}
                   </div>
                 </div>
               </div>
             </div>
-            <div className="d-flex m-1 mt-2 mb-2 justify-content-center" style={{overflowX: "auto" }}>
+            <div
+              className="d-flex m-1 mt-2 mb-2 justify-content-center"
+              style={{ overflowX: "auto" }}
+            >
               {person.produce.length > 0 ? (
                 person.produce.map((item, index) => {
                   return (
                     <p
                       className="custom-outline-success"
-                      style={{ marginLeft: "1rem"}}
+                      style={{ marginLeft: "1rem" }}
                       key={index}
                     >
                       {item}

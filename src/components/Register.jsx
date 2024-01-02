@@ -8,7 +8,7 @@ export default function Register() {
   const [error, setError] = useState(null);
   const [show, setShow] = useState(true);
   const [formData, setformData] = useState({
-    user_name: "",
+    username: "",
     password: "",
     email: "",
     postcode: "",
@@ -27,9 +27,9 @@ export default function Register() {
   const registrationHandler = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    const { user_name, password, email, postcode } = formData;
+    const { username, password, email, postcode } = formData;
 
-    register(user_name, email, password, postcode)
+    register(username, email, password, postcode)
       .then(() => {
         setIsLoading(false);
         navigate("/login");
@@ -45,9 +45,7 @@ export default function Register() {
   };
 
   return (
-    <Modal
-      show={show}
-      onHide={handleClose}>
+    <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
         <Modal.Title>Register</Modal.Title>
       </Modal.Header>
@@ -55,13 +53,13 @@ export default function Register() {
         {error && <Alert variant="danger">{error}</Alert>}
         <form onSubmit={registrationHandler}>
           <div className="form-group mt-2">
-            <label htmlFor="user_name">Username</label>
+            <label htmlFor="username">Username</label>
             <input
-              id="user_name"
+              id="username"
               type="text"
               className="form-control"
-              name="user_name"
-              value={formData.user_name}
+              name="username"
+              value={formData.username}
               onChange={handleInput}
             />
           </div>
@@ -99,9 +97,7 @@ export default function Register() {
             />
           </div>
           <div className="d-flex justify-content-center mt-4">
-            <button
-              className="btn btn-success"
-              type="submit">
+            <button className="btn btn-success" type="submit">
               Confirm
             </button>
           </div>

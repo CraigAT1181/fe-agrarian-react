@@ -28,7 +28,7 @@ export default function Profile() {
     <>
       <div className="container" style={{ width: "12rem" }}>
         <div className="text-center" style={{ width: "auto" }}>
-          <p style={{ fontWeight: "bold", color: "white" }}>{user.user_name}</p>
+          <p style={{ fontWeight: "bold", color: "white" }}>{user.username}</p>
         </div>
         <div className="dropdown text-center">
           <Dropdown>
