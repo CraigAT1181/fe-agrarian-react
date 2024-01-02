@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import { Dropdown } from "react-bootstrap";
 import { useAuth } from "./AuthContext";
 import { deleteUser } from "../api/api";
@@ -6,28 +6,52 @@ import { useNavigate } from "react-router-dom";
 
 export default function Profile() {
   const { user, logout } = useAuth();
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    localStorage.getItem("user");
-  }, []);
-
   const handleDelete = () => {
-    deleteUser(user.user_id).then(() => {
-      logout();
-      localStorage.removeItem("user");
-      navigate("/");
-    });
+    setIsLoading(true);
+    deleteUser(user.user_id)
+      .then(() => {
+        setIsLoading(false);
+        logout();
+        localStorage.removeItem("user");
+        navigate("/");
+      })
+      .catch(
+        ({
+          response: {
+            status,
+            data: { message },
+          },
+        }) => {
+          setIsLoading(false);
+          setError({ status, message: message });
+        }
+      );
   };
 
   const handleLogout = () => {
     logout();
   };
 
+  if (isLoading) return <p>Just a moment...</p>;
+  if (error)
+    return (
+      <p>
+        Error {error.status} {error.message}
+      </p>
+    );
+
   return (
     <>
-      <div className="container" style={{ width: "12rem" }}>
-        <div className="text-center" style={{ width: "auto" }}>
+      <div
+        className="container"
+        style={{ width: "12rem" }}>
+        <div
+          className="text-center"
+          style={{ width: "auto" }}>
           <p style={{ fontWeight: "bold", color: "white" }}>{user.username}</p>
         </div>
         <div className="dropdown text-center">
@@ -35,47 +59,46 @@ export default function Profile() {
             <Dropdown.Toggle
               className="bg-success"
               id="dropdownMenuButton"
-              style={{ border: "none" }}
-            >
+              style={{ border: "none" }}>
               <i className="fa-solid fa-user"></i>
             </Dropdown.Toggle>
             <Dropdown.Menu>
               <Dropdown.Item
                 className="text-success"
                 onClick={() => navigate("/")}
-                style={{ backgroundColor: "transparent" }}
-              >
+                style={{ backgroundColor: "transparent" }}>
                 Edit your produce
               </Dropdown.Item>
 
               <Dropdown.Item
                 className="text-success"
                 onClick={() => navigate("/exchange")}
-                style={{ backgroundColor: "transparent" }}
-              >
+                style={{ backgroundColor: "transparent" }}>
                 Find other growers
               </Dropdown.Item>
 
               <Dropdown.Item
                 className="text-success"
                 onClick={() => navigate("/posts")}
-                style={{ backgroundColor: "transparent" }}
-              >
+                style={{ backgroundColor: "transparent" }}>
                 View your posts
               </Dropdown.Item>
 
               <Dropdown.Item
                 className="text-success"
                 onClick={() => navigate("/messenger")}
-                style={{ backgroundColor: "transparent" }}
-              >
+                style={{ backgroundColor: "transparent" }}>
                 View your messages
               </Dropdown.Item>
 
-              <Dropdown.Item className="text-danger" onClick={handleLogout}>
+              <Dropdown.Item
+                className="text-danger"
+                onClick={handleLogout}>
                 Logout
               </Dropdown.Item>
-              <Dropdown.Item className="text-danger" onClick={handleDelete}>
+              <Dropdown.Item
+                className="text-danger"
+                onClick={handleDelete}>
                 Delete Account
               </Dropdown.Item>
             </Dropdown.Menu>

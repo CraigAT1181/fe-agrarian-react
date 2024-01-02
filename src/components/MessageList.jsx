@@ -2,10 +2,10 @@ import React from "react";
 
 export default function MessageList({ messages }) {
   return (
-    <ul>
+    <div>
       {messages.map((message, index) => {
-        return <li key={index}>{message}</li>;
+        return <div key={index}>{message}</div>;
       })}
-    </ul>
+    </div>
   );
 }

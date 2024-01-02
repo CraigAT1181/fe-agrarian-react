@@ -14,8 +14,8 @@ export default function Messenger() {
 
   useEffect(() => {
     setIsLoading(true);
+
     if (user) {
-      console.log(user.user_id);
       getConversationsByUserID(user.user_id)
         .then(({ conversations }) => {
           setIsLoading(false);
@@ -36,8 +36,8 @@ export default function Messenger() {
     } else {
       setIsLoading(false);
     }
-  }, []);
-  
+  }, [user]);
+
   if (isLoading) return <p>Just a moment...</p>;
   if (error)
     return (
@@ -54,7 +54,9 @@ export default function Messenger() {
     <section className="container">
       <div className="row">
         <div className="col">
-          <ContactList conversations={conversations}/>
+          {conversations.length > 0 && (
+            <ContactList conversations={conversations} />
+          )}
         </div>
         <div className="col-6">
           <div>

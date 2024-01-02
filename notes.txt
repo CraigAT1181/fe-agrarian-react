@@ -23,3 +23,8 @@ f Include token expiration and validation
 
 6. Filter required on MyPosts
 
+
+QUESTIONS:
+
+1. Why is my connection pool exhausting?
+2. ContactList in Messenger is not populating after refresh
