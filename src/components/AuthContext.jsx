@@ -7,8 +7,17 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
+
     if (storedUser) {
-      setUser(JSON.parse(storedUser));
+      const parsedUser = JSON.parse(storedUser);
+      const { user, expiryTime } = parsedUser;
+
+      if (expiryTime && new Date().getTime() < expiryTime) {
+        setUser(user);
+      } else {
+        setUser(null);
+        localStorage.removeItem("user");
+      }
     }
   }, []);
 

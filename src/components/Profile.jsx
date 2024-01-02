@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Dropdown } from "react-bootstrap";
 import { useAuth } from "./AuthContext";
 import { deleteUser } from "../api/api";
@@ -7,6 +7,10 @@ import { useNavigate } from "react-router-dom";
 export default function Profile() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    localStorage.getItem("user");
+  }, []);
 
   const handleDelete = () => {
     deleteUser(user.user_id).then(() => {
@@ -28,7 +32,11 @@ export default function Profile() {
         </div>
         <div className="dropdown text-center">
           <Dropdown>
-            <Dropdown.Toggle className="bg-success" id="dropdownMenuButton" style={{border: "none"}}>
+            <Dropdown.Toggle
+              className="bg-success"
+              id="dropdownMenuButton"
+              style={{ border: "none" }}
+            >
               <i className="fa-solid fa-user"></i>
             </Dropdown.Toggle>
             <Dropdown.Menu>
