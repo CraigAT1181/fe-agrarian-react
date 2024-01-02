@@ -4,6 +4,7 @@ import { useAuth } from "./AuthContext";
 import "../App.css";
 
 export default function UserCard({ users }) {
+  console.log(users);
   const { user } = useAuth();
   const navigate = useNavigate();
 
