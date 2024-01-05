@@ -46,13 +46,9 @@ export default function Profile() {
 
   return (
     <>
-      <div
-        className="container"
-        style={{ width: "12rem" }}>
-        <div
-          className="text-center"
-          style={{ width: "auto" }}>
-          <p style={{ fontWeight: "bold", color: "white" }}>{user.username}</p>
+      <div>
+        <div className="text-center">
+          <p className="text-white">{user.username}</p>
         </div>
         <div className="dropdown text-center">
           <Dropdown>

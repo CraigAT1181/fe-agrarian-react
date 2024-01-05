@@ -6,37 +6,32 @@ export default function NavBar() {
   const { user } = useAuth();
 
   return (
-    <nav>
-      <ul className="nav d-flex justify-content-around p-4">
-        <h5 className="nav-item m-0">
-          <Link
-            to="/"
-            className="nav-link m-3">
-            <li className="text-white">Home</li>
-          </Link>
-        </h5>
-        <h5 className="nav-item m-0">
-          <Link
-            to="/exchange"
-            className="nav-link m-3">
-            <li className="text-white">Exchange</li>
-          </Link>
-        </h5>
-        <h5 className="nav-item m-0">
-          <Link
-            to="/posts"
-            className="nav-link m-3">
-            <li className="text-white">Posts</li>
-          </Link>
-        </h5>
+    <nav className="navbar navbar-expand-lg">
+      <ul className="navbar-nav">
+        <Link
+          to="/"
+          className="nav-link">
+          <li className="nav-item text-white mx-3">Home</li>
+        </Link>
+
+        <Link
+          to="/exchange"
+          className="nav-link">
+          <li className="nav-item text-white mx-3">Exchange</li>
+        </Link>
+
+        <Link
+          to="/posts"
+          className="nav-link">
+          <li className="text-white mx-3">Posts</li>
+        </Link>
+
         {user ? (
-          <h5 className="nav-item m-0">
-            <Link
-              to="/messenger"
-              className="nav-link m-3">
-              <li className="text-white">Messenger</li>
-            </Link>
-          </h5>
+          <Link
+            to="/messenger"
+            className="nav-link">
+            <li className="text-white mx-3">Messenger</li>
+          </Link>
         ) : null}
       </ul>
     </nav>

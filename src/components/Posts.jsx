@@ -161,7 +161,7 @@ export default function Posts() {
   return (
     <>
       <div className="container p-3">
-        <div className="d-flex p-4 post-card justify-content-center my-5">
+        <div className="d-flex p-4 post-card justify-content-center my-2">
           <i
             onClick={() => {
               setFilteredPosts([]);

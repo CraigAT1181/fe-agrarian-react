@@ -47,7 +47,7 @@ export default function MyPosts() {
     );
 
   return (
-    <section className="container post-card p-4">
+    <section className="container box-border p-4">
       <div className="d-flex justify-content-between mb-4">
         <h5>Your posts:</h5>
         <button

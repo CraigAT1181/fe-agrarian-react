@@ -94,7 +94,7 @@ export default function MyProduce() {
     );
 
   return (
-    <section className="container post-card">
+    <section className="container box-border">
       <div className="text-center m-1 mt-2 mb-2 justify-content-center">
         <h5>What produce do you have available?</h5>
         <Dropdown

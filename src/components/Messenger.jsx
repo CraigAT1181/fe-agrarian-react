@@ -58,15 +58,14 @@ export default function Messenger() {
             <ContactList conversations={conversations} />
           )}
         </div>
-        <div className="col-6">
-          <div>
+        <div className="col">
+          <div style={{height: "100vh"}}>
             <MessageList messages={messages} />
           </div>
           <div>
             <MessageInput onSend={handleSend} />
           </div>
         </div>
-        <div className="col"></div>
       </div>
     </section>
   );
