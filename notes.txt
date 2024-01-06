@@ -28,3 +28,8 @@ QUESTIONS:
 
 1. Why is my connection pool exhausting?
 2. ContactList in Messenger is not populating after refresh
+
+CSS 
+
+1. min-vh-100
+2. flex-grow-1

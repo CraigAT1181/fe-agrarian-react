@@ -45,62 +45,60 @@ export default function Profile() {
     );
 
   return (
-    <>
-      <div>
-        <div className="text-center">
-          <p className="text-white">{user.username}</p>
-        </div>
-        <div className="dropdown text-center">
-          <Dropdown>
-            <Dropdown.Toggle
-              className="bg-success"
-              id="dropdownMenuButton"
-              style={{ border: "none" }}>
-              <i className="fa-solid fa-user"></i>
-            </Dropdown.Toggle>
-            <Dropdown.Menu>
-              <Dropdown.Item
-                className="text-success"
-                onClick={() => navigate("/")}
-                style={{ backgroundColor: "transparent" }}>
-                Edit your produce
-              </Dropdown.Item>
-
-              <Dropdown.Item
-                className="text-success"
-                onClick={() => navigate("/exchange")}
-                style={{ backgroundColor: "transparent" }}>
-                Find other growers
-              </Dropdown.Item>
-
-              <Dropdown.Item
-                className="text-success"
-                onClick={() => navigate("/posts")}
-                style={{ backgroundColor: "transparent" }}>
-                View your posts
-              </Dropdown.Item>
-
-              <Dropdown.Item
-                className="text-success"
-                onClick={() => navigate("/messenger")}
-                style={{ backgroundColor: "transparent" }}>
-                View your messages
-              </Dropdown.Item>
-
-              <Dropdown.Item
-                className="text-danger"
-                onClick={handleLogout}>
-                Logout
-              </Dropdown.Item>
-              <Dropdown.Item
-                className="text-danger"
-                onClick={handleDelete}>
-                Delete Account
-              </Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
-        </div>
+    <div className="container">
+      <div className="text-center">
+        <p className="text-white">{user.username}</p>
       </div>
-    </>
+      <div className="dropdown text-center">
+        <Dropdown>
+          <Dropdown.Toggle
+            className="bg-success"
+            id="dropdownMenuButton"
+            style={{ border: "none" }}>
+            <i className="fa-solid fa-user"></i>
+          </Dropdown.Toggle>
+          <Dropdown.Menu>
+            <Dropdown.Item
+              className="text-success"
+              onClick={() => navigate("/")}
+              style={{ backgroundColor: "transparent" }}>
+              Edit your produce
+            </Dropdown.Item>
+
+            <Dropdown.Item
+              className="text-success"
+              onClick={() => navigate("/exchange")}
+              style={{ backgroundColor: "transparent" }}>
+              Find other growers
+            </Dropdown.Item>
+
+            <Dropdown.Item
+              className="text-success"
+              onClick={() => navigate("/posts")}
+              style={{ backgroundColor: "transparent" }}>
+              View your posts
+            </Dropdown.Item>
+
+            <Dropdown.Item
+              className="text-success"
+              onClick={() => navigate("/messenger")}
+              style={{ backgroundColor: "transparent" }}>
+              View your messages
+            </Dropdown.Item>
+
+            <Dropdown.Item
+              className="text-danger"
+              onClick={handleLogout}>
+              Logout
+            </Dropdown.Item>
+            <Dropdown.Item
+              className="text-danger"
+              onClick={handleDelete}>
+              Delete Account
+            </Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
+      </div>
+    </div>
   );
 }

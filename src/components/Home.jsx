@@ -8,13 +8,13 @@ export default function Home() {
   const { user } = useAuth();
 
   return (
-    <section className="container">
+    <div className="container p-3">
       {user !== null ? (
-        <div className="p-3">
-          <div className="p-3">
+        <div className="row g-3">
+          <div>
             <MyProduce />
           </div>
-          <div className="p-3">
+          <div>
             <MyPosts />
           </div>
         </div>
@@ -28,6 +28,6 @@ export default function Home() {
           </p>
         </div>
       )}
-    </section>
+    </div>
   );
 }

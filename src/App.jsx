@@ -16,9 +16,8 @@ export default function App() {
     <>
       <AuthProvider>
         <Header />
-        <main
-          /*className="container p-2"
-          style={{ maxHeight: "100%" }}*/>
+        <main className="container"
+          >
           <Routes>
             <Route
               path="/"

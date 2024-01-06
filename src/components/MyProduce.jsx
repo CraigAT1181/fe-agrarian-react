@@ -95,7 +95,7 @@ export default function MyProduce() {
 
   return (
     <section className="container box-border">
-      <div className="text-center m-1 mt-2 mb-2 justify-content-center">
+      <div className="text-center p-3 justify-content-center">
         <h5>What produce do you have available?</h5>
         <Dropdown
           className="mt-3"
@@ -117,12 +117,10 @@ export default function MyProduce() {
           </Dropdown.Menu>
         </Dropdown>
         <Card
-          className="rounded"
-          style={{ marginTop: "1rem", border: "none" }}>
-          <Card.Body className="d-flex flex-row justify-content-center">
-            {produceUpdated
-              ? null
-              : filteredUserProduce
+          
+          style={{ border: "none" }}>
+          <Card.Body className="d-flex flex-row justify-content-center" style={{ height: "4.3rem" }}>
+            {filteredUserProduce
                   .filter((item, index, array) => array.indexOf(item) === index)
                   .map((item, index) => (
                     <p
@@ -132,19 +130,12 @@ export default function MyProduce() {
                       {item}
                     </p>
                   ))}
-            {produceUpdated ? (
-              <Alert
-                variant="success"
-                className="ml-2 fade-alert"
-                show={produceUpdated}>
-                Produce updated!
-              </Alert>
-            ) : null}
+
           </Card.Body>
         </Card>
-        <div className="d-flex-col justify-content-center mt-4">
+        <div className="d-flex align-content-center">
           <button
-            className="btn btn-success mx-2"
+            className="btn btn-success mx-1"
             style={{ width: "8rem" }}
             onClick={() =>
               handleConfirmProduce(user.user_id, filteredUserProduce)
@@ -153,9 +144,16 @@ export default function MyProduce() {
           </button>
           <button
             onClick={() => setFilteredUserProduce([])}
-            className="btn btn-outline-danger">
+            className="btn btn-outline-danger mx-1">
             Clear
           </button>
+          {produceUpdated ? (
+              <p
+                className="mx-2 fade-alert text-success"
+                >
+                Produce updated!
+              </p>
+            ) : null}
         </div>
       </div>
     </section>
