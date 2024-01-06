@@ -13,6 +13,17 @@
   display: inline-block;
 }
 
+.contact-list-item {
+  height: 4rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0.2em;
+  font-weight: bold;
+  cursor: pointer;
+}
+
 .input-group input.form-control:focus {
   box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 1);
 }
