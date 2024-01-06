@@ -59,8 +59,12 @@ export default function Messenger() {
           )}
         </div>
         <div className="col">
-          <div style={{height: "100vh"}}>
-            <MessageList messages={messages} />
+          <div style={{ height: "100vh" }}>
+            {messages.length === 0 ? (
+              <div>Click on a contact to continue your conversation.</div>
+            ) : (
+              <MessageList messages={messages} />
+            )}
           </div>
           <div>
             <MessageInput onSend={handleSend} />
