@@ -47,8 +47,8 @@ export default function MyPosts() {
     );
 
   return (
-    <section className="container box-border p-4">
-      <div className="d-flex justify-content-between mb-4">
+    <div className="container box-border p-4">
+      <div className="d-flex justify-content-between">
         <h5>Your posts:</h5>
         <button
           className="btn btn-success"
@@ -73,6 +73,6 @@ export default function MyPosts() {
           </div>
         )}
       </div>
-    </section>
+    </div>
   );
 }

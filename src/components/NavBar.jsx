@@ -9,7 +9,8 @@ export default function NavBar() {
   return (
     <Navbar
       expand="lg"
-      bg="success">
+      bg="success"
+      >
       <Navbar.Toggle aria-controls="navbar-nav" />
       <Navbar.Collapse id="navbar-nav">
         <Nav className="mr-auto">

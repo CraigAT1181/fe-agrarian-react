@@ -28,6 +28,7 @@ QUESTIONS:
 
 1. Why is my connection pool exhausting?
 2. ContactList in Messenger is not populating after refresh
+3. POSTS - once "search" has been used, using "clear" breaks the page
 
 CSS 
 
