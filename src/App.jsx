@@ -16,7 +16,7 @@ export default function App() {
     <>
       <AuthProvider>
         <Header />
-        <main className="container"
+        <main className="h-100"
           >
           <Routes>
             <Route

@@ -20,7 +20,6 @@ export default function Messenger() {
         .then(({ conversations }) => {
           setIsLoading(false);
           setConversations(conversations);
-          console.log(conversations);
         })
         .catch(
           ({
@@ -51,22 +50,26 @@ export default function Messenger() {
   };
 
   return (
-    <section className="container">
-      <div className="row">
-        <div className="col">
+    <section
+      className="container-fluid h-100"
+      style={{ minHeight: "100vh" }}>
+      <div className="row h-100">
+        <div className="col-md-4 h-100">
           {conversations.length > 0 && (
-            <ContactList conversations={conversations} />
+            <ContactList
+              conversations={conversations}
+              setMessages={setMessages}
+            />
           )}
         </div>
-        <div className="col">
-          <div style={{ height: "100vh" }}>
-            {messages.length === 0 ? (
+        <div className="col-md-8 h-100">
+          <div className="messages-container h-75 border-bottom">
+            {messages.length === 0 && (
               <div>Click on a contact to continue your conversation.</div>
-            ) : (
-              <MessageList messages={messages} />
             )}
+            {messages.length > 0 && <MessageList messages={messages} />}
           </div>
-          <div>
+          <div className="input-box-container h-25">
             <MessageInput onSend={handleSend} />
           </div>
         </div>
