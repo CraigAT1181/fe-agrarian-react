@@ -51,7 +51,7 @@ export default function Messenger() {
 
   return (
     <section
-      className="container-fluid h-100"
+      className="container-fluid h-75"
       style={{ minHeight: "100vh" }}>
       <div className="row h-100">
         <div className="col-md-4 h-100">
@@ -63,14 +63,16 @@ export default function Messenger() {
           )}
         </div>
         <div className="col-md-8 h-100">
-          <div className="messages-container h-75 border-bottom">
+          <div className="messages-container h-75">
             {messages.length === 0 && (
               <div>Click on a contact to continue your conversation.</div>
             )}
             {messages.length > 0 && <MessageList messages={messages} />}
-          </div>
-          <div className="input-box-container h-25">
-            <MessageInput onSend={handleSend} />
+            {messages.length > 0 && (
+              <div className="input-box-container h-25">
+                <MessageInput onSend={handleSend} />
+              </div>
+            )}
           </div>
         </div>
       </div>

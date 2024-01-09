@@ -43,7 +43,7 @@ export default function ContactList({ setMessages, conversations }) {
           index % 2 === 0 ? (
             <div
               key={index}
-              className="bg-success-subtle contact-list-item"
+              className="bg-dark-subtle contact-list-item"
               onClick={() => {
                 handleGetMessages(conversation.conversation_id);
               }}>
@@ -62,7 +62,7 @@ export default function ContactList({ setMessages, conversations }) {
         ) : index % 2 === 0 ? (
           <div
             key={index}
-            className="bg-success-subtle contact-list-item"
+            className="bg-dark-subtle contact-list-item"
             onClick={() => {
               handleGetMessages(conversation.conversation_id);
             }}>
