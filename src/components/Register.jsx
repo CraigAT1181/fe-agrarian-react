@@ -44,6 +44,8 @@ export default function Register() {
     setShow(false);
   };
 
+  if (isLoading) return <p>Just registering you, won't be long...</p>;
+
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
