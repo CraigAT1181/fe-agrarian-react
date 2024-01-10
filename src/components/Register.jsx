@@ -104,53 +104,5 @@ export default function Register() {
         </form>
       </Modal.Body>
     </Modal>
-
-    // <section className="container">
-    //   <div className="d-flex justify-content-center">
-    //     <form onSubmit={registrationHandler}>
-    //       <div className="form-group">
-    //         <label htmlFor="username">Username</label>
-    //         <input
-    //           id="username"
-    //           type="text"
-    //           className="form-control"
-    //           onChange={({ target }) => setUsername(target.value)}
-    //         />
-    //       </div>
-    //       <div className="form-group mt-2">
-    //         <label htmlFor="password">Password</label>
-    //         <input
-    //           id="password"
-    //           type="password"
-    //           className="form-control"
-    //           onChange={({ target }) => setPassword(target.value)}
-    //         />
-    //       </div>
-    //       <div className="form-group mt-2">
-    //         <label htmlFor="email">Email</label>
-    //         <input
-    //           id="email"
-    //           type="text"
-    //           className="form-control"
-    //           onChange={({ target }) => setEmail(target.value)}
-    //         />
-    //       </div>
-    //       <div className="form-group mt-2">
-    //         <label htmlFor="postcode">Postcode</label>
-    //         <input
-    //           id="postcode"
-    //           type="text"
-    //           className="form-control"
-    //           onChange={({ target }) => setPostcode(target.value)}
-    //         />
-    //       </div>
-    //       <div className="d-flex justify-content-center mt-4">
-    //         <button className="btn btn-success">
-    //           {isLoading ? "Just a tick..." : "Sign Up"}
-    //         </button>
-    //       </div>
-    //     </form>
-    //   </div>
-    // </section>
   );
 }

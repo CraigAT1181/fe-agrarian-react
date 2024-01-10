@@ -36,6 +36,18 @@ export const getMessagesByConverationID = async (conversation_id) => {
   return data;
 };
 
+export const sendMessage = async (conversation_id, sender_id, message) => {
+  const { data } = await api.post(
+    `/conversations/${conversation_id}/messages`,
+    {
+      sender_id: sender_id,
+      message: message,
+    }
+  );
+
+  return data;
+};
+
 export const userLogin = async (username, password) => {
   const { data } = await api.post("/authenticate", {
     username: username,

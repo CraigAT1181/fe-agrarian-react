@@ -9,8 +9,9 @@ export default function Messenger() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const { user } = useAuth();
-  const [messages, setMessages] = useState([]);
   const [conversations, setConversations] = useState([]);
+  const [conversationID, setConversationID] = useState();
+  const [messageSent, setMessageSent] = useState(false);
 
   useEffect(() => {
     setIsLoading(true);
@@ -45,34 +46,27 @@ export default function Messenger() {
       </p>
     );
 
-  const handleSend = (message) => {
-    setMessages([...messages, message]);
-  };
-
   return (
     <section
-      className="container-fluid h-75"
+      className="container-fluid"
       style={{ minHeight: "100vh" }}>
       <div className="row h-100">
         <div className="col-md-4 h-100">
-          {conversations.length > 0 && (
-            <ContactList
-              conversations={conversations}
-              setMessages={setMessages}
-            />
-          )}
+          <ContactList
+            conversations={conversations}
+            setConversationID={setConversationID}
+          />
         </div>
         <div className="col-md-8 h-100">
-          <div className="messages-container h-75">
-            {messages.length === 0 && (
-              <div>Click on a contact to continue your conversation.</div>
-            )}
-            {messages.length > 0 && <MessageList messages={messages} />}
-            {messages.length > 0 && (
-              <div className="input-box-container h-25">
-                <MessageInput onSend={handleSend} />
-              </div>
-            )}
+          {conversations.length > 0 ? (
+            <div>
+              <MessageList conversationID={conversationID} messageSent={messageSent} />
+            </div>
+          ) : (
+            <div>You've not contacted anyone yet.</div>
+          )}
+          <div className="input-box-container h-25">
+            <MessageInput conversationID={conversationID} setMessageSent={setMessageSent}/>
           </div>
         </div>
       </div>

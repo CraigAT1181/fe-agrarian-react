@@ -34,6 +34,7 @@ export default function Profile() {
 
   const handleLogout = () => {
     logout();
+    navigate("/");
   };
 
   if (isLoading) return <p>Just a moment...</p>;
