@@ -2,16 +2,12 @@ import React from "react";
 import { Routes, Route, Link, useNavigate } from "react-router-dom";
 import { useAuth } from "./AuthContext";
 import "../App.css";
+import MessageButton from "./MessageButton";
 
 export default function UserCard({ users }) {
   const { user } = useAuth();
   const navigate = useNavigate();
 
-  const handleMessageClick = () => {
-    navigate("/messenger");
-
-    // After completing Messenger functionality - use code to complete this button functionality.
-  };
   return (
     <>
       {users.map((person) => {
@@ -24,7 +20,8 @@ export default function UserCard({ users }) {
               width: "25rem",
               height: "auto",
               marginRight: "3rem",
-            }}>
+            }}
+          >
             <div className="row no-gutters">
               <div className="col-md-4">
                 <img
@@ -41,12 +38,7 @@ export default function UserCard({ users }) {
                   <div className="mb-1">
                     {user &&
                       (user.user_id !== person.user_id ? (
-                        <button
-                          className="btn btn-success mt-2"
-                          style={{ width: "8rem" }}
-                          onClick={handleMessageClick}>
-                          Message
-                        </button>
+                        <MessageButton partner={person.user_id} />
                       ) : (
                         <p style={{ color: "red" }}>(You)</p>
                       ))}
@@ -56,14 +48,16 @@ export default function UserCard({ users }) {
             </div>
             <div
               className="d-flex m-1 mt-2 mb-2 justify-content-center"
-              style={{ overflowX: "auto" }}>
+              style={{ overflowX: "auto" }}
+            >
               {person.produce.length > 0 ? (
                 person.produce.map((item, index) => {
                   return (
                     <p
                       className="custom-outline-success"
                       style={{ marginLeft: "1rem" }}
-                      key={index}>
+                      key={index}
+                    >
                       {item}
                     </p>
                   );
@@ -71,7 +65,8 @@ export default function UserCard({ users }) {
               ) : (
                 <p
                   className="custom-outline-danger"
-                  style={{ marginLeft: "1rem" }}>
+                  style={{ marginLeft: "1rem" }}
+                >
                   No produce available.
                 </p>
               )}

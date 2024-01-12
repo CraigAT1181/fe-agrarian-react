@@ -23,6 +23,26 @@ f Include token expiration and validation
 
 6. Filter required on MyPosts
 
+7. Adding functionality to support exchanging food items adding quantities to manage stock levels
+
+8. Background colours for posts, rather than simply coloured text
+
+9. Adding numbers to the usercard to show how many of a given item they have
+
+10. Adjusting the above number when some of the items have been taken.
+
+11. Filtering on distance to user when looking for produce
+        Adding functionality to the exchange page that shows the logged user card
+        And shows both markers, then allows us to see distance and how to get there
+
+12. Adding harvesting time / expiry times perhaps to produce (see usercard)
+
+13. Filtering for whether to accept expired products
+
+14. Storing allergy-contact info and adding warnings etc
+
+
+
 
 QUESTIONS:
 
