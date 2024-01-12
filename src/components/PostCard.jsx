@@ -3,6 +3,7 @@ import "../App.css";
 import { formatDistanceToNow } from "date-fns";
 import { useAuth } from "./AuthContext";
 import { deletePost } from "../api/api";
+import MessageButton from "./MessageButton";
 
 export default function PostCard({ post, setPostDeleted }) {
   const { user } = useAuth();
@@ -23,13 +24,15 @@ export default function PostCard({ post, setPostDeleted }) {
         {post.status === "Available" ? (
           <div
             className="col text-start"
-            style={{ color: "#28a745", fontWeight: "bold" }}>
+            style={{ color: "#28a745", fontWeight: "bold" }}
+          >
             {post.status}
           </div>
         ) : (
           <div
             className="col text-start"
-            style={{ color: "red", fontWeight: "bold" }}>
+            style={{ color: "red", fontWeight: "bold" }}
+          >
             {post.status}
           </div>
         )}
@@ -40,13 +43,15 @@ export default function PostCard({ post, setPostDeleted }) {
         {post.type === "Seed" ? (
           <div
             className="col text-end"
-            style={{ color: "#6C757D", fontWeight: "bold" }}>
+            style={{ color: "#6C757D", fontWeight: "bold" }}
+          >
             {post.type}
           </div>
         ) : (
           <div
             className="col text-end"
-            style={{ color: "#007BFF", fontWeight: "bold" }}>
+            style={{ color: "#007BFF", fontWeight: "bold" }}
+          >
             {post.type}
           </div>
         )}
@@ -69,11 +74,12 @@ export default function PostCard({ post, setPostDeleted }) {
             (user.user_id === post.user_id ? (
               <button
                 onClick={() => handleDelete(post.post_id)}
-                className="btn btn-outline-danger">
+                className="btn btn-outline-danger"
+              >
                 Delete Post
               </button>
             ) : (
-              <button className="btn btn-success">Message</button>
+              <MessageButton />
             ))}
         </div>
         <div className="col text-end align-self-center">{formattedDate}</div>
