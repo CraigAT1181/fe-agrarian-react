@@ -79,7 +79,7 @@ export default function PostCard({ post, setPostDeleted }) {
                 Delete Post
               </button>
             ) : (
-              <MessageButton />
+              <MessageButton partner={post.user_id} />
             ))}
         </div>
         <div className="col text-end align-self-center">{formattedDate}</div>

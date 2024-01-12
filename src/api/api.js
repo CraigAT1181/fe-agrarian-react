@@ -24,6 +24,15 @@ export const getUsersByProduceName = async (produceList) => {
   return data;
 };
 
+export const addConversationByUserID = async (userId, partnerID) => {
+  const { data } = await api.post(`/users/${userId}/conversations`, {
+    user1_id: userId,
+    user2_id: partnerID,
+  });
+
+  return data;
+};
+
 export const getConversationsByUserID = async (user_id) => {
   const { data } = await api.get(`/users/${user_id}/conversations`);
 

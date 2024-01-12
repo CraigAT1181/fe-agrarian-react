@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "./AuthContext";
-import { getConversationsByUserID } from "../api/api";
+import { addConversationByUserID, getConversationsByUserID } from "../api/api";
 
 export default function MessageButton({ partner }) {
   const navigate = useNavigate();
@@ -13,25 +13,27 @@ export default function MessageButton({ partner }) {
         console.log(conversation);
         console.log(partner);
         if (
-          (user.user_id === conversation.user1_id || conversation.user2_id) &&
-          (partner === conversation.user1_id || conversation.user2_id)
+          (user.user_id === conversation.user1_id ||
+            user.user_id === conversation.user2_id) &&
+          (partner === conversation.user1_id ||
+            partner === conversation.user2_id)
         ) {
-          console.log("true");
+          navigate("/messenger");
+        } else {
+          addConversationByUserID(user.user_id, partner).then((response) => {
+            console.log(response);
+            navigate("/messenger");
+          });
         }
       });
     });
   };
 
-  // Add a new conversation
-
-  // If conversation exists, load messages for that conversation
-
   return (
     <button
       className="btn btn-success mt-2"
       style={{ width: "8rem" }}
-      onClick={handleClick}
-    >
+      onClick={handleClick}>
       Message
     </button>
   );

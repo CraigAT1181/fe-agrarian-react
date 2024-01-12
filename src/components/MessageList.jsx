@@ -13,8 +13,12 @@ export default function MessageList({ conversationID, messageSent }) {
     if (conversationID) {
       getMessagesByConverationID(conversationID)
         .then(({ messages }) => {
-          setIsLoading(false);
-          setMessages(messages);
+          if (messages.length > 0) {
+            setIsLoading(false);
+            setMessages(messages);
+          } else {
+            setIsLoading(false);
+          }
         })
         .catch(
           ({
@@ -24,21 +28,17 @@ export default function MessageList({ conversationID, messageSent }) {
             },
           }) => {
             setIsLoading(false);
-            setError({ status, message: message });
+            setError({ error });
           }
         );
     } else {
       setIsLoading(false);
     }
+    setMessages([]);
   }, [conversationID, messageSent]);
 
   if (isLoading) return <p>Gathering your messages...</p>;
-  if (error)
-    return (
-      <p>
-        Error {error.status} {error.message}
-      </p>
-    );
+  if (error) return <p>{error.error}</p>;
 
   return (
     <div>
@@ -75,9 +75,7 @@ export default function MessageList({ conversationID, messageSent }) {
               })}
             </div>
           </>
-        ) : (
-          <div>Click on a contact to continue your conversation.</div>
-        )}
+        ) : null}
       </div>
     </div>
   );
