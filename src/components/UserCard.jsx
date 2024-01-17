@@ -1,12 +1,10 @@
 import React from "react";
-import { Routes, Route, Link, useNavigate } from "react-router-dom";
 import { useAuth } from "./AuthContext";
 import "../App.css";
 import MessageButton from "./MessageButton";
 
 export default function UserCard({ users }) {
   const { user } = useAuth();
-  const navigate = useNavigate();
 
   return (
     <>
@@ -23,14 +21,7 @@ export default function UserCard({ users }) {
             }}
           >
             <div className="row no-gutters">
-              <div className="col-md-4">
-                <img
-                  className="card-img"
-                  style={{ width: "6rem" }}
-                  src="https://via.placeholder.com/150"
-                  alt="User Image"
-                />
-              </div>
+
               <div className="col text-center">
                 <div className="d-flex-col mt-4">
                   <h4 className="card-title">{person.username}</h4>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "../App.css";
 import { formatDistanceToNow } from "date-fns";
 import { useAuth } from "./AuthContext";
