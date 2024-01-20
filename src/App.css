@@ -14,19 +14,40 @@
 }
 
 .contact-list-item {
-  height: 4rem;
+  height: auto;
+  max-width: 100%;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
+  text-align: center;
+  border: #28a745 solid 1px;
   justify-content: center;
   align-items: center;
-  margin-bottom: 0.2em;
+  position: relative;
+  margin-bottom: 0.5rem;
   font-weight: bold;
   cursor: pointer;
 }
 
+.contact-list-item::after {
+  position: absolute;
+  top: 5px; /* Adjust the top position as needed */
+  right: 5px; /* Adjust the right position as needed */
+  cursor: pointer;
+}
+
+.contact-list-item:hover {
+  box-shadow: 0 0 0 0.1rem rgba(40, 167, 69, 1);
+}
+
+.contact-list-name {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  width: 100%;
+}
+
 .input-group input.form-control:focus {
-  box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 1);
+  box-shadow: 0 0 0 0.1rem rgba(40, 167, 69, 1);
 }
 
 .post-filtering,
@@ -50,7 +71,7 @@
 .post-card {
   box-shadow: 2px 1px 2px 2px #28a745;
   padding: 0.5rem;
-margin-bottom: 1rem;
+  margin-bottom: 1rem;
 }
 
 .post {
