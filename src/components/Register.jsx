@@ -30,9 +30,14 @@ export default function Register() {
     const { username, password, email, postcode } = formData;
 
     register(username, email, password, postcode)
-      .then(() => {
-        setIsLoading(false);
-        navigate("/login");
+      .then(({ message }) => {
+        if (message === "New user registered.") {
+          setIsLoading(false);
+          navigate("/login");
+        } else {
+          setIsLoading(false);
+          setError(message);
+        }
       })
       .catch((error) => {
         setIsLoading(false);
@@ -42,12 +47,15 @@ export default function Register() {
 
   const handleClose = () => {
     setShow(false);
+    navigate("/");
   };
 
   if (isLoading) return <p>Just registering you, won't be long...</p>;
 
   return (
-    <Modal show={show} onHide={handleClose}>
+    <Modal
+      show={show}
+      onHide={handleClose}>
       <Modal.Header closeButton>
         <Modal.Title>Register</Modal.Title>
       </Modal.Header>
@@ -99,7 +107,9 @@ export default function Register() {
             />
           </div>
           <div className="d-flex justify-content-center mt-4">
-            <button className="btn btn-success" type="submit">
+            <button
+              className="btn btn-success"
+              type="submit">
               Confirm
             </button>
           </div>
