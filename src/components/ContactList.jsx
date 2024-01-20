@@ -46,7 +46,7 @@ export default function ContactList({ setConversationID }) {
     );
 
   return (
-    <div className="d-flex-col justify-content-center">
+    <div className="d-flex-col row justify-content-center">
       {conversations.length > 0 ? (
         conversations.map((conversation, index) =>
           conversation.user1_id === user.user_id ? (
@@ -70,7 +70,7 @@ export default function ContactList({ setConversationID }) {
           )
         )) : 
         
-        <div className="text-center align-items-center w-50 p-3">
+        <div className="row g-3 text-center align-items-center w-50 p-3">
         <p>
           Looks like you've not begun a conversation yet. To view what
           people have posted, or find growers near you, click below.
