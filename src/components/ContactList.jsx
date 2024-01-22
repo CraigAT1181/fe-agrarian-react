@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useAuth } from "./AuthContext";
-import { getConversationsByUserID } from "../api/api";
+import { deleteConversation, getConversationsByUserID } from "../api/api";
 import "../App.css";
 import { useNavigate } from "react-router-dom";
 
@@ -8,6 +8,7 @@ export default function ContactList({ setConversationID }) {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [conversations, setConversations] = useState([]);
+  const [conversationDeleted, setConversationDeleted] = useState(false);
   const { user } = useAuth();
 
   const navigate = useNavigate();
@@ -35,7 +36,30 @@ export default function ContactList({ setConversationID }) {
     } else {
       setIsLoading(false);
     }
-  }, [user]);
+
+    setConversationDeleted(false);
+  }, [user, conversationDeleted]);
+
+  const handleDeleteConversation = (conversationID) => {
+    setIsLoading(true);
+    deleteConversation(conversationID)
+      .then(() => {
+        setIsLoading(false);
+        setConversationID(null);
+        setConversationDeleted(true);
+      })
+      .catch(
+        ({
+          response: {
+            status,
+            data: { message },
+          },
+        }) => {
+          setIsLoading(false);
+          setError({ status, message: message });
+        }
+      );
+  };
 
   if (isLoading) return <p>Just a moment...</p>;
   if (error)
@@ -52,41 +76,68 @@ export default function ContactList({ setConversationID }) {
           conversation.user1_id === user.user_id ? (
             <div
               key={index}
-              className="contact-list-item rounded text-success"
-              onClick={() => {
-                setConversationID(conversation.conversation_id);
-              }}>
-              <p className="p-4 m-0 contact-list-name">{conversation.user2_username}</p>
+              className="contact-list-item rounded text-success">
+              <div
+                className="contact-list-name"
+                onClick={() => {
+                  setConversationID(conversation.conversation_id);
+                }}>
+                {conversation.user2_username}
+              </div>
+              <div className="position-absolute top-0 end-0 m-1 ">
+                <span
+                  className="badge bg-success-subtle"
+                  style={{ cursor: "pointer" }}
+                  onClick={() => {
+                    handleDeleteConversation(conversation.conversation_id);
+                  }}>
+                  X
+                </span>
+              </div>
             </div>
           ) : (
             <div
               key={index}
-              className="contact-list-item rounded text-success"
-              onClick={() => {
-                setConversationID(conversation.conversation_id);
-              }}>
-              <p className="p-4 m-0 contact-list-name">{conversation.user1_username}</p>
+              className="contact-list-item rounded text-success">
+              <div
+                className="contact-list-name"
+                onClick={() => {
+                  setConversationID(conversation.conversation_id);
+                }}>
+                {conversation.user1_username}
+              </div>
+              <div className="position-absolute top-0 end-0 m-1 ">
+                <span
+                  className="badge bg-success-subtle"
+                  style={{ cursor: "pointer" }}
+                  onClick={() => {
+                    handleDeleteConversation(conversation.conversation_id);
+                  }}>
+                  X
+                </span>
+              </div>
             </div>
           )
-        )) : 
-        
+        )
+      ) : (
         <div className="row g-3 text-center align-items-center w-50 p-3">
-        <p>
-          Looks like you've not begun a conversation yet. To view what
-          people have posted, or find growers near you, click below.
-        </p>
+          <p>
+            Looks like you've not begun a conversation yet. To view what people
+            have posted, or find growers near you, click below.
+          </p>
 
-        <button
-          onClick={() => navigate("/exchange")}
-          className="btn btn-success mx-1 fw-bold">
-          Exchange
-        </button>
-        <button
-          onClick={() => navigate("/posts")}
-          className="btn btn-success mx-1 fw-bold">
-          Posts
-        </button>
-      </div>}
+          <button
+            onClick={() => navigate("/exchange")}
+            className="btn btn-success mx-1 fw-bold">
+            Exchange
+          </button>
+          <button
+            onClick={() => navigate("/posts")}
+            className="btn btn-success mx-1 fw-bold">
+            Posts
+          </button>
+        </div>
+      )}
     </div>
   );
 }

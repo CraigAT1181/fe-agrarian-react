@@ -24,35 +24,36 @@ export const getUsersByProduceName = async (produceList) => {
   return data;
 };
 
-export const addConversationByUserID = async (userId, partnerID) => {
-  const { data } = await api.post(`/users/${userId}/conversations`, {
-    user1_id: userId,
+export const getConversationsByUserID = async (userID) => {
+  const { data } = await api.get(`/users/${userID}/conversations`);
+
+  return data;
+};
+
+export const addConversationByUserID = async (userID, partnerID) => {
+  const { data } = await api.post(`/users/${userID}/conversations`, {
+    user1_id: userID,
     user2_id: partnerID,
   });
 
   return data;
 };
 
-export const getConversationsByUserID = async (user_id) => {
-  const { data } = await api.get(`/users/${user_id}/conversations`);
+export const deleteConversation = async (conversationID) => {
+  await api.delete(`/conversations/${conversationID}`);
+};
+
+export const getMessagesByConverationID = async (conversationID) => {
+  const { data } = await api.get(`/conversations/${conversationID}/messages`);
 
   return data;
 };
 
-export const getMessagesByConverationID = async (conversation_id) => {
-  const { data } = await api.get(`/conversations/${conversation_id}/messages`);
-
-  return data;
-};
-
-export const sendMessage = async (conversation_id, sender_id, message) => {
-  const { data } = await api.post(
-    `/conversations/${conversation_id}/messages`,
-    {
-      sender_id: sender_id,
-      message: message,
-    }
-  );
+export const sendMessage = async (conversationID, senderID, message) => {
+  const { data } = await api.post(`/conversations/${conversationID}/messages`, {
+    sender_id: senderID,
+    message: message,
+  });
 
   return data;
 };

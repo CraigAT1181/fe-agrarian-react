@@ -13,33 +13,37 @@ f Develop backend further to include this process
 e Include increased error handling
 f Include token expiration and validation
 
-2. Implement token functionality above into current localstorage functionality
+2. Delete Conversation functionality
 
-3. Front-end testing
+3. Implement token functionality above into current localstorage functionality
 
-4. SQLAlchemy / resolve connection pool exhausted error on backend
+4. Front-end testing
 
-5. Expiry time to be added to both token and local storage
+5. SQLAlchemy / resolve connection pool exhausted error on backend
 
-6. Filter required on MyPosts
+6. Expiry time to be added to both token and local storage
 
-7. Adding functionality to support exchanging food items adding quantities to manage stock levels
+7. Filter required on MyPosts
 
-8. Background colours for posts, rather than simply coloured text
+--
 
-9. Adding numbers to the usercard to show how many of a given item they have
+8. Adding functionality to support exchanging food items adding quantities to manage stock levels
 
-10. Adjusting the above number when some of the items have been taken.
+9. Background colours for posts, rather than simply coloured text
 
-11. Filtering on distance to user when looking for produce
+10. Adding numbers to the usercard to show how many of a given item they have
+
+11. Adjusting the above number when some of the items have been taken.
+
+12. Filtering on distance to user when looking for produce
         Adding functionality to the exchange page that shows the logged user card
         And shows both markers, then allows us to see distance and how to get there
 
-12. Adding harvesting time / expiry times perhaps to produce (see usercard)
+13. Adding harvesting time / expiry times perhaps to produce (see usercard)
 
-13. Filtering for whether to accept expired products
+14. Filtering for whether to accept expired products
 
-14. Storing allergy-contact info and adding warnings etc
+15. Storing allergy-contact info and adding warnings etc
 
 
 

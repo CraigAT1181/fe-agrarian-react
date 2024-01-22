@@ -26,14 +26,12 @@
   position: relative;
   margin-bottom: 0.5rem;
   font-weight: bold;
-  cursor: pointer;
+padding: 1.5rem;
 }
 
-.contact-list-item::after {
-  position: absolute;
-  top: 5px; /* Adjust the top position as needed */
-  right: 5px; /* Adjust the right position as needed */
-  cursor: pointer;
+.contact-list-item::before {
+  content: attr(data-action);
+  display: none;
 }
 
 .contact-list-item:hover {
@@ -43,7 +41,8 @@
 .contact-list-name {
   word-wrap: break-word;
   overflow-wrap: break-word;
-  width: 100%;
+  width: auto;
+  cursor: pointer;
 }
 
 .input-group input.form-control:focus {
