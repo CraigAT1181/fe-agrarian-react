@@ -44,7 +44,20 @@ export default function Login() {
         <Modal.Title>Login</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        {error && <Alert variant="danger">{error}</Alert>}
+        {error && (
+          <Alert variant="danger">
+            <div>{error}</div>
+            <div
+              style={{
+                fontSize: "13px",
+                textDecoration: "underline",
+                cursor: "pointer",
+              }}
+              onClick={() => {navigate('/request-link')}}>
+              Reset password.
+            </div>
+          </Alert>
+        )}
         <form onSubmit={loginHandler}>
           <div className="form-group mt-2">
             <label htmlFor="username">Username</label>

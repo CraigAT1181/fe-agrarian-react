@@ -10,14 +10,14 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import Posts from "./components/Posts";
 import Footer from "./components/Footer";
+import RequestLink from "./components/RequestLink";
 
 export default function App() {
   return (
     <>
       <AuthProvider>
         <Header />
-        <main className="h-100"
-          >
+        <main className="h-100">
           <Routes>
             <Route
               path="/"
@@ -50,6 +50,10 @@ export default function App() {
             <Route
               path="/register"
               element={<Register />}
+            />
+            <Route
+              path="/request-link"
+              element={<RequestLink />}
             />
           </Routes>
         </main>
