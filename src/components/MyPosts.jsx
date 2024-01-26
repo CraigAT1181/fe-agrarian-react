@@ -6,7 +6,6 @@ import PostCard from "./PostCard";
 import CreatePostModal from "./CreatePost";
 
 export default function MyPosts() {
-  
   const { user } = useAuth();
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -33,6 +32,8 @@ export default function MyPosts() {
           setError({ status, message: message });
         }
       );
+
+    setPostDeleted(false);
   }, [newPost, postDeleted]);
 
   const handleShow = () => setShowModal(true);
@@ -56,7 +57,11 @@ export default function MyPosts() {
           onClick={handleShow}>
           Create Post
         </button>
-        <CreatePostModal show={showModal} handleClose={handleClose} setNewPost={setNewPost} />
+        <CreatePostModal
+          show={showModal}
+          handleClose={handleClose}
+          setNewPost={setNewPost}
+        />
       </div>
       <div>
         {userPosts.length > 0 ? (

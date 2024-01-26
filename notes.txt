@@ -23,7 +23,13 @@ XX. Delete Conversation functionality
 
 6. Expiry time to be added to both token and local storage
 
-7. Filter required on MyPosts
+7. When a user registers, they should receive an email with a token link to verify their email address
+
+8. Token revocation - to remove an old pw if user creates a new one 
+
+9. BEFORE PRODUCTION - transfer from gmail SMTP to gmail API or other for email sending from app
+
+10. Filter required on MyPosts
 
 --
 
@@ -58,3 +64,8 @@ CSS
 
 1. min-vh-100
 2. flex-grow-1
+
+
+IMPORTANT
+
+SMTP Google PW: thbl lpbw zoqn ndga
