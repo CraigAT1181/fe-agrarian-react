@@ -17,7 +17,7 @@ export default function ContactList({ setConversationID }) {
     setIsLoading(true);
 
     if (user) {
-      getConversationsByUserID(user.user_id)
+      getConversationsByUserID(user.userID)
         .then(({ conversations }) => {
           setIsLoading(false);
           setConversations(conversations);
@@ -73,7 +73,7 @@ export default function ContactList({ setConversationID }) {
     <div className="d-flex-col row justify-content-center">
       {conversations.length > 0 ? (
         conversations.map((conversation, index) =>
-          conversation.user1_id === user.user_id ? (
+          conversation.user1_id === user.userID ? (
             <div
               key={index}
               className="contact-list-item rounded text-success">

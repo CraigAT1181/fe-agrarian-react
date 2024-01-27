@@ -8,24 +8,24 @@ export default function MessageButton({ partner }) {
   const { user } = useAuth();
 
   const handleClick = () => {
-    getConversationsByUserID(user.user_id).then(({ conversations }) => {
+    getConversationsByUserID(user.userID).then(({ conversations }) => {
       if (conversations.length > 0) {
         conversations.map((conversation) => {
           if (
-            (user.user_id === conversation.user1_id ||
-              user.user_id === conversation.user2_id) &&
+            (user.userID === conversation.user1_id ||
+              user.userID === conversation.user2_id) &&
             (partner === conversation.user1_id ||
               partner === conversation.user2_id)
           ) {
             navigate("/messenger");
           } else {
-            addConversationByUserID(user.user_id, partner).then((response) => {
+            addConversationByUserID(user.userID, partner).then((response) => {
               navigate("/messenger");
             });
           }
         });
       } else {
-        addConversationByUserID(user.user_id, partner).then((response) => {
+        addConversationByUserID(user.userID, partner).then((response) => {
           navigate("/messenger");
         });
       }

@@ -19,7 +19,7 @@ export default function MyPosts() {
     getPosts()
       .then(({ posts }) => {
         setIsLoading(false);
-        setUserPosts(posts.filter((post) => user.user_id === post.user_id));
+        setUserPosts(posts.filter((post) => user.userID === post.user_id));
       })
       .catch(
         ({

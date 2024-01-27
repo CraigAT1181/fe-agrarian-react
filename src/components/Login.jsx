@@ -23,8 +23,8 @@ export default function Login() {
     e.preventDefault();
     setIsLoading(true);
     userLogin(username, password)
-      .then((data) => {
-        login(data);
+      .then(({ access_token }) => {
+        login(access_token);
 
         navigate("/");
       })
@@ -53,7 +53,9 @@ export default function Login() {
                 textDecoration: "underline",
                 cursor: "pointer",
               }}
-              onClick={() => {navigate('/request-link')}}>
+              onClick={() => {
+                navigate("/request-link");
+              }}>
               Reset password.
             </div>
           </Alert>

@@ -116,21 +116,20 @@ export default function MyProduce() {
             ))}
           </Dropdown.Menu>
         </Dropdown>
-        <Card
-          
-          style={{ border: "none" }}>
-          <Card.Body className="d-flex flex-row justify-content-center" style={{ height: "4.3rem" }}>
+        <Card style={{ border: "none" }}>
+          <Card.Body
+            className="d-flex flex-row justify-content-center"
+            style={{ height: "4.3rem" }}>
             {filteredUserProduce
-                  .filter((item, index, array) => array.indexOf(item) === index)
-                  .map((item, index) => (
-                    <p
-                      className="custom-outline-success"
-                      style={{ marginLeft: "1rem" }}
-                      key={index}>
-                      {item}
-                    </p>
-                  ))}
-
+              .filter((item, index, array) => array.indexOf(item) === index)
+              .map((item, index) => (
+                <p
+                  className="custom-outline-success"
+                  style={{ marginLeft: "1rem" }}
+                  key={index}>
+                  {item}
+                </p>
+              ))}
           </Card.Body>
         </Card>
         <div className="d-flex align-content-center">
@@ -138,7 +137,7 @@ export default function MyProduce() {
             className="btn btn-success mx-1"
             style={{ width: "8rem" }}
             onClick={() =>
-              handleConfirmProduce(user.user_id, filteredUserProduce)
+              handleConfirmProduce(user.userID, filteredUserProduce)
             }>
             Confirm
           </button>
@@ -148,12 +147,8 @@ export default function MyProduce() {
             Clear
           </button>
           {produceUpdated ? (
-              <p
-                className="mx-2 fade-alert text-success"
-                >
-                Produce updated!
-              </p>
-            ) : null}
+            <p className="mx-2 fade-alert text-success">Produce updated!</p>
+          ) : null}
         </div>
       </div>
     </section>

@@ -1,41 +1,67 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-
   const navigate = useNavigate();
 
   useEffect(() => {
-    const storedUser = localStorage.getItem("user");
+    const storedToken = localStorage.getItem("token");
 
-    if (storedUser) {
-      const parsedUser = JSON.parse(storedUser);
-      const { user, expiryTime } = parsedUser;
+    const authenticateUser = async () => {
+      try {
+        if (storedToken) {
+          const decodedToken = jwtDecode(storedToken);
 
-      if (expiryTime && new Date().getTime() < expiryTime) {
-        setUser(user);
-      } else {
+          if (decodedToken.exp * 1000 > new Date().getTime()) {
+            setUser({
+              userID: decodedToken.user_id,
+              username: decodedToken.sub,
+              email: decodedToken.email,
+              postcode: decodedToken.postcode,
+              produce: decodedToken.produce,
+            });
+          } else {
+            setUser(null);
+            localStorage.removeItem("token");
+            navigate("/");
+          }
+        }
+      } catch {
         setUser(null);
-        localStorage.removeItem("user");
+        localStorage.removeItem("token");
         navigate("/");
       }
+    };
+
+    authenticateUser();
+  }, [navigate]);
+
+  const login = (token) => {
+    try {
+      const decodedToken = jwtDecode(token);
+
+      setUser({
+        userID: decodedToken.user_id,
+        username: decodedToken.sub,
+        email: decodedToken.email,
+        postcode: decodedToken.postcode,
+        produce: decodedToken.produce,
+      });
+
+      localStorage.setItem("token", token);
+    } catch {
+      setUser(null);
+      localStorage.removeItem("token");
     }
-  }, []);
-
-  const login = (user) => {
-    setUser(user);
-
-    const expiryTime = new Date().getTime() + 60 * 60 * 1000;
-
-    localStorage.setItem("user", JSON.stringify({ user, expiryTime }));
   };
 
   const logout = () => {
     setUser(null);
-    localStorage.removeItem("user");
+    localStorage.removeItem("token");
   };
 
   return (

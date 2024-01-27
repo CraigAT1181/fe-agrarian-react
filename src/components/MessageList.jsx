@@ -47,7 +47,7 @@ export default function MessageList({ conversationID, messageSent }) {
           <>
             <div>
               {messages.map((message, index) => {
-                return message.sender_id === user.user_id ? (
+                return message.sender_id === user.userID ? (
                   <div
                     key={index}
                     className="d-flex justify-content-start">

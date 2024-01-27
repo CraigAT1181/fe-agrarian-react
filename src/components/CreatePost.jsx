@@ -21,7 +21,6 @@ export default function CreatePostModal({ show, handleClose, setNewPost }) {
   let [type, setType] = useState("");
   let [body, setBody] = useState("");
   let [image, setImage] = useState("");
-  
 
   const handleItemInput = (value) => {
     setItem(value);
@@ -56,7 +55,7 @@ export default function CreatePostModal({ show, handleClose, setNewPost }) {
   };
 
   const handleCreate = (user, item, status, type, image, body) => {
-    createPost(user.user_id, status, type, item, image, body).then((data) => {
+    createPost(user.userID, status, type, item, image, body).then((data) => {
       setNewPost(data);
       handleClose();
     });

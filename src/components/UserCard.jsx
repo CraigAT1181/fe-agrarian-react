@@ -18,17 +18,15 @@ export default function UserCard({ users }) {
               width: "25rem",
               height: "auto",
               marginRight: "3rem",
-            }}
-          >
+            }}>
             <div className="row no-gutters">
-
               <div className="col text-center">
                 <div className="d-flex-col mt-4">
                   <h4 className="card-title">{person.username}</h4>
 
                   <div className="mb-1">
                     {user &&
-                      (user.user_id !== person.user_id ? (
+                      (user.userID !== person.user_id ? (
                         <MessageButton partner={person.user_id} />
                       ) : (
                         <p style={{ color: "red" }}>(You)</p>
@@ -39,16 +37,14 @@ export default function UserCard({ users }) {
             </div>
             <div
               className="d-flex m-1 mt-2 mb-2 justify-content-center"
-              style={{ overflowX: "auto" }}
-            >
+              style={{ overflowX: "auto" }}>
               {person.produce.length > 0 ? (
                 person.produce.map((item, index) => {
                   return (
                     <p
                       className="custom-outline-success"
                       style={{ marginLeft: "1rem" }}
-                      key={index}
-                    >
+                      key={index}>
                       {item}
                     </p>
                   );
@@ -56,8 +52,7 @@ export default function UserCard({ users }) {
               ) : (
                 <p
                   className="custom-outline-danger"
-                  style={{ marginLeft: "1rem" }}
-                >
+                  style={{ marginLeft: "1rem" }}>
                   No produce available.
                 </p>
               )}

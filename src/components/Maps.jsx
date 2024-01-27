@@ -131,11 +131,10 @@ export default function Maps({ users }) {
           <GoogleMap
             center={center}
             zoom={zoom}
-            mapContainerStyle={{ width: "600px", height: "400px" }}
-          >
+            mapContainerStyle={{ width: "600px", height: "400px" }}>
             {postcodes.map((postcode, index) => (
               <Marker
-                key={postcode.user.user_id}
+                key={index}
                 position={postcode.position}
                 title={postcode.title}
                 onClick={() => handleMarkerClick(postcode.user, index)}
@@ -145,8 +144,7 @@ export default function Maps({ users }) {
             {selectedMarkerIndex !== null && !loading && (
               <InfoWindow
                 position={postcodes[selectedMarkerIndex].position}
-                onCloseClick={handleInfoWindowClose}
-              >
+                onCloseClick={handleInfoWindowClose}>
                 <div style={{ maxWidth: "auto", padding: "4px" }}>
                   <h6>{selectedUser.username}</h6>
                 </div>

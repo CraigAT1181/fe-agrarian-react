@@ -16,7 +16,7 @@ export default function MessageInput({ conversationID, setMessageSent }) {
     e.preventDefault();
     if (messageInput.trim() !== "") {
       setIsLoading(true);
-      sendMessage(conversationID, user.user_id, messageInput)
+      sendMessage(conversationID, user.userID, messageInput)
         .then(() => {
           setIsLoading(false);
           setMessageSent(true);
