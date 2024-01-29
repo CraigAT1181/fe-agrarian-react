@@ -14,7 +14,7 @@ export default function Footer() {
           </div>
         </div>
         <div>
-          <p className="m-0">&copy; 2024 Agrarian. All rights reserved.</p>
+          <p className="m-0">&copy; 2024 CropSwap. All rights reserved.</p>
         </div>
       </div>
     </footer>

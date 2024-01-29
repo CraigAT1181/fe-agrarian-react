@@ -13,8 +13,6 @@ f Develop backend further to include this process
 e Include increased error handling
 f Include token expiration and validation
 
-XX. Delete Conversation functionality
-
 3. Implement token functionality above into current localstorage functionality
 
 4. Front-end testing
