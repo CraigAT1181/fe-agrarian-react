@@ -8,9 +8,7 @@ export default function Messenger() {
   const [messageSent, setMessageSent] = useState(false);
 
   return (
-    <section
-      className="container-fluid"
-      style={{ minHeight: "100vh" }}>
+    <section className="container">
       <div className="row h-100">
         <div className="col-md-4 h-100">
           <ContactList setConversationID={setConversationID} />
