@@ -50,7 +50,13 @@ export default function Register() {
     navigate("/");
   };
 
-  if (isLoading) return <p>Just registering you, won't be long...</p>;
+  if (isLoading)
+    return (
+      <div className="d-flex-col text-center mt-4">
+        <i className="fa-solid fa-spinner fa-spin"></i>
+        <p>Just registering you, won't be long...</p>
+      </div>
+    );
 
   return (
     <Modal

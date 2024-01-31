@@ -75,7 +75,7 @@ export default function Profile() {
 
             <Dropdown.Item
               className="text-success"
-              onClick={() => navigate("/posts")}
+              onClick={() => navigate("/")}
               style={{ backgroundColor: "transparent" }}>
               View your posts
             </Dropdown.Item>

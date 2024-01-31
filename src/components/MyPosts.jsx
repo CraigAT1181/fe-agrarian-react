@@ -39,16 +39,25 @@ export default function MyPosts() {
   const handleShow = () => setShowModal(true);
   const handleClose = () => setShowModal(false);
 
-  if (isLoading) return <p>Just a moment...</p>;
+  if (isLoading)
+    return (
+      <div className="d-flex-col text-center mt-4">
+        <i className="fa-solid fa-spinner fa-spin"></i>
+        <p>Loading your posts...</p>
+      </div>
+    );
   if (error)
     return (
-      <p>
-        Error {error.status} {error.message}
-      </p>
+      <div className="d-flex-col text-center mt-4">
+        <i class="fa-solid fa-exclamation"></i>
+        <p>
+          Oops, there's been an error: {error.status} {error.message}
+        </p>
+      </div>
     );
 
   return (
-    <div className="container box-border p-4">
+    <div className="container box-border p-4 mt-3">
       <div className="d-flex justify-content-between">
         <h5>Your posts:</h5>
         <button

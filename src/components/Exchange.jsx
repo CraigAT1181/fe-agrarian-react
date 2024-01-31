@@ -10,14 +10,14 @@ export default function Exchange() {
   return (
     <>
       <section className="container">
-        <div className="row">
+        <div className="row box-border p-4">
           <ProduceFinder
             setUsers={setUsers}
             filteredProduce={filteredProduce}
             setFilteredProduce={setFilteredProduce}
           />
         </div>
-        <div className="row post-card">
+        <div className="row box-border p-4 mt-4">
           <div className="col-md-6">
             <Maps users={users} />
           </div>

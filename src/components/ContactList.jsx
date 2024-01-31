@@ -2,16 +2,15 @@ import React, { useState, useEffect } from "react";
 import { useAuth } from "./AuthContext";
 import { deleteConversation, getConversationsByUserID } from "../api/api";
 import "../App.css";
-import { useNavigate } from "react-router-dom";
 
-export default function ContactList({ setConversationID }) {
+
+export default function ContactList({ conversations, setConversations, setConversationID }) {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [conversations, setConversations] = useState([]);
   const [conversationDeleted, setConversationDeleted] = useState(false);
   const { user } = useAuth();
 
-  const navigate = useNavigate();
+  
 
   useEffect(() => {
     setIsLoading(true);
@@ -61,16 +60,27 @@ export default function ContactList({ setConversationID }) {
       );
   };
 
-  if (isLoading) return <p>Just a moment...</p>;
+  if (isLoading)
+    return (
+      <div className="d-flex-col text-center mt-4">
+        <i className="fa-solid fa-spinner fa-spin"></i>
+        <p>Loading conversations...</p>
+      </div>
+    );
   if (error)
     return (
-      <p>
-        Error {error.status} {error.message}
-      </p>
+      <div className="d-flex-col text-center mt-4">
+        <i class="fa-solid fa-exclamation"></i>
+        <p>
+          Oops, there's been an error: {error.status} {error.message}
+        </p>
+      </div>
     );
 
   return (
-    <div className="d-flex-col row justify-content-center">
+    <div
+      className="d-flex-col justify-content-center"
+      style={{ overflowY: "auto" }}>
       {conversations.length > 0 ? (
         conversations.map((conversation, index) =>
           conversation.user1_id === user.userID ? (
@@ -120,23 +130,7 @@ export default function ContactList({ setConversationID }) {
           )
         )
       ) : (
-        <div className="row g-3 text-center align-items-center w-50 p-3">
-          <p>
-            Looks like you've not begun a conversation yet. To view what people
-            have posted, or find growers near you, click below.
-          </p>
-
-          <button
-            onClick={() => navigate("/exchange")}
-            className="btn btn-success mx-1 fw-bold">
-            Exchange
-          </button>
-          <button
-            onClick={() => navigate("/posts")}
-            className="btn btn-success mx-1 fw-bold">
-            Posts
-          </button>
-        </div>
+        null
       )}
     </div>
   );

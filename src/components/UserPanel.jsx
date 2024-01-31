@@ -28,25 +28,28 @@ export default function UserPanel({ users, setUsers }) {
       );
   }, []);
 
-  if (isLoading) return <p>Just a moment...</p>;
-  if (error)
-    return (
+  if (isLoading)
+  return (
+    <div className="d-flex-col text-center mt-4">
+      <i className="fa-solid fa-spinner fa-spin"></i>
+      <p>Loading user list...</p>
+    </div>
+  );
+if (error)
+  return (
+    <div className="d-flex-col text-center mt-4">
+      <i class="fa-solid fa-exclamation"></i>
       <p>
-        Error {error.status} {error.message}
+        Oops, there's been an error: {error.status} {error.message}
       </p>
-    );
+    </div>
+  );
 
   return (
     <section
-      className="container d-flex justify-content-center"
-      >
-      <div
-        className="row"
-        style={{ height: "400px", overflowY: "auto" }}>
-        <div className="col-md-6">
-          <UserCard users={users} />
-        </div>
-      </div>
+      className="container p-2"
+      style={{ height: "400px", overflowY: "auto"}}>
+      <UserCard users={users} />
     </section>
   );
 }

@@ -37,16 +37,25 @@ export default function MessageInput({ conversationID, setMessageSent }) {
     }
   }
 
-  if (isLoading) return <p>Sending your message...</p>;
+  if (isLoading)
+    return (
+      <div className="d-flex-col text-center mt-4">
+        <i className="fa-solid fa-spinner fa-spin"></i>
+        <p>Sending your message...</p>
+      </div>
+    );
   if (error)
     return (
-      <p>
-        Error {error.status} {error.message}
-      </p>
+      <div className="d-flex-col text-center mt-4">
+        <i class="fa-solid fa-exclamation"></i>
+        <p>
+          Oops, there's been an error: {error.status} {error.message}
+        </p>
+      </div>
     );
 
   return (
-    <div>
+    <div className="message-input mt-2">
       <form onSubmit={handleSend}>
         <div className="input-group">
           <label
@@ -59,10 +68,13 @@ export default function MessageInput({ conversationID, setMessageSent }) {
             placeholder="Type your message here"
             value={messageInput}
             onChange={handleChange}
+            disabled={!conversationID}
           />
           <button
+            id="message-button"
             className="btn btn-success"
-            type="submit">
+            type="submit"
+            disabled={!conversationID}>
             Send
           </button>
         </div>

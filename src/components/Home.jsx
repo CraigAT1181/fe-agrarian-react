@@ -8,24 +8,25 @@ export default function Home() {
   const { user } = useAuth();
 
   return (
-    <div className="container p-3">
+    <div className="container h-100 d-flex flex-grow-1">
       {user !== null ? (
-        <div className="row g-3">
-          <div>
-            <MyProduce />
-          </div>
-          <div>
-            <MyPosts />
-          </div>
+        <div className="row w-100">
+          <MyProduce />
+
+          <MyPosts />
         </div>
       ) : (
-        <div className="text-center align-items-center p-3">
-          <h3>Join the Agrarian Community</h3>
-          <p className="m-4">
-            Register using the button at the top to join a community <br />
-            of people who want to connect, share and re-capture the independence
-            and food-security of our ancestors!
-          </p>
+        <div
+          className="container d-flex text-center justify-content-center align-items-center"
+          style={{ minHeight: "50vh" }}>
+          <div className="box-border p-4">
+            <h3>Join the Agrarian Community</h3>
+            <p className="m-4">
+              Register using the button at the top to join a community <br />
+              of people who want to connect, share, and re-capture the
+              independence and food-security of our ancestors!
+            </p>
+          </div>
         </div>
       )}
     </div>

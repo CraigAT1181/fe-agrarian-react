@@ -1,12 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { useAuth } from "./AuthContext";
 import { getMessagesByConverationID } from "../api/api";
+import { useNavigate } from "react-router-dom";
 
-export default function MessageList({ conversationID, messageSent }) {
+export default function MessageList({
+  conversationID,
+  messageSent,
+  conversations,
+}) {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [messages, setMessages] = useState([]);
   const { user } = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
     setIsLoading(true);
@@ -37,21 +43,42 @@ export default function MessageList({ conversationID, messageSent }) {
     setMessages([]);
   }, [conversationID, messageSent]);
 
-  if (isLoading) return <p>Gathering your messages...</p>;
-  if (error) return <p>{error.error}</p>;
+  if (isLoading)
+    return (
+      <div className="d-flex-col text-center mt-4">
+        <i className="fa-solid fa-spinner fa-spin"></i>
+        <p>Loading chat...</p>
+      </div>
+    );
+  if (error)
+    return (
+      <div className="d-flex-col text-center mt-4">
+        <i class="fa-solid fa-exclamation"></i>
+        <p>
+          Oops, there's been an error: {error.status} {error.message}
+        </p>
+      </div>
+    );
 
   return (
-    <div>
-      <div className="message-container h-75">
-        {messages.length > 0 ? (
-          <>
+    <div
+      className="message-container p-4"
+      style={{ overflowY: "auto" }}>
+      {conversations.length !== 0 ? (
+        <>
+          <div className="d-flex justify-content-center">
+            {!conversationID && (
+              <div>Click on a contact to begin chatting.</div>
+            )}
+          </div>
+          {messages.length > 0 ? (
             <div>
               {messages.map((message, index) => {
                 return message.sender_id === user.userID ? (
                   <div
                     key={index}
                     className="d-flex justify-content-start">
-                    <div className="bg-success-subtle rounded p-2 mb-2 w-75">
+                    <div className="bg-success text-white rounded p-2 mb-2 w-75">
                       <p style={{ fontSize: "12px" }}>{message.sender_name}</p>
                       <p>{message.message}</p>
                       <p style={{ fontSize: "12px", margin: "0px" }}>
@@ -74,9 +101,27 @@ export default function MessageList({ conversationID, messageSent }) {
                 );
               })}
             </div>
-          </>
-        ) : null}
-      </div>
+          ) : null}
+        </>
+      ) : (
+        <div className="d-flex-col text-center">
+          <p>
+            Looks like you've not begun a conversation yet. To view what people
+            have posted, or find growers near you, click below.
+          </p>
+
+          <button
+            onClick={() => navigate("/exchange")}
+            className="btn btn-success mx-1 fw-bold">
+            Exchange
+          </button>
+          <button
+            onClick={() => navigate("/posts")}
+            className="btn btn-success mx-1 fw-bold">
+            Posts
+          </button>
+        </div>
+      )}
     </div>
   );
 }

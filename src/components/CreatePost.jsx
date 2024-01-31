@@ -5,6 +5,7 @@ import {
   Button,
   ToggleButtonGroup,
   ToggleButton,
+  Alert,
 } from "react-bootstrap";
 import { createPost } from "../api/api";
 
@@ -55,10 +56,20 @@ export default function CreatePostModal({ show, handleClose, setNewPost }) {
   };
 
   const handleCreate = (user, item, status, type, image, body) => {
-    createPost(user.userID, status, type, item, image, body).then((data) => {
-      setNewPost(data);
-      handleClose();
-    });
+    setIsLoading(true);
+
+    createPost(user.userID, status, type, item, image, body)
+      .then((data) => {
+        setIsLoading(false);
+        setNewPost(data);
+        handleClose();
+      })
+      .catch(() => {
+        setIsLoading(false);
+        setError(
+          "Ensure you've selected a Status and a Type (e.g. 'Wanted' 'Seeds')"
+        );
+      });
   };
 
   return (
@@ -144,6 +155,17 @@ export default function CreatePostModal({ show, handleClose, setNewPost }) {
         </form>
       </Modal.Body>
       <Modal.Footer>
+        {error && (
+          <Alert variant="danger">
+            <div>{error}</div>
+          </Alert>
+        )}
+        {isLoading && (
+          <div className="d-flex-col text-center mt-4">
+            <i className="fa-solid fa-spinner fa-spin"></i>
+            <p>Creating your post...</p>
+          </div>
+        )}
         <Button
           variant="secondary"
           onClick={handleClose}>

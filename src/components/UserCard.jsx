@@ -12,19 +12,15 @@ export default function UserCard({ users }) {
         return (
           <article
             id="UserCard"
-            className="card shadow mt-4 "
+            className="user-card mb-4 "
             key={person.user_id}
-            style={{
-              width: "25rem",
-              height: "auto",
-              marginRight: "3rem",
-            }}>
+            >
             <div className="row no-gutters">
               <div className="col text-center">
                 <div className="d-flex-col mt-4">
-                  <h4 className="card-title">{person.username}</h4>
+                  <h4 className="card-title mb-2">{person.username}</h4>
 
-                  <div className="mb-1">
+                  <div className="my-2">
                     {user &&
                       (user.userID !== person.user_id ? (
                         <MessageButton partner={person.user_id} />

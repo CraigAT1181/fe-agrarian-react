@@ -17,7 +17,7 @@ export default function App() {
     <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
       <AuthProvider>
         <Header />
-        <main style={{ flex: 1 }}>
+        <main style={{ flex: 1, alignContent: "center" }}>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/home" element={<Home />} />

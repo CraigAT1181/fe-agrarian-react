@@ -34,7 +34,13 @@ export default function Login() {
       });
   };
 
-  if (isLoading) return <p>Logging you in...</p>;
+  if (isLoading)
+    return (
+      <div className="d-flex-col text-center mt-4">
+        <i className="fa-solid fa-spinner fa-spin"></i>
+        <p>Logging you in...</p>
+      </div>
+    );
 
   return (
     <Modal

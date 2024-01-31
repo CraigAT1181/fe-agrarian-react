@@ -2,34 +2,39 @@ import React, { useState } from "react";
 import ContactList from "./ContactList";
 import MessageInput from "./MessageInput";
 import MessageList from "./MessageList";
+import "../App.css";
 
 export default function Messenger() {
   const [conversationID, setConversationID] = useState(null);
+  const [conversations, setConversations] = useState([]);
   const [messageSent, setMessageSent] = useState(false);
 
   return (
     <section className="container">
-      <div className="row h-100">
+      <div className="row messenger-panel">
         <div className="col-md-4 h-100">
-          <ContactList setConversationID={setConversationID} />
+          <ContactList
+            conversations={conversations}
+            setConversations={setConversations}
+            setConversationID={setConversationID}
+          />
         </div>
-        <div className="col-md-8 h-100">
-          {conversationID && (
-            <div>
-              <MessageList
-                conversationID={conversationID}
-                messageSent={messageSent}
-              />
-            </div>
-          )}
-          {conversationID && (
-            <div className="input-box-container h-25">
-              <MessageInput
-                conversationID={conversationID}
-                setMessageSent={setMessageSent}
-              />
-            </div>
-          )}
+
+        <div className="col-md-8">
+          <div>
+            <MessageList
+              conversationID={conversationID}
+              messageSent={messageSent}
+              conversations={conversations}
+            />
+          </div>
+
+          <div>
+            <MessageInput
+              conversationID={conversationID}
+              setMessageSent={setMessageSent}
+            />
+          </div>
         </div>
       </div>
     </section>

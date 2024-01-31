@@ -37,6 +37,7 @@ export default function Posts() {
         }
       );
     setNotFound(null);
+    setPostDeleted(false);
   }, [filteredPosts, postDeleted]);
 
   const handleSearch = (e) => {
@@ -150,12 +151,21 @@ export default function Posts() {
     }
   };
 
-  if (isLoading) return <p>Just a moment...</p>;
+  if (isLoading)
+    return (
+      <div className="d-flex-col text-center mt-4">
+        <i className="fa-solid fa-spinner fa-spin"></i>
+        <p>Loading posts...</p>
+      </div>
+    );
   if (error)
     return (
-      <p>
-        Error {error.status} {error.message}
-      </p>
+      <div className="d-flex-col text-center mt-4">
+        <i class="fa-solid fa-exclamation"></i>
+        <p>
+          Oops, there's been an error: {error.status} {error.message}
+        </p>
+      </div>
     );
 
   return (
@@ -212,7 +222,7 @@ export default function Posts() {
       </div>
       <div className="d-flex justify-content-center">
         <form
-          className="mx-5 w-25"
+          className="my-3 w-25"
           onSubmit={(e) => handleSearch(e)}>
           <div className="input-group">
             <label
@@ -236,8 +246,10 @@ export default function Posts() {
         </form>
       </div>
       <div className="container text-center">
+        <div>
+          {notFound ? <h5 style={{ color: "red" }}>{notFound}</h5> : null}
+        </div>
         <div className="post-display">
-          {notFound ? <h5>{notFound}</h5> : null}
           {filteredPosts.length > 0
             ? filteredPosts.map((post) => (
                 <PostCard
