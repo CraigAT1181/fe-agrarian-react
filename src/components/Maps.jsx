@@ -131,7 +131,7 @@ export default function Maps({ users }) {
           <GoogleMap
             center={center}
             zoom={zoom}
-            mapContainerStyle={{ width: "600px", height: "400px" }}>
+            mapContainerStyle={{ width: "auto", height: "400px" }}>
             {postcodes.map((postcode, index) => (
               <Marker
                 key={index}
