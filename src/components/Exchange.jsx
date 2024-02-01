@@ -10,24 +10,29 @@ export default function Exchange() {
   return (
     <>
       <section className="container">
-        <div className="row p-4">
-          <ProduceFinder
-            setUsers={setUsers}
-            filteredProduce={filteredProduce}
-            setFilteredProduce={setFilteredProduce}
-          />
-        </div>
-        <div className="row box-border p-4 mt-4">
-          <div className="col-md-6">
+        <div className="row">
+        <div className="col-md-6">
+          <div>
             <Maps users={users} />
           </div>
 
-          <div className="col-md-6">
+          <div>
+            <ProduceFinder
+              setUsers={setUsers}
+              filteredProduce={filteredProduce}
+              setFilteredProduce={setFilteredProduce}
+            />
+          </div>
+        </div>
+
+        <div className="col-md-6">
+          <div>
             <UserPanel
               setUsers={setUsers}
               users={users}
             />
           </div>
+        </div>
         </div>
       </section>
     </>

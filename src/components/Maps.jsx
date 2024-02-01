@@ -126,7 +126,7 @@ export default function Maps({ users }) {
 
   return (
     <>
-      <div className="d-flex justify-content-center">
+      <div className="container box-border p-3 justify-content-center">
         {isLoaded && (
           <GoogleMap
             center={center}

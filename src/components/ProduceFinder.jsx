@@ -91,8 +91,8 @@ export default function ProduceFinder({
     );
 
   return (
-    <section className="container w-50 text-center justify-content-center">
-      <h3>Find Local Growers</h3>
+    <section className="container box-border p-3 mt-5 text-center justify-content-center">
+      <h5>Looking for something specific?</h5>
 
       <div className="mb-2">
         <Dropdown

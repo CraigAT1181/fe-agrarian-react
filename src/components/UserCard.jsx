@@ -12,7 +12,7 @@ export default function UserCard({ users }) {
         return (
           <article
             id="UserCard"
-            className="user-card mb-4 "
+            className="user-card mb-3 "
             key={person.user_id}
             >
             <div className="row no-gutters">
