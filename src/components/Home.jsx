@@ -18,13 +18,14 @@ export default function Home() {
       ) : (
         <div
           className="container d-flex text-center justify-content-center align-items-center"
-          style={{ minHeight: "50vh" }}>
+          style={{ minHeight: "50vh" }}
+        >
           <div className="box-border p-4">
-            <h3>Join the Agrarian Community</h3>
+            <h3>Join the Community</h3>
             <p className="m-4">
               Register using the button at the top to join a community <br />
-              of people who want to connect, share, and re-capture the
-              independence and food-security of our ancestors!
+              of people who want to connect, share, and re-capture the natural
+              skills and independence of our ancestors!
             </p>
           </div>
         </div>
