@@ -22,11 +22,16 @@ export default function Home() {
         >
           <div className="box-border p-4">
             <h3>Join the Community</h3>
-            <p className="m-4">
+            <p className="mx-4">
               Register using the button at the top to join a community <br />
               of people who want to connect, share, and re-capture the natural
-              skills and independence of our ancestors!
+              skills and food-independence of our ancestors!
             </p>
+            <img
+              src="/CookingPotLogo.jpg"
+              alt="Cooking Pot Logo"
+              style={{ height: "20rem" }}
+            />
           </div>
         </div>
       )}
