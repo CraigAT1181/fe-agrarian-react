@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { getProduce, getUsers } from "../api/api";
 import { getUsersByProduceName } from "../api/api";
-import { Dropdown, Card } from "react-bootstrap";
+import { Dropdown, Card, Button } from "react-bootstrap";
 import "../App.css";
 
 export default function ProduceFinder({
@@ -74,12 +74,12 @@ export default function ProduceFinder({
   }
 
   if (isLoading)
-  return (
-    <div className="d-flex-col text-center mt-4">
-      <i className="fa-solid fa-spinner fa-spin"></i>
-      <p>Loading Local Grower Search...</p>
-    </div>
-  );
+    return (
+      <div className="d-flex-col text-center mt-4">
+        <i className="fa-solid fa-spinner fa-spin"></i>
+        <p>Loading Local Grower Search...</p>
+      </div>
+    );
   if (error)
     return (
       <div className="d-flex-col text-center mt-4">
@@ -91,10 +91,9 @@ export default function ProduceFinder({
     );
 
   return (
-    <section className="container justify-content-center">
-      <div className="text-start">
-        <h3>Find Local Growers</h3>
-      </div>
+    <section className="container w-50 text-center justify-content-center">
+      <h3>Find Local Growers</h3>
+
       <div className="mb-2">
         <Dropdown
           onSelect={(selectedItem) => handleProduceSelection(selectedItem)}>
@@ -104,7 +103,7 @@ export default function ProduceFinder({
             Select Produce
           </Dropdown.Toggle>
 
-          <Dropdown.Menu>
+          <Dropdown.Menu style={{ maxHeight: "11rem", overflowX: "auto" }}>
             {sortAllProduce().map((item) => (
               <Dropdown.Item
                 key={item}
@@ -116,7 +115,7 @@ export default function ProduceFinder({
         </Dropdown>
       </div>
       <div
-        className="d-flex"
+        className="d-flex justify-content-center"
         style={{ minHeight: "4.3rem", overflowX: "auto" }}>
         <Card
           className="rounded"
@@ -137,15 +136,13 @@ export default function ProduceFinder({
       </div>
 
       <div className="d-flex m-1 mt-2 mb-2 justify-content-center">
-        <button
-          className="btn btn-success mt-2"
-          style={{ width: "8rem" }}
+        <Button
+          variant="success mx-2"
           onClick={handleUserSearch}>
           Search
-        </button>
-        <button
-          className="btn btn-outline-success mt-2"
-          style={{ width: "8rem", marginLeft: "2rem" }}
+        </Button>
+        <Button
+          variant="outline-danger"
           onClick={() => {
             setFilteredProduce([]);
             getUsers().then(({ users }) => {
@@ -153,11 +150,7 @@ export default function ProduceFinder({
             });
           }}>
           Clear
-        </button>
-      </div>
-
-      <div className="d-flex-col m-1 mt-2 mb-2 justify-content-center">
-        <div className="row text-center"></div>
+        </Button>
       </div>
     </section>
   );

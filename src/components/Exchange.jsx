@@ -10,7 +10,7 @@ export default function Exchange() {
   return (
     <>
       <section className="container">
-        <div className="row box-border p-4">
+        <div className="row p-4">
           <ProduceFinder
             setUsers={setUsers}
             filteredProduce={filteredProduce}
