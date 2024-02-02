@@ -5,25 +5,23 @@ export default function Footer() {
   return (
     <footer
       className="bg-success text-white text-center p-3 mt-4"
-      style={{ maxHeight: "100%" }}
-    >
+      style={{ maxHeight: "100%" }}>
       <div className="container">
         <div className="row">
           <div className="col">
-            <p>About</p>
+            <div>About</div>
+            <div className="mt-3">Offer Your Support</div>
           </div>
           <div className="col">
-            <p>Privacy Policy</p>
+            <div>Privacy Policy</div>
+            <div className="mt-3">Cookie Policy</div>
           </div>
           <div className="col">
-            <p>Contact</p>
+            <div>Contact</div>
+            <div className="mt-3"></div>
           </div>
         </div>
-        <div>
-          <p className="m-0">
-            &copy; 2022 The Cooking Pot CIC. All rights reserved.
-          </p>
-        </div>
+        <div className="mt-3">&copy; 2022 The Cooking Pot CIC. All rights reserved.</div>
       </div>
     </footer>
   );

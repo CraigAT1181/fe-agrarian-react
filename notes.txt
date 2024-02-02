@@ -29,6 +29,14 @@ f Include token expiration and validation
 
 10. Filter required on MyPosts
 
+11. Click on Map marker to locate user card
+
+12. Connecting to Plants API
+
+13. Creating Blogging page
+
+14. Collection and food expiry UI for foodbanks
+
 --
 
 8. Adding functionality to support exchanging food items adding quantities to manage stock levels
