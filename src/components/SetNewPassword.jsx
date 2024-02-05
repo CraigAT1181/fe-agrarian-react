@@ -30,6 +30,7 @@ export default function SetNewPassword() {
       setError(null);
       passwordRequest(newPassword, token)
         .then(({ message }) => {
+            setIsLoading(false);
           setResetSuccess(message);
         })
         .catch(({ response }) => {

@@ -28,6 +28,7 @@ export default function RequestLink() {
       .then(() => {
         setIsLoading(false);
         setLinkSent(true);
+        setError(null);
       })
       .catch(({ response }) => {
         setIsLoading(false);
