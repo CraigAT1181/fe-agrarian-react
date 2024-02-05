@@ -67,6 +67,23 @@ export const userLogin = async (username, password) => {
   return data;
 };
 
+export const requestLink = async (email) => {
+  const { data } = await api.post("/reset-request", {
+    email: email,
+  });
+
+  return data;
+};
+
+export const passwordRequest = async (newPassword, token) => {
+  const { data } = await api.post("/set-new-password", {
+    new_password: newPassword,
+    token: token,
+  });
+
+  return data;
+};
+
 export const register = async (username, email, password, postcode) => {
   const { data } = await api.post("/users", {
     username: username,

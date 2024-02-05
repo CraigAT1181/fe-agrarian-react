@@ -37,6 +37,8 @@ f Include token expiration and validation
 
 14. Collection and food expiry UI for foodbanks
 
+15. Change login from user name to email.
+
 --
 
 8. Adding functionality to support exchanging food items adding quantities to manage stock levels

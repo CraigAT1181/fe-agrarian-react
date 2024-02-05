@@ -12,11 +12,12 @@ export default function Profile() {
 
   const handleDelete = () => {
     setIsLoading(true);
+    console.log(user.userID);
     deleteUser(user.userID)
       .then(() => {
         setIsLoading(false);
         logout();
-        localStorage.removeItem("user");
+        localStorage.removeItem("token");
         navigate("/");
       })
       .catch(
