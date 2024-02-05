@@ -39,7 +39,7 @@ export default function RequestLink() {
     return (
       <div className="d-flex-col text-center mt-4">
         <i className="fa-solid fa-spinner fa-spin"></i>
-        <p>Sending your message...</p>
+        <p>Sending your link...</p>
       </div>
     );
 

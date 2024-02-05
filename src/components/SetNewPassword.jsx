@@ -39,6 +39,14 @@ export default function SetNewPassword() {
     }
   };
 
+  if (isLoading)
+  return (
+    <div className="d-flex-col text-center mt-4">
+      <i className="fa-solid fa-spinner fa-spin"></i>
+      <p>Setting your new password...</p>
+    </div>
+  );
+
   return (
     <Modal
       show={show}
