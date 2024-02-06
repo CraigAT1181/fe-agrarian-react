@@ -25,12 +25,14 @@ export default function SetNewPassword() {
     setIsLoading(true);
 
     if (newPassword !== retypePassword) {
+      setIsLoading(false);
       setError("Passwords do not match, please try again.");
     } else {
       setError(null);
+      setIsLoading(true);
       passwordRequest(newPassword, token)
         .then(({ message }) => {
-            setIsLoading(false);
+          setIsLoading(false);
           setResetSuccess(message);
         })
         .catch(({ response }) => {
@@ -41,12 +43,12 @@ export default function SetNewPassword() {
   };
 
   if (isLoading)
-  return (
-    <div className="d-flex-col text-center mt-4">
-      <i className="fa-solid fa-spinner fa-spin"></i>
-      <p>Setting your new password...</p>
-    </div>
-  );
+    return (
+      <div className="d-flex-col text-center mt-4">
+        <i className="fa-solid fa-spinner fa-spin"></i>
+        <p>Setting your new password...</p>
+      </div>
+    );
 
   return (
     <Modal
