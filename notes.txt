@@ -2,30 +2,15 @@ To do:
 
 1. Login Reset Password functionality
 
-Involves:
+        - Include token expiration
 
-a User email input to allow user to request link to Reset
-b Generate reset token to verify identity during reset
-c Send email to user containing token
-d Create ResetPassword component
-e Update password on backend on submit
-f Develop backend further to include this process
-e Include increased error handling
-f Include token expiration and validation
-
-3. Implement token functionality above into current localstorage functionality
+2. Use above functionality to implement e-mail confirmation on reg
 
 4. Front-end testing
 
 5. SQLAlchemy / resolve connection pool exhausted error on backend
 
-6. Expiry time to be added to both token and local storage
-
-7. When a user registers, they should receive an email with a token link to verify their email address
-
-8. Token revocation - to remove an old pw if user creates a new one 
-
-9. BEFORE PRODUCTION - transfer from gmail SMTP to gmail API or other for email sending from app
+8. Token revocation - token should be deleted when used so can't re-use
 
 10. Filter required on MyPosts
 
@@ -38,6 +23,8 @@ f Include token expiration and validation
 14. Collection and food expiry UI for foodbanks
 
 15. Change login from user name to email.
+
+16. UPDATE DELETE CONVERSATION to soft deletion - see chat.
 
 --
 
