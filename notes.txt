@@ -26,6 +26,8 @@ To do:
 
 16. UPDATE DELETE CONVERSATION to soft deletion - see chat.
 
+17. After unsuccessful posts search, hitting clear breaks the page. !!!!!!! BUG
+
 --
 
 8. Adding functionality to support exchanging food items adding quantities to manage stock levels
