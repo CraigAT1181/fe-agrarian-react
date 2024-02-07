@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { getProduce, getUsers } from "../api/api";
 import { getUsersByProduceName } from "../api/api";
-import { Dropdown, Card, Button } from "react-bootstrap";
+import { Dropdown, Card, Button, Alert } from "react-bootstrap";
 import "../App.css";
 
 export default function ProduceFinder({
@@ -14,6 +14,7 @@ export default function ProduceFinder({
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   let [allProduce, setAllProduce] = useState([]);
+  const [notAvailable, setNotAvailable] = useState(null);
 
   useEffect(() => {
     setIsLoading(true);
@@ -56,8 +57,12 @@ export default function ProduceFinder({
   function handleUserSearch() {
     if (filteredProduce.length !== 0) {
       getUsersByProduceName(filteredProduce)
-        .then(({ users }) => {
-          setUsers(users);
+        .then((data) => {
+          if (data.message) {
+            setNotAvailable(data.message);
+          } else {
+            setUsers(data.users);
+          }
         })
         .catch(
           ({
@@ -94,9 +99,12 @@ export default function ProduceFinder({
     <section className="container box-border p-3 mt-5 text-center justify-content-center">
       <h5>Looking for something specific?</h5>
 
-      <div className="mb-2">
+      <div className="mb-2 pt-1">
         <Dropdown
-          onSelect={(selectedItem) => handleProduceSelection(selectedItem)}>
+          onSelect={(selectedItem) => {
+            handleProduceSelection(selectedItem);
+            setNotAvailable(null);
+          }}>
           <Dropdown.Toggle
             variant="success"
             id="dropdown-basic">
@@ -124,18 +132,24 @@ export default function ProduceFinder({
         style={{ minHeight: "4.3rem", overflowX: "auto" }}>
         <Card
           className="rounded"
-          style={{ border: "none" }}>
-          <Card.Body className="d-flex flex-row justify-content-center">
-            {filteredProduce
-              .filter((item, index, array) => array.indexOf(item) === index)
-              .map((item, index) => (
-                <p
-                  className="custom-outline-success"
-                  style={{ marginLeft: "1rem" }}
-                  key={index}>
-                  {item}
-                </p>
-              ))}
+          style={{ border: "none", height: "5rem" }}>
+          <Card.Body className="d-flex flex-row justify-content-center align-items-center">
+            {notAvailable ? (
+              <Alert variant="danger">
+                <div>{notAvailable}</div>
+              </Alert>
+            ) : (
+              filteredProduce
+                .filter((item, index, array) => array.indexOf(item) === index)
+                .map((item, index) => (
+                  <p
+                    className="custom-outline-success"
+                    style={{ marginLeft: "1rem" }}
+                    key={index}>
+                    {item}
+                  </p>
+                ))
+            )}
           </Card.Body>
         </Card>
       </div>
@@ -150,6 +164,7 @@ export default function ProduceFinder({
           variant="outline-danger"
           onClick={() => {
             setFilteredProduce([]);
+            setNotAvailable(null);
             getUsers().then(({ users }) => {
               setUsers(users);
             });
