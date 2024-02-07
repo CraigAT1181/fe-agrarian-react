@@ -49,9 +49,15 @@ export default function UserPanel({ users, setUsers }) {
     <section
       className="container p-3 justify-content-center"
       style={{ height: "75vh", overflowY: "auto" }}>
-      <div>
-        <UserCard users={users} />
-      </div>
+      {users ? (
+        <div>
+          <UserCard users={users} />
+        </div>
+      ) : ( //Need to test this without users
+        <Alert variant="success">
+          <div>When available, users will appear here!</div>
+        </Alert>
+      )}
     </section>
   );
 }
