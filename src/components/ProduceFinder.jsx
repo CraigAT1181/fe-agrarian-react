@@ -103,7 +103,7 @@ export default function ProduceFinder({
             Select Produce
           </Dropdown.Toggle>
 
-          <Dropdown.Menu style={{ maxHeight: "11rem", overflowX: "auto" }}>
+          <Dropdown.Menu style={{ maxHeight: "11rem", overflowX: "auto", borderRadius: "10px" }}>
             {sortAllProduce().map((item) => (
               <Dropdown.Item
                 key={item}

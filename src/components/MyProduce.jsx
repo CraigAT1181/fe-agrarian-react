@@ -118,7 +118,7 @@ export default function MyProduce() {
           Select Produce
         </Dropdown.Toggle>
 
-        <Dropdown.Menu style={{ borderRadius: "10px" }}>
+        <Dropdown.Menu style={{ maxHeight: "11rem", overflowX: "auto", borderRadius: "10px" }}>
           {sortAllProduce().map((item) => (
             <Dropdown.Item
               key={item}
