@@ -47,7 +47,7 @@ export default function MessageInput({ conversationID, setMessageSent }) {
   if (error)
     return (
       <div className="d-flex-col text-center mt-4">
-        <i class="fa-solid fa-exclamation"></i>
+        <i className="fa-solid fa-exclamation"></i>
         <p>
           Oops, there's been an error: {error.status} {error.message}
         </p>

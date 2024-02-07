@@ -95,7 +95,7 @@ export default function MyProduce() {
   if (error)
     return (
       <div className="d-flex-col text-center mt-4">
-        <i class="fa-solid fa-exclamation"></i>
+        <i className="fa-solid fa-exclamation"></i>
         <p>
           Oops, there's been an error: {error.status} {error.message}
         </p>
@@ -118,7 +118,12 @@ export default function MyProduce() {
           Select Produce
         </Dropdown.Toggle>
 
-        <Dropdown.Menu style={{ maxHeight: "11rem", overflowX: "auto", borderRadius: "10px" }}>
+        <Dropdown.Menu
+          style={{
+            maxHeight: "11rem",
+            overflowX: "auto",
+            borderRadius: "10px",
+          }}>
           {sortAllProduce().map((item) => (
             <Dropdown.Item
               key={item}
