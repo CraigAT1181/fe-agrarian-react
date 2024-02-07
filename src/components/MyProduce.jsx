@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useAuth } from "./AuthContext";
 import { getProduce, setUserProduce } from "../api/api";
-import { Dropdown, Card, Alert } from "react-bootstrap";
+import { Dropdown, Card, Alert, ListGroup, ListGroupItem } from "react-bootstrap";
 import "../App.css";
 
 export default function MyProduce() {
@@ -133,23 +133,24 @@ export default function MyProduce() {
           ))}
         </Dropdown.Menu>
       </Dropdown>
-      <Card style={{ border: "none" }}>
+      <Card style={{ border: "none"}}>
         <Card.Body
-          className="d-flex flex-row justify-content-center"
-          style={{ height: "4.3rem" }}>
+          className="d-flex justify-content-center" style={{height: "auto"}}>
+            <ListGroup style={{ marginTop: "1rem", maxHeight: "40%", width: "50%", overflowX: "auto", display: "flex", flexDirection: "row" }}>
           {filteredUserProduce
             .filter((item, index, array) => array.indexOf(item) === index)
             .map((item, index) => (
-              <p
-                className="custom-outline-success"
-                style={{ marginLeft: "1rem" }}
+              <ListGroupItem
+                className="my-produce-list"
+                style={{ marginLeft: "1rem", height: "auto" }}
                 key={index}>
                 {item}
-              </p>
+              </ListGroupItem>
             ))}
+            </ListGroup>
         </Card.Body>
       </Card>
-      <div className="d-flex align-content-center">
+      <div className="d-flex justify-content-center align-content-center">
         <button
           className="btn btn-success mx-1"
           style={{ width: "8rem" }}

@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { getProduce, getUsers } from "../api/api";
 import { getUsersByProduceName } from "../api/api";
 import { Dropdown, Card, Button, Alert } from "react-bootstrap";
+import { ListGroup, ListGroupItem } from "react-bootstrap";
 import "../App.css";
 
 export default function ProduceFinder({
@@ -127,31 +128,40 @@ export default function ProduceFinder({
           </Dropdown.Menu>
         </Dropdown>
       </div>
+
       <div
-        className="d-flex justify-content-center"
-        style={{ minHeight: "4.3rem", overflowX: "auto" }}>
-        <Card
-          className="rounded"
-          style={{ border: "none", height: "5rem" }}>
-          <Card.Body className="d-flex flex-row justify-content-center align-items-center">
-            {notAvailable ? (
-              <Alert variant="danger">
-                <div>{notAvailable}</div>
-              </Alert>
-            ) : (
-              filteredProduce
+        className="d-flex flex-row align-items-center"
+        style={{ overflowX: "auto", height: "5rem" }}>
+        {notAvailable ? (
+          <div className="col justify-content-center">
+            <Alert variant="danger">
+              <div>{notAvailable}</div>
+            </Alert>
+          </div>
+        ) : (
+          <div className="d-flex justify-content-center">
+            <ListGroup
+              style={{
+                display: "flex",
+                flexDirection: "row",
+              }}>
+              {filteredProduce
                 .filter((item, index, array) => array.indexOf(item) === index)
                 .map((item, index) => (
-                  <p
-                    className="custom-outline-success"
-                    style={{ marginLeft: "1rem" }}
-                    key={index}>
+                  <ListGroupItem
+                    key={index}
+                    style={{
+                      whiteSpace: "nowrap",
+                      marginRight: "0.4rem",
+                      border: "1px solid #28a745",
+                      color: "#28a745",
+                    }}>
                     {item}
-                  </p>
-                ))
-            )}
-          </Card.Body>
-        </Card>
+                  </ListGroupItem>
+                ))}
+            </ListGroup>
+          </div>
+        )}
       </div>
 
       <div className="d-flex m-1 mt-2 mb-2 justify-content-center">
