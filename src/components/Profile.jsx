@@ -49,7 +49,7 @@ export default function Profile() {
   return (
     <div className="container">
       <div className="text-center">
-        <p className="text-white">{user.username}</p>
+        <p className="text-white fw-bold">{user.username}</p>
       </div>
       <div className="dropdown text-center">
         <Dropdown>

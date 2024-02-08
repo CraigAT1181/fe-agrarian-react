@@ -13,6 +13,12 @@ const Register = lazy(() => import("./components/Register"));
 const Posts = lazy(() => import("./components/Posts"));
 const RequestLink = lazy(() => import("./components/RequestLink"));
 const SetNewPassword = lazy(() => import("./components/SetNewPassword"));
+const About = lazy(() => import("./components/About"));
+const OfferSupport = lazy(() => import("./components/OfferSupport"));
+const Privacy = lazy(() => import("./components/Privacy"));
+const Cookies = lazy(() => import("./components/Cookies"));
+const Contact = lazy(() => import("./components/Contact"));
+const Suggestions = lazy(() => import("./components/Suggestions"));
 
 export default function App() {
   return (
@@ -65,6 +71,30 @@ export default function App() {
               <Route
                 path="/set-new-password"
                 element={<SetNewPassword />}
+              />
+              <Route
+                path="/about"
+                element={<About />}
+              />
+                            <Route
+                path="/offer-support"
+                element={<OfferSupport />}
+              />
+                            <Route
+                path="/privacy"
+                element={<Privacy />}
+              />
+                            <Route
+                path="/cookies"
+                element={<Cookies />}
+              />
+                            <Route
+                path="/contact"
+                element={<Contact />}
+              />
+                            <Route
+                path="/suggestions"
+                element={<Suggestions />}
               />
             </Routes>
           </Suspense>

@@ -15,30 +15,34 @@ export default function NavBar() {
       <Navbar.Collapse id="navbar-nav">
         <Nav className="mr-auto">
           <Nav.Link
-            className="text-white"
+            className="text-white mx-4"
+            title="Home"
             as={Link}
             to="/">
-            Home
+            <i className="fa-solid fa-2x fa-house"></i>
           </Nav.Link>
 
           <Nav.Link
-            className="text-white"
+            className="text-white mx-4"
+            title="Exchange"
             as={Link}
             to="/exchange">
-            Exchange
+            <i className="fa-solid fa-2x fa-handshake"></i>
           </Nav.Link>
           <Nav.Link
-            className="text-white"
+            className="text-white mx-4"
+            title="Posts"
             as={Link}
             to="/posts">
-            Posts
+            <i className="fa-solid fa-2x fa-newspaper"></i>
           </Nav.Link>
           {user && (
             <Nav.Link
-              className="text-white"
+              className="text-white mx-4"
+              title="Messages"
               as={Link}
               to="/messenger">
-              Messenger
+              <i className="fa-regular fa-2x fa-envelope"></i>
             </Nav.Link>
           )}
         </Nav>
