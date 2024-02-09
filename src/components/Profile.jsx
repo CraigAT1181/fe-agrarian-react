@@ -64,28 +64,49 @@ export default function Profile() {
               className="text-success"
               onClick={() => navigate("/")}
               style={{ backgroundColor: "transparent" }}>
-              Edit your produce
+              Home
             </Dropdown.Item>
 
             <Dropdown.Item
               className="text-success"
               onClick={() => navigate("/exchange")}
               style={{ backgroundColor: "transparent" }}>
-              Find other growers
+              Exchange
             </Dropdown.Item>
 
             <Dropdown.Item
               className="text-success"
-              onClick={() => navigate("/")}
+              onClick={() => navigate("/posts")}
               style={{ backgroundColor: "transparent" }}>
-              View your posts
+              Posts
+            </Dropdown.Item>
+
+            <Dropdown.Item
+              className="text-success"
+              onClick={() => navigate("#")}
+              style={{ backgroundColor: "transparent" }}>
+              Encyclopedia
+            </Dropdown.Item>
+
+            <Dropdown.Item
+              className="text-success"
+              onClick={() => navigate("#")}
+              style={{ backgroundColor: "transparent" }}>
+              Education & Activities
+            </Dropdown.Item>
+
+            <Dropdown.Item
+              className="text-success"
+              onClick={() => navigate("#")}
+              style={{ backgroundColor: "transparent" }}>
+              Share Tips & Tricks
             </Dropdown.Item>
 
             <Dropdown.Item
               className="text-success"
               onClick={() => navigate("/messenger")}
               style={{ backgroundColor: "transparent" }}>
-              View your messages
+              Messages
             </Dropdown.Item>
 
             <Dropdown.Item

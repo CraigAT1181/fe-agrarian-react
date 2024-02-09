@@ -9,8 +9,7 @@ export default function NavBar() {
   return (
     <Navbar
       expand="lg"
-      bg="success"
-      >
+      bg="success">
       <Navbar.Toggle aria-controls="navbar-nav" />
       <Navbar.Collapse id="navbar-nav">
         <Nav className="mr-auto">
@@ -35,6 +34,27 @@ export default function NavBar() {
             as={Link}
             to="/posts">
             <i className="fa-solid fa-2x fa-newspaper"></i>
+          </Nav.Link>
+          <Nav.Link
+            className="text-white mx-4"
+            title="Encyclopedia"
+            as={Link}
+            to="#">
+            <i className="fa-brands fa-2x fa-pagelines"></i>
+          </Nav.Link>
+          <Nav.Link
+            className="text-white mx-4"
+            title="Education & Activities"
+            as={Link}
+            to="#">
+            <i className="fa-solid fa-2x fa-user-graduate"></i>
+          </Nav.Link>
+          <Nav.Link
+            className="text-white mx-4"
+            title="Share Tips & Tricks"
+            as={Link}
+            to="#">
+            <i className="fa-solid fa-2x fa-feather-pointed"></i>
           </Nav.Link>
           {user && (
             <Nav.Link
