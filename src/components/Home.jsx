@@ -20,7 +20,7 @@ export default function Home() {
           className="container d-flex text-center justify-content-center align-items-center"
           style={{ minHeight: "50vh" }}
         >
-          <div className="box-border p-4">
+          <div className="p-4">
             <h3>Join the Community</h3>
             <p className="mx-4">
               Register using the button at the top to join a community <br />

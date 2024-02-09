@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import { register } from "../api/api";
 import { useNavigate } from "react-router-dom";
 import { Modal, Alert } from "react-bootstrap";
+import PasswordChecker from "./PasswordChecker";
 
 export default function Register() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [show, setShow] = useState(true);
-  const [formData, setformData] = useState({
+  const [formData, setFormData] = useState({
     username: "",
     password: "",
     email: "",
@@ -18,8 +19,8 @@ export default function Register() {
 
   const handleInput = (e) => {
     const { name, value } = e.target;
-    setformData((curr) => ({
-      ...curr,
+    setFormData((prevState) => ({
+      ...prevState,
       [name]: value,
     }));
   };
@@ -59,9 +60,7 @@ export default function Register() {
     );
 
   return (
-    <Modal
-      show={show}
-      onHide={handleClose}>
+    <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
         <Modal.Title>Register</Modal.Title>
       </Modal.Header>
@@ -89,6 +88,7 @@ export default function Register() {
               value={formData.password}
               onChange={handleInput}
             />
+            <PasswordChecker password={formData.password} />
           </div>
           <div className="form-group mt-2">
             <label htmlFor="email">Email</label>
@@ -113,9 +113,7 @@ export default function Register() {
             />
           </div>
           <div className="d-flex justify-content-center mt-4">
-            <button
-              className="btn btn-success"
-              type="submit">
+            <button className="btn btn-success" type="submit">
               Confirm
             </button>
           </div>
