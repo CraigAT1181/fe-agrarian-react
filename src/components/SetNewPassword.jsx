@@ -10,6 +10,8 @@ export default function SetNewPassword() {
   const [show, setShow] = useState(true);
   const [newPassword, setNewPassword] = useState("");
   const [retypePassword, setRetypePassword] = useState("");
+  const [showPassword1, setShowPassword1] = useState(false);
+  const [showPassword2, setShowPassword2] = useState(false);
   const [resetSuccess, setResetSuccess] = useState(false);
 
   const navigate = useNavigate();
@@ -17,6 +19,14 @@ export default function SetNewPassword() {
   const token = new URLSearchParams(location.search).get("token");
 
   const password_pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+
+  const togglePassword1Visibility = () => {
+    setShowPassword1(!showPassword1);
+  };
+
+  const togglePassword2Visibility = () => {
+    setShowPassword2(!showPassword2);
+  };
 
   const handleClose = () => {
     setShow(false);
@@ -78,22 +88,64 @@ export default function SetNewPassword() {
         ) : (
           <form onSubmit={resetHandler}>
             <div className="form-group mt-2">
-              <label htmlFor="newPassword">New Password</label>
-              <input
-                id="newPassword"
-                type="password"
-                className="form-control"
-                value={newPassword}
-                onChange={({ target }) => setNewPassword(target.value)}
-              />
-              <label htmlFor="retypePassword">Re-type Password</label>
-              <input
-                id="retypePassword"
-                type="password"
-                className="form-control"
-                value={retypePassword}
-                onChange={({ target }) => setRetypePassword(target.value)}
-              />
+              <label htmlFor="password1">New Password</label>
+              <div style={{ position: "relative" }}>
+                <input
+                  id="password1"
+                  type={showPassword1 ? "text" : "password"}
+                  className="form-control"
+                  value={newPassword}
+                  onChange={({ target }) => setNewPassword(target.value)}
+                  style={{ paddingRight: "40px" }}
+                />
+                <button
+                  className="text-success"
+                  onClick={togglePassword1Visibility}
+                  type="button"
+                  style={{
+                    position: "absolute",
+                    right: "5px",
+                    top: "50%",
+                    transform: "translateY(-50%)",
+                    background: "transparent",
+                    border: "none",
+                    cursor: "pointer",
+                  }}>
+                  <i
+                    className={`fa-solid ${
+                      showPassword1 ? "fa-eye" : "fa-eye-slash"
+                    }`}></i>
+                </button>
+              </div>
+              <div style={{ position: "relative" }}>
+                <label htmlFor="retypePassword">Re-type Password</label>
+                <input
+                  id="retypePassword"
+                  type={showPassword2 ? "text" : "password"}
+                  className="form-control"
+                  value={retypePassword}
+                  onChange={({ target }) => setRetypePassword(target.value)}
+                  style={{ paddingRight: "40px" }}
+                />
+                <button
+                  className="text-success"
+                  onClick={togglePassword2Visibility}
+                  type="button"
+                  style={{
+                    position: "absolute",
+                    right: "5px",
+                    top: "70%",
+                    transform: "translateY(-50%)",
+                    background: "transparent",
+                    border: "none",
+                    cursor: "pointer",
+                  }}>
+                  <i
+                    className={`fa-solid ${
+                      showPassword2 ? "fa-eye" : "fa-eye-slash"
+                    }`}></i>
+                </button>
+              </div>
               <PasswordChecker password={newPassword} />
             </div>
             <div className="d-flex justify-content-center mt-4">
