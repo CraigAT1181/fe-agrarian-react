@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Modal, Alert } from "react-bootstrap";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { passwordRequest } from "../api/api";
+import PasswordChecker from "./PasswordChecker";
 
 export default function SetNewPassword() {
   const [isLoading, setIsLoading] = useState(false);
@@ -15,6 +16,8 @@ export default function SetNewPassword() {
 
   const token = new URLSearchParams(location.search).get("token");
 
+  const password_pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+
   const handleClose = () => {
     setShow(false);
     navigate("/");
@@ -26,10 +29,12 @@ export default function SetNewPassword() {
 
     if (newPassword !== retypePassword) {
       setIsLoading(false);
-      setError("Passwords do not match, please try again.");
+      setError("Passwords don't match, please try again.");
+    } else if (!password_pattern.test(newPassword)) {
+      setIsLoading(false);
+      setError("Password does not meet the required criteria.");
     } else {
       setError(null);
-      setIsLoading(true);
       passwordRequest(newPassword, token)
         .then(({ message }) => {
           setIsLoading(false);
@@ -63,41 +68,43 @@ export default function SetNewPassword() {
             <div>{error}</div>
           </Alert>
         )}
-        {resetSuccess && (
+        {resetSuccess ? (
           <Alert variant="success">
             <div>{resetSuccess}</div>
             <Link to={"/login"}>
               <p>Login</p>
             </Link>
           </Alert>
+        ) : (
+          <form onSubmit={resetHandler}>
+            <div className="form-group mt-2">
+              <label htmlFor="newPassword">New Password</label>
+              <input
+                id="newPassword"
+                type="password"
+                className="form-control"
+                value={newPassword}
+                onChange={({ target }) => setNewPassword(target.value)}
+              />
+              <label htmlFor="retypePassword">Re-type Password</label>
+              <input
+                id="retypePassword"
+                type="password"
+                className="form-control"
+                value={retypePassword}
+                onChange={({ target }) => setRetypePassword(target.value)}
+              />
+              <PasswordChecker password={newPassword} />
+            </div>
+            <div className="d-flex justify-content-center mt-4">
+              <button
+                className="btn btn-success"
+                type="submit">
+                Confirm
+              </button>
+            </div>
+          </form>
         )}
-        <form onSubmit={resetHandler}>
-          <div className="form-group mt-2">
-            <label htmlFor="newPassword">New Password</label>
-            <input
-              id="newPassword"
-              type="password"
-              className="form-control"
-              value={newPassword}
-              onChange={({ target }) => setNewPassword(target.value)}
-            />
-            <label htmlFor="retypePassword">Re-type Password</label>
-            <input
-              id="retypePassword"
-              type="password"
-              className="form-control"
-              value={retypePassword}
-              onChange={({ target }) => setRetypePassword(target.value)}
-            />
-          </div>
-          <div className="d-flex justify-content-center mt-4">
-            <button
-              className="btn btn-success"
-              type="submit">
-              Confirm
-            </button>
-          </div>
-        </form>
       </Modal.Body>
     </Modal>
   );

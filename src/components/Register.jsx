@@ -8,6 +8,7 @@ export default function Register() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [show, setShow] = useState(true);
+  const [retypePassword, setRetypePassword] = useState("");
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -29,21 +30,25 @@ export default function Register() {
     e.preventDefault();
     setIsLoading(true);
     const { username, password, email, postcode } = formData;
-
-    register(username, email, password, postcode)
-      .then(({ message }) => {
-        if (message === "New user registered.") {
+    if (formData.password !== retypePassword) {
+      setIsLoading(false);
+      setError("Passwords don't match, please try again.");
+    } else {
+      register(username, email, password, postcode)
+        .then(({ message }) => {
+          if (message === "New user registered.") {
+            setIsLoading(false);
+            navigate("/login");
+          } else {
+            setIsLoading(false);
+            setError(message);
+          }
+        })
+        .catch((error) => {
           setIsLoading(false);
-          navigate("/login");
-        } else {
-          setIsLoading(false);
-          setError(message);
-        }
-      })
-      .catch((error) => {
-        setIsLoading(false);
-        setError({ message: error.message });
-      });
+          setError({ message: error.message });
+        });
+    }
   };
 
   const handleClose = () => {
@@ -60,7 +65,9 @@ export default function Register() {
     );
 
   return (
-    <Modal show={show} onHide={handleClose}>
+    <Modal
+      show={show}
+      onHide={handleClose}>
       <Modal.Header closeButton>
         <Modal.Title>Register</Modal.Title>
       </Modal.Header>
@@ -79,15 +86,26 @@ export default function Register() {
             />
           </div>
           <div className="form-group mt-2">
-            <label htmlFor="password">Password</label>
+            <label htmlFor="password1">Password</label>
             <input
-              id="password"
+              id="password1"
               type="password"
               className="form-control"
               name="password"
               value={formData.password}
               onChange={handleInput}
             />
+            <div className="form-group mt-2">
+              <label htmlFor="password2">Re-type Password</label>
+              <input
+                id="password2"
+                type="password"
+                className="form-control"
+                name="retypePassword"
+                value={retypePassword}
+                onChange={({ target }) => setRetypePassword(target.value)}
+              />
+            </div>
             <PasswordChecker password={formData.password} />
           </div>
           <div className="form-group mt-2">
@@ -113,7 +131,9 @@ export default function Register() {
             />
           </div>
           <div className="d-flex justify-content-center mt-4">
-            <button className="btn btn-success" type="submit">
+            <button
+              className="btn btn-success"
+              type="submit">
               Confirm
             </button>
           </div>

@@ -7,7 +7,6 @@ export default function PasswordChecker({ password }) {
     const digitPattern = /\d/;
     const lengthCheck = /.{8,}/;
     
-
     // Initialize state for password conditions
     const [hasLowercase, setHasLowercase] = useState(false);
     const [hasUppercase, setHasUppercase] = useState(false);
