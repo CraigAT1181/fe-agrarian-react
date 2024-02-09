@@ -9,6 +9,8 @@ export default function Register() {
   const [error, setError] = useState(null);
   const [show, setShow] = useState(true);
   const [retypePassword, setRetypePassword] = useState("");
+  const [showPassword1, setShowPassword1] = useState(false);
+  const [showPassword2, setShowPassword2] = useState(false);
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -17,6 +19,14 @@ export default function Register() {
   });
 
   const navigate = useNavigate();
+
+  const togglePassword1Visibility = () => {
+    setShowPassword1(!showPassword1);
+  };
+
+  const togglePassword2Visibility = () => {
+    setShowPassword2(!showPassword2);
+  };
 
   const handleInput = (e) => {
     const { name, value } = e.target;
@@ -87,24 +97,66 @@ export default function Register() {
           </div>
           <div className="form-group mt-2">
             <label htmlFor="password1">Password</label>
-            <input
-              id="password1"
-              type="password"
-              className="form-control"
-              name="password"
-              value={formData.password}
-              onChange={handleInput}
-            />
-            <div className="form-group mt-2">
-              <label htmlFor="password2">Re-type Password</label>
+            <div style={{ position: "relative" }}>
               <input
-                id="password2"
-                type="password"
+                id="password1"
+                type={showPassword1 ? "text" : "password"}
                 className="form-control"
-                name="retypePassword"
-                value={retypePassword}
-                onChange={({ target }) => setRetypePassword(target.value)}
+                name="password"
+                value={formData.password}
+                onChange={handleInput}
+                style={{ paddingRight: "40px" }}
               />
+              <button
+                className="text-success"
+                onClick={togglePassword1Visibility}
+                type="button"
+                style={{
+                  position: "absolute",
+                  right: "5px",
+                  top: "50%",
+                  transform: "translateY(-50%)",
+                  background: "transparent",
+                  border: "none",
+                  cursor: "pointer",
+                }}>
+                <i
+                  className={`fa-solid ${
+                    showPassword1 ? "fa-eye" : "fa-eye-slash"
+                  }`}></i>
+              </button>
+            </div>
+            <div className="form-group mt-2">
+              <div style={{ position: "relative" }}>
+                <label htmlFor="password2">Re-type Password</label>
+                <input
+                  id="password2"
+                  type={showPassword2 ? "text" : "password"}
+                  className="form-control"
+                  name="retypePassword"
+                  value={retypePassword}
+                  onChange={({ target }) => setRetypePassword(target.value)}
+                  style={{ paddingRight: "40px" }}
+                />
+                <button
+                  className="text-success"
+                  onClick={togglePassword2Visibility}
+                  type="button"
+                  style={{
+                    position: "absolute",
+                    right: "5px",
+                    top: "70%",
+                    transform: "translateY(-50%)",
+                    background: "transparent",
+                    border: "none",
+                    cursor: "pointer",
+                  }}>
+                  <i
+                    className={`fa-solid ${
+                      showPassword2 ? "fa-eye" : "fa-eye-slash"
+                    }`}></i>
+                </button>
+              </div>
             </div>
             <PasswordChecker password={formData.password} />
           </div>

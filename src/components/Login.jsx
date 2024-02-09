@@ -11,8 +11,13 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [show, setShow] = useState(true);
   const { login } = useAuth();
+  const [showPassword, setShowPassword] = useState(false);
 
   const navigate = useNavigate();
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
   const handleClose = () => {
     setShow(false);
@@ -77,15 +82,34 @@ export default function Login() {
               onChange={({ target }) => setUsername(target.value)}
             />
           </div>
-          <div className="form-group mt-2">
+          <div style={{ position: "relative" }}>
             <label htmlFor="password">Password</label>
             <input
               id="password"
-              type="password"
+              type={showPassword ? "text" : "password"}
               className="form-control"
               value={password}
-              onChange={({ target }) => setPassword(target.value)}
+              onChange={(e) => setPassword(e.target.value)}
+              style={{ paddingRight: "40px" }}
             />
+            <button
+            className="text-success"
+              onClick={togglePasswordVisibility}
+              type="button"
+              style={{
+                position: 'absolute',
+                right: '5px',
+                top: '70%',
+                transform: 'translateY(-50%)',
+                background: 'transparent',
+                border: 'none',
+                cursor: 'pointer'
+              }}>
+              <i
+                className={`fa-solid ${
+                  showPassword ? "fa-eye" : "fa-eye-slash"
+                }`}></i>
+            </button>
           </div>
           <div className="d-flex justify-content-center mt-4">
             <button
