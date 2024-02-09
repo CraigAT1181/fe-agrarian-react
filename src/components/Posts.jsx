@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { ToggleButtonGroup, ToggleButton } from "react-bootstrap";
 import "../App.css";
+import { Alert } from "react-bootstrap";
 import { getPosts } from "../api/api";
 import PostCard from "./PostCard";
 
@@ -36,22 +37,34 @@ export default function Posts() {
           setError({ status, message: message });
         }
       );
-    setNotFound(null);
+
     setPostDeleted(false);
   }, [filteredPosts, postDeleted]);
+
+  useEffect(() => {
+    let timeout;
+
+    if (notFound) {
+      timeout = setTimeout(() => {
+        setNotFound(null);
+      }, 3000);
+    }
+
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [notFound]);
 
   const handleSearch = (e) => {
     e.preventDefault();
     setIsLoading(true);
     getPosts(searchParams)
-      .then(({ posts, message }) => {
+      .then(({ posts }) => {
         setIsLoading(false);
-
-        if (Array.isArray(posts)) {
-          setFilteredPosts(posts);
-          setSearchParams("");
-        } else if (message) {
-          setNotFound(message);
+        setFilteredPosts(posts);
+        setSearchParams("");
+        if (posts.length === 0) {
+          setNotFound("Sorry, we couldn't find what you were looking for.");
         }
       })
       .catch(
@@ -175,6 +188,7 @@ export default function Posts() {
           <i
             onClick={() => {
               setFilteredPosts([]);
+              setNotFound("");
               setAvailableVariant("outline-success");
               setWantedVariant("outline-danger");
               setSeedsVariant("outline-secondary");
@@ -247,8 +261,20 @@ export default function Posts() {
       </div>
       <div className="container text-center">
         <div>
-          {notFound ? <h5 style={{ color: "red" }}>{notFound}</h5> : null}
+          {notFound && 
+          <Alert variant="danger">{notFound}</Alert>}
+        
+        
         </div>
+        {posts.length === 0 && (
+          <div className="d-flex justify-content-center mt-5">
+            <Alert
+              variant="success"
+              className="text-center w-50">
+              <div>No one has posted any ads yet, but check back later!</div>
+            </Alert>
+          </div>
+        )}
         <div className="post-display">
           {filteredPosts.length > 0
             ? filteredPosts.map((post) => (
