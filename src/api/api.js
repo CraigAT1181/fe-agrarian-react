@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://cookingpot.onrender.com",
+  baseURL: "https://agrarian-pw89.onrender.com",
 });
 
 export default api;
@@ -39,8 +39,12 @@ export const addConversationByUserID = async (userID, partnerID) => {
   return data;
 };
 
-export const deleteConversation = async (conversationID) => {
-  await api.delete(`/conversations/${conversationID}`);
+export const deleteConversation = async (userID, conversationID) => {
+  const { data } = await api.patch(`/conversations/${conversationID}`, {
+    user_id: userID,
+  });
+
+  return data;
 };
 
 export const getMessagesByConverationID = async (conversationID) => {

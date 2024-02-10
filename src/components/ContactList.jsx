@@ -10,7 +10,7 @@ export default function ContactList({ conversations, setConversations, setConver
   const [conversationDeleted, setConversationDeleted] = useState(false);
   const { user } = useAuth();
 
-  
+ 
 
   useEffect(() => {
     setIsLoading(true);
@@ -39,9 +39,9 @@ export default function ContactList({ conversations, setConversations, setConver
     setConversationDeleted(false);
   }, [user, conversationDeleted]);
 
-  const handleDeleteConversation = (conversationID) => {
+  const handleDeleteConversation = (userID, conversationID) => {
     setIsLoading(true);
-    deleteConversation(conversationID)
+    deleteConversation(userID, conversationID)
       .then(() => {
         setIsLoading(false);
         setConversationID(null);
@@ -99,7 +99,7 @@ export default function ContactList({ conversations, setConversations, setConver
                   className="badge bg-success-subtle"
                   style={{ cursor: "pointer" }}
                   onClick={() => {
-                    handleDeleteConversation(conversation.conversation_id);
+                    handleDeleteConversation(user.userID, conversation.conversation_id);
                   }}>
                   X
                 </span>
@@ -121,7 +121,7 @@ export default function ContactList({ conversations, setConversations, setConver
                   className="badge bg-success-subtle"
                   style={{ cursor: "pointer" }}
                   onClick={() => {
-                    handleDeleteConversation(conversation.conversation_id);
+                    handleDeleteConversation(user.userID, conversation.conversation_id);
                   }}>
                   X
                 </span>
