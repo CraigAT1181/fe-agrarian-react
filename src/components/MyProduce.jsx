@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { useAuth } from "./AuthContext";
 import { getProduce, setUserProduce } from "../api/api";
-import { Dropdown, Card, Alert, ListGroup, ListGroupItem } from "react-bootstrap";
+import {
+  Dropdown,
+  Card,
+  Alert,
+  ListGroup,
+  ListGroupItem,
+} from "react-bootstrap";
 import "../App.css";
 
 export default function MyProduce() {
-  const { user } = useAuth();
+  const { user, setUser } = useAuth();
   const [selectedItem, setSelectedItem] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -33,7 +39,8 @@ export default function MyProduce() {
           setError({ status, message: message });
         }
       );
-  }, []);
+    console.log(user, "logged user");
+  }, [user]);
 
   useEffect(() => {
     let timeout;
@@ -69,6 +76,7 @@ export default function MyProduce() {
   function handleConfirmProduce(user_id, filteredUserProduce) {
     setUserProduce(user_id, filteredUserProduce)
       .then((data) => {
+        console.log(data, "data");
         setProduceUpdated(true);
         setUpdatedUserProduce(data.produce);
       })
@@ -133,21 +141,30 @@ export default function MyProduce() {
           ))}
         </Dropdown.Menu>
       </Dropdown>
-      <Card style={{ border: "none"}}>
+      <Card style={{ border: "none" }}>
         <Card.Body
-          className="d-flex justify-content-center" style={{height: "auto"}}>
-            <ListGroup style={{ marginTop: "1rem", maxHeight: "40%", width: "50%", overflowX: "auto", display: "flex", flexDirection: "row" }}>
-          {filteredUserProduce
-            .filter((item, index, array) => array.indexOf(item) === index)
-            .map((item, index) => (
-              <ListGroupItem
-                className="my-produce-list"
-                style={{ marginLeft: "1rem", height: "auto" }}
-                key={index}>
-                {item}
-              </ListGroupItem>
-            ))}
-            </ListGroup>
+          className="d-flex justify-content-center"
+          style={{ height: "10rem" }}>
+          <ListGroup
+            style={{
+              marginTop: "1rem",
+              maxHeight: "40%",
+              width: "50%",
+              overflowX: "auto",
+              display: "flex",
+              flexDirection: "row",
+            }}>
+            {filteredUserProduce
+              .filter((item, index, array) => array.indexOf(item) === index)
+              .map((item, index) => (
+                <ListGroupItem
+                  className="my-produce-list"
+                  style={{ marginLeft: "1rem", height: "auto" }}
+                  key={index}>
+                  {item}
+                </ListGroupItem>
+              ))}
+          </ListGroup>
         </Card.Body>
       </Card>
       <div className="d-flex justify-content-center align-content-center">
