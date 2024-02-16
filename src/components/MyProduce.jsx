@@ -1,24 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { useAuth } from "./AuthContext";
-import { getProduce, setUserProduce } from "../api/api";
-import {
-  Dropdown,
-  Card,
-  Alert,
-  ListGroup,
-  ListGroupItem,
-} from "react-bootstrap";
+import { getProduce } from "../api/api";
+import { Alert, Dropdown } from "react-bootstrap";
 import "../App.css";
+import ItemCard from "./ItemCard";
 
 export default function MyProduce() {
-  const { user, setUser } = useAuth();
+  const { user, updateUserProduceData } = useAuth();
   const [selectedItem, setSelectedItem] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   let [allProduce, setAllProduce] = useState([]);
-  const [filteredUserProduce, setFilteredUserProduce] = useState([]);
-  const [updatedUserProduce, setUpdatedUserProduce] = useState([]);
-  const [produceUpdated, setProduceUpdated] = useState(false);
+  const [userProduce, setUserProduce] = useState([]);
 
   useEffect(() => {
     setIsLoading(true);
@@ -39,22 +32,14 @@ export default function MyProduce() {
           setError({ status, message: message });
         }
       );
-    console.log(user, "logged user");
-  }, [user]);
+  }, []);
 
   useEffect(() => {
-    let timeout;
-
-    if (produceUpdated) {
-      timeout = setTimeout(() => {
-        setProduceUpdated(false);
-      }, 3000);
+    if (user) {
+      setUserProduce(user.produce);
+      console.log(user.produce);
     }
-
-    return () => {
-      clearTimeout(timeout);
-    };
-  }, [updatedUserProduce]);
+  }, [user]);
 
   function sortAllProduce() {
     const produceNames = allProduce.map((item) => {
@@ -68,38 +53,45 @@ export default function MyProduce() {
 
   function handleProduceSelection(selectedItem) {
     if (selectedItem) {
-      setFilteredUserProduce([...filteredUserProduce, selectedItem]);
-      setSelectedItem("");
+      console.log(selectedItem, "Selected Item");
+      setIsLoading(true);
+      updateUserProduceData(selectedItem)
+        .then(() => {
+          setIsLoading(false);
+          setSelectedItem("");
+        })
+        .catch(
+          ({
+            response: {
+              status,
+              data: { message },
+            },
+          }) => {
+            setIsLoading(false);
+            setError({ status, message: message });
+          }
+        );
     }
   }
 
-  function handleConfirmProduce(user_id, filteredUserProduce) {
-    setUserProduce(user_id, filteredUserProduce)
-      .then((data) => {
-        console.log(data, "data");
-        setProduceUpdated(true);
-        setUpdatedUserProduce(data.produce);
-      })
-      .catch(
-        ({
-          response: {
-            status,
-            data: { message },
-          },
-        }) => {
-          setIsLoading(false);
-          setError({ status, message: message });
-        }
-      );
-  }
+  const removeProduceItem = async (itemNameToRemove) => {
+    console.log(itemNameToRemove);
+    setIsLoading(true);
+    const newProduce = userProduce.filter((item) => item !== itemNameToRemove);
+    try {
+      console.log(newProduce, "New Produce");
+      await updateUserProduceData(newProduce);
+      setUserProduce(newProduce);
+    } catch (error) {
+      setError({
+        status: error.response.status,
+        message: error.response.data.message,
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
-  if (isLoading)
-    return (
-      <div className="d-flex-col text-center mt-4">
-        <i className="fa-solid fa-spinner fa-spin"></i>
-        <p>Loading your produce selector...</p>
-      </div>
-    );
   if (error)
     return (
       <div className="d-flex-col text-center mt-4">
@@ -123,7 +115,7 @@ export default function MyProduce() {
         <Dropdown.Toggle
           variant="success"
           id="dropdown-basic">
-          Select Produce
+          Add Produce
         </Dropdown.Toggle>
 
         <Dropdown.Menu
@@ -141,50 +133,37 @@ export default function MyProduce() {
           ))}
         </Dropdown.Menu>
       </Dropdown>
-      <Card style={{ border: "none" }}>
-        <Card.Body
-          className="d-flex justify-content-center"
-          style={{ height: "10rem" }}>
-          <ListGroup
-            style={{
-              marginTop: "1rem",
-              maxHeight: "40%",
-              width: "50%",
-              overflowX: "auto",
-              display: "flex",
-              flexDirection: "row",
-            }}>
-            {filteredUserProduce
-              .filter((item, index, array) => array.indexOf(item) === index)
-              .map((item, index) => (
-                <ListGroupItem
-                  className="my-produce-list"
-                  style={{ marginLeft: "1rem", height: "auto" }}
-                  key={index}>
-                  {item}
-                </ListGroupItem>
-              ))}
-          </ListGroup>
-        </Card.Body>
-      </Card>
-      <div className="d-flex justify-content-center align-content-center">
-        <button
-          className="btn btn-success mx-1"
-          style={{ width: "8rem" }}
-          onClick={() =>
-            handleConfirmProduce(user.userID, filteredUserProduce)
-          }>
-          Confirm
-        </button>
-        <button
-          onClick={() => setFilteredUserProduce([])}
-          className="btn btn-outline-danger mx-1">
-          Clear
-        </button>
-        {produceUpdated && (
-          <p className="mx-2 fade-alert text-success">Produce updated!</p>
+      <div
+        className="d-flex justify-content-center align-items-center"
+        style={{ height: "10rem" }}>
+        <ItemCard
+          allProduce={allProduce}
+          userProduce={userProduce}
+          removeProduceItem={removeProduceItem}
+        />
+      </div>
+      <div style={{ height: "4rem" }}>
+        {isLoading && (
+          <div className="d-flex-col text-center mt-4">
+            <i className="fa-solid fa-spinner fa-spin"></i>
+            <p>Loading your produce selector...</p>
+          </div>
+        )}
+        {userProduce.length === 0 && (
+          <div className="d-flex justify-content-center">
+            <Alert
+              variant="danger"
+              className="w-30">
+              <div>You currently have no produce selected.</div>
+            </Alert>
+          </div>
         )}
       </div>
+      <button
+        onClick={() => updateUserProduceData([])}
+        className="btn btn-outline-danger mt-1">
+        Clear
+      </button>
     </div>
   );
 }

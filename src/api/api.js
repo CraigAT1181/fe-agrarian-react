@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://cookingpot.onrender.com",
+  baseURL: "https://agrarian-pw89.onrender.com",
 });
 
 export default api;
@@ -103,8 +103,8 @@ export const deleteUser = async (user_id) => {
   await api.delete(`/users/${user_id}`);
 };
 
-export const setUserProduce = async (user_id, userProduce) => {
-  const { data } = await api.patch(`/users/${user_id}`, userProduce);
+export const updateUserProduce = async (user_id, userProduce) => {
+  const { data } = await api.patch(`/users/${user_id}/produce`, userProduce);
 
   return data;
 };

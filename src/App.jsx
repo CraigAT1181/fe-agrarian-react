@@ -4,6 +4,7 @@ import { AuthProvider } from "./components/AuthContext";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import ErrorHandling from "./components/ErrorHandling";
+import '@fortawesome/fontawesome-free/css/all.min.css';
 
 const Home = lazy(() => import("./components/Home"));
 const Exchange = lazy(() => import("./components/Exchange"));

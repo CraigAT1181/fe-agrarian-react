@@ -1,43 +1,47 @@
 import React from "react";
-import { Card, ListGroup, ListGroupItem } from "react-bootstrap";
+import { ListGroup, ListGroupItem } from "react-bootstrap";
 
-export default function ItemCard({ filteredUserProduce }) {
+export default function ItemCard({
+  allProduce,
+  userProduce,
+  removeProduceItem,
+}) {
   return (
-    <Card style={{ border: "none" }}>
-      <Card.Body
-        className="d-flex justify-content-center"
-        style={{ height: "auto" }}>
-        <ListGroup
-          style={{
-            marginTop: "1rem",
-            maxHeight: "40%",
-            width: "50%",
-            overflowX: "auto",
-            display: "flex",
-            flexDirection: "row",
-          }}>
-          {filteredUserProduce
-            .filter((item, index, array) => array.indexOf(item) === index)
-            .map((item, index) => (
+    <ListGroup
+      className="d-flex"
+      style={{
+        padding: "1rem",
+        height: "auto",
+        width: "75%",
+        overflowX: "auto",
+        display: "flex",
+        flexDirection: "row",
+        whiteSpace: "nowrap",
+      }}>
+      {allProduce
+        .sort((a, b) => a.produce_name.localeCompare(b.produce_name))
+        .map(
+          (produceItem, index) =>
+            userProduce.includes(produceItem.produce_name) && (
               <ListGroupItem
-                className="my-produce-list p-1"
-                style={{ marginLeft: "1rem", height: "auto" }}
+                className="text-success fw-bold"
+                style={{ marginLeft: "1rem", border: "solid 2px" }}
                 key={index}>
-                <div className="position-absolute top-0 end-0">
-                  {" "}
-                  <span
-                    className="badge bg-success"
-                    style={{ cursor: "pointer" }}
-                    onClick={() => {}}>
+                <div className="row justify-content-center">
+                  <div
+                    className="badge bg-danger-subtle"
+                    title={`Remove ${produceItem.produce_name}`}
+                    style={{ cursor: "pointer", width: "25px" }}
+                    onClick={() => removeProduceItem(produceItem.produce_name)}>
                     X
-                  </span>
+                  </div>
                 </div>
-
-                {item}
+                <div className="row">
+                  <div className="mt-2">{produceItem.produce_name}</div>
+                </div>
               </ListGroupItem>
-            ))}
-        </ListGroup>
-      </Card.Body>
-    </Card>
+            )
+        )}
+    </ListGroup>
   );
 }
