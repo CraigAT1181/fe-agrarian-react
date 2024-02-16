@@ -74,7 +74,7 @@ export const AuthProvider = ({ children }) => {
       } else {
         updatedProduce = [...new Set([...user.produce, newProduce])];
       }
-      console.log(updatedProduce, "After the IF");
+
       const updatedUserData = await updateUserProduce(
         user.userID,
         updatedProduce
@@ -86,7 +86,6 @@ export const AuthProvider = ({ children }) => {
       }));
 
       console.log("User produce updated successfully:", updatedProduce);
-      console.log(updatedUserData, "updated user data");
     } catch (error) {
       console.error("Error updating user produce:", error);
     }

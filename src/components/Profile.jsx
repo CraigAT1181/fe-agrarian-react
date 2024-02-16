@@ -12,7 +12,7 @@ export default function Profile() {
 
   const handleDelete = () => {
     setIsLoading(true);
-    console.log(user.userID);
+
     deleteUser(user.userID)
       .then(() => {
         setIsLoading(false);

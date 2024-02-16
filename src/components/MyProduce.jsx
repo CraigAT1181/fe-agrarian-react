@@ -37,7 +37,7 @@ export default function MyProduce() {
   useEffect(() => {
     if (user) {
       setUserProduce(user.produce);
-      console.log(user.produce);
+      
     }
   }, [user]);
 
@@ -53,7 +53,7 @@ export default function MyProduce() {
 
   function handleProduceSelection(selectedItem) {
     if (selectedItem) {
-      console.log(selectedItem, "Selected Item");
+      
       setIsLoading(true);
       updateUserProduceData(selectedItem)
         .then(() => {
@@ -75,11 +75,11 @@ export default function MyProduce() {
   }
 
   const removeProduceItem = async (itemNameToRemove) => {
-    console.log(itemNameToRemove);
+    
     setIsLoading(true);
     const newProduce = userProduce.filter((item) => item !== itemNameToRemove);
     try {
-      console.log(newProduce, "New Produce");
+      
       await updateUserProduceData(newProduce);
       setUserProduce(newProduce);
     } catch (error) {
