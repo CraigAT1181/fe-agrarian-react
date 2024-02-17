@@ -83,6 +83,13 @@ export default function Profile() {
 
             <Dropdown.Item
               className="text-success"
+              onClick={() => navigate("/calendar")}
+              style={{ backgroundColor: "transparent" }}>
+              Calendar
+            </Dropdown.Item>
+
+            <Dropdown.Item
+              className="text-success"
               onClick={() => navigate("#")}
               style={{ backgroundColor: "transparent" }}>
               Encyclopedia

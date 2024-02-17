@@ -4,9 +4,10 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 
 export default function Calendar() {
   const events = [
-    { title: 'Event 1', date: '2024-02-17' },
-    { title: 'Event 2', date: '2024-02-18' },
-    // Add more event data as needed
+    { title: 'Spring Equinox', date: '2024-03-20' },
+    { title: 'Summer Solstice', date: '2024-06-21' },
+    { title: 'Autumn Equinox', date: '2024-09-23' },
+    { title: 'Winter Solstice', date: '2024-12-22' },
   ];
 
   return (

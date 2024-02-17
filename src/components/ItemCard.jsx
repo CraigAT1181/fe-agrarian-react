@@ -24,7 +24,7 @@ export default function ItemCard({
           (produceItem, index) =>
             userProduce.includes(produceItem.produce_name) && (
               <ListGroupItem
-                className="text-success fw-bold"
+                className="text-success fw-bold p-3"
                 style={{ marginLeft: "1rem", border: "solid 2px" }}
                 key={index}>
                 <div className="row justify-content-center">

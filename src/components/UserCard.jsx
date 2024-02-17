@@ -39,7 +39,7 @@ export default function UserCard({ users }) {
                 overflowX: "auto",
               }}>
               {person.produce.length > 0 ? (
-                person.produce.map((item, index) => (
+                person.produce.sort().map((item, index) => (
                   <ListGroupItem
                     key={index}
                     style={{
