@@ -37,6 +37,13 @@ export default function NavBar() {
           </Nav.Link>
           <Nav.Link
             className="text-white mx-4"
+            title="Calendar"
+            as={Link}
+            to="/calendar">
+            <i className="fa-solid fa-2x fa-calendar-days"></i>
+          </Nav.Link>
+          <Nav.Link
+            className="text-white mx-4"
             title="Encyclopedia"
             as={Link}
             to="#">
