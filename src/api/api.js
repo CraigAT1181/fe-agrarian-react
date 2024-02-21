@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://cookingpot.onrender.com",
+  baseURL: "https://agrarian-pw89.onrender.com",
 });
 
 export default api;
@@ -130,3 +130,11 @@ export const createPost = async (user_id, status, type, item, image, body) => {
 export const deletePost = async (post_id) => {
   await api.delete(`/posts/${post_id}`);
 };
+
+export const contactForm = async (name, email, message) => {
+  await api.post('/contact', {
+    name: name,
+    email: email,
+    message: message
+  })
+}

@@ -37,7 +37,7 @@ export default function Footer() {
                 className="text-white fw-bold"
                 style={{ cursor: "pointer" }}
                 onClick={() => navigate("/contact")}>
-                Contact
+                Contact Us
               </span>
             </div>
           </div>
