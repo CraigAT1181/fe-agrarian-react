@@ -61,14 +61,7 @@ export default function Footer() {
               </span>
             </div>
           </div>
-          <div className="col">
-            <span
-              className="text-white fw-bold"
-              style={{ cursor: "pointer" }}
-              onClick={() => navigate("/suggestions")}>
-              Make a Suggestion
-            </span>
-          </div>
+          <div className="col"></div>
         </div>
         <div className="row">
           <div className="mt-3">
