@@ -39,15 +39,8 @@ export default function NavBar() {
             className="text-white mx-4"
             title="Calendar"
             as={Link}
-            to="/calendar">
-            <i className="fa-solid fa-2x fa-calendar-days"></i>
-          </Nav.Link>
-          <Nav.Link
-            className="text-white mx-4"
-            title="Encyclopedia"
-            as={Link}
             to="#">
-            <i className="fa-brands fa-2x fa-pagelines"></i>
+            <i className="fa-solid fa-2x fa-calendar-days"></i>
           </Nav.Link>
           <Nav.Link
             className="text-white mx-4"
@@ -58,11 +51,26 @@ export default function NavBar() {
           </Nav.Link>
           <Nav.Link
             className="text-white mx-4"
+            title="Encyclopedia"
+            as={Link}
+            to="#">
+            <i className="fa-brands fa-2x fa-pagelines"></i>
+          </Nav.Link>
+          <Nav.Link
+            className="text-white mx-4"
             title="Share Tips & Tricks"
             as={Link}
             to="#">
-            <i className="fa-solid fa-2x fa-feather-pointed"></i>
+            <i className="fa-solid fa-2x fa-pen"></i>
           </Nav.Link>
+          <Nav.Link
+            className="text-white mx-4"
+            title="Shop"
+            as={Link}
+            to="#">
+            <i className="fa-solid fa-2x fa-cart-shopping"></i>
+          </Nav.Link>
+
           {user && (
             <Nav.Link
               className="text-white mx-4"

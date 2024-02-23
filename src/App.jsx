@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./components/AuthContext";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import AdCarousel from "./components/AdCarousel";
 import ErrorHandling from "./components/ErrorHandling";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
@@ -20,7 +21,7 @@ const OfferSupport = lazy(() => import("./components/OfferSupport"));
 const Privacy = lazy(() => import("./components/Privacy"));
 const Cookies = lazy(() => import("./components/Cookies"));
 const Contact = lazy(() => import("./components/Contact"));
-const Suggestions = lazy(() => import("./components/Suggestions"));
+const Activities = lazy(() => import("./components/Activities"));
 
 export default function App() {
   return (
@@ -102,12 +103,13 @@ export default function App() {
                 element={<Contact />}
               />
               <Route
-                path="/suggestions"
-                element={<Suggestions />}
+                path="/activities"
+                element={<Activities />}
               />
             </Routes>
           </Suspense>
         </main>
+        <AdCarousel />
         <Footer />
       </AuthProvider>
     </div>
