@@ -1,11 +1,27 @@
-import React from 'react';
-import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
+import React, { useEffect, useState } from "react";
+import Slider from "react-slick";
+import { getAds } from "../api/api";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
-export default function AdCarousel () {
+export default function AdCarousel() {
+  const [ads, setAds] = useState([]);
 
-const settings = {
+  useEffect(() => {
+    const populateAds = async () => {
+      try {
+        const fetchedAds = await getAds();
+        console.log(fetchedAds);
+        setAds(fetchedAds.ads);
+      } catch (error) {
+        console.error("Error fetching ads:", error);
+      }
+    };
+
+    populateAds();
+  }, []);
+
+  const settings = {
     dots: true,
     infinite: true,
     speed: 1000,
@@ -15,50 +31,39 @@ const settings = {
     autoplaySpeed: 5000,
     arrows: true,
     pauseOnHover: true,
-    adaptiveHeight: true,
+    adaptiveHeight: false,
+    innerWidth: "auto",
     centerMode: true,
-    centerPadding: '60px',
+    centerPadding: "1rem",
     initialSlide: 0,
     responsive: [
       {
         breakpoint: 768,
         settings: {
           slidesToShow: 1,
-          slidesToScroll: 1
-        }
+          slidesToScroll: 1,
+        },
       },
       {
         breakpoint: 1024,
         settings: {
           slidesToShow: 3,
-          slidesToScroll: 2
-        }
-      }
-    ]
+          slidesToScroll: 1,
+        },
+      },
+    ],
   };
 
   return (
-    <div className='container border'>
-    <Slider {...settings}>
-      <div>
-        <h3>Slide 1</h3>
-      </div>
-      <div>
-        <h3>Slide 2</h3>
-      </div>
-      <div>
-        <h3>Slide 3</h3>
-      </div>
-      <div>
-        <h3>Slide 4</h3>
-      </div>
-      <div>
-        <h3>Slide 5</h3>
-      </div>
-      <div>
-        <h3>Slide 6</h3>
-      </div>
-    </Slider>
+    <div className="container mt-3 mb-1">
+      <Slider {...settings}>
+        {ads.map((ad, index) => (
+          <div key={index}>
+            <span style={{position: "absolute", backgroundColor: "white", padding: "4px"}}>Ad Example</span>
+            <img src={ad.image_url} alt={`Ad ${index}`} />
+          </div>
+        ))}
+      </Slider>
     </div>
   );
 }
