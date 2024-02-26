@@ -67,7 +67,7 @@ export default function NavBar() {
             className="text-white mx-4"
             title="Shop"
             as={Link}
-            to="#">
+            to="/shop">
             <i className="fa-solid fa-2x fa-cart-shopping"></i>
           </Nav.Link>
 

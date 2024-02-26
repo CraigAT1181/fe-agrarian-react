@@ -22,6 +22,7 @@ const Privacy = lazy(() => import("./components/Privacy"));
 const Cookies = lazy(() => import("./components/Cookies"));
 const Contact = lazy(() => import("./components/Contact"));
 const Activities = lazy(() => import("./components/Activities"));
+const Shop = lazy(() => import("./components/Shop"));
 
 export default function App() {
   return (
@@ -105,6 +106,10 @@ export default function App() {
               <Route
                 path="/activities"
                 element={<Activities />}
+              />
+              <Route
+                path="/shop"
+                element={<Shop />}
               />
             </Routes>
           </Suspense>

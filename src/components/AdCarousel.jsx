@@ -11,7 +11,6 @@ export default function AdCarousel() {
     const populateAds = async () => {
       try {
         const fetchedAds = await getAds();
-        console.log(fetchedAds);
         setAds(fetchedAds.ads);
       } catch (error) {
         console.error("Error fetching ads:", error);
@@ -59,8 +58,18 @@ export default function AdCarousel() {
       <Slider {...settings}>
         {ads.map((ad, index) => (
           <div key={index}>
-            <span style={{position: "absolute", backgroundColor: "white", padding: "4px"}}>Ad Example</span>
-            <img src={ad.image_url} alt={`Ad ${index}`} />
+            <span
+              style={{
+                position: "absolute",
+                backgroundColor: "white",
+                padding: "4px",
+              }}>
+              Ad Example
+            </span>
+            <img
+              src={ad.image_url}
+              alt={`Ad ${index}`}
+            />
           </div>
         ))}
       </Slider>

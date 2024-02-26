@@ -6,7 +6,7 @@ import "../App.css";
 
 export default function Home() {
   const { user } = useAuth();
-
+  
   return (
     <div className="container h-100 d-flex flex-grow-1">
       {user !== null ? (
