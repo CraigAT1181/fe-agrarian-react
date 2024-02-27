@@ -61,6 +61,12 @@
   column-gap: 1rem;
 }
 
+.blog-display {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  column-gap: 1rem;
+}
+
 @media (max-width: 767px) {
   .post-display {
     grid-template-columns: 100%; /* Display only one column on smaller screens */

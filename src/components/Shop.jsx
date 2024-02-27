@@ -1,54 +1,54 @@
 import React, { useEffect, useState } from "react";
 import { getShopifyProducts } from "../api/shopify";
+import ShopifyProductDisplay from "./ShopifyProductDisplay";
 
-const MyComponent = () => {
+export default function Shop() {
   const [products, setProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+
   useEffect(() => {
-    const fetchShopifyProducts = async () => {
-      try {
-        const query = `{
+    setIsLoading(true);
+    const query = `{
             products(first: 10){edges{node{id title images(first: 1) {edges {node {originalSrc }}}}}}}`;
-        const shopProducts = await getShopifyProducts(query);
-
-        setProducts((prevProducts) => [...prevProducts, shopProducts]);
-        console.log("Shopify products:", products);
-      } catch (error) {
-        console.error("Error fetching Shopify products:", error);
-      }
-    };
-
-    fetchShopifyProducts();
+    getShopifyProducts(query)
+      .then(({data}) => {
+        setIsLoading(false);
+        setProducts(data.products.edges);
+      })
+      .catch(
+        ({
+          response: {
+            status,
+            data: { message },
+          },
+        }) => {
+          setIsLoading(false);
+          setError({ status, message: message });
+        }
+      );
   }, []);
 
-  useEffect(() => {
-    // Log the updated state whenever products change
-    console.log("Shopify products:", products);
-  }, [products]);
+  if (isLoading)
+    return (
+      <div className="d-flex-col text-center mt-4">
+        <i className="fa-solid fa-spinner fa-spin"></i>
+        <p>Loading posts...</p>
+      </div>
+    );
+  if (error)
+    return (
+      <div className="d-flex-col text-center mt-4">
+        <i className="fa-solid fa-exclamation"></i>
+        <p>
+          Oops, there's been an error: {error.status} {error.message}
+        </p>
+      </div>
+    );
 
   return (
-    <div>
-      {products &&
-        products.map((product, productIndex) => (
-          <div key={productIndex}>
-            {product.data.products.edges.map((node, nodeIndex) => (
-              <div key={nodeIndex}>
-                {node.node.images.edges.map((image, imageIndex) => (
-                  <div key={imageIndex}>
-                    <img
-                      key={imageIndex}
-                      style={{height: "150px"}}
-                      src={image.node.originalSrc}
-                      alt=""
-                    />
-                  </div>
-                ))}
-              </div>
-            ))}
-          </div>
-        ))}
+    <div className="container">
+      <div>{products && <ShopifyProductDisplay products={products} />}</div>
     </div>
   );
-  
-};
-
-export default MyComponent;
+}
