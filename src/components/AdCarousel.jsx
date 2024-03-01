@@ -54,7 +54,7 @@ export default function AdCarousel() {
   };
 
   return (
-    <div className="container mt-3 mb-1">
+    <div className="container mt-5 mb-1">
       <Slider {...settings}>
         {ads.map((ad, index) => (
           <div key={index}>

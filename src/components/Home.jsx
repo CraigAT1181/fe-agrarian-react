@@ -3,6 +3,7 @@ import { useAuth } from "./AuthContext";
 import MyProduce from "./MyProduce";
 import MyPosts from "./MyPosts";
 import "../App.css";
+import MyBlogs from "./MyBlogs";
 
 export default function Home() {
   const { user } = useAuth();
@@ -14,6 +15,8 @@ export default function Home() {
           <MyProduce />
 
           <MyPosts />
+
+          <MyBlogs />
         </div>
       ) : (
         <div

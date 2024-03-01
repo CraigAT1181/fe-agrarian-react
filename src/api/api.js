@@ -24,6 +24,24 @@ export const getAds = async () => {
   return data;
 };
 
+export const getBlogs = async () => {
+  const { data } = await api.get("/blogs");
+
+  return data;
+};
+
+export const getSingleBlog = async (blog_id) => {
+  const { data } = await api.get(`/blogs/${blog_id}`);
+
+  return data;
+};
+
+export const getCommentsByBlogID = async (blog_id) => {
+  const { data } = await api.get(`/comments/${blog_id}`);
+
+  return data;
+};
+
 export const getUsersByProduceName = async (produceList) => {
   const { data } = await api.get(`/users/${produceList}`);
 
@@ -138,9 +156,9 @@ export const deletePost = async (post_id) => {
 };
 
 export const contactForm = async (name, email, message) => {
-  await api.post('/contact', {
+  await api.post("/contact", {
     name: name,
     email: email,
-    message: message
-  })
-}
+    message: message,
+  });
+};

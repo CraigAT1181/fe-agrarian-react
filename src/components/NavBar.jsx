@@ -60,14 +60,14 @@ export default function NavBar() {
             className="text-white mx-4"
             title="Share Tips & Tricks"
             as={Link}
-            to="#">
+            to="/blogs">
             <i className="fa-solid fa-2x fa-pen"></i>
           </Nav.Link>
           <Nav.Link
             className="text-white mx-4"
             title="Shop"
             as={Link}
-            to="/shop">
+            to="#">
             <i className="fa-solid fa-2x fa-cart-shopping"></i>
           </Nav.Link>
 
