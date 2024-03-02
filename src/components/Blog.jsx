@@ -82,7 +82,7 @@ export default function Blog() {
     );
 
   return (
-    <div className="container">
+    <div className="container mt-5">
       <div className="row">
         <div className="col-md-4">
           <div className="mb-4">
