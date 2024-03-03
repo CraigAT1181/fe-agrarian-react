@@ -17,7 +17,7 @@ export default function Home() {
 
           <MyPosts />
 
-          {/* <MyBlogs /> */}
+          <MyBlogs />
         </div>
       ) : (
         <div className="col">

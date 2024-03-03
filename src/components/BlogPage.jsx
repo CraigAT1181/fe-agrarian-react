@@ -58,8 +58,17 @@ export default function BlogPage() {
 
     if (allBlogs) {
       const filteredBlogs = allBlogs.filter((blog) => {
-        // Check if any tag in the blog matches the search term
-        return blog.tags.some((tag) => tag.toLowerCase().includes(searchTerm));
+        const searchTermsArray = searchTerm.split(" ");
+
+        return (
+          blog.tags.some((tag) => tag.toLowerCase().includes(searchTerm)) ||
+          searchTermsArray.some((searchWord) =>
+            blog.username.toLowerCase().includes(searchWord)
+          ) ||
+          searchTermsArray.some((searchWord) =>
+            blog.title.toLocaleLowerCase().includes(searchWord)
+          )
+        );
       });
 
       setSearchBlogs(filteredBlogs);
