@@ -60,7 +60,7 @@ export default function NavBar() {
             className="text-white mx-4"
             title="Share Tips & Tricks"
             as={Link}
-            to="/blogs">
+            to="#">
             <i className="fa-solid fa-2x fa-pen"></i>
           </Nav.Link>
           <Nav.Link
