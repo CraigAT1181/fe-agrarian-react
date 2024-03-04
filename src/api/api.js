@@ -30,21 +30,31 @@ export const getBlogs = async () => {
   return data;
 };
 
+export const getBlogsByUserID = async (userID) => {
+  const { data } = await api.get(`/users/${userID}/blogs`);
+
+  return data;
+};
+
 export const getSingleBlog = async (blog_id) => {
   const { data } = await api.get(`/blogs/${blog_id}`);
 
   return data;
 };
 
-export const createBlog = async (title, author_id, content, tags, image_url) => {
+export const createBlog = async (
+  title,
+  author_id,
+  content,
+  tags,
+  image_url
+) => {
   const { data } = await api.post("/blogs", {
-    
     title,
     author_id,
     content,
     tags,
-    image_url
-
+    image_url,
   });
 
   return data;
@@ -55,14 +65,14 @@ export const deleteBlog = async (blog_id) => {
 };
 
 export const patchBlog = async (blog_id) => {
-  const {data} = await api.patch(`/blogs/${blog_id}`, {
+  const { data } = await api.patch(`/blogs/${blog_id}`, {
     title,
     content,
     tags,
     image_url,
-    author_id
-  })
-}
+    author_id,
+  });
+};
 
 export const getCommentsByBlogID = async (blog_id) => {
   const { data } = await api.get(`/comments/${blog_id}`);

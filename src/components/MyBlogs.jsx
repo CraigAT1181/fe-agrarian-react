@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getBlogs } from "../api/api";
+import { getBlogsByUserID } from "../api/api";
 import { useAuth } from "./AuthContext";
 import BlogSummary from "./BlogSummary";
 
@@ -12,15 +12,14 @@ export default function MyBlogs() {
   const [userBlogs, setUserBlogs] = useState();
   const [showModal, setShowModal] = useState(false);
   let [newBlog, setNewBlog] = useState({});
-  const [BlogDeleted, setBlogDeleted] = useState(false);
 
   useEffect(() => {
     setIsLoading(true);
-    getBlogs()
+    getBlogsByUserID(user.userID)
       .then(({ blogs }) => {
         console.log(blogs, user.userID);
         setIsLoading(false);
-        setUserBlogs(blogs.filter((blog) => user.username === blog.username));
+        setUserBlogs(blogs);
       })
       .catch(
         ({
@@ -33,9 +32,7 @@ export default function MyBlogs() {
           setError({ status, message: message });
         }
       );
-
-    setBlogDeleted(false);
-  }, [newBlog, BlogDeleted]);
+  }, [newBlog]);
 
   const handleShow = () => setShowModal(true);
   const handleClose = () => setShowModal(false);
@@ -79,7 +76,6 @@ export default function MyBlogs() {
             <div style={{maxWidth: "25%"}} key={blog.blog_id}>
               <BlogSummary
                 blog={blog}
-                setBlogDeleted={setBlogDeleted}
               />
             </div>
           ))
