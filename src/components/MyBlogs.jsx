@@ -17,7 +17,6 @@ export default function MyBlogs() {
     setIsLoading(true);
     getBlogsByUserID(user.userID)
       .then(({ blogs }) => {
-        console.log(blogs, user.userID);
         setIsLoading(false);
         setUserBlogs(blogs);
       })
@@ -70,18 +69,24 @@ export default function MyBlogs() {
           setNewBlog={setNewBlog}
         />
       </div>
-      <div className="d-flex">
+
+      <div
+        className="d-flex"
+        style={{ overflowX: "auto" }}>
         {userBlogs && userBlogs.length > 0 ? (
           userBlogs.map((blog) => (
-            <div style={{maxWidth: "25%"}} key={blog.blog_id}>
-              <BlogSummary
-                blog={blog}
-              />
+            <div
+              className="my-2 mx-2"
+              style={{ width: "25%", marginRight: "2rem", flexShrink: 0 }}
+              key={blog.blog_id}>
+              <BlogSummary blog={blog} />
             </div>
           ))
         ) : (
           <div className="d-flex align-items-center justify-content-center">
+            
             <p>You've not written any blogs yet.</p>
+            
           </div>
         )}
       </div>

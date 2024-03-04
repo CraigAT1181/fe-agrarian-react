@@ -27,11 +27,17 @@ export default function Blog() {
     setIsLoading(true);
 
     getSingleBlog(blog_id)
-      .then((blog) => {
-        setIsLoading(false);
-        console.log(blog);
+    .then((blog) => {
+      setIsLoading(false);
+      console.log(blog);
+      if (blog.image_url === "") {
+        // Update image_url if it's empty
+        setSingleBlog({ ...blog, image_url: "https://picsum.photos/300/300" });
+      } else {
+        // Otherwise, set the fetched blog data
         setSingleBlog(blog);
-      })
+      }
+    })
       .catch(
         ({
           response: {
@@ -84,6 +90,10 @@ export default function Blog() {
           setError({ status, message: message });
         }
       );
+  };
+
+  const handleEdit = (blog_id) => {
+setIs
   };
 
   if (isLoading)

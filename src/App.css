@@ -65,6 +65,7 @@
   display: grid;
   grid-template-columns: 30% 30% 30%;
   column-gap: 1rem;
+  row-gap: 2rem;
   justify-content: space-between;
 }
 
@@ -76,7 +77,6 @@
 .blog-content p {
   margin-bottom: 10px;
 }
-
 
 @media (max-width: 767px) {
   .post-display,

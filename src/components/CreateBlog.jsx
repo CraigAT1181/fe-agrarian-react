@@ -1,10 +1,6 @@
 import React, { useState } from "react";
 import { useAuth } from "./AuthContext";
-import {
-  Modal,
-  Button,
-  Alert,
-} from "react-bootstrap";
+import { Modal, Button, Alert, ListGroupItem } from "react-bootstrap";
 import { createBlog } from "../api/api";
 
 export default function CreateBlogModal({ show, handleClose, setNewBlog }) {
@@ -13,7 +9,8 @@ export default function CreateBlogModal({ show, handleClose, setNewBlog }) {
   const { user } = useAuth();
   let [title, setTitle] = useState("");
   let [content, setContent] = useState("");
-  let [tags, setTags] = useState([]);
+  const [tags, setTags] = useState([]);
+  const [tagInput, setTagInput] = useState("");
   let [imageURL, setImageURL] = useState("");
 
   const handleTitleInput = (value) => {
@@ -24,8 +21,27 @@ export default function CreateBlogModal({ show, handleClose, setNewBlog }) {
     setContent(value);
   };
 
-  const handleTagsInput = (value) => {
-    setTags(value);
+  const handleTagInput = (value) => {
+    setTagInput(() => value);
+  };
+  
+  const handleTagKeyPress = (e) => {
+    if (e.key === "Enter" || e.key === "," || e.key === " ") {
+      e.preventDefault();
+      addTag();
+    }
+  };
+
+  const addTag = () => {
+    const newTag = tagInput.trim();
+    if (newTag && !tags.includes(newTag)) {
+      setTags([...tags, newTag.toLowerCase()]);
+      setTagInput("");
+    }
+  };
+  
+  const removeTag = (tagToRemove) => {
+    setTags(tags.filter((tag) => tag !== tagToRemove));
   };
 
   // const handleImageURLInput = (value) => {
@@ -106,11 +122,28 @@ export default function CreateBlogModal({ show, handleClose, setNewBlog }) {
               Tags
             </label>
             <input
-              type="text"
+              id="tags"
               className="form-control"
-              id="blogTitle"
-              onChange={({ target }) => handleTagsInput(target.value)}
+              type="text"
+              value={tagInput}
+              onChange={({ target }) => handleTagInput(target.value)}
+              onKeyDown={(e) => handleTagKeyPress(e)}
             />
+          </div>
+          <div className="d-flex">
+            {tags.map((tag, index) => (
+              <div
+                key={index}
+                className="mx-2 text-center">
+                <div>{tag.toLowerCase()}</div>
+                <div
+                  className="badge bg-danger"
+                  style={{ cursor: "pointer", width: "25px" }}
+                  onClick={() => removeTag(tag)}>
+                  X
+                </div>
+              </div>
+            ))}
           </div>
         </form>
       </Modal.Body>

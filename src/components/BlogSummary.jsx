@@ -20,7 +20,7 @@ function formatDate(date) {
 
 export default function BlogSummary({ blog }) {
   const [blogComments, setBlogComments] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -68,19 +68,28 @@ export default function BlogSummary({ blog }) {
     );
 
   return (
-    <div
-      className="container blog-border mb-4">
+    <div className="container blog-border">
       <div className="col text-center">
         <Link to={`/blogs/${blog.blog_id}`}>
-          <div className="p-3">
-            <img
-              style={{ borderRadius: "20px", maxWidth: "100%" }}
-              src={blog.image_url}
-              alt="Blog cover image"
-            />
-          </div>
+          {blog.image_url ? (
+            <div className="p-3">
+              <img
+                style={{ borderRadius: "20px", maxWidth: "100%" }}
+                src={blog.image_url}
+                alt="Blog cover image"
+              />
+            </div>
+          ) : (
+            <div className="p-3">
+              <img
+                style={{ borderRadius: "20px", maxWidth: "100%" }}
+                src="https://picsum.photos/300/300"
+                alt="Blog cover image"
+              />
+            </div>
+          )}
         </Link>
-        <div style={{paddingBottom: "1rem"}}>
+        <div style={{ paddingBottom: "1rem" }}>
           <div style={{ height: "5rem" }}>
             <h5>{blog.title}</h5>
           </div>
@@ -91,7 +100,7 @@ export default function BlogSummary({ blog }) {
           <p>{formattedDate}</p>
 
           <i className="fa-solid fa-comment text-success"></i>
-          <p>{blogComments.length}</p>
+           <p>{blogComments.length}</p>
         </div>
       </div>
     </div>

@@ -72,10 +72,12 @@ export const patchBlog = async (blog_id) => {
     image_url,
     author_id,
   });
+
+  return data;
 };
 
 export const getCommentsByBlogID = async (blog_id) => {
-  const { data } = await api.get(`/comments/${blog_id}`);
+  const { data } = await api.get(`/blogs/${blog_id}/comments`);
 
   return data;
 };
