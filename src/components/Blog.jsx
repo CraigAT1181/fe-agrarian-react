@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { getCommentsByBlogID, getSingleBlog } from "../api/api";
+import { useParams, useNavigate } from "react-router-dom";
+import { deleteBlog, getCommentsByBlogID, getSingleBlog } from "../api/api";
 import { useAuth } from "./AuthContext";
 import "../App.css";
 import MessageButton from "./MessageButton";
@@ -20,6 +20,7 @@ export default function Blog() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const navigate = useNavigate();
   const { blog_id } = useParams();
 
   useEffect(() => {
@@ -63,6 +64,27 @@ export default function Blog() {
         );
     }
   }, []);
+
+  const handleDelete = (blog_id) => {
+    setIsLoading(true);
+
+    deleteBlog(blog_id)
+      .then(() => {
+        setIsLoading(false);
+        navigate("/");
+      })
+      .catch(
+        ({
+          response: {
+            status,
+            data: { message },
+          },
+        }) => {
+          setIsLoading(false);
+          setError({ status, message: message });
+        }
+      );
+  };
 
   if (isLoading)
     return (
@@ -108,7 +130,7 @@ export default function Blog() {
                 Edit
               </button>
               <button
-                onClick={() => navigate("#")}
+                onClick={() => handleDelete(blog_id)}
                 className="btn btn-outline-danger mx-1 fw-bold">
                 Delete
               </button>

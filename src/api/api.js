@@ -44,11 +44,25 @@ export const createBlog = async (title, author_id, content, tags, image_url) => 
     content,
     tags,
     image_url
-    
+
   });
 
   return data;
 };
+
+export const deleteBlog = async (blog_id) => {
+  await api.delete(`/blogs/${blog_id}`);
+};
+
+export const patchBlog = async (blog_id) => {
+  const {data} = await api.patch(`/blogs/${blog_id}`, {
+    title,
+    content,
+    tags,
+    image_url,
+    author_id
+  })
+}
 
 export const getCommentsByBlogID = async (blog_id) => {
   const { data } = await api.get(`/comments/${blog_id}`);
