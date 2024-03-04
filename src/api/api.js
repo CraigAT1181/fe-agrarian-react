@@ -36,6 +36,20 @@ export const getSingleBlog = async (blog_id) => {
   return data;
 };
 
+export const createBlog = async (title, author_id, content, tags, image_url) => {
+  const { data } = await api.post("/blogs", {
+    
+    title,
+    author_id,
+    content,
+    tags,
+    image_url
+    
+  });
+
+  return data;
+};
+
 export const getCommentsByBlogID = async (blog_id) => {
   const { data } = await api.get(`/comments/${blog_id}`);
 

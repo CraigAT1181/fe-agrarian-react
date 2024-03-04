@@ -3,127 +3,115 @@ import { useAuth } from "./AuthContext";
 import {
   Modal,
   Button,
-  ToggleButtonGroup,
-  ToggleButton,
   Alert,
 } from "react-bootstrap";
-// import { createBlog } from "../api/api";
+import { createBlog } from "../api/api";
 
 export default function CreateBlogModal({ show, handleClose, setNewBlog }) {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const { user } = useAuth();
-  let [item, setItem] = useState("");
-  let [status, setStatus] = useState("");
-  let [type, setType] = useState("");
-  let [body, setBody] = useState("");
-  let [image, setImage] = useState("");
+  let [title, setTitle] = useState("");
+  let [content, setContent] = useState("");
+  let [tags, setTags] = useState([]);
+  let [imageURL, setImageURL] = useState("");
 
-  const handleItemInput = (value) => {
-    setItem(value);
+  const handleTitleInput = (value) => {
+    setTitle(value);
   };
 
-  const handleBodyInput = (value) => {
-    setBody(value);
+  const handleContentInput = (value) => {
+    setContent(value);
   };
 
-//   const handleCreate = (user, item, status, type, image, body) => {
-//     setIsLoading(true);
+  const handleTagsInput = (value) => {
+    setTags(value);
+  };
 
-//     createPost(user.userID, status, type, item, image, body)
-//       .then((data) => {
-//         setIsLoading(false);
-//         setNewPost(data);
-//         handleClose();
-//       })
-//       .catch(() => {
-//         setIsLoading(false);
-//         setError(
-//           "Ensure you've selected a Status and a Type (e.g. 'Wanted' 'Seeds')"
-//         );
-//       });
-//   };
+  // const handleImageURLInput = (value) => {
+  //   setImageURL(value);
+  // };
+
+  const handleCreateBlog = () => {
+    setIsLoading(true);
+
+    createBlog(title, user.userID, content, tags, imageURL)
+      .then((data) => {
+        setIsLoading(false);
+        console.log(data);
+        setNewBlog(data);
+        handleClose();
+      })
+      .catch(
+        ({
+          response: {
+            status,
+            data: { message },
+          },
+        }) => {
+          setIsLoading(false);
+          setError({ status, message: message });
+        }
+      );
+  };
 
   return (
     <Modal
       show={show}
       onHide={handleClose}>
       <Modal.Header closeButton>
-        <Modal.Title>Create your Post</Modal.Title>
+        <Modal.Title>Your Blog</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <form>
           <div className="mb-3">
             <label
-              htmlFor="postTitle"
+              htmlFor="blogImage"
               className="form-label">
-              Item
+              Image
             </label>
             <input
               type="text"
               className="form-control"
-              id="postTitle"
-              placeholder="What's the item you have or want"
-              onChange={({ target }) => handleItemInput(target.value)}
+              id="blogImage"
             />
-          </div>
-          <div className="mb-3 row">
-            <div className="col text-center">
-              <ToggleButtonGroup
-                className="mx-3"
-                type="radio"
-                name="options">
-                <ToggleButton
-                //   variant={availableVariant}
-                  id="Available"
-                  onChange={() => handleStatusSelection("Available")}>
-                  Available
-                </ToggleButton>
-                <ToggleButton
-                //   variant={wantedVariant}
-                  id="Wanted"
-                  onChange={() => handleStatusSelection("Wanted")}>
-                  Wanted
-                </ToggleButton>
-              </ToggleButtonGroup>
-            </div>
-            <div className="col text-center">
-              <ToggleButtonGroup
-                className="mx-3"
-                type="radio"
-                name="options">
-                <ToggleButton
-                  onChange={() => handleTypeSelection("Seeds")}
-                //   variant={seedsVariant}
-                  id="Seeds">
-                  Seeds
-                </ToggleButton>
-                <ToggleButton
-                  onChange={() => handleTypeSelection("Produce")}
-                //   variant={produceVariant}
-                  id="Produce">
-                  Produce
-                </ToggleButton>
-              </ToggleButtonGroup>
-            </div>
-          </div>
-
-          <div className="mb-3">
             <label
-              htmlFor="postContent"
+              htmlFor="blogTitle"
               className="form-label">
-              Description
+              Title
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="blogTitle"
+              onChange={({ target }) => handleTitleInput(target.value)}
+            />
+            <label
+              htmlFor="content"
+              className="form-label">
+              Content
             </label>
             <textarea
               className="form-control"
-              id="postContent"
-              rows="4"
-              placeholder="Provide a description to allow others to find it more easily from a search"
+              id="content"
+              rows="10"
               onChange={({ target }) =>
-                handleBodyInput(target.value)
+                handleContentInput(target.value)
               }></textarea>
           </div>
-          <div className="mb-3"></div>
+          <div className="mb-3">
+            <label
+              htmlFor="tags"
+              className="form-label">
+              Tags
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="blogTitle"
+              onChange={({ target }) => handleTagsInput(target.value)}
+            />
+          </div>
         </form>
       </Modal.Body>
       <Modal.Footer>
@@ -135,7 +123,7 @@ export default function CreateBlogModal({ show, handleClose, setNewBlog }) {
         {isLoading && (
           <div className="d-flex-col text-center mt-4">
             <i className="fa-solid fa-spinner fa-spin"></i>
-            <p>Creating your post...</p>
+            <p>Uploading your blog...</p>
           </div>
         )}
         <Button
@@ -145,8 +133,8 @@ export default function CreateBlogModal({ show, handleClose, setNewBlog }) {
         </Button>
         <Button
           variant="success"
-          onClick={() => handleCreate(user, item, status, type, image, body)}>
-          Create Post
+          onClick={() => handleCreateBlog()}>
+          Finished
         </Button>
       </Modal.Footer>
     </Modal>

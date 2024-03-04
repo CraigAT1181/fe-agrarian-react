@@ -18,7 +18,7 @@ function formatDate(date) {
   return format(date, `do 'of' MMMM, yyyy`).replace("do", `${day}${suffix}`);
 }
 
-export default function BlogSummary({ blog_id, blog }) {
+export default function BlogSummary({ blog }) {
   const [blogComments, setBlogComments] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -69,8 +69,7 @@ export default function BlogSummary({ blog_id, blog }) {
 
   return (
     <div
-      className="container blog-border mb-4"
-      key={blog_id}>
+      className="container blog-border mb-4">
       <div className="col text-center">
         <Link to={`/blogs/${blog.blog_id}`}>
           <div className="p-3">

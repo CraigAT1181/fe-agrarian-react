@@ -73,13 +73,11 @@ export default function MyBlogs() {
           setNewBlog={setNewBlog}
         />
       </div>
-      <div>
-        {console.log(userBlogs)}
+      <div className="d-flex">
         {userBlogs && userBlogs.length > 0 ? (
           userBlogs.map((blog) => (
-            <div style={{maxWidth: "25%"}}>
+            <div style={{maxWidth: "25%"}} key={blog.blog_id}>
               <BlogSummary
-                key={blog.blog_id}
                 blog={blog}
                 setBlogDeleted={setBlogDeleted}
               />
