@@ -17,7 +17,6 @@ export default function BlogPage() {
     getBlogs()
       .then(({ blogs }) => {
         setIsLoading(false);
-        console.log(blogs);
         setAllBlogs(blogs);
       })
       .catch(

@@ -29,7 +29,7 @@ export default function BlogSummary({ blog }) {
       getCommentsByBlogID(blog.blog_id)
         .then(({ comments }) => {
           setIsLoading(false);
-          console.log(comments, "comments");
+      
           setBlogComments(comments);
         })
         .catch(
@@ -72,9 +72,9 @@ export default function BlogSummary({ blog }) {
       <div className="col text-center">
         <Link to={`/blogs/${blog.blog_id}`}>
           {blog.image_url ? (
-            <div className="p-3">
+            <div className="p-3" style={{height: "300px"}}>
               <img
-                style={{ borderRadius: "20px", maxWidth: "100%" }}
+                style={{ borderRadius: "20px", width: "100%", height: "100%", objectFit: "cover" }}
                 src={blog.image_url}
                 alt="Blog cover image"
               />
@@ -82,7 +82,7 @@ export default function BlogSummary({ blog }) {
           ) : (
             <div className="p-3">
               <img
-                style={{ borderRadius: "20px", maxWidth: "100%" }}
+                style={{ borderRadius: "20px", width: "100%" }}
                 src="https://picsum.photos/300/300"
                 alt="Blog cover image"
               />

@@ -1,20 +1,25 @@
 import React, { useState } from "react";
 import { useAuth } from "./AuthContext";
 import { Modal, Button, Alert } from "react-bootstrap";
-import { createBlog } from "../api/api";
+import { patchBlog } from "../api/api";
 import { useDropzone } from "react-dropzone";
 import "../App.css";
 
-export default function CreateBlogModal({ show, handleClose, setNewBlog }) {
+export default function EditBlogModal({
+  show,
+  handleClose,
+  singleBlog,
+  setEditedBlog,
+}) {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const { user } = useAuth();
-  let [title, setTitle] = useState("");
-  let [content, setContent] = useState("");
-  const [tags, setTags] = useState([]);
+  let [title, setTitle] = useState(singleBlog.title);
+  let [content, setContent] = useState(singleBlog.content);
+  const [tags, setTags] = useState(singleBlog.tags);
   const [tagInput, setTagInput] = useState("");
   let [imageData, setImageData] = useState(null);
-  let [imagePreview, setImagePreview] = useState(null);
+  let [imagePreview, setImagePreview] = useState(singleBlog.image_url);
 
   const onDrop = (acceptedFiles) => {
     const file = acceptedFiles[0];
@@ -27,13 +32,10 @@ export default function CreateBlogModal({ show, handleClose, setNewBlog }) {
     reader.readAsDataURL(file);
   };
 
-  
-
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
     maxFiles: 1,
-    
-  });  
+  });
 
   const handleTitleInput = (value) => {
     setTitle(value);
@@ -66,14 +68,16 @@ export default function CreateBlogModal({ show, handleClose, setNewBlog }) {
     setTags(tags.filter((tag) => tag !== tagToRemove));
   };
 
-  const handleCreateBlog = async () => {
+  const handlePatchBlog = async () => {
     setIsLoading(true);
 
     const formData = new FormData();
     if (imageData) {
       console.log(imageData, "Image before append");
       formData.append("image", imageData);
-    }
+    } else if (singleBlog.image_url.includes("https://storage")) {
+      formData.append("image", singleBlog.image_url);
+    } 
 
     formData.append("title", title);
     formData.append("author_id", user.userID);
@@ -82,10 +86,10 @@ export default function CreateBlogModal({ show, handleClose, setNewBlog }) {
 
     try {
       console.log(formData.get("image"), "form-image IN CREATEBLOG");
-      const data = await createBlog(formData);
+      const data = await patchBlog(singleBlog.blog_id, formData);
       setIsLoading(false);
       console.log(data);
-      setNewBlog(data);
+      setEditedBlog(true);
       handleClose();
     } catch (error) {
       setIsLoading(false);
@@ -98,7 +102,7 @@ export default function CreateBlogModal({ show, handleClose, setNewBlog }) {
       show={show}
       onHide={handleClose}>
       <Modal.Header closeButton>
-        <Modal.Title>Your Blog</Modal.Title>
+        <Modal.Title>Edit Your Blog</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <form>
@@ -126,6 +130,7 @@ export default function CreateBlogModal({ show, handleClose, setNewBlog }) {
             <input
               type="text"
               className="form-control"
+              value={title}
               id="blogTitle"
               onChange={({ target }) => handleTitleInput(target.value)}
             />
@@ -136,6 +141,7 @@ export default function CreateBlogModal({ show, handleClose, setNewBlog }) {
             </label>
             <textarea
               className="form-control"
+              value={content}
               id="content"
               rows="10"
               onChange={({ target }) =>
@@ -158,19 +164,20 @@ export default function CreateBlogModal({ show, handleClose, setNewBlog }) {
             />
           </div>
           <div className="d-flex">
-            {tags.map((tag, index) => (
-              <div
-                key={index}
-                className="mx-2 text-center">
-                <div>{tag.toLowerCase()}</div>
+            {tags &&
+              tags.map((tag, index) => (
                 <div
-                  className="badge bg-danger"
-                  style={{ cursor: "pointer", width: "25px" }}
-                  onClick={() => removeTag(tag)}>
-                  X
+                  key={index}
+                  className="mx-2 text-center">
+                  <div>{tag.toLowerCase()}</div>
+                  <div
+                    className="badge bg-danger"
+                    style={{ cursor: "pointer", width: "25px" }}
+                    onClick={() => removeTag(tag)}>
+                    X
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
           </div>
         </form>
       </Modal.Body>
@@ -193,7 +200,7 @@ export default function CreateBlogModal({ show, handleClose, setNewBlog }) {
         </Button>
         <Button
           variant="success"
-          onClick={() => handleCreateBlog()}>
+          onClick={() => handlePatchBlog()}>
           Finished
         </Button>
       </Modal.Footer>

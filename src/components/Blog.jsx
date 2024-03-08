@@ -4,21 +4,16 @@ import { deleteBlog, getCommentsByBlogID, getSingleBlog } from "../api/api";
 import { useAuth } from "./AuthContext";
 import "../App.css";
 import MessageButton from "./MessageButton";
+import EditBlogModal from "./EditBlog";
 
 export default function Blog() {
   const { user } = useAuth();
   const [blogComments, setBlogComments] = useState([]);
-  const [singleBlog, setSingleBlog] = useState({
-    blog_id: 0,
-    title: "",
-    username: "",
-    content: "",
-    tags: [],
-    date_published: "",
-    image_url: "",
-  });
+  let [editedBlog, setEditedBlog] = useState(false);
+  const [singleBlog, setSingleBlog] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [showModal, setShowModal] = useState(false);
 
   const navigate = useNavigate();
   const { blog_id } = useParams();
@@ -30,12 +25,14 @@ export default function Blog() {
     .then((blog) => {
       setIsLoading(false);
       console.log(blog);
-      if (blog.image_url === "") {
-        // Update image_url if it's empty
+      if (blog.image_url === "" || blog.image_url === null) {
+        
         setSingleBlog({ ...blog, image_url: "https://picsum.photos/300/300" });
       } else {
-        // Otherwise, set the fetched blog data
+        
         setSingleBlog(blog);
+
+        
       }
     })
       .catch(
@@ -54,7 +51,6 @@ export default function Blog() {
       getCommentsByBlogID(blog_id)
         .then(({ comments }) => {
           setIsLoading(false);
-          console.log(comments, "comments");
           setBlogComments(comments);
         })
         .catch(
@@ -69,7 +65,10 @@ export default function Blog() {
           }
         );
     }
-  }, []);
+  }, [editedBlog]);
+
+  const handleShow = () => setShowModal(true);
+  const handleClose = () => setShowModal(false);
 
   const handleDelete = (blog_id) => {
     setIsLoading(true);
@@ -90,10 +89,6 @@ export default function Blog() {
           setError({ status, message: message });
         }
       );
-  };
-
-  const handleEdit = (blog_id) => {
-setIs
   };
 
   if (isLoading)
@@ -117,8 +112,9 @@ setIs
     <div className="container mt-5">
       <div className="row">
         <div className="col-md-4">
-          <div className="mb-4">
+          <div className="mb-4" style={{width: "100%"}}>
             <img
+            style={{width: "100%"}}
               src={singleBlog.image_url}
               alt="Blog cover image"
             />
@@ -135,10 +131,11 @@ setIs
           {user && user.userID === singleBlog.author_id && (
             <div className="d-flex flex-md-row">
               <button
-                onClick={() => navigate("#")}
+                onClick={() => navigate('#')}
                 className="btn btn-success text-white mx-1 fw-bold">
                 Edit
               </button>
+              <EditBlogModal show={showModal} handleClose={handleClose} singleBlog={singleBlog} setEditedBlog={setEditedBlog}/>
               <button
                 onClick={() => handleDelete(blog_id)}
                 className="btn btn-outline-danger mx-1 fw-bold">

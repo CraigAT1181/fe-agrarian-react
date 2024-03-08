@@ -63,10 +63,9 @@
 
 .blog-page {
   display: grid;
-  grid-template-columns: 30% 30% 30%;
+  grid-template-columns: 25% 25% 25% 25%;
   column-gap: 1rem;
   row-gap: 2rem;
-  justify-content: space-between;
 }
 
 .blog-content {
@@ -76,6 +75,18 @@
 
 .blog-content p {
   margin-bottom: 10px;
+}
+
+.dropzone {
+  border: 2px dashed #aaaaaa;
+  border-radius: 5px;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.dropzone p {
+  margin: 0;
 }
 
 @media (max-width: 767px) {
