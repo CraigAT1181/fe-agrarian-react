@@ -108,57 +108,60 @@ export default function Blog() {
       </div>
     );
 
-  return (
-    <div className="container mt-5">
-      <div className="row">
-        <div className="col-md-4">
-          <div className="mb-4" style={{width: "100%"}}>
-            <img
-            style={{width: "100%"}}
-              src={singleBlog.image_url}
-              alt="Blog cover image"
-            />
-          </div>
-          <div>
-            <h5>{singleBlog.title}</h5>
-            <p>Written by: {singleBlog.username}</p>
-          </div>
-          {user && user.userID !== singleBlog.author_id && (
+    return (
+      <div className="container mt-5">
+        <div className="row">
+          <div className="col-md-4 p-4">
+            <div className="mb-4" style={{ width: "100%" }}>
+              <img
+                className="border"
+                style={{ width: "80%" }}
+                src={singleBlog.image_url}
+                alt="Blog cover image"
+              />
+            </div>
             <div>
-              <MessageButton partner={singleBlog.author_id} />
+              <h5>{singleBlog.title}</h5>
+              <p>Written by: {singleBlog.username}</p>
             </div>
-          )}
-          {user && user.userID === singleBlog.author_id && (
-            <div className="d-flex flex-md-row">
-              <button
-                onClick={() => navigate('#')}
-                className="btn btn-success text-white mx-1 fw-bold">
-                Edit
-              </button>
-              <EditBlogModal show={showModal} handleClose={handleClose} singleBlog={singleBlog} setEditedBlog={setEditedBlog}/>
-              <button
-                onClick={() => handleDelete(blog_id)}
-                className="btn btn-outline-danger mx-1 fw-bold">
-                Delete
-              </button>
+            {user && user.userID !== singleBlog.author_id && (
+              <div>
+                <MessageButton partner={singleBlog.author_id} />
+              </div>
+            )}
+            {user && user.userID === singleBlog.author_id && (
+              <div className="d-flex flex-md-row">
+                <button
+                  onClick={() => navigate('#')}
+                  className="btn btn-success text-white mx-1 fw-bold">
+                  Edit
+                </button>
+                <EditBlogModal show={showModal} handleClose={handleClose} singleBlog={singleBlog} setEditedBlog={setEditedBlog} />
+                <button
+                  onClick={() => handleDelete(blog_id)}
+                  className="btn btn-outline-danger mx-1 fw-bold">
+                  Delete
+                </button>
+              </div>
+            )}
+          </div>
+          <div className="col-md-8 p-4" style={{ maxHeight: "calc(80vh - 100px)", overflowY: "auto" }}>
+            <div className="blog-content mb-5">
+              {singleBlog.content && singleBlog.content.split('\n').map((paragraph, index) => (
+                <p key={index}>{paragraph}</p>
+              ))}
             </div>
-          )}
-        </div>
-        <div className="col-md-8">
-          <div
-            className="blog-content mt-5 mb-5"
-            style={{ overflowY: "auto" }}>
-            {singleBlog.content}
           </div>
         </div>
+        <hr className="text-success" />
+        <div className="row">
+          {blogComments &&
+            blogComments.map((comment, index) => (
+              <div key={index}>{comment.comment}</div>
+            ))}
+        </div>
       </div>
-      <hr className="text-success" />
-      <div className="row">
-        {blogComments &&
-          blogComments.map((comment, index) => (
-            <div key={index}>{comment.comment}</div>
-          ))}
-      </div>
-    </div>
-  );
-}
+    );
+    
+    
+    }
