@@ -21,7 +21,7 @@ export default function Login() {
 
   const handleClose = () => {
     setShow(false);
-    navigate("/");
+    navigate(-1);
   };
 
   const loginHandler = async (e) => {
@@ -31,7 +31,7 @@ export default function Login() {
       .then(({ access_token }) => {
         login(access_token);
 
-        navigate("/");
+        navigate(-1);
       })
       .catch(() => {
         setIsLoading(false);
@@ -72,7 +72,7 @@ export default function Login() {
           </Alert>
         )}
         <form onSubmit={loginHandler}>
-          <div className="form-group mt-2">
+          <div className="form-group my-2">
             <label htmlFor="username">Username</label>
             <input
               id="username"

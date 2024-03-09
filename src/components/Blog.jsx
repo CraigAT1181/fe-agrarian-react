@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { deleteBlog, getCommentsByBlogID, getSingleBlog } from "../api/api";
+import { deleteBlog, getSingleBlog } from "../api/api";
 import { useAuth } from "./AuthContext";
 import "../App.css";
 import MessageButton from "./MessageButton";
 import EditBlogModal from "./EditBlog";
+import Comments from "./Comments";
 
 export default function Blog() {
   const { user } = useAuth();
-  const [blogComments, setBlogComments] = useState([]);
   let [editedBlog, setEditedBlog] = useState(false);
   const [singleBlog, setSingleBlog] = useState({});
   const [isLoading, setIsLoading] = useState(true);
@@ -22,19 +22,18 @@ export default function Blog() {
     setIsLoading(true);
 
     getSingleBlog(blog_id)
-    .then((blog) => {
-      setIsLoading(false);
-      console.log(blog);
-      if (blog.image_url === "" || blog.image_url === null) {
-        
-        setSingleBlog({ ...blog, image_url: "https://picsum.photos/300/300" });
-      } else {
-        
-        setSingleBlog(blog);
-
-        
-      }
-    })
+      .then((blog) => {
+        setIsLoading(false);
+        console.log(blog);
+        if (blog.image_url === "" || blog.image_url === null) {
+          setSingleBlog({
+            ...blog,
+            image_url: "https://picsum.photos/300/300",
+          });
+        } else {
+          setSingleBlog(blog);
+        }
+      })
       .catch(
         ({
           response: {
@@ -46,25 +45,6 @@ export default function Blog() {
           setError({ status, message: message });
         }
       );
-
-    if (blog_id) {
-      getCommentsByBlogID(blog_id)
-        .then(({ comments }) => {
-          setIsLoading(false);
-          setBlogComments(comments);
-        })
-        .catch(
-          ({
-            response: {
-              status,
-              data: { message },
-            },
-          }) => {
-            setIsLoading(false);
-            setError({ status, message: message });
-          }
-        );
-    }
   }, [editedBlog]);
 
   const handleShow = () => setShowModal(true);
@@ -108,60 +88,65 @@ export default function Blog() {
       </div>
     );
 
-    return (
-      <div className="container mt-5">
-        <div className="row">
-          <div className="col-md-4 p-4">
-            <div className="mb-4" style={{ width: "100%" }}>
-              <img
-                className="border"
-                style={{ width: "80%" }}
-                src={singleBlog.image_url}
-                alt="Blog cover image"
-              />
-            </div>
+  return (
+    <div className="container mt-5">
+      <div className="row">
+        <div className="col-md-4 p-4">
+          <div
+            className="mb-4"
+            style={{ width: "100%" }}>
+            <img
+              className="border"
+              style={{ width: "80%", padding: "1rem" }}
+              src={singleBlog.image_url}
+              alt="Blog cover image"
+            />
+          </div>
+          <div>
+            <h5>{singleBlog.title}</h5>
+            <p>Written by: {singleBlog.username}</p>
+          </div>
+          {user && user.userID !== singleBlog.author_id && (
             <div>
-              <h5>{singleBlog.title}</h5>
-              <p>Written by: {singleBlog.username}</p>
+              <MessageButton partner={singleBlog.author_id} />
             </div>
-            {user && user.userID !== singleBlog.author_id && (
-              <div>
-                <MessageButton partner={singleBlog.author_id} />
-              </div>
-            )}
-            {user && user.userID === singleBlog.author_id && (
-              <div className="d-flex flex-md-row">
-                <button
-                  onClick={() => navigate('#')}
-                  className="btn btn-success text-white mx-1 fw-bold">
-                  Edit
-                </button>
-                <EditBlogModal show={showModal} handleClose={handleClose} singleBlog={singleBlog} setEditedBlog={setEditedBlog} />
-                <button
-                  onClick={() => handleDelete(blog_id)}
-                  className="btn btn-outline-danger mx-1 fw-bold">
-                  Delete
-                </button>
-              </div>
-            )}
-          </div>
-          <div className="col-md-8 p-4" style={{ maxHeight: "calc(80vh - 100px)", overflowY: "auto" }}>
-            <div className="blog-content mb-5">
-              {singleBlog.content && singleBlog.content.split('\n').map((paragraph, index) => (
-                <p key={index}>{paragraph}</p>
-              ))}
+          )}
+          {user && user.userID === singleBlog.author_id && (
+            <div className="d-flex flex-md-row">
+              <button
+                onClick={() => navigate("#")}
+                className="btn btn-warning text-white mx-1 fw-bold">
+                Edit
+              </button>
+              <EditBlogModal
+                show={showModal}
+                handleClose={handleClose}
+                singleBlog={singleBlog}
+                setEditedBlog={setEditedBlog}
+              />
+              <button
+                onClick={() => handleDelete(blog_id)}
+                className="btn btn-outline-danger mx-1 fw-bold">
+                Delete
+              </button>
             </div>
-          </div>
+          )}
         </div>
-        <hr className="text-success" />
-        <div className="row">
-          {blogComments &&
-            blogComments.map((comment, index) => (
-              <div key={index}>{comment.comment}</div>
-            ))}
+        <div
+          className="col-md-8 p-4"
+          style={{ maxHeight: "calc(80vh - 100px)", overflowY: "auto" }}>
+          <div className="blog-content mb-5 pt-3">
+            {singleBlog.content &&
+              singleBlog.content
+                .split("\n")
+                .map((paragraph, index) => <p key={index}>{paragraph}</p>)}
+          </div>
         </div>
       </div>
-    );
-    
-    
-    }
+      <hr className="text-success" />
+      <div className="row">
+        <Comments blog_id={blog_id} author_id={singleBlog.author_id}/>
+      </div>
+    </div>
+  );
+}

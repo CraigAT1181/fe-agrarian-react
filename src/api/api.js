@@ -70,6 +70,15 @@ export const getCommentsByBlogID = async (blog_id) => {
   return data;
 };
 
+export const postComment = async (blog_id, user_id, comment) => {
+  const { data } = await api.post(`/blogs/${blog_id}/comments`, {
+    user_id: user_id,
+    comment: comment,
+  });
+
+  return data;
+};
+
 export const getUsersByProduceName = async (produceList) => {
   const { data } = await api.get(`/users/${produceList}`);
 

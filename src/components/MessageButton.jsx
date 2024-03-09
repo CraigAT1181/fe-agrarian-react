@@ -42,10 +42,20 @@ export default function MessageButton({ partner }) {
       </div>
     );
 
+    if (error)
+    return (
+      <div className="d-flex-col text-center mt-4">
+        <i className="fa-solid fa-exclamation"></i>
+        <p>
+          Oops, there's been an error: {error.status} {error.message}
+        </p>
+      </div>
+    );
+
   return (
     <button
-      className="btn btn-success mt-2"
-      style={{ width: "8rem" }}
+      className="btn btn-success fw-bold"
+      style={{ width: "6rem" }}
       onClick={handleClick}
       disabled={isLoading}>
       Message

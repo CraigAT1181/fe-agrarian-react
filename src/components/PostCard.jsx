@@ -57,7 +57,7 @@ export default function PostCard({ post, setPostDeleted }) {
           <span>{post.body}</span>
         </div>
       </div>
-      <div className="row m-4">
+      <div className="row m-4 align-items-center">
         <div className="col text-start align-self-end">
           <p className="mb-0">
             {post.posted_by}

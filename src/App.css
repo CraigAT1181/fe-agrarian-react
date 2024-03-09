@@ -71,11 +71,8 @@
 .blog-content {
   font-size: 18px;
   line-height: 1.5;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-}
-
-.blog-content p {
-
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
 
 .dropzone {
@@ -154,6 +151,45 @@
 }
 
 #message-button {
-  width: 90px;
+  height: 100px;
+  width: auto;
   border-radius: 20px;
 }
+
+.comment-card {
+  border-radius: 20px;
+  background-color: white;
+  margin-bottom: 2rem;
+  padding: 3rem;
+}
+
+.comment-input-card {
+  border-radius: 20px;
+  background-color: white;
+  margin-bottom: 2rem;
+  padding: 2rem;
+  display: flex;
+}
+
+#comment-input {
+  border: none;
+  padding: 1rem;
+  margin-right: 1rem;
+  
+}
+
+#comment-button {
+  font-weight: bold;
+  border-radius: 20px;
+}
+
+.input-group input.comment-form-control:focus {
+  outline: none;
+  border: none;
+}
+
+.comment-form-control {
+  flex: 1;
+  width: 100%;
+}
+

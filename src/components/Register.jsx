@@ -63,7 +63,7 @@ export default function Register() {
 
   const handleClose = () => {
     setShow(false);
-    navigate("/");
+    navigate(-1);
   };
 
   if (isLoading)
