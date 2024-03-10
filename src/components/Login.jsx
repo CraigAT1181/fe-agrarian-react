@@ -31,7 +31,7 @@ export default function Login() {
       .then(({ access_token }) => {
         login(access_token);
 
-        navigate(-1);
+        navigate("/");
       })
       .catch(() => {
         setIsLoading(false);
@@ -93,17 +93,17 @@ export default function Login() {
               style={{ paddingRight: "40px" }}
             />
             <button
-            className="text-success"
+              className="text-success"
               onClick={togglePasswordVisibility}
               type="button"
               style={{
-                position: 'absolute',
-                right: '5px',
-                top: '70%',
-                transform: 'translateY(-50%)',
-                background: 'transparent',
-                border: 'none',
-                cursor: 'pointer'
+                position: "absolute",
+                right: "5px",
+                top: "70%",
+                transform: "translateY(-50%)",
+                background: "transparent",
+                border: "none",
+                cursor: "pointer",
               }}>
               <i
                 className={`fa-solid ${

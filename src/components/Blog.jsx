@@ -115,7 +115,7 @@ export default function Blog() {
             <div className="d-flex flex-md-row">
               <button
                 onClick={() => navigate("#")}
-                className="btn btn-warning text-white mx-1 fw-bold">
+                className="btn btn-outline-success mx-1 fw-bold">
                 Edit
               </button>
               <EditBlogModal
