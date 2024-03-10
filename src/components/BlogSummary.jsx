@@ -26,8 +26,10 @@ export default function BlogSummary({ blog }) {
   useEffect(() => {
     setIsLoading(true);
     if (blog) {
+      
       getCommentsByBlogID(blog.blog_id)
         .then(({ comments }) => {
+          
           setIsLoading(false);
       
           setBlogComments(comments);

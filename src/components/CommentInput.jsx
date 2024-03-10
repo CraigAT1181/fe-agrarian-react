@@ -19,7 +19,7 @@ export default function CommentInput({ blog_id, setCommentPosted }) {
       setIsLoading(true);
       postComment(blog_id, user.userID, commentInput)
         .then((data) => {
-          console.log(data);
+          
           setIsLoading(false);
           setCommentPosted(true);
         })
@@ -57,28 +57,32 @@ export default function CommentInput({ blog_id, setCommentPosted }) {
     );
 
   return (
-    <div className="comment-input-card">
-      <form onSubmit={handleSend}>
-        <div className="input-group">
-          <label
-            htmlFor="comment-input"
-            className="form-label"></label>
-          <input
-            id="comment-input"
-            className="comment-form-control"
-            type="text"
-            placeholder="Type your comment here"
-            value={commentInput}
-            onChange={handleChange}
-          />
-          <button
-            id="comment-button"
-            className="btn btn-success"
-            type="submit">
-            Post
-          </button>
-        </div>
-      </form>
+<div className="comment-input-card" style={{ display: "flex", flexDirection: "column", alignItems: "stretch" }}>
+  <form onSubmit={handleSend} style={{ flex: "1" }}>
+    <div className="input-group" style={{ display: "flex" }}>
+      <label
+        htmlFor="comment-input"
+        className="form-label"
+        style={{ display: "none" }}></label>
+      <input
+        id="comment-input"
+        className="comment-form-control"
+        type="text"
+        placeholder="Type your comment here"
+        value={commentInput}
+        onChange={handleChange}
+        style={{ flex: "1" }}
+      />
+      <button
+        id="comment-button"
+        className="btn btn-success"
+        type="submit"
+        style={{ flex: "0 0 auto", marginLeft: "5px" }}>
+        Post
+      </button>
     </div>
+  </form>
+</div>
+
   );
 }

@@ -7,6 +7,7 @@ export default function CommentsDisplay({ blog_id, commentPosted }) {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [blogComments, setBlogComments] = useState([]);
+  const [commentDeleted, setCommentDeleted] = useState(false);
 
   useEffect(() => {
     getCommentsByBlogID(blog_id)
@@ -26,7 +27,7 @@ export default function CommentsDisplay({ blog_id, commentPosted }) {
           setError({ status, message: message });
         }
       );
-  }, [commentPosted]);
+  }, [commentPosted, commentDeleted]);
 
   if (isLoading)
     return (
@@ -50,7 +51,10 @@ export default function CommentsDisplay({ blog_id, commentPosted }) {
       {blogComments.length > 0 ? (
         blogComments.map((comment) => (
           <div key={comment.comment_id}>
-            <CommentsCard comment={comment} />
+            <CommentsCard
+              comment={comment}
+              setCommentDeleted={setCommentDeleted}
+            />
           </div>
         ))
       ) : (

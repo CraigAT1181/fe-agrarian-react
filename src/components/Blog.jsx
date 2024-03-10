@@ -24,7 +24,7 @@ export default function Blog() {
     getSingleBlog(blog_id)
       .then((blog) => {
         setIsLoading(false);
-        console.log(blog);
+        
         if (blog.image_url === "" || blog.image_url === null) {
           setSingleBlog({
             ...blog,

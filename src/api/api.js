@@ -65,6 +65,7 @@ export const patchBlog = async (blog_id, formData) => {
 };
 
 export const getCommentsByBlogID = async (blog_id) => {
+  
   const { data } = await api.get(`/blogs/${blog_id}/comments`);
 
   return data;
@@ -77,6 +78,18 @@ export const postComment = async (blog_id, user_id, comment) => {
   });
 
   return data;
+};
+
+export const editComment = async (blog_id, comment_id, comment) => {
+  const { data } = await api.patch(`blogs/${blog_id}/comments/${comment_id}`, {
+    comment: comment,
+  });
+
+  return data;
+};
+
+export const deleteComment = async (blog_id, comment_id) => {
+  await api.delete(`/blogs/${blog_id}/comments/${comment_id}`);
 };
 
 export const getUsersByProduceName = async (produceList) => {
