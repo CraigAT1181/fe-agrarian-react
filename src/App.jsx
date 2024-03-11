@@ -21,6 +21,7 @@ const OfferSupport = lazy(() => import("./components/OfferSupport"));
 const Privacy = lazy(() => import("./components/Privacy"));
 const Cookies = lazy(() => import("./components/Cookies"));
 const Contact = lazy(() => import("./components/Contact"));
+const Development = lazy(() => import("./components/Development"));
 const Activities = lazy(() => import("./components/Activities"));
 const BlogPage = lazy(() => import("./components/BlogPage"));
 const Blog = lazy(() => import("./components/Blog"));
@@ -104,6 +105,10 @@ export default function App() {
               <Route
                 path="/contact"
                 element={<Contact />}
+              />
+              <Route
+                path="/development"
+                element={<Development />}
               />
               <Route
                 path="/activities"
