@@ -25,7 +25,7 @@ export default function Home() {
             <Alert variant="success " className="text-center">
               
               <h3 className="fw-bold">Currently under development:</h3>
-              <i className="fa-solid fa-2x fa-pen"></i> <p> Blogging. You'll be able to share skills, knowledge and experience and other users will be able to comment on your blogs.</p>
+              <i className="fa-solid fa-2x fa-pen"></i> <p> Soon, you'll be able to reply to other users' comments on blogs, typical of many other social media platforms.</p>
             </Alert>
           </div>
           <div
