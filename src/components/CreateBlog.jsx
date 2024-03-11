@@ -27,8 +27,6 @@ export default function CreateBlogModal({ show, handleClose, setNewBlog }) {
     reader.readAsDataURL(file);
   };
 
-  
-
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
     maxFiles: 1,

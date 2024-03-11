@@ -45,6 +45,7 @@ export default function Blog() {
           setError({ status, message: message });
         }
       );
+      setEditedBlog(false);
   }, [editedBlog]);
 
   const handleShow = () => setShowModal(true);
@@ -114,7 +115,7 @@ export default function Blog() {
           {user && user.userID === singleBlog.author_id && (
             <div className="d-flex flex-md-row">
               <button
-                onClick={() => navigate("#")}
+                onClick={handleShow}
                 className="btn btn-outline-success mx-1 fw-bold">
                 Edit
               </button>

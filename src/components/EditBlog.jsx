@@ -16,9 +16,9 @@ export default function EditBlogModal({
   const { user } = useAuth();
   let [title, setTitle] = useState(singleBlog.title);
   let [content, setContent] = useState(singleBlog.content);
-  const [tags, setTags] = useState(singleBlog.tags);
+  const [tags, setTags] = useState([]);
   const [tagInput, setTagInput] = useState("");
-  let [imageData, setImageData] = useState(null);
+  let [imageData, setImageData] = useState(singleBlog.image_url);
   let [imagePreview, setImagePreview] = useState(singleBlog.image_url);
 
   const onDrop = (acceptedFiles) => {
@@ -72,23 +72,18 @@ export default function EditBlogModal({
     setIsLoading(true);
 
     const formData = new FormData();
-    if (imageData) {
-      console.log(imageData, "Image before append");
-      formData.append("image", imageData);
-    } else if (singleBlog.image_url.includes("https://storage")) {
-      formData.append("image", singleBlog.image_url);
-    } 
 
+    formData.append("image", imageData);
     formData.append("title", title);
     formData.append("author_id", user.userID);
     formData.append("content", content);
     formData.append("tags", JSON.stringify(tags));
 
     try {
-      console.log(formData.get("image"), "form-image IN CREATEBLOG");
+      console.log(formData);
       const data = await patchBlog(singleBlog.blog_id, formData);
-      setIsLoading(false);
       console.log(data);
+      setIsLoading(false);
       setEditedBlog(true);
       handleClose();
     } catch (error) {
