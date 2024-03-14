@@ -24,9 +24,15 @@
   justify-content: center;
   align-items: center;
   position: relative;
-  margin-bottom: 0.5rem;
+  margin-top: 1rem;
   font-weight: bold;
   padding: 1.5rem;
+  cursor: pointer;
+}
+
+.contact-list-item:focus {
+  outline: 5px solid #28a745;
+  outline-color: #28a745;
 }
 
 .contact-list-item::before {
