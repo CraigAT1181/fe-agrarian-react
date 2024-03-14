@@ -26,12 +26,9 @@ export default function BlogSummary({ blog }) {
   useEffect(() => {
     setIsLoading(true);
     if (blog) {
-      
       getCommentsByBlogID(blog.blog_id)
         .then(({ comments }) => {
-          
           setIsLoading(false);
-      
           setBlogComments(comments);
         })
         .catch(
@@ -74,9 +71,16 @@ export default function BlogSummary({ blog }) {
       <div className="col text-center">
         <Link to={`/blogs/${blog.blog_id}`}>
           {blog.image_url ? (
-            <div className="p-3" style={{height: "300px"}}>
+            <div
+              className="p-3"
+              style={{ height: "300px" }}>
               <img
-                style={{ borderRadius: "20px", width: "100%", height: "100%", objectFit: "cover" }}
+                style={{
+                  borderRadius: "20px",
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                }}
                 src={blog.image_url}
                 alt="Blog cover image"
               />
@@ -101,8 +105,10 @@ export default function BlogSummary({ blog }) {
 
           <p>{formattedDate}</p>
 
-          <i className="fa-solid fa-comment text-success"></i>
-           <p>{blogComments.length}</p>
+          <div title="Comments">
+            <i className="fa-solid fa-comment text-success"></i>
+            <p className="fw-bold text-success">{blogComments.length}</p>
+          </div>
         </div>
       </div>
     </div>

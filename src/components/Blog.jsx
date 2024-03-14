@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { deleteBlog, getSingleBlog } from "../api/api";
 import { useAuth } from "./AuthContext";
 import "../App.css";
-import MessageButton from "./MessageButton";
+import MessageButtonL from "./MessageButtonL";
 import EditBlogModal from "./EditBlog";
 import Comments from "./Comments";
 
@@ -109,7 +109,7 @@ export default function Blog() {
           </div>
           {user && user.userID !== singleBlog.author_id && (
             <div>
-              <MessageButton partner={singleBlog.author_id} />
+              <MessageButtonL partner={singleBlog.author_id} />
             </div>
           )}
           {user && user.userID === singleBlog.author_id && (
@@ -144,9 +144,9 @@ export default function Blog() {
           </div>
         </div>
       </div>
-      <hr className="text-success" />
-      <div className="row">
-        <Comments blog_id={blog_id} author_id={singleBlog.author_id}/>
+      
+      <div className="row mt-4">
+        <Comments blog_id={blog_id} />
       </div>
     </div>
   );

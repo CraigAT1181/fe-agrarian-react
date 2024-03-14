@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://cookingpot.onrender.com",
+  baseURL: "https://agrarian-pw89.onrender.com",
 });
 
 export default api;
@@ -71,10 +71,11 @@ export const getCommentsByBlogID = async (blog_id) => {
   return data;
 };
 
-export const postComment = async (blog_id, user_id, comment) => {
+export const postComment = async (blog_id, user_id, comment, parent_comment_id=null) => {
   const { data } = await api.post(`/blogs/${blog_id}/comments`, {
     user_id: user_id,
     comment: comment,
+    parent_comment_id: parent_comment_id
   });
 
   return data;

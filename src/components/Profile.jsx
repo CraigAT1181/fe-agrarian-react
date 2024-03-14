@@ -104,7 +104,7 @@ export default function Profile() {
 
             <Dropdown.Item
               className="text-success"
-              onClick={() => navigate("#")}
+              onClick={() => navigate("/blogs")}
               style={{ backgroundColor: "transparent" }}>
               Share Tips & Tricks
             </Dropdown.Item>

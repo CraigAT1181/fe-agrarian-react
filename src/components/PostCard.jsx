@@ -3,7 +3,7 @@ import "../App.css";
 import { formatDistanceToNow } from "date-fns";
 import { useAuth } from "./AuthContext";
 import { deletePost } from "../api/api";
-import MessageButton from "./MessageButton";
+import MessageButtonL from "./MessageButtonL";
 
 export default function PostCard({ post, setPostDeleted }) {
   const { user } = useAuth();
@@ -74,7 +74,7 @@ export default function PostCard({ post, setPostDeleted }) {
                 Delete Post
               </button>
             ) : (
-              <MessageButton partner={post.user_id} />
+              <MessageButtonL partner={post.user_id} />
             ))}
         </div>
         <div className="col text-end align-self-center">{formattedDate}</div>

@@ -8,6 +8,7 @@ export default function CommentsDisplay({ blog_id, commentPosted }) {
   const [error, setError] = useState(null);
   const [blogComments, setBlogComments] = useState([]);
   const [commentDeleted, setCommentDeleted] = useState(false);
+  const [replyPosted, setReplyPosted] = useState(false);
 
   useEffect(() => {
     getCommentsByBlogID(blog_id)
@@ -27,7 +28,9 @@ export default function CommentsDisplay({ blog_id, commentPosted }) {
           setError({ status, message: message });
         }
       );
-  }, [commentPosted, commentDeleted]);
+
+    setCommentDeleted(false);
+  }, [commentPosted, commentDeleted, replyPosted]);
 
   if (isLoading)
     return (
@@ -49,14 +52,22 @@ export default function CommentsDisplay({ blog_id, commentPosted }) {
   return (
     <div>
       {blogComments.length > 0 ? (
-        blogComments.map((comment) => (
-          <div key={comment.comment_id}>
-            <CommentsCard
-              comment={comment}
-              setCommentDeleted={setCommentDeleted}
-            />
-          </div>
-        ))
+        blogComments.map(
+          (comment) =>
+            comment.parent_comment_id === null && (
+              <div key={comment.comment_id}>
+                <CommentsCard
+                  blog_id={blog_id}
+                  comment={comment}
+                  allComments={blogComments}
+                  setCommentDeleted={setCommentDeleted}
+                  commentDeleted={commentDeleted}
+                  replyPosted={replyPosted}
+                  setReplyPosted={setReplyPosted}
+                />
+              </div>
+            )
+        )
       ) : (
         <div className="d-flex justify-content-center">
           <Alert variant="light">No one has commented on this blog yet.</Alert>

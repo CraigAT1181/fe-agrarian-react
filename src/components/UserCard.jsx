@@ -1,7 +1,7 @@
 import React from "react";
 import { useAuth } from "./AuthContext";
 import "../App.css";
-import MessageButton from "./MessageButton";
+import MessageButtonL from "./MessageButtonL";
 import { ListGroup, ListGroupItem } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
@@ -21,7 +21,7 @@ export default function UserCard({ users }) {
             <div className="my-2">
               {user &&
                 (user.userID !== person.user_id ? (
-                  <MessageButton partner={person.user_id} />
+                  <MessageButtonL partner={person.user_id} />
                 ) : (
                   <button
                     className="btn btn-secondary"

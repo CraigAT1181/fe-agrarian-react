@@ -3,7 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "./AuthContext";
 import { addConversationByUserID, getConversationsByUserID } from "../api/api";
 
-export default function MessageButton({ partner }) {
+export default function MessageButtonL({ partner }) {
+
   const navigate = useNavigate();
   const { user } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
@@ -25,7 +26,9 @@ export default function MessageButton({ partner }) {
       if (conversationExists) {
         navigate("/messenger");
       } else {
+        setIsLoading(true);
         await addConversationByUserID(user.userID, partner);
+        setIsLoading(false);
         navigate("/messenger");
       }
     } catch (error) {
@@ -33,14 +36,6 @@ export default function MessageButton({ partner }) {
       setError(error.response?.data.message || "An error occurred");
     }
   };
-
-  if (isLoading)
-    return (
-      <div className="d-flex-col text-center mt-4">
-        <i className="fa-solid fa-spinner fa-spin"></i>
-        <p>Handling conversations...</p>
-      </div>
-    );
 
     if (error)
     return (
@@ -54,11 +49,15 @@ export default function MessageButton({ partner }) {
 
   return (
     <button
-      className="btn btn-success fw-bold"
-      style={{ width: "6rem" }}
-      onClick={handleClick}
-      disabled={isLoading}>
-      Message
+      className="btn text-success"
+      style={{ margin: "0" }}
+      title="Send Message"
+      onClick={handleClick}>
+      {isLoading ? (
+        <i className="fa-solid fa-spinner fa-spin"></i>
+      ) : (
+        <i className="fa-solid fa-2x fa-envelope"></i>
+      )}
     </button>
   );
 }

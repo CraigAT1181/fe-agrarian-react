@@ -3,26 +3,71 @@ import CommentsDisplay from "./CommentsDisplay";
 import { useAuth } from "./AuthContext";
 import CommentInput from "./CommentInput";
 import { useNavigate } from "react-router-dom";
+import { postComment } from "../api/api";
 
-export default function Comments({ blog_id, author_id }) {
+export default function Comments({ blog_id }) {
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
   const [commentPosted, setCommentPosted] = useState(false);
+  const [commentInput, setCommentInput] = useState("");
   const { user } = useAuth();
   const navigate = useNavigate();
+  let parent_comment_id;
+
+  const onPostComment = () => {
+    if (commentInput.trim() !== "") {
+      setIsLoading(true);
+      postComment(blog_id, user.userID, commentInput, parent_comment_id)
+        .then(() => {
+          setIsLoading(false);
+          setCommentPosted(true);
+        })
+        .catch(
+          ({
+            response: {
+              status,
+              data: { message },
+            },
+          }) => {
+            setIsLoading(false);
+            setError({ status, message });
+          }
+        );
+      setCommentInput("");
+      setCommentPosted(false);
+    }
+  };
+
+  if (isLoading)
+    return (
+      <div className="d-flex-col text-center mt-4">
+        <i className="fa-solid fa-spinner fa-spin"></i>
+        <p>Sending your message...</p>
+      </div>
+    );
+  if (error)
+    return (
+      <div className="d-flex-col text-center mt-4">
+        <i className="fa-solid fa-exclamation"></i>
+        <p>
+          Oops, there's been an error: {error.status} {error.message}
+        </p>
+      </div>
+    );
 
   return (
     <div
-      className="p-5"
+      className="container p-4"
       style={{ backgroundImage: "url(/bg-1.jpg)", backgroundSize: "cover" }}>
       <div>
         {user ? (
-          user.userID !== author_id ? (
-            <div>
-              <CommentInput
-                blog_id={blog_id}
-                setCommentPosted={setCommentPosted}
-              />
-            </div>
-          ) : null
+          <div className="d-flex justify-content-center">
+            <CommentInput
+              commentInput={commentInput}
+              onPostComment={onPostComment}
+              setCommentInput={setCommentInput}
+            />
+          </div>
         ) : (
           <div
             className="text-center"

@@ -77,7 +77,7 @@ export default function NavBar() {
               title="Messages"
               as={Link}
               to="/messenger">
-              <i className="fa-regular fa-2x fa-envelope"></i>
+              <i className="fa-solid fa-2x fa-envelope"></i>
             </Nav.Link>
           )}
         </Nav>
