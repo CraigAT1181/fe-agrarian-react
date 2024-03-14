@@ -78,7 +78,9 @@ export default function CommentsCard({
             <div className="col">
               <div className="d-flex">
                 <h5 style={{ marginBottom: "0" }}>{comment.username}</h5>
-                <MessageButtonS partner={comment.user_id} />
+                {user && user.userID !== comment.user_id && (
+                  <MessageButtonS partner={comment.user_id} />
+                )}
               </div>
               <div>
                 <p style={{ fontSize: "14px" }}>{formattedDate}</p>
