@@ -9,6 +9,7 @@ export default function ReplyInputModal({
   handleClose,
   blog_id,
   parent_comment_id,
+  comment_user,
   setReplyPosted,
 }) {
   const [isLoading, setIsLoading] = useState(false);
@@ -58,22 +59,20 @@ export default function ReplyInputModal({
       show={show}
       onHide={handleClose}>
       <Modal.Header closeButton>
-        <Modal.Title>Write your Reply</Modal.Title>
+        <Modal.Title>Your Reply to {comment_user}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <form>
           <div className="mb-3">
             <label
               htmlFor="reply"
-              className="form-label">
-              {" "}
-              //Include the parent_comment username Your reply
-            </label>
+              className="form-label"></label>
             <textarea
               ref={bodyRef}
               className="form-control"
               id="reply"
               rows="10"
+              placeholder="Type your reply"
               onChange={({ target }) => handleBodyInput(target.value)}
             />
           </div>

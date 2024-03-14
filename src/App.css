@@ -164,9 +164,11 @@
 
 .comment-card {
   border-radius: 20px;
-  background-color: white;
+  background-color: #f0f0f0;
   margin-bottom: 2rem;
   padding: 2rem;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .comment-input-card {

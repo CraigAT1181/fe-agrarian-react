@@ -121,6 +121,7 @@ export default function CommentsCard({
               handleClose={handleClose}
               blog_id={blog_id}
               parent_comment_id={comment.comment_id}
+              comment_user={comment.username}
               setReplyPosted={setReplyPosted}
             />
           </div>
@@ -143,7 +144,7 @@ export default function CommentsCard({
         <div>
           {viewReplies && (
             <>
-              <hr className="text-success my-5" />
+              <hr className="my-5" />
               <div>
                 <ReplyDisplay
                   blog_id={blog_id}
