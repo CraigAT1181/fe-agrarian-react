@@ -164,13 +164,6 @@ export default function Posts() {
     }
   };
 
-  if (isLoading)
-    return (
-      <div className="d-flex-col text-center mt-4">
-        <i className="fa-solid fa-spinner fa-spin"></i>
-        <p>Loading posts...</p>
-      </div>
-    );
   if (error)
     return (
       <div className="d-flex-col text-center mt-4">
@@ -260,12 +253,7 @@ export default function Posts() {
         </form>
       </div>
       <div className="container text-center">
-        <div>
-          {notFound && 
-          <Alert variant="danger">{notFound}</Alert>}
-        
-        
-        </div>
+        <div>{notFound && <Alert variant="danger">{notFound}</Alert>}</div>
         {posts.length === 0 && (
           <div className="d-flex justify-content-center mt-5">
             <Alert
@@ -275,22 +263,31 @@ export default function Posts() {
             </Alert>
           </div>
         )}
-        <div className="post-display">
-          {filteredPosts.length > 0
-            ? filteredPosts.map((post) => (
-                <PostCard
-                  key={post.post_id}
-                  post={post}
-                  setPostDeleted={setPostDeleted}
-                />
-              ))
-            : posts.map((post) => (
-                <PostCard
-                  key={post.post_id}
-                  post={post}
-                  setPostDeleted={setPostDeleted}
-                />
-              ))}
+        <div>
+          {isLoading ? (
+            <div className="d-flex-col text-center mt-4">
+              <i className="fa-solid fa-spinner fa-spin"></i>
+              <p>Loading posts...</p>
+            </div>
+          ) : (
+            <div className="post-display">
+              {filteredPosts.length > 0
+                ? filteredPosts.map((post) => (
+                    <PostCard
+                      key={post.post_id}
+                      post={post}
+                      setPostDeleted={setPostDeleted}
+                    />
+                  ))
+                : posts.map((post) => (
+                    <PostCard
+                      key={post.post_id}
+                      post={post}
+                      setPostDeleted={setPostDeleted}
+                    />
+                  ))}
+            </div>
+          )}
         </div>
       </div>
     </>
