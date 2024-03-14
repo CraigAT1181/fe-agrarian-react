@@ -43,13 +43,6 @@ export default function MessageList({
     setMessages([]);
   }, [conversationID, messageSent]);
 
-  if (isLoading)
-    return (
-      <div className="d-flex-col text-center mt-4">
-        <i className="fa-solid fa-spinner fa-spin"></i>
-        <p>Loading chat...</p>
-      </div>
-    );
   if (error)
     return (
       <div className="d-flex-col text-center mt-4">
@@ -64,7 +57,14 @@ export default function MessageList({
     <div
       className="message-container p-4"
       style={{ overflowY: "auto" }}>
-      {conversations.length !== 0 ? (
+      {isLoading ? (
+        <div className="d-flex align-items-center justify-content-center">
+          <div className="text-center">
+            <p>Loading Messages...</p>
+            <i className="fa-solid fa-spinner fa-spin"></i>
+          </div>
+        </div>
+      ) : conversations.length !== 0 ? (
         <>
           <div className="d-flex justify-content-center">
             {!conversationID && (
@@ -109,7 +109,6 @@ export default function MessageList({
             Looks like you've not begun a conversation yet. To view what people
             have posted, or find growers near you, click below.
           </p>
-
           <button
             onClick={() => navigate("/exchange")}
             className="btn btn-success mx-1 fw-bold">

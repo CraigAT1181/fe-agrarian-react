@@ -1,15 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useAuth } from "./AuthContext";
 import { Modal, Button, Alert } from "react-bootstrap";
 import { postComment } from "../api/api";
 import "../App.css";
 
-export default function ReplyInputModal({ show, handleClose, blog_id, parent_comment_id, setReplyPosted }) {
-  
+export default function ReplyInputModal({
+  show,
+  handleClose,
+  blog_id,
+  parent_comment_id,
+  setReplyPosted,
+}) {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [body, setBody] = useState("");
   const { user } = useAuth();
+  const bodyRef = useRef(null);
+
+  useEffect(() => {
+    if (show && bodyRef.current) {
+      bodyRef.current.focus();
+    }
+  }, [show]);
 
   const handleBodyInput = (value) => {
     setBody(value);
@@ -18,7 +30,7 @@ export default function ReplyInputModal({ show, handleClose, blog_id, parent_com
   const handleSend = (blog_id, user_id, body, parent_comment_id) => {
     if (body.trim() !== "") {
       setIsLoading(true);
-      
+
       postComment(blog_id, user_id, body, parent_comment_id)
         .then(() => {
           setIsLoading(false);
@@ -39,7 +51,6 @@ export default function ReplyInputModal({ show, handleClose, blog_id, parent_com
       setBody("");
       setReplyPosted(false);
     }
-
   };
 
   return (
@@ -54,10 +65,12 @@ export default function ReplyInputModal({ show, handleClose, blog_id, parent_com
           <div className="mb-3">
             <label
               htmlFor="reply"
-              className="form-label"> //Include the parent_comment username
-              Your reply 
+              className="form-label">
+              {" "}
+              //Include the parent_comment username Your reply
             </label>
             <textarea
+              ref={bodyRef}
               className="form-control"
               id="reply"
               rows="10"
@@ -85,7 +98,9 @@ export default function ReplyInputModal({ show, handleClose, blog_id, parent_com
         </Button>
         <Button
           variant="success"
-          onClick={() => handleSend(blog_id, user.userID, body, parent_comment_id)}>
+          onClick={() =>
+            handleSend(blog_id, user.userID, body, parent_comment_id)
+          }>
           Finished
         </Button>
       </Modal.Footer>
