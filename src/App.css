@@ -75,10 +75,15 @@
 }
 
 .blog-content {
+  border: 1px solid #ccc;
+  border-radius: 25px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
   font-size: 18px;
   line-height: 1.5;
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  height: 40vw;
 }
 
 .dropzone {

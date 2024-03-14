@@ -134,9 +134,9 @@ export default function Blog() {
           )}
         </div>
         <div
-          className="col-md-8 p-4"
+          className="col-md-8 p-4 blog-content "
           style={{ maxHeight: "calc(80vh - 100px)", overflowY: "auto" }}>
-          <div className="blog-content mb-5 pt-3">
+          <div className="mb-5 pt-3">
             {singleBlog.content &&
               singleBlog.content
                 .split("\n")
