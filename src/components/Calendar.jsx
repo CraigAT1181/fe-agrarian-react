@@ -1,23 +1,16 @@
 import React from 'react';
-import FullCalendar from '@fullcalendar/react';
-import dayGridPlugin from '@fullcalendar/daygrid';
 
 export default function Calendar() {
-  const events = [
-    { title: 'Spring Equinox', date: '2024-03-20' },
-    { title: 'Summer Solstice', date: '2024-06-21' },
-    { title: 'Autumn Equinox', date: '2024-09-23' },
-    { title: 'Winter Solstice', date: '2024-12-22' },
-  ];
-
   return (
     <div className="container text-success">
-      {/* Add FullCalendar */}
-      <FullCalendar
-        plugins={[dayGridPlugin]}
-        initialView="dayGridMonth"
-        events={events}
-      />
+      <div style={{ width: '100%', height: '0', paddingBottom: '75%', position: 'relative' }}>
+        <iframe
+          src="https://calendar.google.com/calendar/embed?src=895d12f73b6dd15f533cd05f311a2ae6ce36c6e8d348312b1ba76a75c38cd88d%40group.calendar.google.com&ctz=Europe%2FLondon"
+          style={{ position: 'absolute', top: '0', left: '0', width: '100%', height: '100%', border: '0' }}
+          scrolling="no"
+          title="Embedded Google Calendar"
+        ></iframe>
+      </div>
     </div>
   );
 }
