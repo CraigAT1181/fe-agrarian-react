@@ -22,10 +22,30 @@ export default function Home() {
       ) : (
         <div className="col">
           <div>
-            <Alert variant="success " className="text-center">
-              
+            <Alert
+              variant="success"
+              className="text-center">
               <h3 className="fw-bold">Currently under development:</h3>
-              <i className="fa-solid fa-2x fa-user-graduate"></i> <p> Building a page dedicated to advertising and organising educational and community activities.</p>
+              <i className="fa-solid fa-2x fa-user-graduate"></i>{" "}
+              <p>
+                {" "}
+                Building a page dedicated to advertising and organising
+                educational and community activities.
+              </p>
+            </Alert>
+          </div>
+          <div>
+            <Alert
+              variant="danger"
+              className="text-center">
+              <h3 className="fw-bold">Reminder:</h3>
+              
+              <p>
+                {" "}
+                This application is in BETA and is actively being worked on.
+                Apologies if you experience any issues loading pages, but do try
+                back later if you do. Thank you.{" "}
+              </p>
             </Alert>
           </div>
           <div
