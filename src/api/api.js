@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://agrarian-pw89.onrender.com",
+  baseURL: "https://cookingpot.onrender.com",
 });
 
 export default api;
@@ -44,15 +44,13 @@ export const getSingleBlog = async (blog_id) => {
 
 export const createBlog = async (formData) => {
   try {
-    
     const response = await api.post("/blogs", formData);
-    
+
     return response.data;
   } catch (error) {
     throw new Error(error.response.data.message || "Failed to create blog");
   }
 };
-
 
 export const deleteBlog = async (blog_id) => {
   await api.delete(`/blogs/${blog_id}`);
@@ -65,17 +63,21 @@ export const patchBlog = async (blog_id, formData) => {
 };
 
 export const getCommentsByBlogID = async (blog_id) => {
-  
   const { data } = await api.get(`/blogs/${blog_id}/comments`);
 
   return data;
 };
 
-export const postComment = async (blog_id, user_id, comment, parent_comment_id=null) => {
+export const postComment = async (
+  blog_id,
+  user_id,
+  comment,
+  parent_comment_id = null
+) => {
   const { data } = await api.post(`/blogs/${blog_id}/comments`, {
     user_id: user_id,
     comment: comment,
-    parent_comment_id: parent_comment_id
+    parent_comment_id: parent_comment_id,
   });
 
   return data;
