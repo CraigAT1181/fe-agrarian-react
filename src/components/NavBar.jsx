@@ -36,6 +36,13 @@ export default function NavBar() {
             <i className="fa-solid fa-2x fa-newspaper"></i>
           </Nav.Link>
           <Nav.Link
+            className="text-white mx-4"
+            title="Share Tips & Tricks"
+            as={Link}
+            to="/blogs">
+            <i className="fa-solid fa-2x fa-pen"></i>
+          </Nav.Link>
+          <Nav.Link
             className="text-grey mx-4"
             title="Calendar"
             as={Link}
@@ -56,13 +63,7 @@ export default function NavBar() {
             to="#">
             <i className="fa-brands fa-2x fa-pagelines"></i>
           </Nav.Link>
-          <Nav.Link
-            className="text-white mx-4"
-            title="Share Tips & Tricks"
-            as={Link}
-            to="/blogs">
-            <i className="fa-solid fa-2x fa-pen"></i>
-          </Nav.Link>
+
           <Nav.Link
             className="text-grey mx-4"
             title="Shop"
