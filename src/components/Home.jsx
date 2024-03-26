@@ -39,12 +39,12 @@ export default function Home() {
               variant="danger"
               className="text-center">
               <h3 className="fw-bold">Reminder:</h3>
-              
+
               <p>
                 {" "}
-                This application is in BETA and is actively being worked on.
-                Apologies if you experience any issues loading pages, but do try
-                back later if you do. Thank you.{" "}
+                This application is actively being worked on. Apologies if you
+                experience any issues loading pages, but do try back later if
+                you do. Thank you.{" "}
               </p>
             </Alert>
           </div>
