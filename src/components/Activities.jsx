@@ -51,7 +51,7 @@ export default function Activities() {
 
   return (
     <div className="container">
-      <div className="d-flex row">
+      <div className="d-flex row align-items-center px-5 my-4">
         <div className="col p-4">
           <MyDatePicker
             selectedDate={selectedDate}

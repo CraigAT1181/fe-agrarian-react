@@ -10,12 +10,11 @@ export default function MyDatePicker({ selectedDate, setSelectedDate }) {
 
   return (
     <div>
-      <h5>Activities by date:</h5>
       <DatePicker
         selected={selectedDate}
         onChange={handleDateChange}
         dateFormat="d MMMM, yyyy"
-        placeholderText="Select a date"
+        placeholderText="Click to search by date"
         className="date-picker"
         isClearable
       />
