@@ -1,12 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../App.css";
 
 export default function SearchBar({ activities, setSearchedActivities }) {
   const [searchTerms, setSearchTerms] = useState("");
-  let [notFound, setNotFound] = useState(false);
-  let [placeholder, setPlaceholder] = useState(
-    "Type key words to find what you're looking for."
-  );
+  const [notFound, setNotFound] = useState(false);
+
+  useEffect(() => {}, [notFound]);
 
   const handleInputChange = (e) => {
     setSearchTerms(e.target.value);
@@ -38,9 +37,7 @@ export default function SearchBar({ activities, setSearchedActivities }) {
       if (filteredActivities.length === 0) {
         setNotFound(true);
         setSearchTerms("");
-        setPlaceholder("Couldn't find anything, try another key word!");
       }
-      setNotFound(false);
     }
   };
 
@@ -56,9 +53,6 @@ export default function SearchBar({ activities, setSearchedActivities }) {
                 setSearchedActivities([]);
                 setSearchTerms("");
                 setNotFound(false);
-                setPlaceholder(
-                  "Type key words to find what you're looking for."
-                );
               }}
               className="fa-solid fa-arrow-rotate-left"
               style={{ color: "#28a745", cursor: "pointer" }}></i>
@@ -70,7 +64,16 @@ export default function SearchBar({ activities, setSearchedActivities }) {
             onChange={(e) => handleInputChange(e)}
             type="text"
             onFocus={(e) => (e.target.placeholder = "")}
-            placeholder={placeholder}
+            onBlur={(e) =>
+              (e.target.placeholder = notFound
+                ? "Couldn't find anything, try another key word!"
+                : "Type key words to find what you're looking for.")
+            }
+            placeholder={
+              notFound
+                ? "Couldn't find anything, try another key word!"
+                : "Type key words to find what you're looking for."
+            }
           />
           <button
             className="btn btn-success"
@@ -79,7 +82,6 @@ export default function SearchBar({ activities, setSearchedActivities }) {
           </button>
         </div>
       </form>
-      {notFound && <p className="text-danger">{notFound}</p>}
     </div>
   );
 }

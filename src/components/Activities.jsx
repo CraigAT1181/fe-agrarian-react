@@ -10,7 +10,6 @@ export default function Activities() {
   const [error, setError] = useState(null);
   const [activities, setActivities] = useState([]);
   const [searchedActivities, setSearchedActivities] = useState([]);
-  
   const [selectedDate, setSelectedDate] = useState(null);
 
   useEffect(() => {
@@ -71,6 +70,7 @@ export default function Activities() {
         <ActivityDisplay
           activities={activities}
           searchedActivities={searchedActivities}
+          selectedDate={selectedDate}
         />
       </div>
     </div>
