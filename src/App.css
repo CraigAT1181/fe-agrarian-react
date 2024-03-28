@@ -52,7 +52,7 @@
 }
 
 .input-group input.form-control:focus {
-  box-shadow: 0 0 0 0.1rem rgba(40, 167, 69, 1);
+  box-shadow: 0 0 0 0.1rem #28a745;
 }
 
 .post-filtering,
@@ -75,9 +75,9 @@
 }
 
 .blog-content {
-  border: 1px solid #ccc;
+  
   border-radius: 25px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  
   padding: 1rem;
   font-size: 18px;
   line-height: 1.5;
@@ -187,7 +187,6 @@
   border: none;
   padding: 1rem;
   margin-right: 1rem;
-  
 }
 
 #comment-button {
@@ -206,8 +205,8 @@
 }
 
 .reply-input {
-border: 1px solid;
-border-radius: 25px;
+  border: 1px solid;
+  border-radius: 25px;
 }
 
 .activity-card {
@@ -220,4 +219,74 @@ border-radius: 25px;
 
 .activity-card img {
   max-height: 250px;
+}
+
+/**---------------- REACT DATE PICKER ----------------**/
+
+.date-picker {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 0.5rem;
+  box-shadow: 0 0 10px 0 #ccc;
+  text-align: center;
+  cursor: pointer;
+}
+
+.react-datepicker__header {
+  border: 1px solid #ccc !important;
+  border-radius: 5px !important;
+  padding: 1rem !important;
+  box-shadow: 0 0 10px 0 #ccc !important;
+  font-size: 12px;
+}
+
+.react-datepicker__current-month {
+  font-size: 16px !important;
+}
+
+.react-datepicker__month-container {
+  border: 1px solid #ccc !important;
+  border-radius: 5px !important;
+  box-shadow: 0 0 10px 0 #ccc !important;
+}
+
+.react-datepicker__day {
+  font-size: 14px;
+}
+
+.react-datepicker__day--selected {
+  background-color: #aaaaaa !important;
+  font-weight: bold !important;
+}
+
+.react-datepicker__day--keyboard-selected {
+  background-color: #aaaaaa !important;
+  font-weight: bold !important;
+}
+
+.react-datepicker__month-container::after::before {
+  box-sizing: content-box !important;
+}
+
+.react-datepicker__close-icon::after {
+  padding: 0.3rem !important;
+  content: "X" !important;
+  background-color: #aaaaaa !important;
+}
+
+/**---------------- REACT DATE PICKER ----------------**/
+
+.search-bar {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 0.5rem;
+  box-shadow: 0 0 10px 0 #ccc;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+}
+
+.input-group-text {
+  box-shadow: 0 0 10px 0 #ccc;
+  background-color: white;
 }

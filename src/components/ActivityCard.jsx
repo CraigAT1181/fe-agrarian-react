@@ -36,13 +36,13 @@ export default function ActivityCard({
   description,
   image,
   location,
+  username,
   created,
   updated,
 }) {
   const formattedStart = formatDate(start);
   const formattedEnd = formatDate(end);
 
-  // Function to extract the first sentence and shorten it if needed
   const shortenDescription = (description) => {
     const maxLength = 200;
     return description.length > maxLength
@@ -50,7 +50,6 @@ export default function ActivityCard({
       : description;
   };
 
-  // Shorten the description
   const shortenedDescription = shortenDescription(description);
 
   return (
@@ -63,7 +62,7 @@ export default function ActivityCard({
                 {formattedStart.day}
                 {formattedStart.suffix}
               </h1>
-              <p>{formattedEnd.dayOfWeek}</p>
+              <p>{formattedStart.dayOfWeek}</p>
               <hr />
               <p>
                 {formattedStart.time} - {formattedEnd.time}
@@ -73,13 +72,15 @@ export default function ActivityCard({
             </div>
           </div>
         </div>
-        <div className="col">
+        <div className="col p-3">
           <div className="row">
             <h4>{title}</h4>
           </div>
-          <div className="container p-2">{shortenedDescription}</div>
+          <div className="container p-0 mt-3">{shortenedDescription}</div>
 
-          {updated !== created ? <div>{updated}</div> : null}
+          <div className="mt-5 fw-bold">
+            <p>Organised by: {username}</p>
+          </div>
         </div>
         <div className="col-auto">
           <img

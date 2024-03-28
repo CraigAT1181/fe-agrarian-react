@@ -1,68 +1,65 @@
-To do:
+Updates / Fixes:
 
-1. Login Reset Password functionality
+Activities 
 
-        - Include token expiration
+- Functionality for date-picker 
+- Post / edit activity 
+- Search Bar 
+- Link activity to Calendar component
+- Add activity to MyActivities on Home
+- Render updated date
 
-2. Use above functionality to implement e-mail confirmation on reg
+Login / Registration
 
-4. Front-end testing
+- Email confirmation upon registration 
+- Add Alert to highlight Username already taken, or email already registered
 
-5. SQLAlchemy / resolve connection pool exhausted error on backend
+Database Management
 
-8. Token revocation - token should be deleted when used so can't re-use
+- Convert to SQLAlchemy 
 
-10. Filter required on MyPosts
+MyPosts 
 
-11. Click on Map marker to locate user card
+- Add filter 
+- Add overflow
 
-12. Connecting to Plants API
+Maps 
 
-13. Creating Blogging page
+- Redesign page 
+- Click markers to find user 
+- Connect to other components (Activities, etc)
+- Add distance functionality to accommodate usersearch and to work with
+     Activities 
 
-14. Collection and food expiry UI for foodbanks
+Encyclopedia
 
-15. Change login from user name to email.
+- Find an API 
+- Build Encyclopedia component and connect to others
 
-16. UPDATE DELETE CONVERSATION to soft deletion - see chat.
+UserCard / Home 
 
-17. After unsuccessful posts search, hitting clear breaks the page. !!!!!!! BUG
+- Add volunteer functionality 
 
---
+Exchange 
 
-8. Adding functionality to support exchanging food items adding quantities to manage stock levels
+- Redesign
+- Add functionality to store harvested date / expiry UI for foodbank collection 
+- Add functionality to store quantity of produce available
 
-9. Background colours for posts, rather than simply coloured text
+Posts & BlogPage
 
-10. Adding numbers to the usercard to show how many of a given item they have
+- Refactor to extract all search functionality out, and replace with SearchBar
+     component
 
-11. Adjusting the above number when some of the items have been taken.
+Site-wide
 
-12. Filtering on distance to user when looking for produce
-        Adding functionality to the exchange page that shows the logged user card
-        And shows both markers, then allows us to see distance and how to get there
-
-13. Adding harvesting time / expiry times perhaps to produce (see usercard)
-
-14. Filtering for whether to accept expired products
-
-15. Storing allergy-contact info and adding warnings etc
-
-
+- Re-theme all Main objects to the colour in Activities
 
 
-QUESTIONS:
 
-1. Why is my connection pool exhausting?
-2. ContactList in Messenger is not populating after refresh
-3. POSTS - once "search" has been used, using "clear" breaks the page
+| ----- Useful Info ---- |
 
 CSS 
 
 1. min-vh-100
 2. flex-grow-1
-
-
-IMPORTANT
-
-SMTP Google PW: thbl lpbw zoqn ndga

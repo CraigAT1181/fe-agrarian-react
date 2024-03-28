@@ -88,6 +88,7 @@ export default function BlogPage() {
         <p>Loading blogs...</p>
       </div>
     );
+    
   if (error)
     return (
       <div className="d-flex-col text-center mt-4">
