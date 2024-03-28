@@ -29,8 +29,9 @@ export default function Home() {
               <i className="fa-solid fa-2x fa-user-graduate"></i>{" "}
               <p>
                 {" "}
-                Building a page dedicated to advertising and organising
-                educational and community activities.
+                Check out the new Activities page! Soon, you'll be able to click
+                to view the Activity Information page, as well as create your
+                own activity which other users will be able to find and view.
               </p>
             </Alert>
           </div>

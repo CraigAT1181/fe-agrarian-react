@@ -2,9 +2,9 @@ Updates / Fixes:
 
 Activities 
 
-- Functionality for date-picker 
+- ~~ Functionality for date-picker ~~
 - Post / edit activity 
-- Search Bar 
+- ~~ Search Bar ~~
 - Link activity to Calendar component
 - Add activity to MyActivities on Home
 - Render updated date
