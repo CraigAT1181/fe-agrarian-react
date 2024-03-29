@@ -51,6 +51,21 @@ Posts & BlogPage
 - Refactor to extract all search functionality out, and replace with SearchBar
      component
 
+Messenger
+
+- Extract message boxes into own component and re-design
+- Implement date formatting as with other components
+
+Calendar
+
+- Implement Google Calendar with full interaction
+- Link to other components
+
+Shopify
+
+- Finish building server and understanding how it works
+- Build page
+
 Site-wide
 
 - Re-theme all Main objects to the colour in Activities

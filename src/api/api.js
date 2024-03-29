@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://cookingpot.onrender.com",
+  baseURL: "https://agrarian-pw89.onrender.com",
 });
 
 export default api;
@@ -24,14 +24,20 @@ export const getAds = async () => {
   return data;
 };
 
-export const getBlogs = async () => {
-  const { data } = await api.get("/blogs");
+export const getActivities = async () => {
+  const { data } = await api.get("/activities");
 
   return data;
 };
 
-export const getActivities = async () => {
-  const { data } = await api.get("/activities");
+export const getActivitiesByUserID = async (userID) => {
+  const { data } = await api.get(`/users/${userID}/activities`);
+
+  return data;
+};
+
+export const getBlogs = async () => {
+  const { data } = await api.get("/blogs");
 
   return data;
 };

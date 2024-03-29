@@ -72,24 +72,33 @@ export default function ActivityCard({
             </div>
           </div>
         </div>
-        <div className="col p-3">
+        <div className="col p-3 mx-2">
           <div className="row">
             <h4>{title}</h4>
           </div>
           <div className="container p-0 mt-3">{shortenedDescription}</div>
-
+  
           <div className="mt-5 fw-bold">
             <p>Organised by: {username}</p>
           </div>
         </div>
         <div className="col-auto">
-          <img
-            src={image}
-            alt="Activity cover picture"
-            style={{ borderRadius: "25px", width: "100%" }}
-          />
+          {image ? (
+            <img
+              src={image}
+              alt="Activity cover picture"
+              style={{ borderRadius: "25px", width: "250px", height: "250px", objectFit: "cover" }}
+            />
+          ) : (
+            <img
+              style={{ borderRadius: "25px", width: "100%" }}
+              src="https://picsum.photos/300/300"
+              alt="Activity cover picture"
+            />
+          )}
         </div>
       </div>
     </div>
   );
+  
 }
