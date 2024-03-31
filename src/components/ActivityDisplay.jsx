@@ -81,6 +81,7 @@ export default function ActivityDisplay({ activities, searchedActivities, select
                   {filterActivities(groupedActivities[monthYearString] || []).map((activity) => (
                     <ActivityCard
                       key={activity.activity_id}
+                      activity_id={activity.activity_id}
                       title={activity.title}
                       start={activity.start}
                       end={activity.end}
@@ -107,12 +108,14 @@ export default function ActivityDisplay({ activities, searchedActivities, select
                   {(searchedActivities.length > 0 ? groupedSearchedActivities[monthYearString] ?? [] : groupedActivities[monthYearString] ?? []).map((activity) => (
                     <ActivityCard
                       key={activity.activity_id}
+                      activity_id={activity.activity_id}
                       title={activity.title}
                       start={activity.start}
                       end={activity.end}
                       description={activity.description}
                       image={activity.image_url}
                       location={activity.location}
+                      user_id={activity.user_id}
                       username={activity.username}
                       created={activity.created_at}
                       updated={activity.updated_at}

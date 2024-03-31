@@ -23,6 +23,7 @@ const Cookies = lazy(() => import("./components/Cookies"));
 const Contact = lazy(() => import("./components/Contact"));
 const Development = lazy(() => import("./components/Development"));
 const Activities = lazy(() => import("./components/Activities"));
+const ActivityDetail = lazy(() => import("./components/ActivityDetail"));
 const BlogPage = lazy(() => import("./components/BlogPage"));
 const Blog = lazy(() => import("./components/Blog"));
 const Shop = lazy(() => import("./components/Shop"));
@@ -121,6 +122,10 @@ export default function App() {
               <Route
                 path="/blogs/:blog_id"
                 element={<Blog />}
+              />
+              <Route
+                path="/activities/:activity_id"
+                element={<ActivityDetail />}
               />
               <Route
                 path="/shop"

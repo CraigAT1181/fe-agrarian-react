@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { useAuth } from "./AuthContext";
 import { format } from "date-fns";
 import "../App.css";
 
@@ -30,18 +32,22 @@ function formatDate(dateString) {
 }
 
 export default function ActivityCard({
+  activity_id,
   title,
   start,
   end,
   description,
   image,
   location,
+  user_id,
   username,
   created,
   updated,
 }) {
   const formattedStart = formatDate(start);
   const formattedEnd = formatDate(end);
+  const [isCancelled, setIsCancelled] = useState(false);
+  const { user } = useAuth();
 
   const shortenDescription = (description) => {
     const maxLength = 200;
@@ -51,6 +57,10 @@ export default function ActivityCard({
   };
 
   const shortenedDescription = shortenDescription(description);
+
+  const handleCancel = () => {
+    isCancelled ? setIsCancelled(false) : setIsCancelled(true);
+  };
 
   return (
     <div className="container activity-card">
@@ -73,32 +83,55 @@ export default function ActivityCard({
           </div>
         </div>
         <div className="col p-3 mx-2">
-          <div className="row">
+          <div className="d-flex">
             <h4>{title}</h4>
+            {user && user.userID === user_id && (
+              <i
+                className="fa-solid text-danger mx-3 fa-trash align-self-center pb-2"
+                title={isCancelled ? "Un-cancel Activity" : "Cancel Activity"}
+                style={{ cursor: "pointer" }}
+                onClick={() => handleCancel()}></i>
+            )}
           </div>
-          <div className="container p-0 mt-3">{shortenedDescription}</div>
-  
+          <div className="container p-0 mt-3">
+            {isCancelled ? (
+              <p
+                className="text-danger d-inline-block fw-bold border border-danger p-2 m-0"
+                >
+                This event has been cancelled
+              </p>
+            ) : (
+              shortenedDescription
+            )}
+          </div>
+
           <div className="mt-5 fw-bold">
             <p>Organised by: {username}</p>
           </div>
         </div>
         <div className="col-auto">
-          {image ? (
-            <img
-              src={image}
-              alt="Activity cover picture"
-              style={{ borderRadius: "25px", width: "250px", height: "250px", objectFit: "cover" }}
-            />
-          ) : (
-            <img
-              style={{ borderRadius: "25px", width: "100%" }}
-              src="https://picsum.photos/300/300"
-              alt="Activity cover picture"
-            />
-          )}
+          <Link to={`/activities/${activity_id}`}>
+            {image ? (
+              <img
+                src={image}
+                alt="Activity cover picture"
+                style={{
+                  borderRadius: "25px",
+                  width: "250px",
+                  height: "250px",
+                  objectFit: "cover",
+                }}
+              />
+            ) : (
+              <img
+                style={{ borderRadius: "25px", width: "100%" }}
+                src="https://picsum.photos/300/300"
+                alt="Activity cover picture"
+              />
+            )}
+          </Link>
         </div>
       </div>
     </div>
   );
-  
 }
