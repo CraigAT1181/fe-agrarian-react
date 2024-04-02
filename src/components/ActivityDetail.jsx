@@ -4,7 +4,7 @@ import { useAuth } from "./AuthContext";
 import { format } from "date-fns";
 import { getActivityByActivityID } from "../api/api";
 import MessageButtonL from "./MessageButtonL";
-import EditArticleModal from "./EditArticle";
+import EditActivityModal from "./EditActivity";
 import { Alert } from "react-bootstrap";
 
 function formatDate(dateString) {
@@ -164,7 +164,7 @@ export default function ActivityDetail() {
                   >
                     Edit
                   </button>
-                  <EditArticleModal
+                  <EditActivityModal
                     show={showModal}
                     handleClose={handleClose}
                     singleActivity={singleActivity}

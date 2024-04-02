@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useAuth } from "./AuthContext";
 import { Modal, Button, Alert } from "react-bootstrap";
-import { patchBlog } from "../api/api";
+import { patchActivity } from "../api/api";
 import { useDropzone } from "react-dropzone";
 import "../App.css";
 
-export default function EditArticleModal({
+export default function EditActivityModal({
   show,
   handleClose,
   singleActivity,
@@ -16,6 +16,9 @@ export default function EditArticleModal({
   const { user } = useAuth();
   let [title, setTitle] = useState(singleActivity.title);
   let [description, setDescription] = useState(singleActivity.description);
+  let [start, setStart] = useState(singleActivity.formattedStart);
+  let [end, setEnd] = useState(singleActivity.formattedEnd);
+  let [location, setLocation] = useState(singleActivity.location);
   let [imageData, setImageData] = useState(singleActivity.image_url);
   let [imagePreview, setImagePreview] = useState(singleActivity.image_url);
 
@@ -34,14 +37,6 @@ export default function EditArticleModal({
     onDrop,
     maxFiles: 1,
   });
-
-  const handleTitleInput = (value) => {
-    setTitle(value);
-  };
-
-  const handleDescriptionInput = (value) => {
-    setDescription(value);
-  };
 
   const handlePatchActivity = async () => {
     setIsLoading(true);
@@ -94,7 +89,7 @@ export default function EditArticleModal({
               className="form-control"
               value={title}
               id="activityTitle"
-              onChange={({ target }) => handleTitleInput(target.value)}
+              onChange={(e) => setTitle(e.target.value)}
             />
             <label htmlFor="content" className="form-label">
               Description
@@ -104,8 +99,38 @@ export default function EditArticleModal({
               value={description}
               id="description"
               rows="10"
-              onChange={({ target }) => handleDescriptionInput(target.value)}
+              onChange={(e) => setDescription(e.target.value)}
             ></textarea>
+            <label htmlFor="location" className="form-label mt-2">
+              Location
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              value={location}
+              id="location"
+              onChange={(e) => setLocation(e.target.value)}
+            />
+            <label htmlFor="start" className="form-label mt-2">
+              Start Date/Time
+            </label>
+            <input
+              type="datetime-local"
+              className="form-control"
+              id="start"
+              value={start}
+              onChange={(e) => setStart(e.target.value)}
+            />
+            <label htmlFor="end" className="form-label mt-2">
+              End Date/Time
+            </label>
+            <input
+              type="datetime-local"
+              className="form-control"
+              id="end"
+              value={end}
+              onChange={(e) => setEnd(e.target.value)}
+            />
           </div>
         </form>
       </Modal.Body>
