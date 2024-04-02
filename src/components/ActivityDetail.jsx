@@ -78,7 +78,7 @@ export default function ActivityDetail() {
       );
     setEditedActivity(false);
   }, [editedActivity]);
-
+  console.log(singleActivity);
   const handleShow = () => setShowModal(true);
   const handleClose = () => setShowModal(false);
 
@@ -132,6 +132,11 @@ export default function ActivityDetail() {
         <div className="col-md-8">
           <div className="mb-5">
             <h1>{singleActivity.title}</h1>
+            {new Date(singleActivity.date_s_time) < new Date() && (
+              <div className="fw-bold text-danger">
+                This activity has now finished.
+              </div>
+            )}
           </div>
           <div className="w-75">
             {singleActivity.description &&

@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from "react";
 import ActivityCard from "./ActivityCard";
 
-export default function ActivityDisplay({ activities, searchedActivities, selectedDate }) {
+export default function ActivityDisplay({
+  activities,
+  searchedActivities,
+  selectedDate,
+}) {
   const [currentDate, setCurrentDate] = useState(new Date());
-  
+
   useEffect(() => {
     // Update current date at midnight
     const midnightUpdate = setInterval(() => {
@@ -18,15 +22,15 @@ export default function ActivityDisplay({ activities, searchedActivities, select
   const currentMonth = currentDate.toLocaleString("default", { month: "long" });
   const currentYear = currentDate.getFullYear();
 
-  // Generate months of the year array, starting with the current month
-  const monthsOfYear = Array.from({ length: 12 }, (_, index) => {
-    const month = (currentDate.getMonth() + index) % 12;
-    const year =
-      currentYear + Math.floor((currentDate.getMonth() + index) / 12);
-    return `${new Date(year, month).toLocaleString("default", {
-      month: "long",
-    })} ${year}`;
-  });
+// Generate months of the year array, including the previous month and the upcoming year
+const monthsOfYear = Array.from({ length: 14 }, (_, index) => {
+  const month = (currentDate.getMonth() - 1 + index) % 12;
+  const year = currentYear + Math.floor((currentDate.getMonth() + index - 1) / 12);
+  return `${new Date(year, month).toLocaleString("default", {
+    month: "long",
+  })} ${year}`;
+});
+
 
   // Group activities by month and year
   const groupedActivities = activities.reduce((acc, activity) => {
@@ -62,72 +66,58 @@ export default function ActivityDisplay({ activities, searchedActivities, select
     {}
   );
 
-    // Function to filter activities based on selected date
-    const filterActivities = (activities) => {
-      return activities.filter(activity => {
-        const activityDate = new Date(activity.date_s_time);
-        return activityDate.toDateString() === selectedDate.toDateString();
-      });
-    };
+  // Function to filter activities based on selected date
+  const filterActivities = (activities) => {
+    return activities.filter((activity) => {
+      const activityDate = new Date(activity.date_s_time);
+      return activityDate.toDateString() === selectedDate.toDateString();
+    });
+  };
 
-    return (
-      <div className="container">
-        {selectedDate && (
-          <div>
-            {monthsOfYear.map((monthYearString) => (
-              <div key={monthYearString}>
-                <Banner monthYear={monthYearString} />
-                <ul>
-                  {filterActivities(groupedActivities[monthYearString] || []).map((activity) => (
+  return (
+    <div className="container">
+      {selectedDate && (
+        <div>
+          {monthsOfYear.map((monthYearString) => (
+            <div key={monthYearString}>
+              <Banner monthYear={monthYearString} />
+              <ul>
+                {filterActivities(groupedActivities[monthYearString] || []).map(
+                  (activity) => (
                     <ActivityCard
                       key={activity.activity_id}
-                      activity_id={activity.activity_id}
-                      title={activity.title}
-                      start={activity.start}
-                      end={activity.end}
-                      description={activity.description}
-                      image={activity.image_url}
-                      location={activity.location}
-                      username={activity.username}
-                      created={activity.created_at}
-                      updated={activity.updated_at}
+                      activity={activity}
                     />
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        )}
-  
-        {!selectedDate && (
-          <div>
-            {monthsOfYear.map((monthYearString) => (
-              <div key={monthYearString}>
-                <Banner monthYear={monthYearString} />
-                <ul>
-                  {(searchedActivities.length > 0 ? groupedSearchedActivities[monthYearString] ?? [] : groupedActivities[monthYearString] ?? []).map((activity) => (
-                    <ActivityCard
-                      key={activity.activity_id}
-                      activity_id={activity.activity_id}
-                      title={activity.title}
-                      start={activity.start}
-                      end={activity.end}
-                      description={activity.description}
-                      image={activity.image_url}
-                      location={activity.location}
-                      user_id={activity.user_id}
-                      username={activity.username}
-                      created={activity.created_at}
-                      updated={activity.updated_at}
-                    />
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
-    );
+                  )
+                )}
+              </ul>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {!selectedDate && (
+        <div>
+          {monthsOfYear.map((monthYearString) => (
+            <div key={monthYearString}>
+              <Banner monthYear={monthYearString} />
+              <ul>
+                {(searchedActivities.length > 0
+                  ? groupedSearchedActivities[monthYearString] ?? []
+                  : groupedActivities[monthYearString] ?? []
+                ).map((activity) => (
+                  <ActivityCard
+                    key={activity.activity_id}
+                    activity={activity}
+                  />
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
 }
 
 // Component for the banner to display the month and year

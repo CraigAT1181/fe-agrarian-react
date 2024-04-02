@@ -2,9 +2,10 @@ import React from "react";
 import { useAuth } from "./AuthContext";
 import MyProduce from "./MyProduce";
 import MyPosts from "./MyPosts";
+import MyActivities from "./MyActivities";
 import "../App.css";
 import MyBlogs from "./MyBlogs";
-import { Alert } from "react-bootstrap";
+import { Alert, Navbar } from "react-bootstrap";
 
 export default function Home() {
   const { user } = useAuth();
@@ -12,12 +13,23 @@ export default function Home() {
   return (
     <div className="container h-100 d-flex flex-grow-1">
       {user !== null ? (
-        <div className="row w-100">
-          <MyProduce />
+        <div className="row">
+          <div className="col-auto">
 
-          <MyPosts />
 
-          <MyBlogs />
+
+
+          </div>
+          <div className="col">
+            <div className="container border border-black">
+              
+              <MyProduce />
+              <MyPosts />
+              <MyBlogs /> 
+              <MyActivities />
+              
+            </div>
+          </div>
         </div>
       ) : (
         <div className="col">

@@ -31,19 +31,20 @@ function formatDate(dateString) {
   };
 }
 
-export default function ActivityCard({
-  activity_id,
-  title,
-  start,
-  end,
-  description,
-  image,
-  location,
-  user_id,
-  username,
-  created,
-  updated,
-}) {
+export default function ActivityCard({ activity }) {
+  const {
+    activity_id,
+    title,
+    start,
+    end,
+    description,
+    image_url,
+    location,
+    user_id,
+    username,
+    created,
+    updated,
+  } = activity;
   const formattedStart = formatDate(start);
   const formattedEnd = formatDate(end);
   const [isCancelled, setIsCancelled] = useState(false);
@@ -95,13 +96,16 @@ export default function ActivityCard({
           </div>
           <div className="container p-0 mt-3">
             {isCancelled ? (
-              <p
-                className="text-danger d-inline-block fw-bold border border-danger p-2 m-0"
-                >
+              <p className="text-danger d-inline-block fw-bold border border-danger p-2 m-0">
                 This event has been cancelled
               </p>
             ) : (
               shortenedDescription
+            )}
+            {start < new Date() && (
+              <div className="fw-bold text-danger">
+                This activity has now finished.
+              </div>
             )}
           </div>
 
@@ -111,9 +115,9 @@ export default function ActivityCard({
         </div>
         <div className="col-auto">
           <Link to={`/activities/${activity_id}`}>
-            {image ? (
+            {image_url ? (
               <img
-                src={image}
+                src={image_url}
                 alt="Activity cover picture"
                 style={{
                   borderRadius: "25px",

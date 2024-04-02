@@ -44,9 +44,11 @@ export const getActivityByActivityID = async (activity_id) => {
 
 export const createActivity = async (formData) => {
   try {
+    console.log(formData, "API formdata");
     const response = await api.post(`/users/${formData.user_id}/activities`, formData);
-
+    console.log(response.data, "API response");
     return response.data;
+    
   } catch (error) {
     throw new Error(error.response.data.message || "Failed to create blog");
   }
