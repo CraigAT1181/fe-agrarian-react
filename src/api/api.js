@@ -30,8 +30,8 @@ export const getActivities = async () => {
   return data;
 };
 
-export const getActivitiesByUserID = async (userID) => {
-  const { data } = await api.get(`/users/${userID}/activities`);
+export const getActivitiesByUserID = async (user_id) => {
+  const { data } = await api.get(`/users/${user_id}/activities`);
 
   return data;
 };
@@ -42,13 +42,10 @@ export const getActivityByActivityID = async (activity_id) => {
   return data;
 };
 
-export const createActivity = async (formData) => {
+export const createActivity = async (user_id, formData) => {
   try {
-    console.log(formData, "API formdata");
-    const response = await api.post(`/users/${formData.user_id}/activities`, formData);
-    console.log(response.data, "API response");
+    const response = await api.post(`/users/${user_id}/activities`, formData);
     return response.data;
-    
   } catch (error) {
     throw new Error(error.response.data.message || "Failed to create blog");
   }

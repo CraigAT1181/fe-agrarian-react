@@ -22,7 +22,7 @@ export default function EditArticleModal({
   const onDrop = (acceptedFiles) => {
     const file = acceptedFiles[0];
     setImageData(file);
-    console.log(file);
+
     const reader = new FileReader();
     reader.onload = () => {
       setImagePreview(reader.result);
@@ -54,9 +54,8 @@ export default function EditArticleModal({
     formData.append("description", description);
 
     try {
-      console.log(formData);
       const data = await patchActivity(singleActivity.activity_id, formData);
-      console.log(data);
+
       setIsLoading(false);
       setEditedActivity(true);
       handleClose();
@@ -67,17 +66,13 @@ export default function EditArticleModal({
   };
 
   return (
-    <Modal
-      show={show}
-      onHide={handleClose}>
+    <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
         <Modal.Title>Edit Your Activity</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <form>
-          <div
-            {...getRootProps()}
-            className="dropzone mb-3">
+          <div {...getRootProps()} className="dropzone mb-3">
             <input {...getInputProps()} />
             <p>Drag a file here, or click to select a file (.jpeg)</p>
           </div>
@@ -91,9 +86,7 @@ export default function EditArticleModal({
             </div>
           )}
           <div className="mb-3">
-            <label
-              htmlFor="activityTitle"
-              className="form-label">
+            <label htmlFor="activityTitle" className="form-label">
               Title
             </label>
             <input
@@ -103,9 +96,7 @@ export default function EditArticleModal({
               id="activityTitle"
               onChange={({ target }) => handleTitleInput(target.value)}
             />
-            <label
-              htmlFor="content"
-              className="form-label">
+            <label htmlFor="content" className="form-label">
               Description
             </label>
             <textarea
@@ -113,9 +104,8 @@ export default function EditArticleModal({
               value={description}
               id="description"
               rows="10"
-              onChange={({ target }) =>
-                handleDescriptionInput(target.value)
-              }></textarea>
+              onChange={({ target }) => handleDescriptionInput(target.value)}
+            ></textarea>
           </div>
         </form>
       </Modal.Body>
@@ -131,14 +121,10 @@ export default function EditArticleModal({
             <p>Updating your activity...</p>
           </div>
         )}
-        <Button
-          variant="secondary"
-          onClick={handleClose}>
+        <Button variant="secondary" onClick={handleClose}>
           Close
         </Button>
-        <Button
-          variant="success"
-          onClick={() => handlePatchActivity()}>
+        <Button variant="success" onClick={() => handlePatchActivity()}>
           Finished
         </Button>
       </Modal.Footer>

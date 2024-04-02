@@ -40,8 +40,6 @@ export default function MyActivities() {
   const handleShow = () => setShowModal(true);
   const handleClose = () => setShowModal(false);
 
-  console.log(userActivities, "userActivities");
-
   if (isLoading)
     return (
       <div className="d-flex-col text-center mt-4">
@@ -63,10 +61,7 @@ export default function MyActivities() {
     <div className="container box-border p-4 mt-3">
       <div className="d-flex justify-content-between">
         <h5>Your activities:</h5>
-        <button
-          className="btn btn-success"
-          type="button"
-          onClick={handleShow}>
+        <button className="btn btn-success" type="button" onClick={handleShow}>
           Create an activity
         </button>
         <CreateActivityModal
@@ -76,15 +71,14 @@ export default function MyActivities() {
         />
       </div>
 
-      <div
-        className="d-flex"
-        style={{ overflowX: "auto" }}>
+      <div className="d-flex" style={{ overflowX: "auto" }}>
         {userActivities && userActivities.length > 0 ? (
           userActivities.map((activity) => (
             <div
               key={activity.activity_id}
               className="my-2 mx-2"
-              style={{ width: "25%", marginRight: "2rem", flexShrink: 0 }}>
+              style={{ width: "25%", marginRight: "2rem", flexShrink: 0 }}
+            >
               <ActivityCard activity={activity} />
             </div>
           ))

@@ -78,7 +78,7 @@ export default function ActivityDetail() {
       );
     setEditedActivity(false);
   }, [editedActivity]);
-  console.log(singleActivity);
+
   const handleShow = () => setShowModal(true);
   const handleClose = () => setShowModal(false);
 
@@ -118,7 +118,8 @@ export default function ActivityDetail() {
 
           <div
             className="mt-4 p-3"
-            style={{ width: "75%", boxShadow: "0 0 10px 0 #ccc" }}>
+            style={{ width: "75%", boxShadow: "0 0 10px 0 #ccc" }}
+          >
             <p>{`${singleActivity.formattedStart.fullDate}`}</p>
             <p>{`${singleActivity.formattedStart.time} - ${singleActivity.formattedEnd.time}`}</p>
 
@@ -147,9 +148,7 @@ export default function ActivityDetail() {
           <div>
             {user && user.userID !== singleActivity.user_id ? (
               <div>
-                <Alert
-                  variant="success"
-                  className="p-2 w-75 text-center">
+                <Alert variant="success" className="p-2 w-75 text-center">
                   If you'd like to find out more about this activity, contact{" "}
                   {singleActivity.username} <br />
                   <MessageButtonL partner={singleActivity.user_id} />
@@ -161,7 +160,8 @@ export default function ActivityDetail() {
                 <div className="my-4">
                   <button
                     onClick={handleShow}
-                    className="btn btn-outline-success mx-1 fw-bold">
+                    className="btn btn-outline-success mx-1 fw-bold"
+                  >
                     Edit
                   </button>
                   <EditArticleModal
