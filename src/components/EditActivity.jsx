@@ -43,10 +43,13 @@ export default function EditActivityModal({
 
     const formData = new FormData();
 
-    formData.append("image", imageData);
-    formData.append("title", title);
     formData.append("user_id", user.userID);
+    formData.append("title", title);
     formData.append("description", description);
+    formData.append("date_s_time", start);
+    formData.append("date_e_time", end);
+    formData.append("location", location);
+    formData.append("image", imageData);
 
     try {
       const data = await patchActivity(singleActivity.activity_id, formData);

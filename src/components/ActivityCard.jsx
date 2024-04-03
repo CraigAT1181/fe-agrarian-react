@@ -40,6 +40,7 @@ export default function ActivityCard({ activity }) {
     description,
     image_url,
     location,
+    isCancelled,
     user_id,
     username,
     created,
@@ -47,7 +48,6 @@ export default function ActivityCard({ activity }) {
   } = activity;
   const formattedStart = formatDate(start);
   const formattedEnd = formatDate(end);
-  const [isCancelled, setIsCancelled] = useState(false);
   const { user } = useAuth();
 
   const shortenDescription = (description) => {
@@ -60,7 +60,7 @@ export default function ActivityCard({ activity }) {
   const shortenedDescription = shortenDescription(description);
 
   const handleCancel = () => {
-    isCancelled ? setIsCancelled(false) : setIsCancelled(true);
+    setIsCancelled(!isCancelled);
   };
 
   return (
@@ -95,12 +95,11 @@ export default function ActivityCard({ activity }) {
             )}
           </div>
           <div className="container p-0 mt-3">
-            {isCancelled ? (
+            {shortenedDescription}
+            {isCancelled && (
               <p className="text-danger d-inline-block fw-bold border border-danger p-2 m-0">
                 This event has been cancelled
               </p>
-            ) : (
-              shortenedDescription
             )}
             {start < new Date() && (
               <div className="fw-bold text-danger">

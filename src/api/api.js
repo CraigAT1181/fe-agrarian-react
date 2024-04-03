@@ -52,7 +52,7 @@ export const createActivity = async (user_id, formData) => {
 };
 
 export const patchActivity = async (activity_id, formData) => {
-  const { data } = await api.patch(`/activies/${activity_id}`, formData);
+  const { data } = await api.patch(`/activities/${activity_id}`, formData);
 
   return data;
 };
