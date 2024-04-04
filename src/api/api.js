@@ -58,7 +58,6 @@ export const patchActivity = async (user_id, formData) => {
 };
 
 export const cancelActivity = async (activity_id, isCancelled) => {
-  console.log("Payload:", { activity_id, is_cancelled: isCancelled });
   const { data } = await api.patch(`activities/${activity_id}`, {
     is_cancelled: isCancelled,
   });

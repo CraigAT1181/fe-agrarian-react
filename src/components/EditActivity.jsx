@@ -54,7 +54,7 @@ export default function EditActivityModal({
     try {
       const data = await patchActivity(user.userID, formData);
       setIsLoading(false);
-      console.log(data, "Patched Acitivty");
+
       setEditedActivity(true);
       handleClose();
     } catch (error) {
@@ -64,13 +64,17 @@ export default function EditActivityModal({
   };
 
   return (
-    <Modal show={show} onHide={handleClose}>
+    <Modal
+      show={show}
+      onHide={handleClose}>
       <Modal.Header closeButton>
         <Modal.Title>Edit Your Activity</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <form>
-          <div {...getRootProps()} className="dropzone mb-3">
+          <div
+            {...getRootProps()}
+            className="dropzone mb-3">
             <input {...getInputProps()} />
             <p>Drag a file here, or click to select a file (.jpeg)</p>
           </div>
@@ -84,7 +88,9 @@ export default function EditActivityModal({
             </div>
           )}
           <div className="mb-3">
-            <label htmlFor="activityTitle" className="form-label">
+            <label
+              htmlFor="activityTitle"
+              className="form-label">
               Title
             </label>
             <input
@@ -94,7 +100,9 @@ export default function EditActivityModal({
               id="activityTitle"
               onChange={(e) => setTitle(e.target.value)}
             />
-            <label htmlFor="content" className="form-label">
+            <label
+              htmlFor="content"
+              className="form-label">
               Description
             </label>
             <textarea
@@ -102,9 +110,10 @@ export default function EditActivityModal({
               value={description}
               id="description"
               rows="10"
-              onChange={(e) => setDescription(e.target.value)}
-            ></textarea>
-            <label htmlFor="location" className="form-label mt-2">
+              onChange={(e) => setDescription(e.target.value)}></textarea>
+            <label
+              htmlFor="location"
+              className="form-label mt-2">
               Location
             </label>
             <input
@@ -114,7 +123,9 @@ export default function EditActivityModal({
               id="location"
               onChange={(e) => setLocation(e.target.value)}
             />
-            <label htmlFor="start" className="form-label mt-2">
+            <label
+              htmlFor="start"
+              className="form-label mt-2">
               Start Date/Time
             </label>
             <input
@@ -124,7 +135,9 @@ export default function EditActivityModal({
               value={start}
               onChange={(e) => setStart(e.target.value)}
             />
-            <label htmlFor="end" className="form-label mt-2">
+            <label
+              htmlFor="end"
+              className="form-label mt-2">
               End Date/Time
             </label>
             <input
@@ -149,10 +162,14 @@ export default function EditActivityModal({
             <p>Updating your activity...</p>
           </div>
         )}
-        <Button variant="secondary" onClick={handleClose}>
+        <Button
+          variant="secondary"
+          onClick={handleClose}>
           Close
         </Button>
-        <Button variant="success" onClick={() => handlePatchActivity()}>
+        <Button
+          variant="success"
+          onClick={() => handlePatchActivity()}>
           Finished
         </Button>
       </Modal.Footer>

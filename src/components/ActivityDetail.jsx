@@ -83,13 +83,12 @@ export default function ActivityDetail() {
   const handleCancel = async () => {
     setIsLoading(true);
     try {
-      console.log(singleActivity.is_cancelled, "SingleActivity IsCancelled");
       const data = await cancelActivity(
         activity_id,
         singleActivity.is_cancelled
       );
       setIsLoading(false);
-      console.log(data, "Patched Activity");
+
       setEditedActivity(true);
     } catch (error) {
       setIsLoading(false);
