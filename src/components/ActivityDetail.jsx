@@ -99,14 +99,6 @@ export default function ActivityDetail() {
   const handleShow = () => setShowModal(true);
   const handleClose = () => setShowModal(false);
 
-  // if (isLoading)
-  //   return (
-  //     <div className="d-flex-col text-center mt-4">
-  //       <i className="fa-solid fa-spinner fa-spin"></i>
-  //       <p>Loading activity...</p>
-  //     </div>
-  //   );
-
   if (error)
     return (
       <div className="d-flex-col text-center mt-4">
@@ -158,11 +150,12 @@ export default function ActivityDetail() {
         <div className="col-md-8">
           <div className="mb-5">
             <h1>{singleActivity.title}</h1>
-            {new Date(singleActivity.date_e_time) < new Date() && (
-              <div className="fw-bold text-danger">
-                This activity has now finished.
-              </div>
-            )}
+            {new Date(singleActivity.date_e_time) < new Date() &&
+              !singleActivity.is_cancelled && (
+                <div className="fw-bold text-danger">
+                  This activity has now finished.
+                </div>
+              )}
           </div>
           <div className="w-75">
             {singleActivity.description &&
@@ -171,16 +164,36 @@ export default function ActivityDetail() {
                 .map((paragraph, index) => <p key={index}>{paragraph}</p>)}
           </div>
           <div>
-            {user && user.userID !== singleActivity.user_id ? (
-              <div>
-                <Alert
-                  variant="success"
-                  className="p-2 w-75 text-center">
-                  If you'd like to find out more about this activity, contact{" "}
-                  {singleActivity.username} <br />
-                  <MessageButtonL partner={singleActivity.user_id} />
-                </Alert>
-              </div>
+            {(!user || (user.userID !== singleActivity.user_id)) ? (
+              singleActivity.is_cancelled ? (
+                new Date(singleActivity.date_e_time) < new Date() ? (
+                  <div>
+                    <Alert
+                      variant="danger"
+                      className="p-2 w-75 text-center">
+                      This activity was cancelled.
+                    </Alert>
+                  </div>
+                ) : (
+                  <div>
+                    <Alert
+                      variant="danger"
+                      className="p-2 w-75 text-center">
+                      This activity has been cancelled.
+                    </Alert>
+                  </div>
+                )
+              ) : (
+                <div>
+                  <Alert
+                    variant="success"
+                    className="p-2 w-75 text-center">
+                    If you'd like to find out more about this activity, contact{" "}
+                    {singleActivity.username} <br />
+                    <MessageButtonL partner={singleActivity.user_id} />
+                  </Alert>
+                </div>
+              )
             ) : (
               user &&
               user.userID === singleActivity.user_id && (
