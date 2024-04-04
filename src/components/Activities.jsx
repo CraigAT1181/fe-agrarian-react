@@ -11,6 +11,7 @@ export default function Activities() {
   const [activities, setActivities] = useState([]);
   const [searchedActivities, setSearchedActivities] = useState([]);
   const [selectedDate, setSelectedDate] = useState(null);
+  const [cancelStatusChange, setCancelStatusChange] = useState(false);
 
   useEffect(() => {
     setIsLoading(true);
@@ -30,7 +31,8 @@ export default function Activities() {
           setError({ status, message: message });
         }
       );
-  }, [setSearchedActivities]);
+    setCancelStatusChange(false);
+  }, [setSearchedActivities, cancelStatusChange]);
 
   if (isLoading)
     return (
@@ -71,6 +73,7 @@ export default function Activities() {
           activities={activities}
           searchedActivities={searchedActivities}
           selectedDate={selectedDate}
+          setCancelStatusChange={setCancelStatusChange}
         />
       </div>
     </div>

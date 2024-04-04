@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import { useAuth } from "./AuthContext";
 import { format } from "date-fns";
 import "../App.css";
 
@@ -31,7 +30,7 @@ function formatDate(dateString) {
   };
 }
 
-export default function ActivityCard({ activity }) {
+export default function ActivityCard({ activity, setCancelStatusChange }) {
   const {
     activity_id,
     title,
@@ -40,15 +39,13 @@ export default function ActivityCard({ activity }) {
     description,
     image_url,
     location,
-    isCancelled,
-    user_id,
+    is_cancelled,
     username,
-    created,
     updated,
   } = activity;
+
   const formattedStart = formatDate(start);
   const formattedEnd = formatDate(end);
-  const { user } = useAuth();
 
   const shortenDescription = (description) => {
     const maxLength = 200;
@@ -58,10 +55,6 @@ export default function ActivityCard({ activity }) {
   };
 
   const shortenedDescription = shortenDescription(description);
-
-  const handleCancel = () => {
-    setIsCancelled(!isCancelled);
-  };
 
   return (
     <div className="container activity-card">
@@ -86,26 +79,24 @@ export default function ActivityCard({ activity }) {
         <div className="col p-3 mx-2">
           <div className="d-flex">
             <h4>{title}</h4>
-            {user && user.userID === user_id && (
-              <i
-                className="fa-solid text-danger mx-3 fa-trash align-self-center pb-2"
-                title={isCancelled ? "Un-cancel Activity" : "Cancel Activity"}
-                style={{ cursor: "pointer" }}
-                onClick={() => handleCancel()}></i>
-            )}
           </div>
-          <div className="container p-0 mt-3">
-            {shortenedDescription}
-            {isCancelled && (
-              <p className="text-danger d-inline-block fw-bold border border-danger p-2 m-0">
-                This event has been cancelled
+          <div className="container">
+            <div>{shortenedDescription}</div>
+            {end < new Date() && !is_cancelled && (
+              <p className="fw-bold text-danger my-3">
+                This activity has now finished.
               </p>
             )}
-            {start < new Date() && (
-              <div className="fw-bold text-danger">
-                This activity has now finished.
-              </div>
-            )}
+            {is_cancelled &&
+              (end < new Date() ? (
+                <p className="text-danger d-inline-block fw-bold border border-danger p-2 m-0 mt-3">
+                  This event was cancelled
+                </p>
+              ) : (
+                <p className="text-danger d-inline-block fw-bold border border-danger p-2 m-0 mt-3">
+                  This event has been cancelled
+                </p>
+              ))}
           </div>
 
           <div className="mt-5 fw-bold">

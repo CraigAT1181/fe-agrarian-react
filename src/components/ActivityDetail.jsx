@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useAuth } from "./AuthContext";
 import { format } from "date-fns";
 import { getActivityByActivityID } from "../api/api";
 import MessageButtonL from "./MessageButtonL";
 import EditActivityModal from "./EditActivity";
+import { cancelActivity } from "../api/api";
 import { Alert } from "react-bootstrap";
 
 function formatDate(dateString) {
@@ -79,16 +80,34 @@ export default function ActivityDetail() {
     setEditedActivity(false);
   }, [editedActivity]);
 
+  const handleCancel = async () => {
+    setIsLoading(true);
+    try {
+      console.log(singleActivity.is_cancelled, "SingleActivity IsCancelled");
+      const data = await cancelActivity(
+        activity_id,
+        singleActivity.is_cancelled
+      );
+      setIsLoading(false);
+      console.log(data, "Patched Activity");
+      setEditedActivity(true);
+    } catch (error) {
+      setIsLoading(false);
+      setError(error.message);
+    }
+  };
+
   const handleShow = () => setShowModal(true);
   const handleClose = () => setShowModal(false);
 
-  if (isLoading)
-    return (
-      <div className="d-flex-col text-center mt-4">
-        <i className="fa-solid fa-spinner fa-spin"></i>
-        <p>Loading activity...</p>
-      </div>
-    );
+  // if (isLoading)
+  //   return (
+  //     <div className="d-flex-col text-center mt-4">
+  //       <i className="fa-solid fa-spinner fa-spin"></i>
+  //       <p>Loading activity...</p>
+  //     </div>
+  //   );
+
   if (error)
     return (
       <div className="d-flex-col text-center mt-4">
@@ -118,10 +137,17 @@ export default function ActivityDetail() {
 
           <div
             className="mt-4 p-3"
-            style={{ width: "75%", boxShadow: "0 0 10px 0 #ccc" }}
-          >
-            <p>{`${singleActivity.formattedStart.fullDate}`}</p>
-            <p>{`${singleActivity.formattedStart.time} - ${singleActivity.formattedEnd.time}`}</p>
+            style={{ width: "75%", boxShadow: "0 0 10px 0 #ccc" }}>
+            {isLoading ? (
+              <div className="d-flex justify-content-center my-2">
+                <i className="fa-solid fa-spinner fa-spin"></i>
+              </div>
+            ) : (
+              <>
+                <p>{`${singleActivity.formattedStart.fullDate}`}</p>
+                <p>{`${singleActivity.formattedStart.time} - ${singleActivity.formattedEnd.time}`}</p>
+              </>
+            )}
 
             <p className="m-0">{singleActivity.location}</p>
 
@@ -133,7 +159,7 @@ export default function ActivityDetail() {
         <div className="col-md-8">
           <div className="mb-5">
             <h1>{singleActivity.title}</h1>
-            {new Date(singleActivity.date_s_time) < new Date() && (
+            {new Date(singleActivity.date_e_time) < new Date() && (
               <div className="fw-bold text-danger">
                 This activity has now finished.
               </div>
@@ -148,7 +174,9 @@ export default function ActivityDetail() {
           <div>
             {user && user.userID !== singleActivity.user_id ? (
               <div>
-                <Alert variant="success" className="p-2 w-75 text-center">
+                <Alert
+                  variant="success"
+                  className="p-2 w-75 text-center">
                   If you'd like to find out more about this activity, contact{" "}
                   {singleActivity.username} <br />
                   <MessageButtonL partner={singleActivity.user_id} />
@@ -157,20 +185,41 @@ export default function ActivityDetail() {
             ) : (
               user &&
               user.userID === singleActivity.user_id && (
-                <div className="my-4">
-                  <button
-                    onClick={handleShow}
-                    className="btn btn-outline-success mx-1 fw-bold"
-                  >
-                    Edit
-                  </button>
-                  <EditActivityModal
-                    show={showModal}
-                    handleClose={handleClose}
-                    singleActivity={singleActivity}
-                    setEditedActivity={setEditedActivity}
-                  />
-                </div>
+                <>
+                  <div className="my-4">
+                    <button
+                      onClick={handleShow}
+                      className="btn btn-outline-success mx-1 fw-bold">
+                      Edit
+                    </button>
+                    <EditActivityModal
+                      show={showModal}
+                      handleClose={handleClose}
+                      singleActivity={singleActivity}
+                      setEditedActivity={setEditedActivity}
+                    />
+                    <button
+                      onClick={handleCancel}
+                      className="btn btn-outline-danger mx-1 fw-bold">
+                      {isLoading ? (
+                        <i className="fa-solid fa-spinner fa-spin"></i>
+                      ) : singleActivity.is_cancelled ? (
+                        "Reverse"
+                      ) : (
+                        "Cancel"
+                      )}
+                    </button>
+                  </div>
+                  {singleActivity.is_cancelled && (
+                    <div className="w-50">
+                      <Alert
+                        className="d-flex justify-content-center"
+                        variant="danger">
+                        Activity now labelled as Cancelled.
+                      </Alert>
+                    </div>
+                  )}
+                </>
               )
             )}
           </div>

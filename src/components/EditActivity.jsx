@@ -43,8 +43,8 @@ export default function EditActivityModal({
 
     const formData = new FormData();
 
-    formData.append("user_id", user.userID);
     formData.append("title", title);
+    formData.append("activity_id", singleActivity.activity_id);
     formData.append("description", description);
     formData.append("date_s_time", start);
     formData.append("date_e_time", end);
@@ -52,9 +52,9 @@ export default function EditActivityModal({
     formData.append("image", imageData);
 
     try {
-      const data = await patchActivity(singleActivity.activity_id, formData);
-
+      const data = await patchActivity(user.userID, formData);
       setIsLoading(false);
+      console.log(data, "Patched Acitivty");
       setEditedActivity(true);
       handleClose();
     } catch (error) {

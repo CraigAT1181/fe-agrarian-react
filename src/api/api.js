@@ -51,8 +51,17 @@ export const createActivity = async (user_id, formData) => {
   }
 };
 
-export const patchActivity = async (activity_id, formData) => {
-  const { data } = await api.patch(`/activities/${activity_id}`, formData);
+export const patchActivity = async (user_id, formData) => {
+  const { data } = await api.patch(`users/${user_id}/activities`, formData);
+
+  return data;
+};
+
+export const cancelActivity = async (activity_id, isCancelled) => {
+  console.log("Payload:", { activity_id, is_cancelled: isCancelled });
+  const { data } = await api.patch(`activities/${activity_id}`, {
+    is_cancelled: isCancelled,
+  });
 
   return data;
 };
