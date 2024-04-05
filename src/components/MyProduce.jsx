@@ -37,7 +37,6 @@ export default function MyProduce() {
   useEffect(() => {
     if (user) {
       setUserProduce(user.produce);
-      
     }
   }, [user]);
 
@@ -53,7 +52,6 @@ export default function MyProduce() {
 
   function handleProduceSelection(selectedItem) {
     if (selectedItem) {
-      
       setIsLoading(true);
       updateUserProduceData(selectedItem)
         .then(() => {
@@ -75,11 +73,9 @@ export default function MyProduce() {
   }
 
   const removeProduceItem = async (itemNameToRemove) => {
-    
     setIsLoading(true);
     const newProduce = userProduce.filter((item) => item !== itemNameToRemove);
     try {
-      
       await updateUserProduceData(newProduce);
       setUserProduce(newProduce);
     } catch (error) {
@@ -101,41 +97,51 @@ export default function MyProduce() {
         </p>
       </div>
     );
-
+  // mb-3 text-center p-4 justify-content-center
   return (
-    <div className="container box-border mb-3 text-center p-4 justify-content-center">
-      <h5>What produce do you have available?</h5>
-      <p>
-        This will appear on your user card and allow other users to see what you
-        have.
-      </p>
-      <Dropdown
-        className="mt-3"
-        onSelect={(selectedItem) => handleProduceSelection(selectedItem)}>
-        <Dropdown.Toggle
-          variant="success"
-          id="dropdown-basic">
-          Add Produce
-        </Dropdown.Toggle>
+    <div className="container">
+      <div className="text-center p-3">
+        <h5>What produce do you have available?</h5>
+        <p>
+          This will appear on your user card and allow other users to see what
+          you have.
+        </p>
+        <div>
+          <Dropdown
+            className="mt-3"
+            onSelect={(selectedItem) => handleProduceSelection(selectedItem)}>
+            <Dropdown.Toggle
+              variant="success"
+              id="dropdown-basic">
+              Add Produce
+            </Dropdown.Toggle>
 
-        <Dropdown.Menu
-          style={{
-            maxHeight: "11rem",
-            overflowX: "auto",
-            borderRadius: "10px",
-          }}>
-          {sortAllProduce().map((item) => (
-            <Dropdown.Item
-              key={item}
-              eventKey={item}>
-              {item}
-            </Dropdown.Item>
-          ))}
-        </Dropdown.Menu>
-      </Dropdown>
+            <Dropdown.Menu
+              style={{
+                maxHeight: "11rem",
+                overflowX: "auto",
+                borderRadius: "10px",
+              }}>
+              {sortAllProduce().map((item) => (
+                <Dropdown.Item
+                  key={item}
+                  eventKey={item}>
+                  {item}
+                </Dropdown.Item>
+              ))}
+            </Dropdown.Menu>
+          </Dropdown>
+          <button
+            onClick={() => updateUserProduceData([])}
+            className="btn btn-outline-danger mt-1">
+            Clear
+          </button>
+        </div>
+      </div>
+
       <div
         className="d-flex justify-content-center align-items-center"
-        style={{ height: "10rem" }}>
+        style={{ height: "auto" }}>
         <ItemCard
           allProduce={allProduce}
           userProduce={userProduce}
@@ -159,11 +165,6 @@ export default function MyProduce() {
           </div>
         )}
       </div>
-      <button
-        onClick={() => updateUserProduceData([])}
-        className="btn btn-outline-danger mt-1">
-        Clear
-      </button>
     </div>
   );
 }

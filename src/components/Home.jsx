@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useAuth } from "./AuthContext";
 import MyProduce from "./MyProduce";
 import MyPosts from "./MyPosts";
@@ -6,29 +6,26 @@ import MyActivities from "./MyActivities";
 import "../App.css";
 import MyBlogs from "./MyBlogs";
 import { Alert, Navbar } from "react-bootstrap";
+import HomeNav from "./HomeNav";
 
 export default function Home() {
   const { user } = useAuth();
+  const [selectedComponent, setSelectedComponent] = useState("MyProduce");
 
   return (
     <div className="container h-100 d-flex flex-grow-1">
       {user !== null ? (
-        <div className="row">
-          <div className="col-auto">
-
-
-
-
+        <div className="col">
+          <div className="row" style={{boxShadow: "0 0 10px 0 #ccc"}}>
+            <HomeNav setSelectedComponent={setSelectedComponent} />
           </div>
-          <div className="col">
-            <div className="container border border-black">
-              
-              <MyProduce />
-              <MyPosts />
-              <MyBlogs /> 
-              <MyActivities />
-              
-            </div>
+          <div className="row" style={{boxShadow: "0 0 10px 0 #ccc", height: "30vw", alignItems: "center"}}>
+            
+              {selectedComponent === "MyProduce" && <MyProduce />}
+              {selectedComponent === "MyPosts" && <MyPosts />}
+              {selectedComponent === "MyBlogs" && <MyBlogs />}
+              {selectedComponent === "MyActivities" && <MyActivities />}
+            
           </div>
         </div>
       ) : (

@@ -290,3 +290,16 @@
   box-shadow: 0 0 10px 0 #ccc;
   background-color: white;
 }
+
+.grid-container {
+  display: grid;
+  grid-gap: 20px;
+}
+
+.item-card-container {
+  grid-column: 1 / span 2;
+}
+
+.status-container {
+  grid-column: 1 / span 3;
+}

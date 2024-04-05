@@ -57,7 +57,7 @@ export default function MyPosts() {
     );
 
   return (
-    <div className="container box-border p-4 mt-3">
+    <div className="container">
       <div className="d-flex justify-content-between">
         <h5>Your posts:</h5>
         <button
