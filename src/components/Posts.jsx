@@ -175,58 +175,57 @@ export default function Posts() {
     );
 
   return (
-    <>
-      <div className="container">
-        <div className="d-flex p-4 box-border justify-content-center">
-          <i
-            onClick={() => {
-              setFilteredPosts([]);
-              setNotFound("");
-              setAvailableVariant("outline-success");
-              setWantedVariant("outline-danger");
-              setSeedsVariant("outline-secondary");
-              setProduceVariant("outline-primary");
-            }}
-            className="fa-solid fa-arrow-rotate-left m-2"
-            style={{ color: "#28a745", cursor: "pointer" }}></i>
+    <div className="container">
+      <div className="d-flex p-4 justify-content-center">
+        <i
+          onClick={() => {
+            setFilteredPosts([]);
+            setNotFound("");
+            setAvailableVariant("outline-success");
+            setWantedVariant("outline-danger");
+            setSeedsVariant("outline-secondary");
+            setProduceVariant("outline-primary");
+          }}
+          className="fa-solid fa-arrow-rotate-left m-2"
+          style={{ color: "#28a745", cursor: "pointer" }}></i>
 
-          <ToggleButtonGroup
-            className="mx-3"
-            type="radio"
-            name="options">
-            <ToggleButton
-              variant={availableVariant}
-              id="Available"
-              onChange={() => handleSelectedStatus("Available")}>
-              Available
-            </ToggleButton>
-            <ToggleButton
-              variant={wantedVariant}
-              id="Wanted"
-              onChange={() => handleSelectedStatus("Wanted")}>
-              Wanted
-            </ToggleButton>
-          </ToggleButtonGroup>
+        <ToggleButtonGroup
+          className="mx-3"
+          type="radio"
+          name="options">
+          <ToggleButton
+            variant={availableVariant}
+            id="Available"
+            onChange={() => handleSelectedStatus("Available")}>
+            Available
+          </ToggleButton>
+          <ToggleButton
+            variant={wantedVariant}
+            id="Wanted"
+            onChange={() => handleSelectedStatus("Wanted")}>
+            Wanted
+          </ToggleButton>
+        </ToggleButtonGroup>
 
-          <ToggleButtonGroup
-            className="mx-3"
-            type="radio"
-            name="options">
-            <ToggleButton
-              onChange={() => handleSelectedType("Seeds")}
-              variant={seedsVariant}
-              id="Seeds">
-              Seed
-            </ToggleButton>
-            <ToggleButton
-              onChange={() => handleSelectedType("Produce")}
-              variant={produceVariant}
-              id="Produce">
-              Produce
-            </ToggleButton>
-          </ToggleButtonGroup>
-        </div>
+        <ToggleButtonGroup
+          className="mx-3"
+          type="radio"
+          name="options">
+          <ToggleButton
+            onChange={() => handleSelectedType("Seeds")}
+            variant={seedsVariant}
+            id="Seeds">
+            Seed
+          </ToggleButton>
+          <ToggleButton
+            onChange={() => handleSelectedType("Produce")}
+            variant={produceVariant}
+            id="Produce">
+            Produce
+          </ToggleButton>
+        </ToggleButtonGroup>
       </div>
+
       <div className="d-flex justify-content-center">
         <form
           className="my-3 w-25"
@@ -252,6 +251,7 @@ export default function Posts() {
           </div>
         </form>
       </div>
+
       <div className="container text-center">
         <div>{notFound && <Alert variant="danger">{notFound}</Alert>}</div>
         {posts.length === 0 && (
@@ -290,6 +290,6 @@ export default function Posts() {
           )}
         </div>
       </div>
-    </>
+    </div>
   );
 }

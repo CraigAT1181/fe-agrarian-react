@@ -72,7 +72,9 @@ export default function BlogSummary({ blog }) {
     );
 
   return (
-    <div className="container blog-border">
+    <div
+      className="container"
+      style={{ boxShadow: "0 0 10px 0 #ccc", borderRadius: "25px" }}>
       <div className="col text-center">
         <div className="row">
           <Link to={`/blogs/${blog.blog_id}`}>
@@ -81,7 +83,7 @@ export default function BlogSummary({ blog }) {
               style={{ height: "300px" }}>
               <img
                 style={{
-                  borderRadius: "20px",
+                  borderRadius: "25px",
                   width: "100%",
                   height: "100%",
                   objectFit: "cover",
@@ -98,7 +100,7 @@ export default function BlogSummary({ blog }) {
         </div>
         <div
           className="row"
-          style={{height: "5rem"}}>
+          style={{ height: "5rem" }}>
           <h5>{shortenedTitle(blog.title)}</h5>
         </div>
 

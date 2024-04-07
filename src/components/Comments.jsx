@@ -72,7 +72,7 @@ export default function Comments({ blog_id }) {
           <div
             className="text-center"
             style={{
-              borderRadius: "20px",
+              borderRadius: "25px",
               backgroundColor: "white",
               marginBottom: "2rem",
               padding: "2rem",

@@ -97,7 +97,9 @@ export default function ProduceFinder({
     );
 
   return (
-    <section className="container box-border p-3 mt-5 text-center justify-content-center">
+    <section
+      className="container p-3 mt-5 text-center justify-content-center"
+      style={{ boxShadow: "0 0 10px 0 #ccc", borderRadius: "25px" }}>
       <h5>Looking for something specific?</h5>
 
       <div className="mb-2 pt-1">

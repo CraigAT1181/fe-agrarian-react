@@ -133,7 +133,7 @@
 .user-card {
   width: 90%;
   height: auto;
-  box-shadow: 2px 1px 2px 2px #28a745;
+  box-shadow: 2px 1px 2px 2px #ccc;
   border-radius: 20px;
   padding-left: 0.5rem;
   padding-right: 0.5rem;
@@ -142,19 +142,19 @@
 
 .messenger-panel {
   min-height: 40vw;
-  box-shadow: 2px 1px 2px 2px #28a745;
+  box-shadow: 2px 1px 2px 2px #ccc;
   border-radius: 20px;
   padding: 0.5rem;
 }
 
 .message-container {
   min-height: 30vw;
-  box-shadow: 2px 1px 2px 2px #28a745;
+  box-shadow: 2px 1px 2px 2px #ccc;
   border-radius: 20px;
 }
 
 #message-input {
-  border-color: #28a745;
+  border-color: #ccc;
   border-radius: 20px;
   padding: 1rem;
   height: 6rem;

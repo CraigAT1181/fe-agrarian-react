@@ -127,7 +127,9 @@ export default function Maps({ users }) {
 
   return (
     <>
-      <div className="container box-border p-3 justify-content-center">
+      <div
+        className="container p-3 justify-content-center"
+        style={{ boxShadow: "0 0 10px 0 #ccc" }}>
         {isLoaded && (
           <GoogleMap
             center={center}
