@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getBlogsByUserID } from "../api/api";
 import { useAuth } from "./AuthContext";
-import BlogSummary from "./BlogSummary";
+import MyBlogsSummary from "./MyBlogsSummary";
 
 import CreateBlogModal from "./CreateBlog";
 
@@ -52,16 +52,16 @@ export default function MyBlogs() {
         </p>
       </div>
     );
-
+    
   return (
-    <div className="container box-border p-4 mt-3">
-      <div className="d-flex justify-content-between">
+    <div className="container h-100">
+      <div className="d-flex justify-content-between mb-2">
         <h5>Your blogs:</h5>
         <button
           className="btn btn-success"
           type="button"
           onClick={handleShow}>
-          Write a blog
+          New blog
         </button>
         <CreateBlogModal
           show={showModal}
@@ -70,16 +70,18 @@ export default function MyBlogs() {
         />
       </div>
 
+
+
       <div
         className="d-flex"
-        style={{ overflowX: "auto" }}>
+        style={{ maxWidth: "100%", overflowX: "auto", padding: "2px" }}>
         {userBlogs && userBlogs.length > 0 ? (
           userBlogs.map((blog) => (
             <div
-              className="my-2 mx-2"
-              style={{ width: "25%", marginRight: "2rem", flexShrink: 0 }}
+              className="p-1"
+              style={{ width: "330px", marginRight: "1rem", flex: "0 0 auto" }}
               key={blog.blog_id}>
-              <BlogSummary blog={blog} />
+              <MyBlogsSummary blog={blog} />
             </div>
           ))
         ) : (
@@ -90,6 +92,10 @@ export default function MyBlogs() {
           </div>
         )}
       </div>
+
+
+
+
     </div>
   );
 }

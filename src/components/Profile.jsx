@@ -83,7 +83,7 @@ export default function Profile() {
 
             <Dropdown.Item
               className="text-success"
-              onClick={() => navigate("/calendar")}
+              onClick={() => navigate("#")}
               style={{ backgroundColor: "transparent" }}>
               Calendar
             </Dropdown.Item>
@@ -97,7 +97,7 @@ export default function Profile() {
 
             <Dropdown.Item
               className="text-success"
-              onClick={() => navigate("#")}
+              onClick={() => navigate("/activities")}
               style={{ backgroundColor: "transparent" }}>
               Education & Activities
             </Dropdown.Item>

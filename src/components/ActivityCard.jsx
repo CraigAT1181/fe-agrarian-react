@@ -80,7 +80,7 @@ export default function ActivityCard({ activity, setCancelStatusChange }) {
           <div className="d-flex">
             <h4>{title}</h4>
           </div>
-          <div className="container">
+          <div className="">
             <div>{shortenedDescription}</div>
             {end < new Date() && !is_cancelled && (
               <p className="fw-bold text-danger my-3">

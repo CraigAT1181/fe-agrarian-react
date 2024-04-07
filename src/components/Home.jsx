@@ -10,16 +10,16 @@ import HomeNav from "./HomeNav";
 
 export default function Home() {
   const { user } = useAuth();
-  const [selectedComponent, setSelectedComponent] = useState("MyProduce");
+  const [selectedComponent, setSelectedComponent] = useState("MyActivities");
 
   return (
-    <div className="container h-100 d-flex flex-grow-1">
+    <div className="container h-100">
       {user !== null ? (
         <div className="col">
           <div className="row" style={{boxShadow: "0 0 10px 0 #ccc"}}>
             <HomeNav setSelectedComponent={setSelectedComponent} />
           </div>
-          <div className="row" style={{boxShadow: "0 0 10px 0 #ccc", height: "30vw", alignItems: "center"}}>
+          <div className="row" style={{boxShadow: "0 0 10px 0 #ccc", height: "30vw", paddingTop: "1rem", marginTop: "1rem"}}>
             
               {selectedComponent === "MyProduce" && <MyProduce />}
               {selectedComponent === "MyPosts" && <MyPosts />}

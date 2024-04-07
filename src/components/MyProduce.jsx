@@ -97,7 +97,7 @@ export default function MyProduce() {
         </p>
       </div>
     );
-  // mb-3 text-center p-4 justify-content-center
+  
   return (
     <div className="container">
       <div className="text-center p-3">

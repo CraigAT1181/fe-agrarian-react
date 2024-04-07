@@ -1,52 +1,84 @@
-import React, { useEffect, useState } from "react";
-import { getActivitiesByUserID } from "../api/api";
-import { useAuth } from "./AuthContext";
-import CreateActivityModal from "./CreateActivity";
+import React, { useState, useEffect } from "react";
+import { getActivities } from "../api/api";
 import ActivityCard from "./ActivityCard";
+import CreateActivityModal from "./CreateActivity";
+import Banner from "./Banner";
+import { useAuth } from "./AuthContext";
 
 export default function MyActivities() {
-  const { user } = useAuth();
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [currentDate, setCurrentDate] = useState(new Date());
   const [userActivities, setUserActivities] = useState([]);
+  const [searchedActivities, setSearchedActivities] = useState([]);
+  const [selectedDate, setSelectedDate] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [cancelStatusChange, setCancelStatusChange] = useState(false);
   let [newActivity, setNewActivity] = useState({});
+
+  const { user } = useAuth();
+
+  useEffect(() => {
+    const midnightUpdate = setInterval(() => {
+      setCurrentDate(new Date());
+    }, 1000 * 60 * 60);
+
+    return () => clearInterval(midnightUpdate);
+  }, []);
 
   useEffect(() => {
     setIsLoading(true);
-    getActivitiesByUserID(user.userID)
+    getActivities()
       .then(({ activities }) => {
         setIsLoading(false);
-        const updatedActivities = activities.map((activity) => ({
-          ...activity,
-          start: new Date(activity.date_s_time),
-          end: activity.date_e_time,
-        }));
-        setUserActivities(updatedActivities);
+
+        setUserActivities(
+          activities.filter((activity) => activity.user_id === user.userID)
+        );
       })
-      .catch(
-        ({
-          response: {
-            status,
-            data: { message },
-          },
-        }) => {
-          setIsLoading(false);
-          setError({ status, message: message });
-        }
-      );
-  }, [newActivity]);
+      .catch((error) => {
+        setIsLoading(false);
+        setError(error);
+      });
+    setCancelStatusChange(false);
+  }, [user.userID, cancelStatusChange, newActivity]);
 
   const handleShow = () => setShowModal(true);
   const handleClose = () => setShowModal(false);
+
+  const currentMonth = currentDate.toLocaleString("default", { month: "long" });
+  const currentYear = currentDate.getFullYear();
+
+  const monthsOfYear = Array.from({ length: 14 }, (_, index) => {
+    const month = (currentDate.getMonth() - 1 + index) % 12;
+    const year =
+      currentYear + Math.floor((currentDate.getMonth() + index - 1) / 12);
+    return `${new Date(year, month).toLocaleString("default", {
+      month: "long",
+    })} ${year}`;
+  });
+
+  const groupedActivities = userActivities.reduce((acc, activity) => {
+    const startDate = new Date(activity.date_s_time);
+    const endDate = new Date(activity.date_e_time);
+    const monthYearString = `${startDate.toLocaleString("default", {
+      month: "long",
+    })} ${startDate.getFullYear()}`;
+    if (!acc[monthYearString]) {
+      acc[monthYearString] = [];
+    }
+    acc[monthYearString].push({ ...activity, start: startDate, end: endDate });
+    return acc;
+  }, {});
 
   if (isLoading)
     return (
       <div className="d-flex-col text-center mt-4">
         <i className="fa-solid fa-spinner fa-spin"></i>
-        <p>Loading your blogs...</p>
+        <p>Loading your activities...</p>
       </div>
     );
+
   if (error)
     return (
       <div className="d-flex-col text-center mt-4">
@@ -58,11 +90,14 @@ export default function MyActivities() {
     );
 
   return (
-    <div className="container box-border p-4 mt-3">
-      <div className="d-flex justify-content-between">
+    <div className="container h-100">
+      <div className="d-flex justify-content-between mb-2">
         <h5>Your activities:</h5>
-        <button className="btn btn-success" type="button" onClick={handleShow}>
-          Create an activity
+        <button
+          className="btn btn-success"
+          type="button"
+          onClick={handleShow}>
+          New Activity
         </button>
         <CreateActivityModal
           show={showModal}
@@ -70,23 +105,25 @@ export default function MyActivities() {
           setNewActivity={setNewActivity}
         />
       </div>
-
-      <div className="d-flex" style={{ overflowX: "auto" }}>
-        {userActivities && userActivities.length > 0 ? (
-          userActivities.map((activity) => (
-            <div
-              key={activity.activity_id}
-              className="my-2 mx-2"
-              style={{ width: "25%", marginRight: "2rem", flexShrink: 0 }}
-            >
-              <ActivityCard activity={activity} />
-            </div>
-          ))
-        ) : (
-          <div className="d-flex align-items-center justify-content-center">
-            <p>You've not arranged any activities.</p>
+      <div
+        className="col"
+        style={{ maxHeight: "420px", overflowY: "auto", overflowX: "hidden" }}>
+        {monthsOfYear.map((monthYearString) => (
+          <div key={monthYearString}>
+            {groupedActivities[monthYearString] && (
+              <Banner monthYear={monthYearString} />
+            )}
+            <ul>
+              {groupedActivities[monthYearString]?.map((activity) => (
+                <ActivityCard
+                  key={activity.activity_id}
+                  activity={activity}
+                  setCancelStatusChange={setCancelStatusChange}
+                />
+              ))}
+            </ul>
           </div>
-        )}
+        ))}
       </div>
     </div>
   );

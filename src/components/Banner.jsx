@@ -8,7 +8,7 @@ const Banner = ({ monthYear }) => {
           <h5 className="m-0">{monthYear}</h5>
         </div>
         <div className="col">
-          <hr />
+          <hr style={{width: "95%"}}/>
         </div>
       </div>
     </div>

@@ -57,14 +57,14 @@ export default function MyPosts() {
     );
 
   return (
-    <div className="container">
-      <div className="d-flex justify-content-between">
+    <div className="container h-100">
+      <div className="d-flex justify-content-between mb-2">
         <h5>Your posts:</h5>
         <button
           className="btn btn-success"
           type="button"
           onClick={handleShow}>
-          Create Post
+          New Post
         </button>
         <CreatePostModal
           show={showModal}
@@ -72,7 +72,10 @@ export default function MyPosts() {
           setNewPost={setNewPost}
         />
       </div>
-      <div>
+      <div
+        className="post-container"
+        style={{ maxHeight: "420px", overflowY: "auto", padding: "1rem" }}>
+        {/* Apply max height and overflow styles to create a scrollable container */}
         {userPosts.length > 0 ? (
           userPosts.map((post) => (
             <PostCard

@@ -49,11 +49,6 @@ export default function BlogSummary({ blog }) {
 
   const formattedDate = formatDate(date);
 
-  const shortenedTitle = (title) => {
-    const maxLength = 50;
-    return title.length > maxLength ? `${title.slice(0, maxLength)}...` : title;
-  };
-
   if (isLoading)
     return (
       <div className="d-flex-col text-center mt-4">
@@ -71,8 +66,13 @@ export default function BlogSummary({ blog }) {
       </div>
     );
 
+  const shortenedTitle = (title) => {
+    const maxLength = 50;
+    return title.length > maxLength ? `${title.slice(0, maxLength)}...` : title;
+  };
+
   return (
-    <div className="container blog-border">
+    <div className="container" style={{boxShadow: "0 0 10px 0 #ccc", borderRadius: "25px"}}>
       <div className="col text-center">
         <div className="row">
           <Link to={`/blogs/${blog.blog_id}`}>
@@ -98,21 +98,8 @@ export default function BlogSummary({ blog }) {
         </div>
         <div
           className="row"
-          style={{height: "5rem"}}>
+          style={{ height: "5rem" }}>
           <h5>{shortenedTitle(blog.title)}</h5>
-        </div>
-
-        <div className="row">
-          <p className="mb-0 fw-bold">Written by:</p>
-          <p>{blog.username}</p>
-
-          <p>{formattedDate}</p>
-        </div>
-        <div
-          className="row"
-          title="Comments">
-          <i className="fa-solid fa-comment text-success"></i>
-          <p className="fw-bold text-success">{blogComments.length}</p>
         </div>
       </div>
     </div>

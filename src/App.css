@@ -211,10 +211,11 @@
 
 .activity-card {
   padding: 1rem;
-  margin-top: 0.5rem;
+  margin-top: 1rem;
   margin-bottom: 1rem;
   box-shadow: 0 0 10px 0 #ccc;
   border-radius: 25px;
+  width: 90%;
 }
 
 .activity-card img {

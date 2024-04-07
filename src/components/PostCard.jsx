@@ -19,7 +19,7 @@ export default function PostCard({ post, setPostDeleted }) {
   };
 
   return (
-    <article className="container post-card">
+    <article className="container" style={{boxShadow: "0 0 10px 0 #ccc", borderRadius: "25px", padding: "0.5rem", marginBottom: "1rem"}}>
       <div className="row m-4">
         {post.status === "Available" ? (
           <div
