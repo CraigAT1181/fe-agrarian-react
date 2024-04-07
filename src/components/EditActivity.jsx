@@ -53,7 +53,6 @@ export default function EditActivityModal({
 
     patchActivity(user.userID, formData)
       .then((data) => {
-        
         setIsLoading(false);
         setEditedActivity(true);
         handleClose();
@@ -70,7 +69,7 @@ export default function EditActivityModal({
         }
       );
   };
-  console.log(error);
+
   return (
     <Modal
       show={show}
