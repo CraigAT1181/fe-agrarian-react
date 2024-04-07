@@ -164,76 +164,76 @@ export default function ActivityDetail() {
                 .map((paragraph, index) => <p key={index}>{paragraph}</p>)}
           </div>
           <div>
-            {(!user || (user.userID !== singleActivity.user_id)) ? (
-              singleActivity.is_cancelled ? (
-                new Date(singleActivity.date_e_time) < new Date() ? (
-                  <div>
-                    <Alert
-                      variant="danger"
-                      className="p-2 w-75 text-center">
-                      This activity was cancelled.
-                    </Alert>
-                  </div>
-                ) : (
-                  <div>
-                    <Alert
-                      variant="danger"
-                      className="p-2 w-75 text-center">
-                      This activity has been cancelled.
-                    </Alert>
-                  </div>
-                )
+            {singleActivity.is_cancelled &&
+              user?.userID !== singleActivity.user_id &&
+              (new Date(singleActivity.date_e_time) < new Date() ? (
+                <div>
+                  <Alert
+                    variant="danger"
+                    className="p-2 w-75 text-center">
+                    This activity was cancelled.
+                  </Alert>
+                </div>
               ) : (
                 <div>
                   <Alert
-                    variant="success"
+                    variant="danger"
                     className="p-2 w-75 text-center">
-                    If you'd like to find out more about this activity, contact{" "}
-                    {singleActivity.username} <br />
-                    <MessageButtonL partner={singleActivity.user_id} />
+                    This activity has been cancelled.
                   </Alert>
                 </div>
-              )
-            ) : (
-              user &&
-              user.userID === singleActivity.user_id && (
-                <>
-                  <div className="my-4">
-                    <button
-                      onClick={handleShow}
-                      className="btn btn-outline-success mx-1 fw-bold">
-                      Edit
-                    </button>
-                    <EditActivityModal
-                      show={showModal}
-                      handleClose={handleClose}
-                      singleActivity={singleActivity}
-                      setEditedActivity={setEditedActivity}
-                    />
-                    <button
-                      onClick={handleCancel}
-                      className="btn btn-outline-danger mx-1 fw-bold">
-                      {isLoading ? (
-                        <i className="fa-solid fa-spinner fa-spin"></i>
-                      ) : singleActivity.is_cancelled ? (
-                        "Reverse"
-                      ) : (
-                        "Cancel"
-                      )}
-                    </button>
-                  </div>
-                  {singleActivity.is_cancelled && (
-                    <div className="w-50">
-                      <Alert
-                        className="d-flex justify-content-center"
-                        variant="danger">
-                        Activity now labelled as Cancelled.
-                      </Alert>
-                    </div>
-                  )}
-                </>
-              )
+              ))}
+
+            {user && user.userID !== singleActivity.user_id && (
+              <div>
+                <Alert
+                  variant="success"
+                  className="p-2 w-75 text-center">
+                  If you'd like to find out more about this activity, contact{" "}
+                  {singleActivity.username} <br />
+                  <MessageButtonL partner={singleActivity.user_id} />
+                </Alert>
+              </div>
             )}
+
+            {user && user.userID === singleActivity.user_id && (
+              <div className="my-4">
+                <button
+                  onClick={handleShow}
+                  className="btn btn-outline-success mx-1 fw-bold">
+                  Edit
+                </button>
+                <EditActivityModal
+                  show={showModal}
+                  handleClose={handleClose}
+                  singleActivity={singleActivity}
+                  setEditedActivity={setEditedActivity}
+                />
+                <button
+                  onClick={handleCancel}
+                  className="btn btn-outline-danger mx-1 fw-bold">
+                  {isLoading ? (
+                    <i className="fa-solid fa-spinner fa-spin"></i>
+                  ) : singleActivity.is_cancelled ? (
+                    "Reverse"
+                  ) : (
+                    "Cancel"
+                  )}
+                </button>
+              </div>
+            )}
+
+            {user &&
+              user.userID === singleActivity.user_id &&
+              singleActivity.is_cancelled && (
+                <div className="w-50">
+                  <Alert
+                    className="d-flex justify-content-center"
+                    variant="danger">
+                    Activity now labelled as Cancelled.
+                  </Alert>
+                </div>
+              )}
           </div>
         </div>
       </div>
