@@ -16,8 +16,8 @@ export default function EditActivityModal({
   const { user } = useAuth();
   let [title, setTitle] = useState(singleActivity.title);
   let [description, setDescription] = useState(singleActivity.description);
-  let [start, setStart] = useState(singleActivity.formattedStart);
-  let [end, setEnd] = useState(singleActivity.formattedEnd);
+  let [start, setStart] = useState();
+  let [end, setEnd] = useState();
   let [location, setLocation] = useState(singleActivity.location);
   let [imageData, setImageData] = useState(singleActivity.image_url);
   let [imagePreview, setImagePreview] = useState(singleActivity.image_url);
@@ -51,18 +51,26 @@ export default function EditActivityModal({
     formData.append("location", location);
     formData.append("image", imageData);
 
-    try {
-      const data = await patchActivity(user.userID, formData);
-      setIsLoading(false);
-
-      setEditedActivity(true);
-      handleClose();
-    } catch (error) {
-      setIsLoading(false);
-      setError(error.message);
-    }
+    patchActivity(user.userID, formData)
+      .then((data) => {
+        
+        setIsLoading(false);
+        setEditedActivity(true);
+        handleClose();
+      })
+      .catch(
+        ({
+          response: {
+            status,
+            data: { error },
+          },
+        }) => {
+          setIsLoading(false);
+          setError(error);
+        }
+      );
   };
-
+  console.log(error);
   return (
     <Modal
       show={show}
@@ -149,13 +157,13 @@ export default function EditActivityModal({
             />
           </div>
         </form>
-      </Modal.Body>
-      <Modal.Footer>
         {error && (
           <Alert variant="danger">
             <div>{error}</div>
           </Alert>
         )}
+      </Modal.Body>
+      <Modal.Footer>
         {isLoading && (
           <div className="d-flex-col text-center mt-4">
             <i className="fa-solid fa-spinner fa-spin"></i>

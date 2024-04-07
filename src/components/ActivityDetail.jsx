@@ -120,7 +120,7 @@ export default function ActivityDetail() {
               style={{
                 width: "300px",
                 height: "300px",
-                objectFit: "fill",
+                objectFit: "cover",
                 borderRadius: "25px",
               }}
             />
