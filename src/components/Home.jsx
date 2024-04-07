@@ -10,22 +10,29 @@ import HomeNav from "./HomeNav";
 
 export default function Home() {
   const { user } = useAuth();
-  const [selectedComponent, setSelectedComponent] = useState("MyActivities");
+  const [selectedComponent, setSelectedComponent] = useState("MyProduce");
 
   return (
     <div className="container h-100">
       {user !== null ? (
         <div className="col">
-          <div className="row" style={{boxShadow: "0 0 10px 0 #ccc"}}>
+          <div
+            className="row"
+            style={{ boxShadow: "0 0 10px 0 #ccc" }}>
             <HomeNav setSelectedComponent={setSelectedComponent} />
           </div>
-          <div className="row" style={{boxShadow: "0 0 10px 0 #ccc", height: "30vw", paddingTop: "1rem", marginTop: "1rem"}}>
-            
-              {selectedComponent === "MyProduce" && <MyProduce />}
-              {selectedComponent === "MyPosts" && <MyPosts />}
-              {selectedComponent === "MyBlogs" && <MyBlogs />}
-              {selectedComponent === "MyActivities" && <MyActivities />}
-            
+          <div
+            className="row"
+            style={{
+              boxShadow: "0 0 10px 0 #ccc",
+              height: "30vw",
+              paddingTop: "1rem",
+              marginTop: "1rem",
+            }}>
+            {selectedComponent === "MyProduce" && <MyProduce />}
+            {selectedComponent === "MyPosts" && <MyPosts />}
+            {selectedComponent === "MyBlogs" && <MyBlogs />}
+            {selectedComponent === "MyActivities" && <MyActivities />}
           </div>
         </div>
       ) : (
@@ -35,12 +42,12 @@ export default function Home() {
               variant="success"
               className="text-center">
               <h3 className="fw-bold">Currently under development:</h3>
-              <i className="fa-solid fa-2x fa-user-graduate"></i>{" "}
+              <i className="fa-solid fa-2x fa-calendar-days"></i>{" "}
               <p>
                 {" "}
-                Check out the new Activities page! Soon, you'll be able to click
-                to view the Activity Information page, as well as create your
-                own activity which other users will be able to find and view.
+                Working on Google Calendar functionality to allow a
+                fully-customizable calendar for helping to manage growing
+                activities.
               </p>
             </Alert>
           </div>
