@@ -1,13 +1,26 @@
 import React from "react";
 import { Alert } from "react-bootstrap";
 
-export default function ShopifyProduct({ title, image }) {
+export default function ShopifyProduct({ product }) {
+  const {
+    node: { id: productID },
+    node: { title },
+    node: {
+      images: {
+        edges: [{ node: { originalSrc: images } = {} } = {}] = [],
+      } = {},
+    } = {},
+  } = product;
+
   return (
-    <div className="container h-100 p-4 box-border">
-      {image ? (
-        <div className="d-flex justify-content-center">
+    <div className="text-center border p-2 h-100">
+      <div className="col justify-content-center">
+        <h5>{title}</h5>
+      </div>
+      {images ? (
+        <div className="p-3">
           <img
-            src={image}
+            src={images}
             alt=""
             style={{ height: "250px" }}
           />
@@ -15,16 +28,13 @@ export default function ShopifyProduct({ title, image }) {
       ) : (
         <div
           style={{
-            height: "250px",
             textAlign: "center",
+            justifyContent: "center",
+            display: "flex",
           }}>
-          <p>No image available</p>
+          <p className="mt-5 border p-2 w-50">No image available</p>
         </div>
       )}
-
-      <div className="d-flex justify-content-center">
-        <h4>{title}</h4>
-      </div>
     </div>
   );
 }
