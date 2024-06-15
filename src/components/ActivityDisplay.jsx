@@ -72,7 +72,7 @@ export default function ActivityDisplay({
   };
 
   return (
-    <div className="container">
+    <div>
       {selectedDate && (
         <div>
           {monthsOfYear.map((monthYearString) => (

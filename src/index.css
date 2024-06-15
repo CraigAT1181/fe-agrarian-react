@@ -1,77 +1,55 @@
-:root {
-  line-height: 1.5;
-  font-weight: 400;
-  font-family: 'Dancing Script', cursive;
+@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* -- HEADER -- */
+
+.header {
+  @apply bg-white text-green-950 p-4 flex justify-between items-center;
 }
 
-.roboto-thin {
-  font-family: "Roboto", sans-serif;
-  font-weight: 100;
-  font-style: normal;
+.title {
+  @apply text-lg font-bold;
 }
 
-.roboto-light {
-  font-family: "Roboto", sans-serif;
-  font-weight: 300;
-  font-style: normal;
+.hamburger {
+  @apply md:hidden text-green-950 focus:outline-none;
 }
 
-.roboto-regular {
-  font-family: "Roboto", sans-serif;
-  font-weight: 400;
-  font-style: normal;
+/* -- NAVBAR -- */
+
+.drawer-secondary {
+  @apply fixed inset-0 bg-green-950 bg-opacity-75 z-50;
 }
 
-.roboto-medium {
-  font-family: "Roboto", sans-serif;
-  font-weight: 500;
-  font-style: normal;
+.drawer-primary {
+  @apply bg-white w-64 h-full shadow-lg p-4;
 }
 
-.roboto-bold {
-  font-family: "Roboto", sans-serif;
-  font-weight: 700;
-  font-style: normal;
+.drawer-close {
+  @apply text-green-950 focus:outline-none;
 }
 
-.roboto-black {
-  font-family: "Roboto", sans-serif;
-  font-weight: 900;
-  font-style: normal;
+.drawer-nav {
+  @apply mt-4 ml-6;
 }
 
-.roboto-thin-italic {
-  font-family: "Roboto", sans-serif;
-  font-weight: 100;
-  font-style: italic;
+.drawer-nav-item {
+  @apply block py-2 text-green-950 hover:bg-gray-200 rounded;
 }
 
-.roboto-light-italic {
-  font-family: "Roboto", sans-serif;
-  font-weight: 300;
-  font-style: italic;
+.navbar {
+  @apply flex;
 }
 
-.roboto-regular-italic {
-  font-family: "Roboto", sans-serif;
-  font-weight: 400;
-  font-style: italic;
+.nav-item {
+@apply mx-2;
 }
 
-.roboto-medium-italic {
-  font-family: "Roboto", sans-serif;
-  font-weight: 500;
-  font-style: italic;
-}
+/* -- LOGIN / REG -- */
 
-.roboto-bold-italic {
-  font-family: "Roboto", sans-serif;
-  font-weight: 700;
-  font-style: italic;
-}
-
-.roboto-black-italic {
-  font-family: "Roboto", sans-serif;
-  font-weight: 900;
-  font-style: italic;
+.login-reg-button {
+  @apply mx-2;
 }

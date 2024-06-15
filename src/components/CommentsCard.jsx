@@ -62,7 +62,7 @@ export default function CommentsCard({
 
   if (error)
     return (
-      <div className="d-flex-col text-center mt-4">
+      <div>
         <i className="fa-solid fa-exclamation"></i>
         <p>
           Oops, there's been an error: {error.status} {error.message}
@@ -72,29 +72,29 @@ export default function CommentsCard({
 
   return (
     <div>
-      <div className="comment-card">
-        <div className="row">
-          <div className="d-flex justify-content-between">
-            <div className="col">
-              <div className="d-flex">
-                <h5 style={{ marginBottom: "0" }}>{comment.username}</h5>
+      <div>
+        <div>
+          <div >
+            <div >
+              <div >
+                <h5 >{comment.username}</h5>
                 {user && user.userID !== comment.user_id && (
                   <MessageButtonS partner={comment.user_id} />
                 )}
               </div>
               <div>
-                <p style={{ fontSize: "14px" }}>{formattedDate}</p>
+                <p>{formattedDate}</p>
               </div>
             </div>
           </div>
         </div>
-        <div className="row">
+        <div >
           <div>{comment.comment}</div>
         </div>
-        <div className="d-flex justify-content-between align-items-center mt-4">
-          <div className="d-flex">
+        <div >
+          <div >
             <button
-              className="btn btn-outline-success"
+        
               onClick={() => handleViewReplies()}>
               {`${
                 allComments.filter(
@@ -109,9 +109,9 @@ export default function CommentsCard({
               }`}
             </button>
             {user && user.userID !== comment.user_id && (
-              <div className="mx-3">
+              <div >
                 <button
-                  className="btn "
+          
                   type="button"
                   onClick={handleShow}>
                   <i className="fa-solid text-success fa-reply"></i>
@@ -131,7 +131,7 @@ export default function CommentsCard({
           {user && user.username === comment.username && (
             <div>
               <button
-                className="btn text-danger fw-bold"
+              
                 onClick={() => handleDelete(blog_id, comment.comment_id)}
                 title="Delete Comment">
                 {isLoading ? (

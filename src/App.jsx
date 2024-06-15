@@ -6,6 +6,7 @@ import Footer from "./components/Footer";
 import AdCarousel from "./components/AdCarousel";
 import ErrorHandling from "./components/ErrorHandling";
 import "@fortawesome/fontawesome-free/css/all.min.css";
+import './index.css'
 
 const Home = lazy(() => import("./components/Home"));
 const Exchange = lazy(() => import("./components/Exchange"));
@@ -31,13 +32,13 @@ const Shop = lazy(() => import("./components/Shop"));
 export default function App() {
   return (
     <div
-      style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
+    >
       <AuthProvider>
         <Header />
-        <main style={{ flex: 1, alignContent: "center" }}>
+        <main>
           <Suspense
             fallback={
-              <div className="d-flex-col text-center mt-4">
+              <div>
                 <i className="fa-solid fa-spinner fa-spin"></i>
                 <p>Loading...</p>
               </div>

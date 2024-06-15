@@ -24,7 +24,7 @@ export default function Blog() {
     getSingleBlog(blog_id)
       .then((blog) => {
         setIsLoading(false);
-        
+
         if (blog.image_url === "" || blog.image_url === null) {
           setSingleBlog({
             ...blog,
@@ -45,7 +45,7 @@ export default function Blog() {
           setError({ status, message: message });
         }
       );
-      setEditedBlog(false);
+    setEditedBlog(false);
   }, [editedBlog]);
 
   const handleShow = () => setShowModal(true);
@@ -74,14 +74,14 @@ export default function Blog() {
 
   if (isLoading)
     return (
-      <div className="d-flex-col text-center mt-4">
+      <div>
         <i className="fa-solid fa-spinner fa-spin"></i>
         <p>Loading blogs...</p>
       </div>
     );
   if (error)
     return (
-      <div className="d-flex-col text-center mt-4">
+      <div>
         <i className="fa-solid fa-exclamation"></i>
         <p>
           Oops, there's been an error: {error.status} {error.message}
@@ -90,15 +90,11 @@ export default function Blog() {
     );
 
   return (
-    <div className="container mt-5">
-      <div className="row">
-        <div className="col-md-4 p-4">
-          <div
-            className="mb-4"
-            style={{ width: "100%" }}>
+    <div>
+      <div>
+        <div>
+          <div>
             <img
-              className="border"
-              style={{ width: "80%", padding: "1rem" }}
               src={singleBlog.image_url}
               alt="Blog cover image"
             />
@@ -113,30 +109,20 @@ export default function Blog() {
             </div>
           )}
           {user && user.userID === singleBlog.author_id && (
-            <div className="d-flex flex-md-row">
-              <button
-                onClick={handleShow}
-                className="btn btn-outline-success mx-1 fw-bold">
-                Edit
-              </button>
+            <div>
+              <button onClick={handleShow}>Edit</button>
               <EditBlogModal
                 show={showModal}
                 handleClose={handleClose}
                 singleBlog={singleBlog}
                 setEditedBlog={setEditedBlog}
               />
-              <button
-                onClick={() => handleDelete(blog_id)}
-                className="btn btn-outline-danger mx-1 fw-bold">
-                Delete
-              </button>
+              <button onClick={() => handleDelete(blog_id)}>Delete</button>
             </div>
           )}
         </div>
-        <div
-          className="col-md-8 p-4 blog-content "
-          style={{ maxHeight: "calc(80vh - 100px)", overflowY: "auto" }}>
-          <div className="mb-5 pt-3">
+        <div>
+          <div>
             {singleBlog.content &&
               singleBlog.content
                 .split("\n")
@@ -144,8 +130,8 @@ export default function Blog() {
           </div>
         </div>
       </div>
-      
-      <div className="row mt-4">
+
+      <div>
         <Comments blog_id={blog_id} />
       </div>
     </div>

@@ -83,7 +83,7 @@ export default function BlogPage() {
 
   if (isLoading)
     return (
-      <div className="d-flex-col text-center mt-4">
+      <div >
         <i className="fa-solid fa-spinner fa-spin"></i>
         <p>Loading blogs...</p>
       </div>
@@ -91,7 +91,7 @@ export default function BlogPage() {
 
   if (error)
     return (
-      <div className="d-flex-col text-center mt-4">
+      <div>
         <i className="fa-solid fa-exclamation"></i>
         <p>
           Oops, there's been an error: {error.status} {error.message}
@@ -100,38 +100,38 @@ export default function BlogPage() {
     );
 
   return (
-    <div className="container">
+    <div>
       {allBlogs.length > 0 && (
-        <div className="d-flex justify-content-center">
-          <div className="d-flex align-items-center p-3">
+        <div >
+          <div >
             <i
               onClick={() => {
                 setSearchBlogs([]);
                 setSearchTerms("");
                 setNotFound("");
               }}
-              className="fa-solid fa-arrow-rotate-left m-2"
-              style={{ color: "#28a745", cursor: "pointer" }}></i>
+          
+           ></i>
           </div>
           <form
-            className="my-3 w-25"
+     
             onSubmit={(e) => handleSearch(e)}>
-            <div className="input-group">
+            <div>
               <label
                 htmlFor="topic-search"
-                className="form-label"
+           
                 aria-label="Search"
                 aria-describedby="button-addon2"></label>
               <input
-                id="topic-search"
-                className="form-control"
+     
+        
                 onChange={(e) => handleInputChange(e)}
                 type="text"
                 placeholder="What are you looking for?"
               />
               <button
-                className="btn btn-success"
-                id="button-addon2">
+      
+              >
                 Search
               </button>
             </div>
@@ -140,11 +140,11 @@ export default function BlogPage() {
       )}
 
       <div
-        className="d-flex justify-content-center"
-        style={{ height: "4.5rem" }}>
+    
+      >
         {notFound && (
           <Alert
-            className="d-flex justify-content-center w-50"
+      
             variant="danger">
             {notFound}
           </Alert>
@@ -153,7 +153,7 @@ export default function BlogPage() {
 
       <div>
         {allBlogs.length > 0 ? (
-          <div className="blog-page">
+          <div>
             {searchBlogs && searchBlogs.length > 0
               ? searchBlogs.map((blog) => (
                   <BlogSummary
@@ -169,12 +169,12 @@ export default function BlogPage() {
                 ))}
           </div>
         ) : (
-          <div className="col justify-content-center">
-            <div className="d-flex justify-content-center">
+          <div >
+            <div >
               <Alert
                 variant="success"
-                className="w-50">
-                <div className="d-flex justify-content-center">
+              >
+                <div >
                   No one has posted any blogs yet... is there anything you'd
                   like to share?
                 </div>
@@ -182,33 +182,27 @@ export default function BlogPage() {
             </div>
 
             <div
-              className="text-center"
-              style={{
-                borderRadius: "25px",
-                backgroundColor: "white",
-                marginBottom: "2rem",
-                padding: "2rem",
-              }}>
+>
               {user ? (
                 <button
                   onClick={() => {
                     navigate("/");
                   }}
-                  className="btn btn-success fw-bold">
+                >
                   Home
                 </button>
               ) : (
-                <div className="d-flex justify-content-center flex-md-row">
-                  <div className="col">
-                    <h4 className="mb-3">Join the community</h4>
+                <div>
+                  <div >
+                    <h4>Join the community</h4>
                     <button
                       onClick={() => navigate("/login")}
-                      className="btn bg-success text-white mx-1 fw-bold">
+                    >
                       Login
                     </button>
                     <button
                       onClick={() => navigate("/register")}
-                      className="btn bg-success text-white mx-1 fw-bold">
+                     >
                       Register
                     </button>
                   </div>

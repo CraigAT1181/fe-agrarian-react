@@ -54,18 +54,11 @@ export default function AdCarousel() {
   };
 
   return (
-    <div className="container mt-5 mb-1">
+    <div>
       <Slider {...settings}>
         {ads.map((ad, index) => (
           <div key={index}>
-            <span
-              style={{
-                position: "absolute",
-                backgroundColor: "white",
-                padding: "4px",
-              }}>
-              Ad Example
-            </span>
+            <span>Ad Example</span>
             <img
               src={ad.image_url}
               alt={`Ad ${index}`}

@@ -25,7 +25,7 @@ function formatDate(dateString) {
     time: format(date, `h:mma`),
     month: format(date, `MMMM`),
     suffix: (
-      <span style={{ fontSize: "16px", fontWeight: "normal" }}>{suffix}</span>
+      <span>{suffix}</span>
     ),
   };
 }
@@ -57,12 +57,12 @@ export default function ActivityCard({ activity, setCancelStatusChange }) {
   const shortenedDescription = shortenDescription(description);
 
   return (
-    <div className="container activity-card">
-      <div className="row">
-        <div className="col-md-2">
-          <div className="d-flex justify-content-center">
-            <div className="text-center">
-              <h1 className="m-0">
+    <div>
+      <div>
+        <div>
+          <div>
+            <div>
+              <h1>
                 {formattedStart.day}
                 {formattedStart.suffix}
               </h1>
@@ -76,49 +76,42 @@ export default function ActivityCard({ activity, setCancelStatusChange }) {
             </div>
           </div>
         </div>
-        <div className="col p-3 mx-2">
-          <div className="d-flex">
+        <div>
+          <div>
             <h4>{title}</h4>
           </div>
-          <div className="">
+          <div>
             <div>{shortenedDescription}</div>
             {end < new Date() && !is_cancelled && (
-              <p className="fw-bold text-danger my-3">
+              <p>
                 This activity has now finished.
               </p>
             )}
             {is_cancelled &&
               (end < new Date() ? (
-                <p className="text-danger d-inline-block fw-bold border border-danger p-2 m-0 mt-3">
+                <p>
                   This event was cancelled
                 </p>
               ) : (
-                <p className="text-danger d-inline-block fw-bold border border-danger p-2 m-0 mt-3">
+                <p>
                   This event has been cancelled
                 </p>
               ))}
           </div>
 
-          <div className="mt-5 fw-bold">
+          <div>
             <p>Organised by: {username}</p>
           </div>
         </div>
-        <div className="col-auto">
+        <div>
           <Link to={`/activities/${activity_id}`}>
             {image_url ? (
               <img
                 src={image_url}
                 alt="Activity cover picture"
-                style={{
-                  borderRadius: "25px",
-                  width: "250px",
-                  height: "250px",
-                  objectFit: "cover",
-                }}
               />
             ) : (
               <img
-                style={{ borderRadius: "25px", width: "100%" }}
                 src="https://picsum.photos/300/300"
                 alt="Activity cover picture"
               />

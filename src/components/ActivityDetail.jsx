@@ -101,7 +101,7 @@ export default function ActivityDetail() {
 
   if (error)
     return (
-      <div className="d-flex-col text-center mt-4">
+      <div>
         <i className="fa-solid fa-exclamation"></i>
         <p>
           Oops, there's been an error: {error.status} {error.message}
@@ -110,27 +110,21 @@ export default function ActivityDetail() {
     );
 
   return (
-    <div className="container">
-      <div className="row">
-        <div className="col-md-4">
+    <div>
+      <div>
+        <div>
           <div>
             <img
               src={singleActivity.image_url}
               alt=""
-              style={{
-                width: "300px",
-                height: "300px",
-                objectFit: "cover",
-                borderRadius: "25px",
-              }}
+
             />
           </div>
 
           <div
-            className="mt-4 p-3"
-            style={{ width: "75%", boxShadow: "0 0 10px 0 #ccc" }}>
+  >
             {isLoading ? (
-              <div className="d-flex justify-content-center my-2">
+              <div>
                 <i className="fa-solid fa-spinner fa-spin"></i>
               </div>
             ) : (
@@ -140,24 +134,24 @@ export default function ActivityDetail() {
               </>
             )}
 
-            <p className="m-0">{singleActivity.location}</p>
+            <p>{singleActivity.location}</p>
 
             {singleActivity.updated_at !== singleActivity.created_at && (
               <p>{singleActivity.updated_at}</p>
             )}
           </div>
         </div>
-        <div className="col-md-8">
-          <div className="mb-5">
+        <div>
+          <div>
             <h1>{singleActivity.title}</h1>
             {new Date(singleActivity.date_e_time) < new Date() &&
               !singleActivity.is_cancelled && (
-                <div className="fw-bold text-danger">
+                <div>
                   This activity has now finished.
                 </div>
               )}
           </div>
-          <div className="w-75">
+          <div>
             {singleActivity.description &&
               singleActivity.description
                 .split("/n")
@@ -170,7 +164,7 @@ export default function ActivityDetail() {
                 <div>
                   <Alert
                     variant="danger"
-                    className="p-2 w-75 text-center">
+                    >
                     This activity was cancelled.
                   </Alert>
                 </div>
@@ -178,7 +172,7 @@ export default function ActivityDetail() {
                 <div>
                   <Alert
                     variant="danger"
-                    className="p-2 w-75 text-center">
+                  >
                     This activity has been cancelled.
                   </Alert>
                 </div>
@@ -188,7 +182,7 @@ export default function ActivityDetail() {
               <div>
                 <Alert
                   variant="success"
-                  className="p-2 w-75 text-center">
+                >
                   If you'd like to find out more about this activity, contact{" "}
                   {singleActivity.username} <br />
                   <MessageButtonL partner={singleActivity.user_id} />
@@ -197,10 +191,10 @@ export default function ActivityDetail() {
             )}
 
             {user && user.userID === singleActivity.user_id && (
-              <div className="my-4">
+              <div>
                 <button
                   onClick={handleShow}
-                  className="btn btn-outline-success mx-1 fw-bold">
+             >
                   Edit
                 </button>
                 <EditActivityModal
@@ -211,7 +205,7 @@ export default function ActivityDetail() {
                 />
                 <button
                   onClick={handleCancel}
-                  className="btn btn-outline-danger mx-1 fw-bold">
+             >
                   {isLoading ? (
                     <i className="fa-solid fa-spinner fa-spin"></i>
                   ) : singleActivity.is_cancelled ? (
@@ -226,9 +220,9 @@ export default function ActivityDetail() {
             {user &&
               user.userID === singleActivity.user_id &&
               singleActivity.is_cancelled && (
-                <div className="w-50">
+                <div>
                   <Alert
-                    className="d-flex justify-content-center"
+       
                     variant="danger">
                     Activity now labelled as Cancelled.
                   </Alert>

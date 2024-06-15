@@ -1,40 +1,44 @@
-import React from "react";
+import React, { useState } from "react";
+import Drawer from "./Drawer";
 import NavBar from "./NavBar";
-import Profile from "./Profile";
-import { useAuth } from "./AuthContext";
-import { useNavigate } from "react-router-dom";
+import LoginReg from "./LoginReg";
 
 export default function Header() {
-  const { user } = useAuth();
-  const navigate = useNavigate();
+  const [isDrawerOpen, setDrawerOpen] = useState(false);
+
+  const toggleDrawer = () => {
+    setDrawerOpen(!isDrawerOpen);
+  };
 
   return (
-    <header className="d-flex flex-md-row justify-content-between align-items-center bg-success p-3 mb-4">
-      <div className="text-white handwriting-font">
-        <h2>The Cooking Pot</h2>
-        <p>Health, Security, Community</p>
+    <header className="header">
+      <div className="title">cookingpot.live</div>
+      <button
+        onClick={toggleDrawer}
+        className="hamburger">
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg">
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+      <div className="hidden md:block">
+        <NavBar />
       </div>
-      <NavBar />
-      {user ? (
-        <div>
-          <Profile />
-        </div>
-      ) : (
-        <div className="d-flex flex-md-row">
-          <button
-            onClick={() => navigate("/login")}
-            className="btn bg-white text-success mx-1 fw-bold"
-          >
-            Login
-          </button>
-          <button
-            onClick={() => navigate("/register")}
-            className="btn bg-white text-success mx-1 fw-bold"
-          >
-            Register
-          </button>
-        </div>
-      )}
+      <div className="hidden md:block">
+        <LoginReg />
+      </div>
+      <Drawer
+        isDrawerOpen={isDrawerOpen}
+        toggleDrawer={toggleDrawer}
+      />
     </header>
   );
 }

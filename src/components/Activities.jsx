@@ -36,14 +36,14 @@ export default function Activities() {
 
   if (isLoading)
     return (
-      <div className="d-flex-col text-center mt-4">
+      <div>
         <i className="fa-solid fa-spinner fa-spin"></i>
         <p>Loading activities...</p>
       </div>
     );
   if (error)
     return (
-      <div className="d-flex-col text-center mt-4">
+      <div>
         <i className="fa-solid fa-exclamation"></i>
         <p>
           Oops, there's been an error: {error.status} {error.message}
@@ -52,15 +52,15 @@ export default function Activities() {
     );
 
   return (
-    <div className="container">
-      <div className="d-flex row align-items-center px-5 my-4">
-        <div className="col p-4">
+    <div>
+      <div>
+        <div>
           <MyDatePicker
             selectedDate={selectedDate}
             setSelectedDate={setSelectedDate}
           />
         </div>
-        <div className="col p-4">
+        <div>
           <SearchBar
             activities={activities}
             setSearchedActivities={setSearchedActivities}
@@ -68,7 +68,7 @@ export default function Activities() {
         </div>
       </div>
 
-      <div className="p-2">
+      <div>
         <ActivityDisplay
           activities={activities}
           searchedActivities={searchedActivities}

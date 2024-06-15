@@ -56,14 +56,14 @@ export default function BlogSummary({ blog }) {
 
   if (isLoading)
     return (
-      <div className="d-flex-col text-center mt-4">
+      <div >
         <i className="fa-solid fa-spinner fa-spin"></i>
         <p>Loading blogs...</p>
       </div>
     );
   if (error)
     return (
-      <div className="d-flex-col text-center mt-4">
+      <div>
         <i className="fa-solid fa-exclamation"></i>
         <p>
           Oops, there's been an error: {error.status} {error.message}
@@ -73,21 +73,16 @@ export default function BlogSummary({ blog }) {
 
   return (
     <div
-      className="container"
-      style={{ boxShadow: "0 0 10px 0 #ccc", borderRadius: "25px" }}>
-      <div className="col text-center">
-        <div className="row">
+    
+     >
+      <div >
+        <div >
           <Link to={`/blogs/${blog.blog_id}`}>
             <div
-              className="p-3"
-              style={{ height: "300px" }}>
+             
+              >
               <img
-                style={{
-                  borderRadius: "25px",
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "cover",
-                }}
+    
                 src={
                   blog.image_url
                     ? blog.image_url
@@ -99,22 +94,22 @@ export default function BlogSummary({ blog }) {
           </Link>
         </div>
         <div
-          className="row"
-          style={{ height: "5rem" }}>
+      
+       >
           <h5>{shortenedTitle(blog.title)}</h5>
         </div>
 
-        <div className="row">
-          <p className="mb-0 fw-bold">Written by:</p>
+        <div >
+          <p >Written by:</p>
           <p>{blog.username}</p>
 
           <p>{formattedDate}</p>
         </div>
         <div
-          className="row"
+      
           title="Comments">
           <i className="fa-solid fa-comment text-success"></i>
-          <p className="fw-bold text-success">{blogComments.length}</p>
+          <p >{blogComments.length}</p>
         </div>
       </div>
     </div>

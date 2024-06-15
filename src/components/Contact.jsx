@@ -36,15 +36,15 @@ export default function Contact() {
   };
 
   return (
-    <div className="container w-50">
+    <div >
       <h1>Contact Us</h1>
       <form onSubmit={handleSubmit}>
-        <div className="form-group mt-2">
+        <div >
           <label htmlFor="name">Name:</label>
           <input
             type="text"
             id="name"
-            className="form-control mb-2"
+         
             name="name"
             value={formData.name}
             onChange={handleChange}
@@ -56,7 +56,7 @@ export default function Contact() {
           <input
             type="email"
             id="email"
-            className="form-control mb-2"
+          
             name="email"
             value={formData.email}
             onChange={handleChange}
@@ -67,14 +67,14 @@ export default function Contact() {
           <label htmlFor="message">Message:</label>
           <textarea
             id="message"
-            className="form-control mb-2"
+         
             name="message"
             value={formData.message}
             onChange={handleChange}
             required></textarea>
         </div>
         <button
-          className="btn btn-success"
+       
           type="submit">
           Submit
         </button>
