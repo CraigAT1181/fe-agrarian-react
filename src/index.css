@@ -18,6 +18,12 @@
   @apply lg:hidden text-green-950 focus:outline-none;
 }
 
+/* -- MAIN -- */
+
+.main {
+  @apply flex-grow mx-2;
+}
+
 /* -- NAVBAR -- */
 
 .drawer-secondary {
@@ -45,7 +51,7 @@
 }
 
 .nav-item {
-@apply mx-4 no-underline text-green-950;
+  @apply mx-4 no-underline text-green-950;
 }
 
 /* -- LOGIN / REG -- */
@@ -54,8 +60,28 @@
   @apply mx-2 p-2 text-green-950 no-underline border border-green-950 rounded-md;
 }
 
+/* -- EXCHANGE -- */
+
+/* -- PRODUCE FINDER -- */
+
+.dropdown {
+  @apply relative bg-transparent hover:bg-green-950 text-green-950 font-semibold hover:text-white py-2 px-4 border border-green-950 hover:border-transparent rounded w-full mt-2 md:w-48;
+}
+
+.menu {
+  @apply bg-white border border-green-950 rounded shadow-md z-50 h-52 overflow-y-auto md:absolute md:left-1/2 md:transform md:-translate-x-1/2 mt-3 md:w-48;
+}
+
+.menu-item-unclicked {
+  @apply block cursor-pointer w-full px-4 py-2 text-green-950 hover:bg-gray-200;
+}
+
+.menu-item-clicked {
+  @apply block cursor-pointer w-full px-4 py-2 text-white bg-green-950;
+}
+
 /* -- FOOTER -- */
 
 .footer {
-  @apply bg-white text-green-950 p-4 flex-col text-center;
+  @apply bg-white text-green-950 p-4 flex-col text-center mt-4;
 }

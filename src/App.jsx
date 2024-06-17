@@ -6,7 +6,7 @@ import Footer from "./components/Footer";
 import AdCarousel from "./components/AdCarousel";
 import ErrorHandling from "./components/ErrorHandling";
 import "@fortawesome/fontawesome-free/css/all.min.css";
-import './index.css'
+import "./index.css";
 
 const Home = lazy(() => import("./components/Home"));
 const Exchange = lazy(() => import("./components/Exchange"));
@@ -31,11 +31,10 @@ const Shop = lazy(() => import("./components/Shop"));
 
 export default function App() {
   return (
-    <div
-    >
+    <div className="flex flex-col min-h-screen">
       <AuthProvider>
         <Header />
-        <main>
+        <main className="main">
           <Suspense
             fallback={
               <div>
@@ -134,8 +133,8 @@ export default function App() {
               />
             </Routes>
           </Suspense>
+          <AdCarousel />
         </main>
-        <AdCarousel />
         <Footer />
       </AuthProvider>
     </div>

@@ -30,11 +30,15 @@ export default function Footer() {
       <div className="hidden lg:block">
         <NavbarFooter />
       </div>
-      <DrawerFooter
-        isDrawerOpen={isDrawerOpen}
-        toggleDrawer={toggleDrawer}
-      />
-      <div>&copy; 2022 The Cooking Pot CIC. All rights reserved.</div>
+      <div className="text-start">
+        <DrawerFooter
+          isDrawerOpen={isDrawerOpen}
+          toggleDrawer={toggleDrawer}
+        />
+      </div>
+      <div className="mt-2">
+        &copy; 2022 The Cooking Pot CIC. All rights reserved.
+      </div>
     </footer>
   );
 }

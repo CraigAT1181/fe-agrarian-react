@@ -35,27 +35,27 @@ export default function AdCarousel() {
     centerMode: true,
     centerPadding: "1rem",
     initialSlide: 0,
-    responsive: [
-      {
-        breakpoint: 768,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-        },
-      },
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 1,
-        },
-      },
-    ],
+    // responsive: [
+    //   {
+    //     breakpoint: 768,
+    //     settings: {
+    //       slidesToShow: 1,
+    //       slidesToScroll: 1,
+    //     },
+    //   },
+    //   {
+    //     breakpoint: 1024,
+    //     settings: {
+    //       slidesToShow: 3,
+    //       slidesToScroll: 1,
+    //     },
+    //   },
+    // ],
   };
 
   return (
     <div>
-      <Slider {...settings}>
+      {/* <Slider {...settings}>
         {ads.map((ad, index) => (
           <div key={index}>
             <span>Ad Example</span>
@@ -65,7 +65,7 @@ export default function AdCarousel() {
             />
           </div>
         ))}
-      </Slider>
+      </Slider> */}
     </div>
   );
 }
