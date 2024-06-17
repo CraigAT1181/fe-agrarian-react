@@ -15,7 +15,7 @@
 }
 
 .hamburger {
-  @apply md:hidden text-green-950 focus:outline-none;
+  @apply lg:hidden text-green-950 focus:outline-none;
 }
 
 /* -- NAVBAR -- */
@@ -37,7 +37,7 @@
 }
 
 .drawer-nav-item {
-  @apply block py-2 text-green-950 hover:bg-gray-200 rounded;
+  @apply block py-2 text-green-950 no-underline hover:bg-gray-200 rounded;
 }
 
 .navbar {
@@ -45,11 +45,17 @@
 }
 
 .nav-item {
-@apply mx-2;
+@apply mx-4 no-underline text-green-950;
 }
 
 /* -- LOGIN / REG -- */
 
 .login-reg-button {
-  @apply mx-2;
+  @apply mx-2 p-2 text-green-950 no-underline border border-green-950 rounded-md;
+}
+
+/* -- FOOTER -- */
+
+.footer {
+  @apply bg-white text-green-950 p-4 flex-col text-center;
 }

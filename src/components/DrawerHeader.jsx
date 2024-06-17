@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default function Drawer({ isDrawerOpen, toggleDrawer }) {
+export default function DrawerHeader({ isDrawerOpen, toggleDrawer }) {
   return (
     <div
       className={`drawer-secondary transform ${

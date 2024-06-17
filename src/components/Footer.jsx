@@ -1,83 +1,40 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
-import "bootstrap/dist/css/bootstrap.min.css";
+import React, { useState } from "react";
+import NavbarFooter from "./NavbarFooter";
+import DrawerFooter from "./DrawerFooter";
 
 export default function Footer() {
-  const navigate = useNavigate();
+  const [isDrawerOpen, setDrawerOpen] = useState(false);
+
+  const toggleDrawer = () => {
+    setDrawerOpen(!isDrawerOpen);
+  };
 
   return (
-    <footer
-      className="bg-success text-white text-center p-3 mt-4"
-      style={{ maxHeight: "100%" }}>
-      <div className="container">
-        <div className="row mb-3">
-          <div className="col">
-            <div>
-              <span
-                className="text-white fw-bold"
-                style={{ cursor: "pointer" }}
-                onClick={() => navigate("/about")}>
-                About
-              </span>
-            </div>
-          </div>
-          <div className="col">
-            <div>
-              <span
-                className="text-white fw-bold"
-                style={{ cursor: "pointer" }}
-                onClick={() => navigate("/privacy")}>
-                Privacy Policy
-              </span>
-            </div>
-          </div>
-          <div className="col">
-            <div>
-              <span
-                className="text-white fw-bold"
-                style={{ cursor: "pointer" }}
-                onClick={() => navigate("/contact")}>
-                Contact Us
-              </span>
-            </div>
-          </div>
-        </div>
-        <div className="row">
-          <div className="col">
-            <span
-              className="text-white fw-bold"
-              style={{ cursor: "pointer" }}
-              onClick={() => navigate("/offer-support")}>
-              Offer Support
-            </span>
-          </div>
-          <div className="col">
-            <div>
-              <span
-                className="text-white fw-bold"
-                style={{ cursor: "pointer" }}
-                onClick={() => navigate("/cookies")}>
-                Cookie Policy
-              </span>
-            </div>
-          </div>
-          <div className="col">
-          <div>
-              <span
-                className="text-white fw-bold"
-                style={{ cursor: "pointer" }}
-                onClick={() => navigate("/development")}>
-                Development Plan
-              </span>
-            </div>
-          </div>
-        </div>
-        <div className="row">
-          <div className="mt-3">
-            &copy; 2022 The Cooking Pot CIC. All rights reserved.
-          </div>
-        </div>
+    <footer className="footer">
+      <button
+        onClick={toggleDrawer}
+        className="hamburger">
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg">
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+      <div className="hidden lg:block">
+        <NavbarFooter />
       </div>
+      <DrawerFooter
+        isDrawerOpen={isDrawerOpen}
+        toggleDrawer={toggleDrawer}
+      />
+      <div>&copy; 2022 The Cooking Pot CIC. All rights reserved.</div>
     </footer>
   );
 }

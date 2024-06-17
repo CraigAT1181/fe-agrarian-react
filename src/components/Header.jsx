@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Drawer from "./Drawer";
-import NavBar from "./NavBar";
+import DrawerHeader from "./DrawerHeader";
+import NavbarHeader from "./NavbarHeader";
 import LoginReg from "./LoginReg";
 
 export default function Header() {
@@ -12,7 +12,7 @@ export default function Header() {
 
   return (
     <header className="header">
-      <div className="title">cookingpot.live</div>
+      <h1 className="title">cookingpot.live</h1>
       <button
         onClick={toggleDrawer}
         className="hamburger">
@@ -29,13 +29,13 @@ export default function Header() {
             d="M4 6h16M4 12h16M4 18h16"></path>
         </svg>
       </button>
-      <div className="hidden md:block">
-        <NavBar />
+      <div className="hidden lg:block">
+        <NavbarHeader />
       </div>
-      <div className="hidden md:block">
+      <div className="hidden lg:block">
         <LoginReg />
       </div>
-      <Drawer
+      <DrawerHeader
         isDrawerOpen={isDrawerOpen}
         toggleDrawer={toggleDrawer}
       />
