@@ -1,6 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { GoogleMap, LoadScript, Marker, InfoWindow, useJsApiLoader } from "@react-google-maps/api";
+import MapsInfoWindow from "./MapsInfoWindow";
+import {
+  GoogleMap,
+  LoadScript,
+  Marker,
+  InfoWindow,
+  useJsApiLoader,
+} from "@react-google-maps/api";
 
+// Load additional libraries for Google Maps
 const libraries = ["geometry", "drawing"];
 
 export default function Maps({ users }) {
@@ -11,12 +19,14 @@ export default function Maps({ users }) {
   const [selectedMarkerIndex, setSelectedMarkerIndex] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  // Load the Google Maps API
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
-    googleMapsApiKey: "AIzaSyBPEL9RgJfKnr58ff5ZEPSAituv9TMxRXY",
+    googleMapsApiKey: "AIzaSyBPEL9RgJfKnr58ff5ZEPSAituv9TMxRXY", // Replace with your actual API key
     libraries,
   });
 
+  // Fetch and process user postcodes
   useEffect(() => {
     async function fetchPostcodes() {
       if (users.length > 0) {
@@ -29,17 +39,21 @@ export default function Maps({ users }) {
             })
           );
 
-          const validPostcodes = userPostcodes.filter(postcode => postcode.position);
+          const validPostcodes = userPostcodes.filter(
+            (postcode) => postcode.position
+          );
 
           if (validPostcodes.length > 0) {
             const bounds = new window.google.maps.LatLngBounds();
-            validPostcodes.forEach(postcode => {
+            validPostcodes.forEach((postcode) => {
               bounds.extend(postcode.position);
             });
 
             setCenter({
-              lat: (bounds.getSouthWest().lat() + bounds.getNorthEast().lat()) / 2,
-              lng: (bounds.getSouthWest().lng() + bounds.getNorthEast().lng()) / 2,
+              lat:
+                (bounds.getSouthWest().lat() + bounds.getNorthEast().lat()) / 2,
+              lng:
+                (bounds.getSouthWest().lng() + bounds.getNorthEast().lng()) / 2,
             });
 
             const newZoom = getZoomLevel(bounds, { width: 600, height: 400 });
@@ -61,6 +75,24 @@ export default function Maps({ users }) {
     fetchPostcodes();
   }, [users]);
 
+  // Function to geocode a postcode using Google Maps API
+  const userMapMarkers = async (postcode) => {
+    return new Promise((resolve) => {
+      const geocoder = new window.google.maps.Geocoder();
+      geocoder.geocode({ address: postcode }, (results, status) => {
+        if (status === "OK") {
+          resolve(results[0].geometry.location.toJSON());
+        } else {
+          console.error(
+            "Geocode was not successful for the following reason: " + status
+          );
+          resolve(null); // Resolve with null to handle invalid postcodes gracefully
+        }
+      });
+    });
+  };
+
+  // Calculate optimal zoom level to fit all markers
   const getZoomLevel = (bounds, mapDim) => {
     const WORLD_DIM = { height: 256, width: 256 };
     const ZOOM_MAX = 21;
@@ -68,40 +100,33 @@ export default function Maps({ users }) {
     const latRad = (lat) => (lat * Math.PI) / 180;
 
     const latFraction =
-      (latRad(bounds.getNorthEast().lat()) - latRad(bounds.getSouthWest().lat())) / Math.PI;
+      (latRad(bounds.getNorthEast().lat()) -
+        latRad(bounds.getSouthWest().lat())) /
+      Math.PI;
 
     const lngDiff = bounds.getNorthEast().lng() - bounds.getSouthWest().lng();
     const lngFraction = (lngDiff < 0 ? lngDiff + 360 : lngDiff) / 360;
 
-    const latZoom = (zoom) =>
-      Math.round(Math.log(mapDim.height / WORLD_DIM.height / latFraction) / Math.LN2);
+    const latZoom = () =>
+      Math.round(
+        Math.log(mapDim.height / WORLD_DIM.height / latFraction) / Math.LN2
+      );
 
-    const lngZoom = (zoom) =>
-      Math.round(Math.log(mapDim.width / WORLD_DIM.width / lngFraction) / Math.LN2);
+    const lngZoom = () =>
+      Math.round(
+        Math.log(mapDim.width / WORLD_DIM.width / lngFraction) / Math.LN2
+      );
 
     return Math.min(latZoom(), lngZoom(), ZOOM_MAX);
   };
 
-  const userMapMarkers = async (postcode) => {
-    return new Promise((resolve, reject) => {
-      const geocoder = new window.google.maps.Geocoder();
-
-      geocoder.geocode({ address: postcode }, (results, status) => {
-        if (status === "OK") {
-          resolve(results[0].geometry.location.toJSON());
-        } else {
-          console.error("Geocode was not successful for the following reason: " + status);
-          resolve(null);  // Resolve with null to handle invalid postcodes gracefully
-        }
-      });
-    });
-  };
-
+  // Handle marker click events
   const handleMarkerClick = (user, index) => {
     setSelectedUser(user);
     setSelectedMarkerIndex(index);
   };
 
+  // Handle InfoWindow close events
   const handleInfoWindowClose = () => {
     setSelectedUser(null);
     setSelectedMarkerIndex(null);
@@ -130,7 +155,7 @@ export default function Maps({ users }) {
               onCloseClick={handleInfoWindowClose}
             >
               <div>
-                <h6>{selectedUser.username}</h6>
+                <MapsInfoWindow selectedUser={selectedUser} />
               </div>
             </InfoWindow>
           )}

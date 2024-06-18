@@ -41,96 +41,35 @@ export default function App() {
                 <i className="fa-solid fa-spinner fa-spin"></i>
                 <p>Loading...</p>
               </div>
-            }>
+            }
+          >
             <Routes>
-              <Route
-                path="/"
-                element={<Home />}
-              />
-              <Route
-                path="/home"
-                element={<Home />}
-              />
-              <Route
-                path="/exchange"
-                element={<Exchange />}
-              />
-              <Route
-                path="/messenger"
-                element={<Messenger />}
-              />
-              <Route
-                path="/posts"
-                element={<Posts />}
-              />
-              <Route
-                path="/calendar"
-                element={<Calendar />}
-              />
-              <Route
-                path="/*"
-                element={<ErrorHandling />}
-              />
-              <Route
-                path="/login"
-                element={<Login />}
-              />
-              <Route
-                path="/register"
-                element={<Register />}
-              />
-              <Route
-                path="/request-link"
-                element={<RequestLink />}
-              />
-              <Route
-                path="/set-new-password"
-                element={<SetNewPassword />}
-              />
-              <Route
-                path="/about"
-                element={<About />}
-              />
-              <Route
-                path="/offer-support"
-                element={<OfferSupport />}
-              />
-              <Route
-                path="/privacy"
-                element={<Privacy />}
-              />
-              <Route
-                path="/cookies"
-                element={<Cookies />}
-              />
-              <Route
-                path="/contact"
-                element={<Contact />}
-              />
-              <Route
-                path="/development"
-                element={<Development />}
-              />
-              <Route
-                path="/activities"
-                element={<Activities />}
-              />
-              <Route
-                path="/blogs"
-                element={<BlogPage />}
-              />
-              <Route
-                path="/blogs/:blog_id"
-                element={<Blog />}
-              />
+              <Route path="/" element={<Exchange />} />
+              <Route path="/exchange" element={<Exchange />} />
+              <Route path="/home" element={<Home />} />
+
+              <Route path="/messenger" element={<Messenger />} />
+              <Route path="/posts" element={<Posts />} />
+              <Route path="/calendar" element={<Calendar />} />
+              <Route path="/*" element={<ErrorHandling />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/request-link" element={<RequestLink />} />
+              <Route path="/set-new-password" element={<SetNewPassword />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/offer-support" element={<OfferSupport />} />
+              <Route path="/privacy" element={<Privacy />} />
+              <Route path="/cookies" element={<Cookies />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/development" element={<Development />} />
+              <Route path="/activities" element={<Activities />} />
+              <Route path="/blogs" element={<BlogPage />} />
+              <Route path="/blogs/:blog_id" element={<Blog />} />
               <Route
                 path="/activities/:activity_id"
                 element={<ActivityDetail />}
               />
-              <Route
-                path="/shop"
-                element={<Shop />}
-              />
+              <Route path="/shop" element={<Shop />} />
             </Routes>
           </Suspense>
           <AdCarousel />

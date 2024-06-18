@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useAuth } from "./AuthContext";
 import LoginReg from "./LoginReg";
 import MyProduce from "./MyProduce";
@@ -10,6 +10,10 @@ import HomeNav from "./HomeNav";
 export default function Home() {
   const { user } = useAuth();
   const [selectedComponent, setSelectedComponent] = useState("MyProduce");
+
+  // useEffect(() => {
+  //   localStorage.removeItem("token");
+  // }, []);
 
   return (
     <div>
@@ -26,9 +30,7 @@ export default function Home() {
           </div>
         </div>
       ) : (
-        <div className="hidden md:block my-20 text-center">
-
-        </div>
+        <div className="hidden md:block my-20 text-center"></div>
       )}
     </div>
   );

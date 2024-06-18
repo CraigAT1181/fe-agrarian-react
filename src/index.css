@@ -60,7 +60,15 @@
   @apply mx-2 p-2 text-green-950 no-underline border border-green-950 rounded-md;
 }
 
-/* -- EXCHANGE -- */
+/* -- MAPS -- */
+
+.info-window {
+  @apply flex flex-col;
+}
+
+.info-window-produce {
+  @apply flex;
+}
 
 /* -- PRODUCE FINDER -- */
 
