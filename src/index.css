@@ -80,6 +80,10 @@
   @apply block cursor-pointer w-full px-4 py-2 text-white bg-green-950;
 }
 
+.menu-item-clicked-not-found {
+  @apply block cursor-pointer w-full px-4 py-2 text-red-950 bg-white border border-red-950;
+}
+
 /* -- FOOTER -- */
 
 .footer {

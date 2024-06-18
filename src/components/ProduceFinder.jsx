@@ -7,7 +7,7 @@ export default function ProduceFinder({
   setFilteredProduce,
 }) {
   const [allProduce, setAllProduce] = useState([]);
-
+  const [filteredUsers, setFilteredUsers] = useState([]);
   const [clicked, setClicked] = useState(false);
 
   const [isLoading, setIsLoading] = useState(true);
@@ -67,6 +67,7 @@ export default function ProduceFinder({
       getUsersByProduceName(filteredProduce)
         .then(({ users }) => {
           setUsers(users);
+          setFilteredUsers(users);
           setIsLoading(false);
         })
         .catch(
@@ -82,11 +83,12 @@ export default function ProduceFinder({
         );
     } else {
       setUsers([]);
+      setFilteredUsers([]);
       setIsLoading(false);
     }
   }
 
-  if (error)
+  if (error) {
     return (
       <div>
         <i className="fa-solid fa-exclamation"></i>
@@ -95,12 +97,15 @@ export default function ProduceFinder({
         </p>
       </div>
     );
+  }
 
   return (
     <div>
       <div className="flex-col text-center">
         <div className="mt-4">
-          <span className="font-semibold text-green-950">Looking for anything in particular?</span>
+          <span className="font-semibold text-green-950">
+            Looking for anything in particular?
+          </span>
         </div>
         <button
           className="dropdown"
@@ -116,21 +121,33 @@ export default function ProduceFinder({
 
         {clicked && (
           <div className="menu">
-            {sortAllProduce().map((item) => (
-              <button
-                key={item}
-                className={
-                  filteredProduce.includes(item)
-                    ? "menu-item-clicked"
-                    : "menu-item-unclicked"
-                }
-                onClick={() => {
-                  handleProduceSelection(item);
-                }}>
-                {item}
-              </button>
-            ))}
-          </div>
+  {sortAllProduce().map((item) => {
+    // Check if item is in filteredProduce
+    const isInFilteredProduce = filteredProduce.includes(item);
+    // Check if item is in any user's produce list in filteredUsers
+    const isItemInUsersProduce = Array.isArray(filteredUsers) && filteredUsers.some((user) =>
+      user.produce.includes(item)
+    );
+
+    // Determine className based on conditions
+    let className = "menu-item-unclicked";
+    if (isInFilteredProduce) {
+      className = isItemInUsersProduce ? "menu-item-clicked" : "menu-item-clicked-not-found";
+    }
+
+    return (
+      <button
+        key={item}
+        className={className}
+        onClick={() => {
+          handleProduceSelection(item);
+        }}>
+        {item}
+      </button>
+    );
+  })}
+</div>
+
         )}
       </div>
     </div>
