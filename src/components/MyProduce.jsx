@@ -12,6 +12,7 @@ export default function MyProduce() {
   const [error, setError] = useState(null);
   let [allProduce, setAllProduce] = useState([]);
   const [userProduce, setUserProduce] = useState([]);
+  const [clicked, setClicked] = useState(false);
 
   useEffect(() => {
     setIsLoading(true);
@@ -88,6 +89,19 @@ export default function MyProduce() {
     }
   };
 
+  // Handle visibility of dropdown list
+  const handleClicked = () => {
+    setClicked(!clicked);
+  };
+
+  const handleItemClick = (item) => {
+    if (user.produce.includes(item)) {
+      removeProduceItem(item);
+    } else {
+      handleProduceSelection(item);
+    }
+  };
+
   if (error)
     return (
       <div className="d-flex-col text-center mt-4">
@@ -97,74 +111,45 @@ export default function MyProduce() {
         </p>
       </div>
     );
-  
+
   return (
-    <div className="container">
-      <div className="text-center p-3">
-        <h5>What produce do you have available?</h5>
-        <p>
-          This will appear on your user card and allow other users to see what
-          you have.
-        </p>
-        <div>
-          <Dropdown
-            className="mt-3"
-            onSelect={(selectedItem) => handleProduceSelection(selectedItem)}>
-            <Dropdown.Toggle
-              variant="success"
-              id="dropdown-basic">
-              Add Produce
-            </Dropdown.Toggle>
+    <div className="flex-col text-center my-4">
+      <div>
+        <p>What produce do you have available?</p>
+      </div>
+      <button
+        className="dropdown"
+        onClick={handleClicked}
+        aria-haspopup="true"
+        aria-expanded={clicked}>
+        {isLoading ? <i className="fa-solid fa-spinner fa-spin"></i> : "Select"}
+      </button>
 
-            <Dropdown.Menu
-              style={{
-                maxHeight: "11rem",
-                overflowX: "auto",
-                borderRadius: "10px",
-              }}>
-              {sortAllProduce().map((item) => (
-                <Dropdown.Item
-                  key={item}
-                  eventKey={item}>
-                  {item}
-                </Dropdown.Item>
-              ))}
-            </Dropdown.Menu>
-          </Dropdown>
-          <button
-            onClick={() => updateUserProduceData([])}
-            className="btn btn-outline-danger mt-1">
-            Clear
-          </button>
+      {clicked && (
+        <div className="menu">
+          {sortAllProduce().map((item) => {
+            // Check if item is in userProduce
+            const isInUserProduce = userProduce.includes(item);
+
+            // Determine className based on whether it's in userProduce
+            let className = "menu-item-unclicked";
+            if (isInUserProduce) {
+              className = "menu-item-clicked";
+            }
+
+            return (
+              <button
+                key={item}
+                className={className}
+                onClick={() => {
+                  handleItemClick(item);
+                }}>
+                {item}
+              </button>
+            );
+          })}
         </div>
-      </div>
-
-      <div
-        className="d-flex justify-content-center align-items-center"
-        style={{ height: "auto" }}>
-        <ItemCard
-          allProduce={allProduce}
-          userProduce={userProduce}
-          removeProduceItem={removeProduceItem}
-        />
-      </div>
-      <div style={{ height: "4rem" }}>
-        {isLoading && (
-          <div className="d-flex-col text-center mt-4">
-            <i className="fa-solid fa-spinner fa-spin"></i>
-            <p>Loading your produce selector...</p>
-          </div>
-        )}
-        {userProduce.length === 0 && (
-          <div className="d-flex justify-content-center">
-            <Alert
-              variant="danger"
-              className="w-30">
-              <div>You currently have no produce selected.</div>
-            </Alert>
-          </div>
-        )}
-      </div>
+      )}
     </div>
   );
 }
