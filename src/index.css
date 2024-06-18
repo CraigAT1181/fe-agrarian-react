@@ -67,7 +67,7 @@
 }
 
 .info-window-produce {
-  @apply flex w-full overflow-auto;
+  @apply flex w-full justify-center overflow-auto;
 }
 
 /* -- PRODUCE FINDER -- */

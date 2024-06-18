@@ -1,37 +1,71 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "./AuthContext";
-import LoginReg from "./LoginReg";
 import MyProduce from "./MyProduce";
 import MyPosts from "./MyPosts";
 import MyActivities from "./MyActivities";
 import MyBlogs from "./MyBlogs";
-import HomeNav from "./HomeNav";
 
 export default function Home() {
   const { user } = useAuth();
   const [selectedComponent, setSelectedComponent] = useState("MyProduce");
+  const [clickedIndex, setClickedIndex] = useState(0);
 
-  // useEffect(() => {
-  //   localStorage.removeItem("token");
-  // }, []);
+  const sections = ["Produce", "Posts", "Blogs", "Activities"];
+
+  const handleClick = (index) => {
+    setClickedIndex(index === clickedIndex ? null : index);
+  };
+
+  const handleDisplay = (index) => {
+    if (index === 0) {
+      return (
+        <div>
+          <MyProduce />
+        </div>
+      );
+    } else if (index === 1) {
+      return (
+        <div>
+          <MyPosts />
+        </div>
+      );
+    } else if (index === 2) {
+      return (
+        <div>
+          <MyBlogs />
+        </div>
+      );
+    } else if (index === 3) {
+      return (
+        <div>
+          <MyActivities />
+        </div>
+      );
+    }
+  };
 
   return (
-    <div>
-      {user !== null ? (
-        <div>
-          <div>
-            <HomeNav setSelectedComponent={setSelectedComponent} />
+    <div className="text-green-950">
+      <div className="text-center">
+        <h6>Hi {user.username}</h6>
+      </div>
+      <div className="mt-4">
+        {sections.map((section, index) => (
+          <div key={index}>
+            <div>
+              <div
+                className="cursor-pointer"
+                onClick={() => handleClick(index)}>
+                {section}
+              </div>
+              <hr className="mt-1" />
+            </div>
+            <div className={clickedIndex === index ? "" : "hidden"}>
+              {handleDisplay(index)}
+            </div>
           </div>
-          <div>
-            {selectedComponent === "MyProduce" && <MyProduce />}
-            {selectedComponent === "MyPosts" && <MyPosts />}
-            {selectedComponent === "MyBlogs" && <MyBlogs />}
-            {selectedComponent === "MyActivities" && <MyActivities />}
-          </div>
-        </div>
-      ) : (
-        <div className="hidden md:block my-20 text-center"></div>
-      )}
+        ))}
+      </div>
     </div>
   );
 }

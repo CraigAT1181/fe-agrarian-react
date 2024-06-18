@@ -121,33 +121,34 @@ export default function ProduceFinder({
 
         {clicked && (
           <div className="menu">
-  {sortAllProduce().map((item) => {
-    // Check if item is in filteredProduce
-    const isInFilteredProduce = filteredProduce.includes(item);
-    // Check if item is in any user's produce list in filteredUsers
-    const isItemInUsersProduce = Array.isArray(filteredUsers) && filteredUsers.some((user) =>
-      user.produce.includes(item)
-    );
+            {sortAllProduce().map((item) => {
+              // Check if item is in filteredProduce
+              const isInFilteredProduce = filteredProduce.includes(item);
+              // Check if item is in any user's produce list in filteredUsers
+              const isItemInUsersProduce =
+                Array.isArray(filteredUsers) &&
+                filteredUsers.some((user) => user.produce.includes(item));
 
-    // Determine className based on conditions
-    let className = "menu-item-unclicked";
-    if (isInFilteredProduce) {
-      className = isItemInUsersProduce ? "menu-item-clicked" : "menu-item-clicked-not-found";
-    }
+              // Determine className based on conditions
+              let className = "menu-item-unclicked";
+              if (isInFilteredProduce) {
+                className = isItemInUsersProduce
+                  ? "menu-item-clicked"
+                  : "menu-item-clicked-not-found";
+              }
 
-    return (
-      <button
-        key={item}
-        className={className}
-        onClick={() => {
-          handleProduceSelection(item);
-        }}>
-        {item}
-      </button>
-    );
-  })}
-</div>
-
+              return (
+                <button
+                  key={item}
+                  className={className}
+                  onClick={() => {
+                    handleProduceSelection(item);
+                  }}>
+                  {item}
+                </button>
+              );
+            })}
+          </div>
         )}
       </div>
     </div>
