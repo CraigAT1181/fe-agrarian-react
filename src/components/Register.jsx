@@ -68,7 +68,7 @@ export default function Register() {
 
   if (isLoading)
     return (
-      <div className="d-flex-col text-center mt-4">
+      <div className="flex flex-col text-center mt-4">
         <i className="fa-solid fa-spinner fa-spin"></i>
         <p>Just registering you, won't be long...</p>
       </div>
@@ -108,18 +108,10 @@ export default function Register() {
                 style={{ paddingRight: "40px" }}
               />
               <button
-                className="text-success"
+                className="text-green-950 cursor-pointer bg-transparent absolute top-2 right-2"
                 onClick={togglePassword1Visibility}
                 type="button"
-                style={{
-                  position: "absolute",
-                  right: "5px",
-                  top: "50%",
-                  transform: "translateY(-50%)",
-                  background: "transparent",
-                  border: "none",
-                  cursor: "pointer",
-                }}>
+>
                 <i
                   className={`fa-solid ${
                     showPassword1 ? "fa-eye" : "fa-eye-slash"
@@ -139,18 +131,10 @@ export default function Register() {
                   style={{ paddingRight: "40px" }}
                 />
                 <button
-                  className="text-success"
+                  className="text-green-950 cursor-pointer bg-transparent absolute top-8 right-2"
                   onClick={togglePassword2Visibility}
                   type="button"
-                  style={{
-                    position: "absolute",
-                    right: "5px",
-                    top: "70%",
-                    transform: "translateY(-50%)",
-                    background: "transparent",
-                    border: "none",
-                    cursor: "pointer",
-                  }}>
+>
                   <i
                     className={`fa-solid ${
                       showPassword2 ? "fa-eye" : "fa-eye-slash"
@@ -184,7 +168,7 @@ export default function Register() {
           </div>
           <div className="d-flex justify-content-center mt-4">
             <button
-              className="btn btn-success"
+              className="bg-green-950 text-white p-2 rounded-md"
               type="submit">
               Confirm
             </button>

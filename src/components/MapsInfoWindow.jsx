@@ -1,5 +1,5 @@
 import React from "react";
-import MessageButtonS from "./MessageButtonS";
+import MessageButtonL from "./MessageButtonL";
 import { useAuth } from "./AuthContext";
 
 export default function MapsInfoWindow({ selectedUser }) {
@@ -11,14 +11,15 @@ export default function MapsInfoWindow({ selectedUser }) {
       <div className="info-window-produce">
         {selectedUser.produce.map((produce) => {
           return (
-            <p key={produce} className="mr-2 font-semibold">
+            <p key={produce} className="font-semibold mx-1">
               {produce}
             </p>
           );
         })}
       </div>
-      <div className="flex justify-start">
-        {user && <MessageButtonS partner={selectedUser} />}
+      <p>{selectedUser.postcode}</p>
+      <div className="flex justify-center">
+        {user && <MessageButtonL partner={selectedUser} />}
       </div>
     </div>
   );

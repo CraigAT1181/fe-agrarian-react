@@ -63,11 +63,11 @@
 /* -- MAPS -- */
 
 .info-window {
-  @apply flex flex-col;
+  @apply flex flex-col items-center p-2 w-full rounded-lg;
 }
 
 .info-window-produce {
-  @apply flex;
+  @apply flex w-full overflow-auto;
 }
 
 /* -- PRODUCE FINDER -- */

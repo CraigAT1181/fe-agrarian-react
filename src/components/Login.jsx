@@ -41,7 +41,7 @@ export default function Login() {
 
   if (isLoading)
     return (
-      <div className="d-flex-col text-center mt-4">
+      <div>
         <i className="fa-solid fa-spinner fa-spin"></i>
         <p>Logging you in...</p>
       </div>
@@ -82,7 +82,7 @@ export default function Login() {
               onChange={({ target }) => setUsername(target.value)}
             />
           </div>
-          <div style={{ position: "relative" }}>
+          <div className="relative">
             <label htmlFor="password">Password</label>
             <input
               id="password"
@@ -93,18 +93,10 @@ export default function Login() {
               style={{ paddingRight: "40px" }}
             />
             <button
-              className="text-success"
+              className="text-green-950 cursor-pointer bg-transparent absolute top-8 right-2"
               onClick={togglePasswordVisibility}
               type="button"
-              style={{
-                position: "absolute",
-                right: "5px",
-                top: "70%",
-                transform: "translateY(-50%)",
-                background: "transparent",
-                border: "none",
-                cursor: "pointer",
-              }}>
+>
               <i
                 className={`fa-solid ${
                   showPassword ? "fa-eye" : "fa-eye-slash"
@@ -113,7 +105,7 @@ export default function Login() {
           </div>
           <div className="d-flex justify-content-center mt-4">
             <button
-              className="btn btn-success"
+              className="bg-green-950 text-white p-2 rounded-md"
               type="submit">
               Confirm
             </button>
