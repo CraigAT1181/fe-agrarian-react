@@ -1,22 +1,13 @@
 import React, { useState } from "react";
 import { useAuth } from "./AuthContext";
-import {
-  Modal,
-  Button,
-  ToggleButtonGroup,
-  ToggleButton,
-  Alert,
-} from "react-bootstrap";
+import { Modal, Button, Alert } from "react-bootstrap";
 import { createPost } from "../api/api";
 
 export default function CreatePostModal({ show, handleClose, setNewPost }) {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const { user } = useAuth();
-  let [availableVariant, setAvailableVariant] = useState("outline-success");
-  let [wantedVariant, setWantedVariant] = useState("outline-danger");
-  let [seedsVariant, setSeedsVariant] = useState("outline-secondary");
-  let [produceVariant, setProduceVariant] = useState("outline-primary");
+
   let [item, setItem] = useState("");
   let [status, setStatus] = useState("");
   let [type, setType] = useState("");
@@ -28,27 +19,11 @@ export default function CreatePostModal({ show, handleClose, setNewPost }) {
   };
 
   const handleStatusSelection = (value) => {
-    if (value === "Available") {
-      setStatus("Available");
-      setAvailableVariant("success");
-      setWantedVariant("outline-danger");
-    } else if (value === "Wanted") {
-      setStatus("Wanted");
-      setWantedVariant("danger");
-      setAvailableVariant("outline-success");
-    }
+    setStatus(value);
   };
 
   const handleTypeSelection = (value) => {
-    if (value === "Seeds") {
-      setType("Seeds");
-      setSeedsVariant("secondary");
-      setProduceVariant("outline-primary");
-    } else if (value === "Produce") {
-      setType("Produce");
-      setProduceVariant("primary");
-      setSeedsVariant("outline-secondary");
-    }
+    setType(value);
   };
 
   const handleBodyInput = (value) => {
@@ -73,18 +48,14 @@ export default function CreatePostModal({ show, handleClose, setNewPost }) {
   };
 
   return (
-    <Modal
-      show={show}
-      onHide={handleClose}>
+    <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
         <Modal.Title>Create your Post</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <form>
           <div className="mb-3">
-            <label
-              htmlFor="postTitle"
-              className="form-label">
+            <label htmlFor="postTitle" className="form-label">
               Item
             </label>
             <input
@@ -95,33 +66,52 @@ export default function CreatePostModal({ show, handleClose, setNewPost }) {
               onChange={({ target }) => handleItemInput(target.value)}
             />
           </div>
-          <div className="mb-4">
-            <div className="flex justify-around">
+          <div className="my-4">
+            <div className="flex items-center">
+              <span className="mr-4">Choose one:</span>
               <button
-                className={`py-2 px-4 rounded-lg ${status === "Available" ? "bg-green-500 text-white" : "bg-white border border-green-500 text-green-500"}`}
+                className={`py-2 px-4 rounded-lg mx-2 ${
+                  status === "Available"
+                    ? "bg-green-950 text-white"
+                    : "bg-white border border-green-950 text-green-950"
+                }`}
                 type="button"
                 onClick={() => handleStatusSelection("Available")}
               >
                 Available
               </button>
               <button
-                className={`py-2 px-4 rounded-lg ${status === "Wanted" ? "bg-red-500 text-white" : "bg-white border border-red-500 text-red-500"}`}
+                className={`py-2 px-4 rounded-lg ${
+                  status === "Wanted"
+                    ? "bg-green-950 text-white"
+                    : "bg-white border border-green-950 text-green-950"
+                }`}
                 type="button"
                 onClick={() => handleStatusSelection("Wanted")}
               >
                 Wanted
               </button>
             </div>
-            <div className="flex justify-around mt-4">
+
+            <div className="flex items-center mt-4">
+              <span className="mr-4">Choose one:</span>
               <button
-                className={`py-2 px-4 rounded-lg ${type === "Seeds" ? "bg-gray-500 text-white" : "bg-white border border-gray-500 text-gray-500"}`}
+                className={`py-2 px-4 rounded-lg mx-2 ${
+                  type === "Seeds"
+                    ? "bg-green-950 text-white"
+                    : "bg-white border border-green-950 text-green-950"
+                }`}
                 type="button"
                 onClick={() => handleTypeSelection("Seeds")}
               >
                 Seeds
               </button>
               <button
-                className={`py-2 px-4 rounded-lg ${type === "Produce" ? "bg-blue-500 text-white" : "bg-white border border-blue-500 text-blue-500"}`}
+                className={`py-2 px-4 rounded-lg ${
+                  type === "Produce"
+                    ? "bg-green-950 text-white"
+                    : "bg-white border border-green-950 text-green-950"
+                }`}
                 type="button"
                 onClick={() => handleTypeSelection("Produce")}
               >
@@ -131,9 +121,7 @@ export default function CreatePostModal({ show, handleClose, setNewPost }) {
           </div>
 
           <div className="mb-3">
-            <label
-              htmlFor="postContent"
-              className="form-label">
+            <label htmlFor="postContent" className="form-label">
               Description
             </label>
             <textarea
@@ -141,14 +129,13 @@ export default function CreatePostModal({ show, handleClose, setNewPost }) {
               id="postContent"
               rows="4"
               placeholder="Provide a description to allow others to find it more easily from a search"
-              onChange={({ target }) =>
-                handleBodyInput(target.value)
-              }></textarea>
+              onChange={({ target }) => handleBodyInput(target.value)}
+            ></textarea>
           </div>
           <div className="mb-3"></div>
         </form>
       </Modal.Body>
-      <Modal.Footer>
+      <div className="flex justify-center mb-4">
         {error && (
           <Alert variant="danger">
             <div>{error}</div>
@@ -160,17 +147,14 @@ export default function CreatePostModal({ show, handleClose, setNewPost }) {
             <p>Creating your post...</p>
           </div>
         )}
-        <Button
-          variant="secondary"
-          onClick={handleClose}>
-          Close
-        </Button>
-        <Button
-          variant="success"
-          onClick={() => handleCreate(user, item, status, type, image, body)}>
+
+        <button
+          className="dropdown"
+          onClick={() => handleCreate(user, item, status, type, image, body)}
+        >
           Create Post
-        </Button>
-      </Modal.Footer>
+        </button>
+      </div>
     </Modal>
   );
 }

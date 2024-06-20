@@ -53,7 +53,8 @@ export default function Home() {
             <div>
               <div
                 className="cursor-pointer"
-                onClick={() => handleClick(index)}>
+                onClick={() => handleClick(index)}
+              >
                 <span className="font-semibold">{section}</span>
               </div>
               <hr className="mt-1" />

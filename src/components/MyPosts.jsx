@@ -59,10 +59,7 @@ export default function MyPosts() {
   return (
     <div className="my-posts-container">
       <div className="mb-2">
-        <button
-          type="button"
-          className="dropdown"
-          onClick={handleShow}>
+        <button type="button" className="dropdown" onClick={handleShow}>
           New Post
         </button>
         <CreatePostModal
