@@ -137,22 +137,19 @@ export default function CreatePostModal({ show, handleClose, setNewPost }) {
       </Modal.Body>
       <div className="flex justify-center mb-4">
         {error && (
-          <Alert variant="danger">
-            <div>{error}</div>
-          </Alert>
-        )}
-        {isLoading && (
-          <div className="d-flex-col text-center mt-4">
-            <i className="fa-solid fa-spinner fa-spin"></i>
-            <p>Creating your post...</p>
-          </div>
+          <div className="flex justify-center text-red-500 mb-2">{error}</div>
         )}
 
         <button
           className="dropdown"
           onClick={() => handleCreate(user, item, status, type, image, body)}
+          disabled={isLoading}
         >
-          Create Post
+          {isLoading ? (
+            <i className="fa-solid fa-spinner fa-spin"></i>
+          ) : (
+            "Create Post"
+          )}
         </button>
       </div>
     </Modal>
