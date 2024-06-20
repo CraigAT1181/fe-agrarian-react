@@ -11,6 +11,7 @@ export default function Footer() {
 
   return (
     <footer className="footer">
+      <hr />
       <button
         onClick={toggleDrawer}
         className="hamburger">
@@ -30,12 +31,14 @@ export default function Footer() {
       <div className="hidden lg:block">
         <NavbarFooter />
       </div>
+
       <div className="text-start">
         <DrawerFooter
           isDrawerOpen={isDrawerOpen}
           toggleDrawer={toggleDrawer}
         />
       </div>
+
       <div className="mt-2">
         &copy; 2022 The Cooking Pot CIC. All rights reserved.
       </div>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useAuth } from "./AuthContext";
 import MyProduce from "./MyProduce";
 import MyPosts from "./MyPosts";
@@ -7,9 +7,7 @@ import MyBlogs from "./MyBlogs";
 
 export default function Home() {
   const { user } = useAuth();
-  const [selectedComponent, setSelectedComponent] = useState("MyProduce");
-  const [clickedIndex, setClickedIndex] = useState(0);
-
+  const [clickedIndex, setClickedIndex] = useState(1);
   const sections = ["Produce", "Posts", "Blogs", "Activities"];
 
   const handleClick = (index) => {
@@ -56,7 +54,7 @@ export default function Home() {
               <div
                 className="cursor-pointer"
                 onClick={() => handleClick(index)}>
-                {section}
+                <span className="font-semibold">{section}</span>
               </div>
               <hr className="mt-1" />
             </div>

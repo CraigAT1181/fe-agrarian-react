@@ -19,66 +19,45 @@ export default function PostCard({ post, setPostDeleted }) {
   };
 
   return (
-    <article className="container" style={{boxShadow: "0 0 10px 0 #ccc", borderRadius: "25px", padding: "0.5rem", marginBottom: "1rem"}}>
-      <div className="row m-4">
-        {post.status === "Available" ? (
-          <div
-            className="col text-start"
-            style={{ color: "#28a745", fontWeight: "bold" }}>
-            {post.status}
-          </div>
-        ) : (
-          <div
-            className="col text-start"
-            style={{ color: "red", fontWeight: "bold" }}>
-            {post.status}
-          </div>
-        )}
-
-        <div className="col text-center">
-          <h5>{post.item}</h5>
-        </div>
-        {post.type === "Seed" ? (
-          <div
-            className="col text-end"
-            style={{ color: "#6C757D", fontWeight: "bold" }}>
-            {post.type}
-          </div>
-        ) : (
-          <div
-            className="col text-end"
-            style={{ color: "#007BFF", fontWeight: "bold" }}>
-            {post.type}
-          </div>
-        )}
+    <div className="post-card">
+      <div>
+        <img
+          src="/bg-1.jpg"
+          alt="Cooking Pot Logo"
+          className="post-card-image"
+        />
       </div>
-      <div className="row m-4">
-        <div className="col text-center">
+      <div className="post-card-status-banner">
+        <p className="text-white m-2">{post.status}</p>
+
+        <p className="text-white m-2">{post.type}</p>
+      </div>
+      <div className="p-2 flex-grow">
+        <div className="flex-col text-center">
+          <h5 className="text-2xl">{post.item}</h5>
+
           <span>{post.body}</span>
         </div>
       </div>
-      <div className="row m-4 align-items-center">
-        <div className="col text-start align-self-end">
-          <p className="mb-0">
-            {post.posted_by}
-            <br />
-            {post.postcode}
-          </p>
+      <div className="text-center">
+        <p className="text-sm text-green-950">{formattedDate}</p>
+      </div>
+      <div className="post-card-user-banner">
+        <div className="flex-col">
+          <p className="text-white text-sm my-2">{post.posted_by}</p>
+          <p className="text-white text-sm my-2">{post.postcode}</p>
         </div>
-        <div className="col text-center">
+        <div className="post-card-user-banner-text">
           {user &&
             (user.userID === post.user_id ? (
-              <button
-                onClick={() => handleDelete(post.post_id)}
-                className="btn btn-outline-danger">
-                Delete Post
+              <button onClick={() => handleDelete(post.post_id)}>
+                <i className="fa-solid xl fa-trash"></i>
               </button>
             ) : (
               <MessageButtonL partner={post.user_id} />
             ))}
         </div>
-        <div className="col text-end align-self-center">{formattedDate}</div>
       </div>
-    </article>
+    </div>
   );
 }

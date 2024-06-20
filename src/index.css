@@ -4,6 +4,15 @@
 @tailwind components;
 @tailwind utilities;
 
+/* -- GENERAL -- */
+
+.button-outline {
+  @apply mx-2 p-2 text-green-950 no-underline border border-green-950 rounded-md font-semibold hover:bg-green-950 hover:text-white;
+}
+
+.button-fill {
+}
+
 /* -- HEADER -- */
 
 .header {
@@ -67,7 +76,7 @@
 }
 
 .info-window-produce {
-  @apply flex w-full justify-center overflow-auto;
+  @apply flex w-full overflow-auto;
 }
 
 /* -- PRODUCE FINDER -- */
@@ -94,7 +103,65 @@
 
 /* -- MY PRODUCE -- */
 
+.my-produce-container {
+  @apply flex-col text-center my-4;
+}
 
+/* -- MY POSTS -- */
+
+.my-posts-container {
+  @apply text-center my-4;
+}
+
+.my-posts-display {
+  @apply grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-3;
+}
+
+/* -- POST CARD -- */
+
+.post-card {
+  @apply flex flex-col shadow-gray-950 shadow-md rounded-lg overflow-hidden text-green-950 min-h-full;
+}
+
+.post-card-image {
+  @apply w-full h-48 object-cover;
+}
+
+.post-card-status-banner {
+  @apply flex justify-between bg-green-950;
+}
+
+.post-card-user-banner {
+  @apply bg-green-950 grid grid-cols-2;
+}
+
+.post-card-user-banner-text {
+  @apply text-white flex items-center justify-center;
+}
+
+/* -- CREATE POST -- */
+
+.create-post-container-ext {
+  @apply fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50;
+}
+
+.create-post-container-int {
+  @apply bg-white rounded-lg shadow-lg w-96 p-2;
+}
+
+.radio-button-clicked {
+  @apply bg-green-950 text-white;
+}
+
+.radio-button-unclicked {
+  @apply bg-white text-green-950;
+}
+
+/* -- ERROR -- */
+
+.error-loading {
+  @apply flex flex-col text-center mt-4;
+}
 
 /* -- FOOTER -- */
 

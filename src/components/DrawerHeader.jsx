@@ -37,12 +37,15 @@ export default function DrawerHeader({ isDrawerOpen, toggleDrawer }) {
           </svg>
         </button>
         <nav className="drawer-nav">
-          <Link
-            to="/home"
-            className="drawer-nav-item"
-            onClick={toggleDrawer}>
-            Home
-          </Link>
+          {user && (
+            <Link
+              to="/home"
+              className="drawer-nav-item"
+              onClick={toggleDrawer}>
+              Home
+            </Link>
+          )}
+
           <Link
             to="/exchange"
             className="drawer-nav-item"

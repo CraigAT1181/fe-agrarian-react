@@ -41,7 +41,7 @@ export default function CreatePostModal({ show, handleClose, setNewPost }) {
 
   const handleTypeSelection = (value) => {
     if (value === "Seeds") {
-      setType("Seed");
+      setType("Seeds");
       setSeedsVariant("secondary");
       setProduceVariant("outline-primary");
     } else if (value === "Produce") {
@@ -95,44 +95,38 @@ export default function CreatePostModal({ show, handleClose, setNewPost }) {
               onChange={({ target }) => handleItemInput(target.value)}
             />
           </div>
-          <div className="mb-3 row">
-            <div className="col text-center">
-              <ToggleButtonGroup
-                className="mx-3"
-                type="radio"
-                name="options">
-                <ToggleButton
-                  variant={availableVariant}
-                  id="Available"
-                  onChange={() => handleStatusSelection("Available")}>
-                  Available
-                </ToggleButton>
-                <ToggleButton
-                  variant={wantedVariant}
-                  id="Wanted"
-                  onChange={() => handleStatusSelection("Wanted")}>
-                  Wanted
-                </ToggleButton>
-              </ToggleButtonGroup>
+          <div className="mb-4">
+            <div className="flex justify-around">
+              <button
+                className={`py-2 px-4 rounded-lg ${status === "Available" ? "bg-green-500 text-white" : "bg-white border border-green-500 text-green-500"}`}
+                type="button"
+                onClick={() => handleStatusSelection("Available")}
+              >
+                Available
+              </button>
+              <button
+                className={`py-2 px-4 rounded-lg ${status === "Wanted" ? "bg-red-500 text-white" : "bg-white border border-red-500 text-red-500"}`}
+                type="button"
+                onClick={() => handleStatusSelection("Wanted")}
+              >
+                Wanted
+              </button>
             </div>
-            <div className="col text-center">
-              <ToggleButtonGroup
-                className="mx-3"
-                type="radio"
-                name="options">
-                <ToggleButton
-                  onChange={() => handleTypeSelection("Seeds")}
-                  variant={seedsVariant}
-                  id="Seeds">
-                  Seeds
-                </ToggleButton>
-                <ToggleButton
-                  onChange={() => handleTypeSelection("Produce")}
-                  variant={produceVariant}
-                  id="Produce">
-                  Produce
-                </ToggleButton>
-              </ToggleButtonGroup>
+            <div className="flex justify-around mt-4">
+              <button
+                className={`py-2 px-4 rounded-lg ${type === "Seeds" ? "bg-gray-500 text-white" : "bg-white border border-gray-500 text-gray-500"}`}
+                type="button"
+                onClick={() => handleTypeSelection("Seeds")}
+              >
+                Seeds
+              </button>
+              <button
+                className={`py-2 px-4 rounded-lg ${type === "Produce" ? "bg-blue-500 text-white" : "bg-white border border-blue-500 text-blue-500"}`}
+                type="button"
+                onClick={() => handleTypeSelection("Produce")}
+              >
+                Produce
+              </button>
             </div>
           </div>
 

@@ -104,7 +104,7 @@ export default function MyProduce() {
 
   if (error)
     return (
-      <div className="d-flex-col text-center mt-4">
+      <div className="error">
         <i className="fa-solid fa-exclamation"></i>
         <p>
           Oops, there's been an error: {error.status} {error.message}
@@ -113,7 +113,7 @@ export default function MyProduce() {
     );
 
   return (
-    <div className="flex-col text-center my-4">
+    <div className="my-produce-container">
       <div>
         <p>What produce do you have available?</p>
       </div>

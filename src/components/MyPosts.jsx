@@ -41,14 +41,14 @@ export default function MyPosts() {
 
   if (isLoading)
     return (
-      <div className="d-flex-col text-center mt-4">
+      <div className="error-loading">
         <i className="fa-solid fa-spinner fa-spin"></i>
         <p>Loading your posts...</p>
       </div>
     );
   if (error)
     return (
-      <div className="d-flex-col text-center mt-4">
+      <div className="error-loading">
         <i className="fa-solid fa-exclamation"></i>
         <p>
           Oops, there's been an error: {error.status} {error.message}
@@ -57,12 +57,11 @@ export default function MyPosts() {
     );
 
   return (
-    <div className="container h-100">
-      <div className="d-flex justify-content-between mb-2">
-        <h5>Your posts:</h5>
+    <div className="my-posts-container">
+      <div className="mb-2">
         <button
-          className="btn btn-success"
           type="button"
+          className="dropdown"
           onClick={handleShow}>
           New Post
         </button>
@@ -72,24 +71,21 @@ export default function MyPosts() {
           setNewPost={setNewPost}
         />
       </div>
-      <div
-        className="post-container"
-        style={{ maxHeight: "420px", overflowY: "auto", padding: "1rem" }}>
-        {/* Apply max height and overflow styles to create a scrollable container */}
-        {userPosts.length > 0 ? (
+      <div className="my-posts-display">
+        {userPosts.length > 0 &&
           userPosts.map((post) => (
             <PostCard
               key={post.post_id}
               post={post}
               setPostDeleted={setPostDeleted}
             />
-          ))
-        ) : (
-          <div className="d-flex align-items-center justify-content-center">
-            <p>You don't currently have any active posts.</p>
-          </div>
-        )}
+          ))}
       </div>
+      {userPosts.length === 0 && (
+        <div className="mt-2">
+          <p>You don't currently have any active posts.</p>
+        </div>
+      )}
     </div>
   );
 }
