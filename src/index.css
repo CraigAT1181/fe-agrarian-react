@@ -157,6 +157,16 @@
   @apply bg-white text-green-950;
 }
 
+/* -- MY BLOGS -- */
+
+.my-blogs-container {
+  @apply text-center my-4;
+}
+
+.my-blogs-display {
+  @apply grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-3;
+}
+
 /* -- ERROR -- */
 
 .error-loading {

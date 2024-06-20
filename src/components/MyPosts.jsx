@@ -58,7 +58,7 @@ export default function MyPosts() {
 
   return (
     <div className="my-posts-container">
-      <div className="mb-2">
+      <div className="mb-4">
         <button type="button" className="dropdown" onClick={handleShow}>
           New Post
         </button>
