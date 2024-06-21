@@ -7,7 +7,7 @@ import MyBlogs from "./MyBlogs";
 
 export default function Home() {
   const { user } = useAuth();
-  const [clickedIndex, setClickedIndex] = useState(2);
+  const [clickedIndex, setClickedIndex] = useState(0);
   const sections = ["Produce", "Posts", "Blogs", "Activities"];
 
   const handleClick = (index) => {

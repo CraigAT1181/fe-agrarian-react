@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { format } from "date-fns";
 import { Link } from "react-router-dom";
+import { useAuth } from "./AuthContext";
 import { getCommentsByBlogID } from "../api/api";
 import { deleteBlog } from "../api/api";
 
@@ -20,6 +21,7 @@ function formatDate(date) {
 }
 
 export default function BlogCard({ blog, setBlogDeleted }) {
+  const { user } = useAuth();
   const [blogComments, setBlogComments] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -94,11 +96,13 @@ export default function BlogCard({ blog, setBlogDeleted }) {
           alt="Blog cover image"
           className="blog-card-image"
         />
-        <div
-          className="absolute top-2 right-2 bg-green-950 p-2 rounded-lg border shadow-sm shadow-green-950"
-          onClick={handleDelete}>
-          <i className="fa-solid xl fa-trash text-white"></i>
-        </div>
+        {user && user.userID === blog.blog_id && (
+          <div
+            className="absolute top-2 right-2 bg-green-950 p-2 rounded-lg border shadow-sm shadow-green-950"
+            onClick={handleDelete}>
+            <i className="fa-solid xl fa-trash text-white"></i>
+          </div>
+        )}
       </div>
 
       <Link

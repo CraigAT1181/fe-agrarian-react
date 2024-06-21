@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { Alert } from "react-bootstrap";
 import { getBlogs } from "../api/api";
-import BlogSummary from "./BlogSummary";
+import BlogCard from "./BlogCard";
 import { useAuth } from "./AuthContext";
 import { useNavigate } from "react-router-dom";
-import "../App.css";
 
 export default function BlogPage() {
   const [allBlogs, setAllBlogs] = useState([]);
   const [searchBlogs, setSearchBlogs] = useState([]);
   let [searchTerms, setSearchTerms] = useState("");
   let [notFound, setNotFound] = useState("");
+  const [blogDeleted, setBlogDeleted] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const { user } = useAuth();
@@ -34,7 +34,8 @@ export default function BlogPage() {
           setError({ status, message: message });
         }
       );
-  }, [searchBlogs]);
+      setBlogDeleted(false);
+  }, [searchBlogs, blogDeleted]);
 
   useEffect(() => {
     let timeout;
@@ -156,15 +157,17 @@ export default function BlogPage() {
           <div>
             {searchBlogs && searchBlogs.length > 0
               ? searchBlogs.map((blog) => (
-                  <BlogSummary
+                  <BlogCard
                     key={blog.blog_id}
                     blog={blog}
+                    setBlogDeleted={setBlogDeleted}
                   />
                 ))
               : allBlogs.map((blog) => (
-                  <BlogSummary
+                  <BlogCard
                     key={blog.blog_id}
                     blog={blog}
+                    setBlogDeleted={setBlogDeleted}
                   />
                 ))}
           </div>

@@ -170,7 +170,7 @@
 /* -- BLOG CARD -- */
 
 .blog-card {
-  @apply flex flex-col shadow-gray-950 shadow-md rounded-lg overflow-hidden text-green-950 min-h-full;
+  @apply flex flex-col text-center shadow-gray-950 shadow-md rounded-lg overflow-hidden text-green-950 min-h-full;
 }
 
 .blog-card-image {
@@ -179,6 +179,20 @@
 
 .blog-card-title {
   @apply p-2 mb-2 items-center bg-green-950 cursor-pointer;
+}
+
+/* -- BLOG -- */
+
+.blog-container {
+  @apply md:mx-10 lg:mx-52
+}
+
+.blog-buttons {
+  @apply bg-transparent hover:bg-green-950 text-green-950 font-semibold hover:text-white py-2 px-4 border border-green-950 hover:border-transparent rounded w-full mx-1 md:w-48;
+}
+
+.blog-image {
+  @apply flex justify-center;
 }
 
 /* -- ERROR -- */

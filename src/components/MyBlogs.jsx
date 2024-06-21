@@ -20,7 +20,7 @@ export default function MyBlogs() {
       .then(({ blogs }) => {
         setIsLoading(false);
         setUserBlogs(blogs);
-        console.log(blogs);
+        
       })
       .catch(
         ({

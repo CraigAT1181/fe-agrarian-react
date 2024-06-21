@@ -89,13 +89,17 @@ export default function CreateBlogModal({ show, handleClose, setNewBlog }) {
   };
 
   return (
-    <Modal show={show} onHide={handleClose}>
+    <Modal
+      show={show}
+      onHide={handleClose}>
       <Modal.Header closeButton>
-        <Modal.Title>Your Blog</Modal.Title>
+        <Modal.Title>Create Your blog</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <form>
-          <div {...getRootProps()} className="dropzone mb-3">
+          <div
+            {...getRootProps()}
+            className="dropzone mb-3">
             <input {...getInputProps()} />
             <p>Drag a file here, or click to select a file (.jpeg)</p>
           </div>
@@ -109,7 +113,9 @@ export default function CreateBlogModal({ show, handleClose, setNewBlog }) {
             </div>
           )}
           <div className="mb-3">
-            <label htmlFor="blogTitle" className="form-label">
+            <label
+              htmlFor="blogTitle"
+              className="form-label">
               Title
             </label>
             <input
@@ -118,18 +124,23 @@ export default function CreateBlogModal({ show, handleClose, setNewBlog }) {
               id="blogTitle"
               onChange={({ target }) => handleTitleInput(target.value)}
             />
-            <label htmlFor="content" className="form-label">
+            <label
+              htmlFor="content"
+              className="form-label">
               Content
             </label>
             <textarea
               className="form-control"
               id="content"
               rows="10"
-              onChange={({ target }) => handleContentInput(target.value)}
-            ></textarea>
+              onChange={({ target }) =>
+                handleContentInput(target.value)
+              }></textarea>
           </div>
           <div className="mb-3">
-            <label htmlFor="tags" className="form-label">
+            <label
+              htmlFor="tags"
+              className="form-label">
               Tags
             </label>
             <input
@@ -143,13 +154,14 @@ export default function CreateBlogModal({ show, handleClose, setNewBlog }) {
           </div>
           <div className="d-flex">
             {tags.map((tag, index) => (
-              <div key={index} className="mx-2 text-center">
+              <div
+                key={index}
+                className="mx-2 text-center">
                 <div>{tag.toLowerCase()}</div>
                 <div
                   className="badge bg-danger"
                   style={{ cursor: "pointer", width: "25px" }}
-                  onClick={() => removeTag(tag)}
-                >
+                  onClick={() => removeTag(tag)}>
                   X
                 </div>
               </div>
@@ -157,25 +169,22 @@ export default function CreateBlogModal({ show, handleClose, setNewBlog }) {
           </div>
         </form>
       </Modal.Body>
-      <Modal.Footer>
+      <div className="flex justify-center mb-4 mx-4">
         {error && (
-          <Alert variant="danger">
-            <div>{error}</div>
-          </Alert>
+          <div className="flex justify-center text-red-500 mb-2">{error}</div>
         )}
-        {isLoading && (
-          <div className="d-flex-col text-center mt-4">
+
+        <button
+          className="dropdown"
+          onClick={() => handleCreateBlog()}
+          disabled={isLoading}>
+          {isLoading ? (
             <i className="fa-solid fa-spinner fa-spin"></i>
-            <p>Uploading your blog...</p>
-          </div>
-        )}
-        <Button variant="secondary" onClick={handleClose}>
-          Close
-        </Button>
-        <Button variant="success" onClick={() => handleCreateBlog()}>
-          Finished
-        </Button>
-      </Modal.Footer>
+          ) : (
+            "Create Blog"
+          )}
+        </button>
+      </div>
     </Modal>
   );
 }
