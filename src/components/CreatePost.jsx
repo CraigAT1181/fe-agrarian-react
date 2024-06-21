@@ -31,7 +31,13 @@ export default function CreatePostModal({ show, handleClose, setNewPost }) {
   };
 
   const handleCreate = (user, item, status, type, image, body) => {
+    if (!user || !item || !status || !type || !body) {
+      setError("Ensure all fields are complete.");
+      return;
+    }
+
     setIsLoading(true);
+    setError(null);
 
     createPost(user.userID, status, type, item, image, body)
       .then((data) => {
@@ -41,9 +47,7 @@ export default function CreatePostModal({ show, handleClose, setNewPost }) {
       })
       .catch(() => {
         setIsLoading(false);
-        setError(
-          "Ensure you've selected a Status and a Type (e.g. 'Wanted' 'Seeds')"
-        );
+        setError("Failed to create post. Please try again.");
       });
   };
 
@@ -138,11 +142,12 @@ export default function CreatePostModal({ show, handleClose, setNewPost }) {
           <div className="mb-3"></div>
         </form>
       </Modal.Body>
+      {error && (
+        <div className="flex justify-center text-red-500 mb-2">
+          <p className="mb-0">{error}</p>
+        </div>
+      )}
       <div className="flex justify-center mb-4 mx-4">
-        {error && (
-          <div className="flex justify-center text-red-500 mb-2">{error}</div>
-        )}
-
         <button
           className="dropdown"
           onClick={() => handleCreate(user, item, status, type, image, body)}

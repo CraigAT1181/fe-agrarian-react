@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useAuth } from "./AuthContext";
-import { Modal, Button, Alert } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 import { createBlog } from "../api/api";
 import { useDropzone } from "react-dropzone";
 import "../App.css";
@@ -9,12 +9,12 @@ export default function CreateBlogModal({ show, handleClose, setNewBlog }) {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const { user } = useAuth();
-  let [title, setTitle] = useState("");
-  let [content, setContent] = useState("");
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
   const [tags, setTags] = useState([]);
   const [tagInput, setTagInput] = useState("");
-  let [imageData, setImageData] = useState(null);
-  let [imagePreview, setImagePreview] = useState(null);
+  const [imageData, setImageData] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
 
   const onDrop = (acceptedFiles) => {
     const file = acceptedFiles[0];
@@ -41,7 +41,7 @@ export default function CreateBlogModal({ show, handleClose, setNewBlog }) {
   };
 
   const handleTagInput = (value) => {
-    setTagInput(() => value);
+    setTagInput(value);
   };
 
   const handleTagKeyPress = (e) => {
@@ -64,7 +64,13 @@ export default function CreateBlogModal({ show, handleClose, setNewBlog }) {
   };
 
   const handleCreateBlog = async () => {
+    if (!title || !content) {
+      setError("Title and content cannot be empty.");
+      return;
+    }
+
     setIsLoading(true);
+    setError(null);
 
     const formData = new FormData();
     if (imageData) {
@@ -79,27 +85,26 @@ export default function CreateBlogModal({ show, handleClose, setNewBlog }) {
     try {
       const data = await createBlog(formData);
       setIsLoading(false);
-
-      setNewBlog(data);
-      handleClose();
-    } catch (error) {
+      if (!data.error) {
+        setNewBlog(data);
+        handleClose();
+      } else {
+        setError(data.error);
+      }
+    } catch (err) {
       setIsLoading(false);
-      setError(error.message);
+      setError("Failed to create blog. Please try again.");
     }
   };
 
   return (
-    <Modal
-      show={show}
-      onHide={handleClose}>
+    <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
-        <Modal.Title>Create Your blog</Modal.Title>
+        <Modal.Title>Create Your Blog</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <form>
-          <div
-            {...getRootProps()}
-            className="dropzone mb-3">
+          <div {...getRootProps()} className="dropzone mb-3">
             <input {...getInputProps()} />
             <p>Drag a file here, or click to select a file (.jpeg)</p>
           </div>
@@ -113,55 +118,45 @@ export default function CreateBlogModal({ show, handleClose, setNewBlog }) {
             </div>
           )}
           <div className="mb-3">
-            <label
-              htmlFor="blogTitle"
-              className="form-label">
-              Title
-            </label>
+            <label htmlFor="blogTitle" className="form-label">Title</label>
             <input
               type="text"
               className="form-control"
               id="blogTitle"
+              value={title}
               onChange={({ target }) => handleTitleInput(target.value)}
             />
-            <label
-              htmlFor="content"
-              className="form-label">
-              Content
-            </label>
+          </div>
+          <div className="mb-3">
+            <label htmlFor="content" className="form-label">Content</label>
             <textarea
               className="form-control"
               id="content"
               rows="10"
-              onChange={({ target }) =>
-                handleContentInput(target.value)
-              }></textarea>
+              value={content}
+              onChange={({ target }) => handleContentInput(target.value)}
+            ></textarea>
           </div>
           <div className="mb-3">
-            <label
-              htmlFor="tags"
-              className="form-label">
-              Tags
-            </label>
+            <label htmlFor="tags" className="form-label">Tags</label>
             <input
               id="tags"
               className="form-control"
               type="text"
               value={tagInput}
               onChange={({ target }) => handleTagInput(target.value)}
-              onKeyDown={(e) => handleTagKeyPress(e)}
+              onKeyDown={handleTagKeyPress}
             />
           </div>
-          <div className="d-flex">
+          <div className="d-flex flex-wrap">
             {tags.map((tag, index) => (
-              <div
-                key={index}
-                className="mx-2 text-center">
-                <div>{tag.toLowerCase()}</div>
+              <div key={index} className="tag-container mx-2 text-center">
+                <div className="tag">{tag.toLowerCase()}</div>
                 <div
-                  className="badge bg-danger"
-                  style={{ cursor: "pointer", width: "25px" }}
-                  onClick={() => removeTag(tag)}>
+                  className="badge bg-danger remove-tag"
+                  style={{ cursor: "pointer" }}
+                  onClick={() => removeTag(tag)}
+                >
                   X
                 </div>
               </div>
@@ -169,22 +164,23 @@ export default function CreateBlogModal({ show, handleClose, setNewBlog }) {
           </div>
         </form>
       </Modal.Body>
-      <div className="flex justify-center mb-4 mx-4">
-        {error && (
-          <div className="flex justify-center text-red-500 mb-2">{error}</div>
-        )}
-
-        <button
-          className="dropdown"
-          onClick={() => handleCreateBlog()}
-          disabled={isLoading}>
-          {isLoading ? (
-            <i className="fa-solid fa-spinner fa-spin"></i>
-          ) : (
-            "Create Blog"
-          )}
-        </button>
-      </div>
+      {error && (
+    <div className="text-center text-red-500 mx-2">
+      <p className="mb-0">{error}</p>
+    </div>
+  )}
+  <div className="flex justify-center mb-4 mx-4">
+    <button
+      className="dropdown"
+      onClick={() => handleCreateBlog()}
+      disabled={isLoading}>
+      {isLoading ? (
+        <i className="fa-solid fa-spinner fa-spin"></i>
+      ) : (
+        "Create Blog"
+      )}
+    </button>
+  </div>
     </Modal>
   );
 }
