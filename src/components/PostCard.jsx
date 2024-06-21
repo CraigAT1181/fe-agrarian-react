@@ -1,5 +1,4 @@
 import React from "react";
-import "../App.css";
 import { formatDistanceToNow } from "date-fns";
 import { useAuth } from "./AuthContext";
 import { deletePost } from "../api/api";

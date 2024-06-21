@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getBlogsByUserID } from "../api/api";
 import { useAuth } from "./AuthContext";
-import MyBlogsSummary from "./MyBlogsSummary";
+import BlogCard from "./BlogCard";
 
 import CreateBlogModal from "./CreateBlog";
 
@@ -9,9 +9,10 @@ export default function MyBlogs() {
   const { user } = useAuth();
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [userBlogs, setUserBlogs] = useState();
+  const [userBlogs, setUserBlogs] = useState([]);
   const [showModal, setShowModal] = useState(false);
   let [newBlog, setNewBlog] = useState({});
+  const [blogDeleted, setBlogDeleted] = useState(false);
 
   useEffect(() => {
     setIsLoading(true);
@@ -19,6 +20,7 @@ export default function MyBlogs() {
       .then(({ blogs }) => {
         setIsLoading(false);
         setUserBlogs(blogs);
+        console.log(blogs);
       })
       .catch(
         ({
@@ -31,7 +33,9 @@ export default function MyBlogs() {
           setError({ status, message: message });
         }
       );
-  }, [newBlog]);
+
+    setBlogDeleted(false);
+  }, [user.userID, newBlog, blogDeleted]);
 
   const handleShow = () => setShowModal(true);
   const handleClose = () => setShowModal(false);
@@ -53,29 +57,25 @@ export default function MyBlogs() {
       </div>
     );
 
-  return (
-    <div className="my-blogs-container">
-      <div className="mb-4">
-        <button className="dropdown" type="button" onClick={handleShow}>
-          New Blog
-        </button>
-        <CreateBlogModal
-          show={showModal}
-          handleClose={handleClose}
-          setNewBlog={setNewBlog}
-        />
-      </div>
-
-      <div className="my-blogs-display">
-        {userBlogs &&
-          userBlogs.length > 0 &&
-          userBlogs.map((blog) => <MyBlogsSummary blog={blog} />)}
-      </div>
-      {userBlogs.length === 0 && (
-        <div className="mt-2">
-          <p>You don't currently have any active blogs.</p>
+    return (
+      <div className="my-blogs-container">
+        <div className="mb-4">
+          <button className="dropdown" type="button" onClick={handleShow}>
+            New Blog
+          </button>
+          <CreateBlogModal show={showModal} handleClose={handleClose} setNewBlog={setNewBlog} />
         </div>
-      )}
-    </div>
-  );
+        <div className="my-blogs-display">
+          {userBlogs.length > 0 ? (
+            userBlogs.map((blog) => (
+              <BlogCard key={blog.blog_id} blog={blog} setBlogDeleted={setBlogDeleted} />
+            ))
+          ) : (
+            <div className="mt-2">
+              <p>You don't currently have any active blogs.</p>
+            </div>
+          )}
+        </div>
+      </div>
+    );
 }
