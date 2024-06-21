@@ -69,7 +69,13 @@ export default function EditBlogModal({
   };
 
   const handlePatchBlog = async () => {
+    if (!title || !content) {
+      setError("Title and content cannot be empty.");
+      return;
+    }
+
     setIsLoading(true);
+    setError(null);
 
     const formData = new FormData();
 
@@ -85,9 +91,9 @@ export default function EditBlogModal({
       setIsLoading(false);
       setEditedBlog(true);
       handleClose();
-    } catch (error) {
+    } catch (err) {
       setIsLoading(false);
-      setError(error.message);
+      setError("Failed to edit blog. Please try again.");
     }
   };
 
@@ -175,22 +181,23 @@ export default function EditBlogModal({
           </div>
         </form>
       </Modal.Body>
-      <div className="flex justify-center mb-4 mx-4">
-        {error && (
-          <div className="flex justify-center text-red-500 mb-2">{error}</div>
-        )}
-
-        <button
-          className="blog-buttons"
-          onClick={() => handlePatchBlog()}
-          disabled={isLoading}>
-          {isLoading ? (
-            <i className="fa-solid fa-spinner fa-spin"></i>
-          ) : (
-            "Edit Blog"
-          )}
-        </button>
-      </div>
+      {error && (
+    <div className="text-center text-red-500 mx-2">
+      <p className="mb-0">{error}</p>
+    </div>
+  )}
+  <div className="flex justify-center mb-4 mx-4">
+    <button
+      className="dropdown"
+      onClick={() => handlePatchBlog()}
+      disabled={isLoading}>
+      {isLoading ? (
+        <i className="fa-solid fa-spinner fa-spin"></i>
+      ) : (
+        "Edit Blog"
+      )}
+    </button>
+  </div>
     </Modal>
   );
 }
