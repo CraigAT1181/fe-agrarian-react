@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { format } from "date-fns";
-import "../App.css";
 
 function formatDate(dateString) {
   const date = new Date(dateString);
@@ -24,9 +23,7 @@ function formatDate(dateString) {
     fullDate: formattedDate,
     time: format(date, `h:mma`),
     month: format(date, `MMMM`),
-    suffix: (
-      <span>{suffix}</span>
-    ),
+    suffix: <span>{suffix}</span>,
   };
 }
 
@@ -57,66 +54,54 @@ export default function ActivityCard({ activity, setCancelStatusChange }) {
   const shortenedDescription = shortenDescription(description);
 
   return (
-    <div>
-      <div>
-        <div>
-          <div>
-            <div>
-              <h1>
-                {formattedStart.day}
-                {formattedStart.suffix}
-              </h1>
-              <p>{formattedStart.dayOfWeek}</p>
-              <hr />
-              <p>
-                {formattedStart.time} - {formattedEnd.time}
-              </p>
-              <hr />
-              <p>{location}</p>
-            </div>
-          </div>
-        </div>
-        <div>
-          <div>
-            <h4>{title}</h4>
-          </div>
-          <div>
-            <div>{shortenedDescription}</div>
-            {end < new Date() && !is_cancelled && (
-              <p>
-                This activity has now finished.
-              </p>
-            )}
-            {is_cancelled &&
-              (end < new Date() ? (
-                <p>
-                  This event was cancelled
-                </p>
-              ) : (
-                <p>
-                  This event has been cancelled
-                </p>
-              ))}
-          </div>
+    <div className="activity-card">
+      <div className="p-2">
+        <p className="my-0">{formattedStart.dayOfWeek}</p>
+        <h1 className="mb-4">
+          {formattedStart.day}
+          {formattedStart.suffix}
+        </h1>
 
-          <div>
-            <p>Organised by: {username}</p>
-          </div>
+        <p>
+          {formattedStart.time} - {formattedEnd.time}
+        </p>
+
+        <p>{location}</p>
+        <h2>{title}</h2>
+      </div>
+
+      <div>
+        <Link to={`/activities/${activity_id}`}>
+          {image_url ? (
+            <img
+              src={image_url}
+              alt="Activity cover picture"
+              className="activity-card-image"
+            />
+          ) : (
+            <img
+              src="https://picsum.photos/300/300"
+              alt="Activity cover picture"
+              className="activity-card-image"
+            />
+          )}
+        </Link>
+      </div>
+      <div className="p-2">
+        <div>{shortenedDescription}</div>
+        <div className="my-2 font-semibold">
+          <p>Organised by: {username}</p>
         </div>
-        <div>
-          <Link to={`/activities/${activity_id}`}>
-            {image_url ? (
-              <img
-                src={image_url}
-                alt="Activity cover picture"
-              />
+        <div className="bg-gray-600 p-1 text-white">
+          {end < new Date() && !is_cancelled && (
+            <p className="my-0">This activity has now finished.</p>
+          )}
+          {is_cancelled &&
+            (end < new Date() ? (
+              <p className="my-0">This event was cancelled</p>
             ) : (
-              <img
-                src="https://picsum.photos/300/300"
-                alt="Activity cover picture"
-              />
-            )}
-          </Link>
+              <p className="my-0">This event has been cancelled</p>
+            ))}
         </div>
       </div>
     </div>

@@ -2,14 +2,9 @@ import React from "react";
 
 const Banner = ({ monthYear }) => {
   return (
-    <div>
+    <div className="banner-container">
       <div>
-        <div>
-          <h5>{monthYear}</h5>
-        </div>
-        <div>
-          <hr style={{ width: "95%" }} />
-        </div>
+        <h5 className="mb-0 text-white">{monthYear}</h5>
       </div>
     </div>
   );

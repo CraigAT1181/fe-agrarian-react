@@ -90,11 +90,10 @@ export default function MyActivities() {
     );
 
   return (
-    <div className="container h-100">
-      <div className="d-flex justify-content-between mb-2">
-        <h5>Your activities:</h5>
+    <div>
+      <div>
         <button
-          className="btn btn-success"
+          className="dropdown"
           type="button"
           onClick={handleShow}>
           New Activity
@@ -106,14 +105,13 @@ export default function MyActivities() {
         />
       </div>
       <div
-        className="col"
-        style={{ maxHeight: "420px", overflowY: "auto", overflowX: "hidden" }}>
+        className="my-activities-container">
         {monthsOfYear.map((monthYearString) => (
           <div key={monthYearString}>
             {groupedActivities[monthYearString] && (
               <Banner monthYear={monthYearString} />
             )}
-            <ul>
+            <div className="activities-display">
               {groupedActivities[monthYearString]?.map((activity) => (
                 <ActivityCard
                   key={activity.activity_id}
@@ -121,7 +119,7 @@ export default function MyActivities() {
                   setCancelStatusChange={setCancelStatusChange}
                 />
               ))}
-            </ul>
+            </div>
           </div>
         ))}
       </div>

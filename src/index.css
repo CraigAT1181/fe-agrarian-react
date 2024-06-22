@@ -184,7 +184,7 @@
 /* -- BLOG -- */
 
 .blog-container {
-  @apply md:mx-10 lg:mx-52
+  @apply md:mx-10 lg:mx-52;
 }
 
 .blog-buttons {
@@ -193,6 +193,30 @@
 
 .blog-image {
   @apply flex justify-center;
+}
+
+/* -- MY ACTIVITIES -- */
+
+.my-activities-container {
+  @apply my-4;
+}
+
+.banner-container {
+  @apply bg-green-950 p-2 mb-2;
+}
+
+.activities-display {
+  @apply grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6;
+}
+
+/* -- ACTIVITY CARD -- */
+
+.activity-card {
+  @apply flex flex-col text-center shadow-gray-950 shadow-md rounded-lg overflow-hidden text-green-950 min-h-full;
+}
+
+.activity-card-image {
+  @apply w-full object-cover;
 }
 
 /* -- ERROR -- */

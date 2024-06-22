@@ -39,7 +39,7 @@ export default function Footer() {
         />
       </div>
 
-      <div className="mt-2">
+      <div className="mt-4">
         &copy; 2022 The Cooking Pot CIC. All rights reserved.
       </div>
     </footer>
