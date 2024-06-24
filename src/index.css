@@ -201,7 +201,7 @@
 }
 
 .banner-container {
-  @apply bg-green-950 p-2 mb-2;
+  @apply bg-green-950 p-2 my-4;
 }
 
 .activities-display {
@@ -225,7 +225,6 @@
 }
 
 .contact-us {
-  
 }
 
 /* -- ERROR -- */

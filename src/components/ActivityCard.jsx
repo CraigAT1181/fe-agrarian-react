@@ -92,16 +92,20 @@ export default function ActivityCard({ activity, setCancelStatusChange }) {
         <div className="my-2 font-semibold">
           <p>Organised by: {username}</p>
         </div>
-        <div className="bg-gray-600 p-1 text-white">
-          {end < new Date() && !is_cancelled && (
-            <p className="my-0">This activity has now finished.</p>
+        <div>
+          {(is_cancelled || end < new Date()) && (
+            <div className="bg-gray-600 p-1 text-white">
+              {end < new Date() && !is_cancelled && (
+                <p className="my-0">This activity has now finished.</p>
+              )}
+              {is_cancelled &&
+                (end < new Date() ? (
+                  <p className="my-0">This event was cancelled</p>
+                ) : (
+                  <p className="my-0">This event has been cancelled</p>
+                ))}
+            </div>
           )}
-          {is_cancelled &&
-            (end < new Date() ? (
-              <p className="my-0">This event was cancelled</p>
-            ) : (
-              <p className="my-0">This event has been cancelled</p>
-            ))}
         </div>
       </div>
     </div>
