@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useAuth } from "./AuthContext";
 import { Modal } from "react-bootstrap";
 import { createActivity } from "../api/api";
@@ -14,8 +14,10 @@ export default function CreateActivityModal({
   const { user } = useAuth();
   let [title, setTitle] = useState("");
   let [description, setDescription] = useState("");
-  let [start, setStart] = useState("");
-  let [end, setEnd] = useState("");
+  let [startDate, setStartDate] = useState("");
+  let [startTime, setStartTime] = useState("");
+  let [endDate, setEndDate] = useState("");
+  let [endTime, setEndTime] = useState("");
   let [location, setLocation] = useState("");
   let [imageData, setImageData] = useState(null);
   let [imagePreview, setImagePreview] = useState(null);
@@ -45,11 +47,45 @@ export default function CreateActivityModal({
     const formattedDay = day < 10 ? "0" + day : day;
     const formattedMonth = month < 10 ? "0" + month : month;
 
-    return `${formattedDay}-${formattedMonth}-${year}`;
+    return `${formattedDay}/${formattedMonth}/${year}`;
   }
 
+  useEffect(() => {
+    if (startDate && startTime) {
+      const start = new Date(
+        startDate.split("/").reverse().join("-") + "T" + startTime + ":00"
+      );
+      const end = new Date(start.getTime() + 60 * 60 * 1000); // add 1 hour
+      const formattedEndDate = formatDateForInput(end.toISOString());
+      const formattedEndTime = end.toISOString().slice(11, 16);
+      setEndDate(formattedEndDate);
+      setEndTime(formattedEndTime);
+    }
+  }, [startDate, startTime]);
+
   const handleCreateActivity = async () => {
+    if (
+      !title ||
+      !description ||
+      !startDate ||
+      !startTime ||
+      !endDate ||
+      !endTime ||
+      !location
+    ) {
+      setError("Ensure all fields have been completed.");
+      return;
+    }
+
+    const start = new Date(
+      startDate.split("/").reverse().join("-") + "T" + startTime
+    );
+    const end = new Date(
+      endDate.split("/").reverse().join("-") + "T" + endTime
+    );
+
     setIsLoading(true);
+    setError(null);
 
     const formData = new FormData();
     if (imageData) {
@@ -59,8 +95,8 @@ export default function CreateActivityModal({
     const user_id = user.userID;
     formData.append("title", title);
     formData.append("description", description);
-    formData.append("date_s_time", start);
-    formData.append("date_e_time", end);
+    formData.append("date_s_time", start.toISOString());
+    formData.append("date_e_time", end.toISOString());
     formData.append("location", location);
 
     try {
@@ -81,10 +117,13 @@ export default function CreateActivityModal({
       </Modal.Header>
       <Modal.Body>
         <form>
-          <div {...getRootProps()} className="dropzone mb-3">
-            <input {...getInputProps()} />
-            <p>Drag a file here, or click to select a file (.jpeg)</p>
+          <div {...getRootProps()} className="dropzone">
+            <input {...getInputProps()} className="sr-only" />
+            <p className="text-gray-500">
+              Drag a file here, or click to select a file (.jpeg)
+            </p>
           </div>
+
           {imagePreview && (
             <div className="mb-3">
               <img
@@ -122,25 +161,47 @@ export default function CreateActivityModal({
               id="location"
               onChange={(e) => setLocation(e.target.value)}
             />
-            <label htmlFor="start" className="form-label mt-2">
-              Start Date/Time
+            <label htmlFor="startDate" className="form-label mt-2">
+              Start Date
             </label>
             <input
-              type="datetime-local"
+              type="text"
               className="form-control"
-              id="start"
-              value={start ? start : ""}
-              onChange={(e) => setStart(e.target.value)}
+              id="startDate"
+              placeholder="dd/mm/yyyy"
+              value={startDate}
+              onChange={(e) => setStartDate(e.target.value)}
             />
-            <label htmlFor="end" className="form-label mt-2">
-              End Date/Time
+            <label htmlFor="startTime" className="form-label mt-2">
+              Start Time
             </label>
             <input
-              type="datetime-local"
+              type="time"
               className="form-control"
-              id="end"
-              value={end ? end : ""}
-              onChange={(e) => setEnd(e.target.value)}
+              id="startTime"
+              value={startTime}
+              onChange={(e) => setStartTime(e.target.value)}
+            />
+            <label htmlFor="endDate" className="form-label mt-2">
+              End Date
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="endDate"
+              placeholder="dd/mm/yyyy"
+              value={endDate}
+              onChange={(e) => setEndDate(e.target.value)}
+            />
+            <label htmlFor="endTime" className="form-label mt-2">
+              End Time
+            </label>
+            <input
+              type="time"
+              className="form-control"
+              id="endTime"
+              value={endTime}
+              onChange={(e) => setEndTime(e.target.value)}
             />
           </div>
         </form>
