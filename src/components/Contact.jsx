@@ -39,12 +39,11 @@ export default function Contact() {
     <div >
       <h1>Contact Us</h1>
       <form onSubmit={handleSubmit}>
-        <div >
+        <div>
           <label htmlFor="name">Name:</label>
           <input
             type="text"
             id="name"
-         
             name="name"
             value={formData.name}
             onChange={handleChange}
@@ -56,7 +55,6 @@ export default function Contact() {
           <input
             type="email"
             id="email"
-          
             name="email"
             value={formData.email}
             onChange={handleChange}
@@ -67,17 +65,12 @@ export default function Contact() {
           <label htmlFor="message">Message:</label>
           <textarea
             id="message"
-         
             name="message"
             value={formData.message}
             onChange={handleChange}
             required></textarea>
         </div>
-        <button
-       
-          type="submit">
-          Submit
-        </button>
+        <button type="submit">Submit</button>
       </form>
     </div>
   );

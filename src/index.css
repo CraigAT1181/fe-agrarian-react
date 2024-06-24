@@ -30,7 +30,7 @@
 /* -- MAIN -- */
 
 .main {
-  @apply flex-grow mx-2;
+  @apply flex-grow mx-2 md:mx-10 lg:mx-52;
 }
 
 /* -- NAVBAR -- */
@@ -184,7 +184,6 @@
 /* -- BLOG -- */
 
 .blog-container {
-  @apply md:mx-10 lg:mx-52;
 }
 
 .blog-buttons {
@@ -217,6 +216,16 @@
 
 .activity-card-image {
   @apply w-full object-cover;
+}
+
+/* -- ABOUT -- */
+
+.about {
+  @apply text-center;
+}
+
+.contact-us {
+  
 }
 
 /* -- ERROR -- */
