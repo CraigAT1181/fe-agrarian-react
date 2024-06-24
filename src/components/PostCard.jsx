@@ -39,18 +39,19 @@ export default function PostCard({ post, setPostDeleted }) {
         </div>
       </div>
       <div className="text-center">
-        <p className="text-sm text-green-950">{formattedDate}</p>
+        <p className="text-sm text-green-950 mb-1">{formattedDate}</p>
+      </div>
+      <div className="flex justify-between p-2">
+      <p className="text-green-950 text-sm mb-0">{post.posted_by}</p>
+          <p className="text-green-950 text-sm mb-0">{post.postcode}</p>
       </div>
       <div className="post-card-user-banner">
-        <div className="flex-col">
-          <p className="text-white text-sm my-2">{post.posted_by}</p>
-          <p className="text-white text-sm my-2">{post.postcode}</p>
-        </div>
+
         <div className="post-card-user-banner-text">
           {user &&
             (user.userID === post.user_id ? (
               <button onClick={() => handleDelete(post.post_id)}>
-                <i className="fa-solid xl fa-trash"></i>
+                <i className="fa-solid fa-2x fa-trash"></i>
               </button>
             ) : (
               <MessageButtonL partner={post.user_id} />

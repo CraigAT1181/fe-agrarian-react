@@ -147,7 +147,7 @@
 }
 
 .post-card-user-banner {
-  @apply bg-green-950 grid grid-cols-2;
+  @apply bg-green-950 p-2;
 }
 
 .post-card-user-banner-text {

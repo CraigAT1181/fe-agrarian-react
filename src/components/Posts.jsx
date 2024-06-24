@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Alert } from "react-bootstrap";
 import { getPosts } from "../api/api";
 import PostCard from "./PostCard";
 import FilterModal from "./FilterModal";

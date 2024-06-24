@@ -49,7 +49,7 @@ export default function MessageButtonL({ partner }) {
 
   return (
     <button
-      className="text-green-950"
+      className="text-white"
       style={{ margin: "0" }}
       title="Send Message"
       onClick={handleClick}>
