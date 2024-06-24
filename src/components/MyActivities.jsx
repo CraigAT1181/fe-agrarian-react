@@ -92,7 +92,7 @@ export default function MyActivities() {
     );
 
   return (
-    <div>
+    <div className="text-center">
       <div>
         <button className="dropdown" type="button" onClick={handleShow}>
           New Activity

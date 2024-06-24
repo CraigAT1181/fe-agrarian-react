@@ -51,7 +51,13 @@ export default function ActivityCard({ activity, setCancelStatusChange }) {
       : description;
   };
 
+  const shortenTitle = (title) => {
+    const maxLength = 25;
+    return title.length > maxLength ? `${title.slice(0, maxLength)}...` : title;
+  };
+
   const shortenedDescription = shortenDescription(description);
+  const shortenedTitle = shortenTitle(title);
 
   return (
     <div className="activity-card">
@@ -67,7 +73,9 @@ export default function ActivityCard({ activity, setCancelStatusChange }) {
         </p>
 
         <p>{location}</p>
-        <h2>{title}</h2>
+        <div className="flex flex-grow justify-center h-20">
+          <h2>{shortenedTitle}</h2>
+        </div>
       </div>
 
       <div>
@@ -88,7 +96,9 @@ export default function ActivityCard({ activity, setCancelStatusChange }) {
         </Link>
       </div>
       <div className="p-2">
-        <div>{shortenedDescription}</div>
+        <div className="activity-card-description">
+          <span>{shortenedDescription}</span>
+        </div>
         <div className="my-2 font-semibold">
           <p>Organised by: {username}</p>
         </div>
