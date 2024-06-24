@@ -32,9 +32,11 @@ export default function MyActivities() {
       .then(({ activities }) => {
         setIsLoading(false);
 
-        setUserActivities(
-          activities.filter((activity) => activity.user_id === user.userID)
-        );
+        const sortedActivities = activities
+          .filter((activity) => activity.user_id === user.userID)
+          .sort((a, b) => new Date(a.date_s_time) - new Date(b.date_s_time));
+
+        setUserActivities(sortedActivities);
       })
       .catch((error) => {
         setIsLoading(false);
@@ -92,10 +94,7 @@ export default function MyActivities() {
   return (
     <div>
       <div>
-        <button
-          className="dropdown"
-          type="button"
-          onClick={handleShow}>
+        <button className="dropdown" type="button" onClick={handleShow}>
           New Activity
         </button>
         <CreateActivityModal
@@ -104,8 +103,7 @@ export default function MyActivities() {
           setNewActivity={setNewActivity}
         />
       </div>
-      <div
-        className="my-activities-container">
+      <div className="my-activities-container">
         {monthsOfYear.map((monthYearString) => (
           <div key={monthYearString}>
             {groupedActivities[monthYearString] && (

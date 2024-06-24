@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { useAuth } from "./AuthContext";
-import { Modal, Button, Alert } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 import { createActivity } from "../api/api";
 import { useDropzone } from "react-dropzone";
-import "../App.css";
 
 export default function CreateActivityModal({
   show,
@@ -146,25 +145,24 @@ export default function CreateActivityModal({
           </div>
         </form>
       </Modal.Body>
-      <Modal.Footer>
-        {error && (
-          <Alert variant="danger">
-            <div>{error}</div>
-          </Alert>
-        )}
-        {isLoading && (
-          <div className="d-flex-col text-center mt-4">
+      {error && (
+        <div className="text-center text-red-500 mx-2">
+          <p className="mb-0">{error}</p>
+        </div>
+      )}
+      <div className="flex justify-center mb-4 mx-4">
+        <button
+          className="dropdown"
+          onClick={() => handleCreateActivity()}
+          disabled={isLoading}
+        >
+          {isLoading ? (
             <i className="fa-solid fa-spinner fa-spin"></i>
-            <p>Creating your activity...</p>
-          </div>
-        )}
-        <Button variant="secondary" onClick={handleClose}>
-          Close
-        </Button>
-        <Button variant="success" onClick={() => handleCreateActivity()}>
-          Finished
-        </Button>
-      </Modal.Footer>
+          ) : (
+            "Create Activity"
+          )}
+        </button>
+      </div>
     </Modal>
   );
 }

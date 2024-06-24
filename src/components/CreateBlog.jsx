@@ -118,7 +118,9 @@ export default function CreateBlogModal({ show, handleClose, setNewBlog }) {
             </div>
           )}
           <div className="mb-3">
-            <label htmlFor="blogTitle" className="form-label">Title</label>
+            <label htmlFor="blogTitle" className="form-label">
+              Title
+            </label>
             <input
               type="text"
               className="form-control"
@@ -128,7 +130,9 @@ export default function CreateBlogModal({ show, handleClose, setNewBlog }) {
             />
           </div>
           <div className="mb-3">
-            <label htmlFor="content" className="form-label">Content</label>
+            <label htmlFor="content" className="form-label">
+              Content
+            </label>
             <textarea
               className="form-control"
               id="content"
@@ -138,7 +142,9 @@ export default function CreateBlogModal({ show, handleClose, setNewBlog }) {
             ></textarea>
           </div>
           <div className="mb-3">
-            <label htmlFor="tags" className="form-label">Tags</label>
+            <label htmlFor="tags" className="form-label">
+              Tags
+            </label>
             <input
               id="tags"
               className="form-control"
@@ -165,22 +171,23 @@ export default function CreateBlogModal({ show, handleClose, setNewBlog }) {
         </form>
       </Modal.Body>
       {error && (
-    <div className="text-center text-red-500 mx-2">
-      <p className="mb-0">{error}</p>
-    </div>
-  )}
-  <div className="flex justify-center mb-4 mx-4">
-    <button
-      className="dropdown"
-      onClick={() => handleCreateBlog()}
-      disabled={isLoading}>
-      {isLoading ? (
-        <i className="fa-solid fa-spinner fa-spin"></i>
-      ) : (
-        "Create Blog"
+        <div className="text-center text-red-500 mx-2">
+          <p className="mb-0">{error}</p>
+        </div>
       )}
-    </button>
-  </div>
+      <div className="flex justify-center mb-4 mx-4">
+        <button
+          className="dropdown"
+          onClick={() => handleCreateBlog()}
+          disabled={isLoading}
+        >
+          {isLoading ? (
+            <i className="fa-solid fa-spinner fa-spin"></i>
+          ) : (
+            "Create Blog"
+          )}
+        </button>
+      </div>
     </Modal>
   );
 }
