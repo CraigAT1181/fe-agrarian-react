@@ -10,8 +10,6 @@ export default function MyActivities() {
   const [error, setError] = useState(null);
   const [currentDate, setCurrentDate] = useState(new Date());
   const [userActivities, setUserActivities] = useState([]);
-  const [searchedActivities, setSearchedActivities] = useState([]);
-  const [selectedDate, setSelectedDate] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [cancelStatusChange, setCancelStatusChange] = useState(false);
   let [newActivity, setNewActivity] = useState({});
@@ -92,9 +90,12 @@ export default function MyActivities() {
     );
 
   return (
-    <div className="text-center">
+    <div className="my-activities-container">
       <div>
-        <button className="dropdown" type="button" onClick={handleShow}>
+        <button
+          className="dropdown"
+          type="button"
+          onClick={handleShow}>
           New Activity
         </button>
         <CreateActivityModal
@@ -103,7 +104,7 @@ export default function MyActivities() {
           setNewActivity={setNewActivity}
         />
       </div>
-      <div className="my-activities-container">
+      <div className="my-4">
         {monthsOfYear.map((monthYearString) => (
           <div key={monthYearString}>
             {groupedActivities[monthYearString] && (

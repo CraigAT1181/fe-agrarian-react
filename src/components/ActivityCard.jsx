@@ -41,6 +41,8 @@ export default function ActivityCard({ activity, setCancelStatusChange }) {
     updated,
   } = activity;
 
+  console.log(activity);
+
   const formattedStart = formatDate(start);
   const formattedEnd = formatDate(end);
 
