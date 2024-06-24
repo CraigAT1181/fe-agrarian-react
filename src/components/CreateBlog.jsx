@@ -3,7 +3,6 @@ import { useAuth } from "./AuthContext";
 import { Modal } from "react-bootstrap";
 import { createBlog } from "../api/api";
 import { useDropzone } from "react-dropzone";
-import "../App.css";
 
 export default function CreateBlogModal({ show, handleClose, setNewBlog }) {
   const [isLoading, setIsLoading] = useState(false);

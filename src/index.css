@@ -7,14 +7,25 @@
 /* -- GENERAL -- */
 
 .button-outline {
-  @apply mx-2 p-2 text-green-950 no-underline border border-green-950 rounded-md font-semibold hover:bg-green-950 hover:text-white;
+  @apply mx-2 p-2 text-green-950 no-underline border border-green-950 rounded-md font-semibold hover:shadow-lg;
 }
 
 .button-fill {
+  @apply mx-2 p-2 text-white no-underline rounded-md font-semibold bg-green-950 hover:shadow-lg ;
 }
 
 .dropzone {
   @apply mb-3 p-6 border-2 border-dashed border-gray-300 rounded-md hover:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 ease-in-out;
+}
+
+/* ---- DROPDOWN LIST ---- */
+
+.filter-panel {
+  @apply absolute left-1/2 transform -translate-x-1/2 mt-3 w-48 bg-white border border-gray-200 rounded shadow-md z-50;
+}
+
+.filter-item {
+  @apply w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100;
 }
 
 /* -- HEADER -- */
@@ -224,6 +235,38 @@
 
 .activity-card-description {
   @apply text-center p-4;
+}
+
+/* -- POSTS -- */
+
+.posts-container {
+  @apply text-center
+}
+
+.post-display {
+  @apply grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4;
+}
+
+/* ---- SEARCH BAR ---- */
+
+.search-bar-container {
+  @apply my-4 md:w-96;
+}
+
+.search-bar-input {
+  @apply w-full pr-10 pl-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent;
+}
+
+.search-bar-input-error {
+  @apply w-full pr-10 pl-4 py-2 border border-red-600 rounded-md focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-transparent;
+}
+
+.search-button {
+  @apply absolute inset-y-0 right-0 pr-3 flex items-center;
+}
+
+.search-bar-error-message {
+  @apply text-red-500 text-sm
 }
 
 /* -- ABOUT -- */
