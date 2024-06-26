@@ -72,13 +72,13 @@ export default function ActivityDisplay({
   };
 
   return (
-    <div>
+    <div className="">
       {selectedDate && (
         <div>
           {monthsOfYear.map((monthYearString) => (
             <div key={monthYearString}>
               <Banner monthYear={monthYearString} />
-              <ul>
+              <div className="activities-display">
                 {filterActivities(groupedActivities[monthYearString] || []).map(
                   (activity) => (
                     <ActivityCard
@@ -88,18 +88,19 @@ export default function ActivityDisplay({
                     />
                   )
                 )}
-              </ul>
+              </div>
             </div>
           ))}
         </div>
       )}
 
       {!selectedDate && (
-        <div>
+        <div className="my-4">
           {monthsOfYear.map((monthYearString) => (
             <div key={monthYearString}>
               <Banner monthYear={monthYearString} />
-              <ul>
+
+              <div className="activities-display">
                 {(searchedActivities.length > 0
                   ? groupedSearchedActivities[monthYearString] ?? []
                   : groupedActivities[monthYearString] ?? []
@@ -110,7 +111,7 @@ export default function ActivityDisplay({
                     setCancelStatusChange={setCancelStatusChange}
                   />
                 ))}
-              </ul>
+              </div>
             </div>
           ))}
         </div>

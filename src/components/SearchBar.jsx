@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import "../App.css";
 
 export default function SearchBar({ activities, setSearchedActivities }) {
   const [searchTerms, setSearchTerms] = useState("");
+  const [activeSearch, setActiveSearch] = useState(false);
   const [notFound, setNotFound] = useState(false);
 
   useEffect(() => {}, [notFound]);
@@ -34,6 +34,7 @@ export default function SearchBar({ activities, setSearchedActivities }) {
       });
 
       setSearchedActivities(filteredActivities);
+      setActiveSearch(true);
       if (filteredActivities.length === 0) {
         setNotFound(true);
         setSearchTerms("");
@@ -41,47 +42,53 @@ export default function SearchBar({ activities, setSearchedActivities }) {
     }
   };
 
+  const handleClear = () => {
+    setSearchedActivities([]);
+    setSearchTerms("");
+    setNotFound(false);
+    setActiveSearch(false);
+  };
+
   return (
-    <div className="search-bar-container">
-      <form
-        className="my-3"
-        onSubmit={(e) => handleSearch(e)}>
-        <div className="input-group">
-          <span className="input-group-text">
-            <i
-              onClick={() => {
-                setSearchedActivities([]);
-                setSearchTerms("");
-                setNotFound(false);
-              }}
-              className="fa-solid fa-arrow-rotate-left"
-              style={{ color: "#28a745", cursor: "pointer" }}></i>
-          </span>
-          <input
-            id="topic-search"
-            className="form-control search-bar"
-            value={searchTerms}
-            onChange={(e) => handleInputChange(e)}
-            type="text"
-            onFocus={(e) => (e.target.placeholder = "")}
-            onBlur={(e) =>
-              (e.target.placeholder = notFound
-                ? "Couldn't find anything, try another key word!"
-                : "Type key words to find what you're looking for.")
-            }
-            placeholder={
-              notFound
-                ? "Couldn't find anything, try another key word!"
-                : "Type key words to find what you're looking for."
-            }
-          />
+    <div className="flex-col text-center">
+      <div className="search-bar-container">
+        <form onSubmit={handleSearch}>
+          <div className="w-full relative">
+            <label
+              htmlFor="item-search"
+              className="form-label"
+              aria-label="Search"></label>
+            <input
+              id="item-search"
+              className="search-bar-input"
+              onChange={handleInputChange}
+              type="text"
+              value={searchTerms}
+              placeholder="What are you looking for?"
+            />
+            <button
+              type="submit"
+              className="search-button">
+              <i
+                className="fa-solid fa-magnifying-glass"
+                aria-label="search button"
+                title="search button"></i>
+            </button>
+          </div>
+        </form>
+      </div>
+      {activeSearch && (
+        <div className="flex flex-col justify-center">
           <button
-            className="btn btn-success"
-            id="button-addon2">
-            Search
+            className="text-blue-700 text-sm"
+            onClick={handleClear}>
+            clear results
           </button>
+          <div className="flex justify-center">
+            <p className="mb-1">{`Search results for "${searchTerms}"`}</p>
+          </div>
         </div>
-      </form>
+      )}
     </div>
   );
 }

@@ -3,7 +3,6 @@ import { getActivities } from "../api/api";
 import ActivityDisplay from "./ActivityDisplay";
 import MyDatePicker from "./DatePicker";
 import SearchBar from "./SearchBar";
-import "../App.css";
 
 export default function Activities() {
   const [isLoading, setIsLoading] = useState(true);
@@ -18,7 +17,10 @@ export default function Activities() {
     getActivities()
       .then(({ activities }) => {
         setIsLoading(false);
-        setActivities(activities);
+        const sortedActivities = activities
+        .sort((a, b) => new Date(a.date_s_time) - new Date(b.date_s_time));
+
+      setActivities(sortedActivities);
       })
       .catch(
         ({
@@ -52,15 +54,15 @@ export default function Activities() {
     );
 
   return (
-    <div>
+    <div className="flex-col text-center my-4">
       <div>
-        <div>
+        <div className="flex justify-center">
           <MyDatePicker
             selectedDate={selectedDate}
             setSelectedDate={setSelectedDate}
           />
         </div>
-        <div>
+        <div className="flex justify-center">
           <SearchBar
             activities={activities}
             setSearchedActivities={setSearchedActivities}
