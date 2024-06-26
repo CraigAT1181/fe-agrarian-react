@@ -193,12 +193,13 @@
 }
 
 .blog-card-title {
-  @apply p-2 mb-2 items-center bg-green-950 cursor-pointer;
+  @apply flex justify-center p-2 mb-2 h-16 items-center bg-green-950 cursor-pointer;
 }
 
 /* -- BLOG -- */
 
 .blog-container {
+  @apply my-4;
 }
 
 .blog-buttons {
@@ -207,6 +208,12 @@
 
 .blog-image {
   @apply flex justify-center;
+}
+
+/* -- BLOG PAGE -- */
+
+.blog-display {
+  @apply grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4;
 }
 
 /* -- MY ACTIVITIES -- */
@@ -230,7 +237,7 @@
 }
 
 .activity-card-image {
-  @apply w-full object-cover;
+  @apply w-full border-t-4 object-cover;
 }
 
 .activity-card-description {

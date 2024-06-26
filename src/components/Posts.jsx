@@ -9,13 +9,15 @@ export default function Posts() {
   const [posts, setPosts] = useState([]);
   const [notFound, setNotFound] = useState(null);
   const [searchParams, setSearchParams] = useState("");
+  const [searchTerms, setSearchTerms] = useState("");
+  const [activeSearch, setActiveSearch] = useState(false);
   const [filteredPosts, setFilteredPosts] = useState([]);
   const [showFilter, setShowFilter] = useState(false);
   const [postDeleted, setPostDeleted] = useState(false);
 
   useEffect(() => {
     fetchPosts();
-  }, [searchParams, postDeleted]);
+  }, [activeSearch, postDeleted]);
 
   const fetchPosts = () => {
     setIsLoading(true);
@@ -23,7 +25,7 @@ export default function Posts() {
       .then(({ posts }) => {
         setIsLoading(false);
         setPosts(posts);
-        setFilteredPosts(posts); // Initialize filtered posts with all posts
+        setFilteredPosts(posts);
         if (searchParams && posts.length === 0) {
           setNotFound("Sorry, no posts match your search.");
         } else {
@@ -38,6 +40,8 @@ export default function Posts() {
 
   const handleSearch = (e) => {
     e.preventDefault();
+    setActiveSearch(true);
+    setSearchParams(`item=${searchTerms}`);
     fetchPosts();
   };
 
@@ -57,8 +61,11 @@ export default function Posts() {
     setFilteredPosts(filtered);
   };
 
-  const handleClearFilters = () => {
-    setFilteredPosts(posts); // Reset filtered posts to all posts
+  const handleClear = () => {
+    setActiveSearch(false);
+    setSearchTerms("");
+    setSearchParams("");
+    setFilteredPosts(posts);
   };
 
   const handleShow = () => setShowFilter(true);
@@ -102,8 +109,9 @@ export default function Posts() {
               <input
                 id="item-search"
                 className="search-bar-input"
-                onChange={(e) => setSearchParams(`item=${e.target.value}`)}
+                onChange={(e) => setSearchTerms(e.target.value)}
                 type="text"
+                value={searchTerms}
                 placeholder="What are you looking for?"
               />
               <button
@@ -118,6 +126,19 @@ export default function Posts() {
           </form>
         </div>
       </div>
+
+      {activeSearch && (
+        <div className="flex flex-col justify-center">
+          <button
+            className="text-blue-700 text-sm"
+            onClick={handleClear}>
+            clear results
+          </button>
+          <div className="flex justify-center">
+            <p className="mb-1">{`Search results for "${searchTerms}"`}</p>
+          </div>
+        </div>
+      )}
 
       <div className="">
         <div className="mt-4">{notFound && <span>{notFound}</span>}</div>

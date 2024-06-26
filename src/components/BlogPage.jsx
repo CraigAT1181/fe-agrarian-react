@@ -6,22 +6,26 @@ import { useAuth } from "./AuthContext";
 import { useNavigate } from "react-router-dom";
 
 export default function BlogPage() {
-  const [allBlogs, setAllBlogs] = useState([]);
-  const [searchBlogs, setSearchBlogs] = useState([]);
-  let [searchTerms, setSearchTerms] = useState("");
-  let [notFound, setNotFound] = useState("");
-  const [blogDeleted, setBlogDeleted] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [blogs, setBlogs] = useState([]);
+  const [filteredBlogs, setFilteredBlogs] = useState([]);
+  const [searchTerms, setSearchTerms] = useState("");
+  const [activeSearch, setActiveSearch] = useState(false);
+  const [notFound, setNotFound] = useState("");
+  const [blogDeleted, setBlogDeleted] = useState(false);
+
   const { user } = useAuth();
   const navigate = useNavigate();
 
+  // Fetch blogs on mount and when blogDeleted changes
   useEffect(() => {
     setIsLoading(true);
     getBlogs()
       .then(({ blogs }) => {
         setIsLoading(false);
-        setAllBlogs(blogs);
+        setBlogs(blogs);
+        setFilteredBlogs(blogs);
       })
       .catch(
         ({
@@ -31,24 +35,18 @@ export default function BlogPage() {
           },
         }) => {
           setIsLoading(false);
-          setError({ status, message: message });
+          setError({ status, message });
         }
       );
-    setBlogDeleted(false);
-  }, [searchBlogs, blogDeleted]);
+  }, [blogDeleted]);
 
+  // Handle not found alert timeout
   useEffect(() => {
     let timeout;
-
     if (notFound) {
-      timeout = setTimeout(() => {
-        setNotFound(null);
-      }, 3000);
+      timeout = setTimeout(() => setNotFound(""), 3000);
     }
-
-    return () => {
-      clearTimeout(timeout);
-    };
+    return () => clearTimeout(timeout);
   }, [notFound]);
 
   const handleInputChange = (e) => {
@@ -57,32 +55,38 @@ export default function BlogPage() {
 
   const handleSearch = (e) => {
     e.preventDefault();
-
-    const searchTerm = searchTerms.toLocaleLowerCase();
-
-    if (allBlogs) {
-      const filteredBlogs = allBlogs.filter((blog) => {
+    setActiveSearch(true);
+    const searchTerm = searchTerms.toLowerCase();
+    if (blogs.length > 0) {
+      const filtered = blogs.filter((blog) => {
         const searchTermsArray = searchTerm.split(" ");
-
         return (
           blog.tags.some((tag) => tag.toLowerCase().includes(searchTerm)) ||
-          searchTermsArray.some((searchWord) =>
-            blog.username.toLowerCase().includes(searchWord)
+          searchTermsArray.some((word) =>
+            blog.username.toLowerCase().includes(word)
           ) ||
-          searchTermsArray.some((searchWord) =>
-            blog.title.toLocaleLowerCase().includes(searchWord)
+          searchTermsArray.some((word) =>
+            blog.title.toLowerCase().includes(word)
           )
         );
       });
-
-      setSearchBlogs(filteredBlogs);
-      if (filteredBlogs.length === 0) {
-        setNotFound("Couldn't find any blog tags based on your search.");
+      setFilteredBlogs(filtered);
+      if (filtered.length === 0) {
+        setNotFound("Couldn't find any results.");
+      } else {
+        setNotFound("");
       }
     }
   };
 
-  if (isLoading)
+  const handleClear = () => {
+    setFilteredBlogs(blogs);
+    setActiveSearch(false);
+    setSearchTerms("");
+  };
+
+  // Render loading state
+  if (isLoading) {
     return (
       <div className="flex justify-center">
         <div className="flex-col text-center">
@@ -91,8 +95,10 @@ export default function BlogPage() {
         </div>
       </div>
     );
+  }
 
-  if (error)
+  // Render error state
+  if (error) {
     return (
       <div>
         <i className="fa-solid fa-exclamation"></i>
@@ -101,90 +107,67 @@ export default function BlogPage() {
         </p>
       </div>
     );
+  }
 
+  // Render main content
   return (
     <div>
-      {allBlogs.length > 0 && (
-        <div>
-          <div>
-            <i
-              onClick={() => {
-                setSearchBlogs([]);
-                setSearchTerms("");
-                setNotFound("");
-              }}></i>
-          </div>
-          <form onSubmit={(e) => handleSearch(e)}>
-            <div>
+      <div className="flex justify-center">
+        <div className="search-bar-container">
+          <form onSubmit={handleSearch}>
+            <div className="w-full relative">
               <label
-                htmlFor="topic-search"
-                aria-label="Search"
-                aria-describedby="button-addon2"></label>
+                htmlFor="item-search"
+                className="form-label"
+                aria-label="Search"></label>
               <input
+                id="item-search"
+                className="search-bar-input"
                 onChange={(e) => handleInputChange(e)}
                 type="text"
                 placeholder="What are you looking for?"
+                value={searchTerms}
               />
-              <button>Search</button>
+              <button
+                type="submit"
+                className="search-button">
+                <i
+                  className="fa-solid fa-magnifying-glass"
+                  aria-label="search button"
+                  title="search button"></i>
+              </button>
             </div>
           </form>
         </div>
+      </div>
+      {activeSearch && (
+        <div className="flex flex-col justify-center">
+          <button
+            className="text-blue-700 text-sm"
+            onClick={handleClear}>
+            clear results
+          </button>
+          <div className="flex justify-center">
+            <p className="mb-1">{`Search results for "${searchTerms}"`}</p>
+          </div>
+        </div>
       )}
 
-      <div>{notFound && <Alert variant="danger">{notFound}</Alert>}</div>
-
-      <div>
-        {allBlogs.length > 0 ? (
-          <div>
-            {searchBlogs && searchBlogs.length > 0
-              ? searchBlogs.map((blog) => (
-                  <BlogCard
-                    key={blog.blog_id}
-                    blog={blog}
-                    setBlogDeleted={setBlogDeleted}
-                  />
-                ))
-              : allBlogs.map((blog) => (
-                  <BlogCard
-                    key={blog.blog_id}
-                    blog={blog}
-                    setBlogDeleted={setBlogDeleted}
-                  />
-                ))}
-          </div>
-        ) : (
-          <div>
-            <div>
-              <Alert variant="success">
-                <div>
-                  No one has posted any blogs yet... is there anything you'd
-                  like to share?
-                </div>
-              </Alert>
-            </div>
-
-            <div>
-              {user ? (
-                <button
-                  onClick={() => {
-                    navigate("/");
-                  }}>
-                  Home
-                </button>
-              ) : (
-                <div>
-                  <div>
-                    <h4>Join the community</h4>
-                    <button onClick={() => navigate("/login")}>Login</button>
-                    <button onClick={() => navigate("/register")}>
-                      Register
-                    </button>
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
-        )}
+      <div className="mt-4">
+        {notFound && <Alert variant="warning">{notFound}</Alert>}
+        <div className="blog-display">
+          {filteredBlogs.length > 0 ? (
+            filteredBlogs.map((blog) => (
+              <BlogCard
+                key={blog.blog_id}
+                blog={blog}
+                setBlogDeleted={setBlogDeleted}
+              />
+            ))
+          ) : (
+            <p>No blogs available.</p>
+          )}
+        </div>
       </div>
     </div>
   );
