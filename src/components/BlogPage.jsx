@@ -34,7 +34,7 @@ export default function BlogPage() {
           setError({ status, message: message });
         }
       );
-      setBlogDeleted(false);
+    setBlogDeleted(false);
   }, [searchBlogs, blogDeleted]);
 
   useEffect(() => {
@@ -84,9 +84,11 @@ export default function BlogPage() {
 
   if (isLoading)
     return (
-      <div >
-        <i className="fa-solid fa-spinner fa-spin"></i>
-        <p>Loading blogs...</p>
+      <div className="flex justify-center">
+        <div className="flex-col text-center">
+          <i className="fa-solid fa-spinner fa-spin"></i>
+          <p>Loading...</p>
+        </div>
       </div>
     );
 
@@ -103,54 +105,33 @@ export default function BlogPage() {
   return (
     <div>
       {allBlogs.length > 0 && (
-        <div >
-          <div >
+        <div>
+          <div>
             <i
               onClick={() => {
                 setSearchBlogs([]);
                 setSearchTerms("");
                 setNotFound("");
-              }}
-          
-           ></i>
+              }}></i>
           </div>
-          <form
-     
-            onSubmit={(e) => handleSearch(e)}>
+          <form onSubmit={(e) => handleSearch(e)}>
             <div>
               <label
                 htmlFor="topic-search"
-           
                 aria-label="Search"
                 aria-describedby="button-addon2"></label>
               <input
-     
-        
                 onChange={(e) => handleInputChange(e)}
                 type="text"
                 placeholder="What are you looking for?"
               />
-              <button
-      
-              >
-                Search
-              </button>
+              <button>Search</button>
             </div>
           </form>
         </div>
       )}
 
-      <div
-    
-      >
-        {notFound && (
-          <Alert
-      
-            variant="danger">
-            {notFound}
-          </Alert>
-        )}
-      </div>
+      <div>{notFound && <Alert variant="danger">{notFound}</Alert>}</div>
 
       <div>
         {allBlogs.length > 0 ? (
@@ -172,40 +153,30 @@ export default function BlogPage() {
                 ))}
           </div>
         ) : (
-          <div >
-            <div >
-              <Alert
-                variant="success"
-              >
-                <div >
+          <div>
+            <div>
+              <Alert variant="success">
+                <div>
                   No one has posted any blogs yet... is there anything you'd
                   like to share?
                 </div>
               </Alert>
             </div>
 
-            <div
->
+            <div>
               {user ? (
                 <button
                   onClick={() => {
                     navigate("/");
-                  }}
-                >
+                  }}>
                   Home
                 </button>
               ) : (
                 <div>
-                  <div >
+                  <div>
                     <h4>Join the community</h4>
-                    <button
-                      onClick={() => navigate("/login")}
-                    >
-                      Login
-                    </button>
-                    <button
-                      onClick={() => navigate("/register")}
-                     >
+                    <button onClick={() => navigate("/login")}>Login</button>
+                    <button onClick={() => navigate("/register")}>
                       Register
                     </button>
                   </div>

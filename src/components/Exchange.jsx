@@ -33,9 +33,11 @@ export default function Exchange() {
 
   if (isLoading)
     return (
-      <div>
-        <i className="fa-solid fa-spinner fa-spin"></i>
-        <p>Loading user list...</p>
+      <div className="flex justify-center">
+        <div className="flex-col text-center">
+          <i className="fa-solid fa-spinner fa-spin"></i>
+          <p>Loading...</p>
+        </div>
       </div>
     );
   if (error)
