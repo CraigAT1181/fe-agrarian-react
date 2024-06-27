@@ -95,7 +95,7 @@ export default function ActivityCard({ activity, setCancelStatusChange }) {
           )}
         </Link>
       </div>
-      <div className="p-2">
+      <div className="flex flex-col flex-grow p-2">
         <div className="activity-card-description">
           <span>{shortenedDescription}</span>
         </div>

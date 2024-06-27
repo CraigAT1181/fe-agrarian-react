@@ -24,12 +24,17 @@ export default function CreateActivityModal({
 
   const onDrop = (acceptedFiles) => {
     const file = acceptedFiles[0];
-    setImageData(file);
-    const reader = new FileReader();
-    reader.onload = () => {
-      setImagePreview(reader.result);
-    };
-    reader.readAsDataURL(file);
+    if (file && file.type === "image/jpeg") {
+      setImageData(file);
+      const reader = new FileReader();
+      reader.onload = () => {
+        setImagePreview(reader.result);
+      };
+      reader.readAsDataURL(file);
+      setError(null);
+    } else {
+      setError("Please upload a JPEG file.");
+    }
   };
 
   const { getRootProps, getInputProps } = useDropzone({
@@ -111,18 +116,31 @@ export default function CreateActivityModal({
   };
 
   return (
-    <Modal show={show} onHide={handleClose}>
+    <Modal
+      show={show}
+      onHide={handleClose}>
       <Modal.Header closeButton>
         <Modal.Title>Your Activity</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <form>
-          <div {...getRootProps()} className="dropzone">
-            <input {...getInputProps()} className="sr-only" />
+          <div
+            {...getRootProps()}
+            className="dropzone">
+            <input
+              {...getInputProps()}
+              className="sr-only"
+            />
             <p className="text-gray-500">
               Drag a file here, or click to select a file (.jpeg)
             </p>
           </div>
+
+          {error && error === "Please upload a JPEG file." && (
+            <div className="text-center text-red-500 mx-2">
+              <p className="mb-0">{error}</p>
+            </div>
+          )}
 
           {imagePreview && (
             <div className="mb-3">
@@ -134,7 +152,9 @@ export default function CreateActivityModal({
             </div>
           )}
           <div className="mb-3">
-            <label htmlFor="title" className="form-label mt-2">
+            <label
+              htmlFor="title"
+              className="form-label mt-2">
               Title
             </label>
             <input
@@ -143,16 +163,19 @@ export default function CreateActivityModal({
               id="title"
               onChange={(e) => setTitle(e.target.value)}
             />
-            <label htmlFor="description" className="form-label mt-2">
+            <label
+              htmlFor="description"
+              className="form-label mt-2">
               Description
             </label>
             <textarea
               className="form-control"
               id="description"
               rows="10"
-              onChange={(e) => setDescription(e.target.value)}
-            ></textarea>
-            <label htmlFor="location" className="form-label mt-2">
+              onChange={(e) => setDescription(e.target.value)}></textarea>
+            <label
+              htmlFor="location"
+              className="form-label mt-2">
               Location
             </label>
             <input
@@ -161,7 +184,9 @@ export default function CreateActivityModal({
               id="location"
               onChange={(e) => setLocation(e.target.value)}
             />
-            <label htmlFor="startDate" className="form-label mt-2">
+            <label
+              htmlFor="startDate"
+              className="form-label mt-2">
               Start Date
             </label>
             <input
@@ -172,7 +197,9 @@ export default function CreateActivityModal({
               value={startDate}
               onChange={(e) => setStartDate(e.target.value)}
             />
-            <label htmlFor="startTime" className="form-label mt-2">
+            <label
+              htmlFor="startTime"
+              className="form-label mt-2">
               Start Time
             </label>
             <input
@@ -182,7 +209,9 @@ export default function CreateActivityModal({
               value={startTime}
               onChange={(e) => setStartTime(e.target.value)}
             />
-            <label htmlFor="endDate" className="form-label mt-2">
+            <label
+              htmlFor="endDate"
+              className="form-label mt-2">
               End Date
             </label>
             <input
@@ -193,7 +222,9 @@ export default function CreateActivityModal({
               value={endDate}
               onChange={(e) => setEndDate(e.target.value)}
             />
-            <label htmlFor="endTime" className="form-label mt-2">
+            <label
+              htmlFor="endTime"
+              className="form-label mt-2">
               End Time
             </label>
             <input
@@ -206,7 +237,7 @@ export default function CreateActivityModal({
           </div>
         </form>
       </Modal.Body>
-      {error && (
+      {error && error !== "Please upload a JPEG file." && (
         <div className="text-center text-red-500 mx-2">
           <p className="mb-0">{error}</p>
         </div>
@@ -215,8 +246,7 @@ export default function CreateActivityModal({
         <button
           className="dropdown"
           onClick={() => handleCreateActivity()}
-          disabled={isLoading}
-        >
+          disabled={isLoading}>
           {isLoading ? (
             <i className="fa-solid fa-spinner fa-spin"></i>
           ) : (

@@ -37,7 +37,6 @@ export default function SearchBar({ activities, setSearchedActivities }) {
       setActiveSearch(true);
       if (filteredActivities.length === 0) {
         setNotFound(true);
-        setSearchTerms("");
       }
     }
   };
@@ -87,6 +86,11 @@ export default function SearchBar({ activities, setSearchedActivities }) {
           <div className="flex justify-center">
             <p className="mb-1">{`Search results for "${searchTerms}"`}</p>
           </div>
+        </div>
+      )}
+      {activeSearch && notFound && (
+        <div>
+          <span>Unable to find any results from your search.</span>
         </div>
       )}
     </div>

@@ -233,7 +233,7 @@
 /* -- ACTIVITY CARD -- */
 
 .activity-card {
-  @apply flex flex-col text-center shadow-gray-950 shadow-md rounded-lg overflow-hidden text-green-950 min-h-full;
+  @apply flex flex-col text-center shadow-gray-950 shadow-md rounded-lg overflow-hidden text-green-950 h-full;
 }
 
 .activity-card-image {
@@ -241,7 +241,7 @@
 }
 
 .activity-card-description {
-  @apply text-center p-4;
+  @apply flex-grow text-center p-4;
 }
 
 /* -- POSTS -- */
