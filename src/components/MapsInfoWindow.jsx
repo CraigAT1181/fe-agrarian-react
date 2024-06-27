@@ -18,7 +18,7 @@ export default function MapsInfoWindow({ selectedUser }) {
         })}
       </div>
       <p>{selectedUser.postcode}</p>
-      <div className="flex justify-center">
+      <div className="info-window-message-button">
         {user && <MessageButtonL partner={selectedUser} />}
       </div>
     </div>

@@ -90,6 +90,10 @@
   @apply flex flex-col items-center p-2 w-full rounded-lg;
 }
 
+.info-window-message-button {
+  @apply flex justify-center bg-green-950 p-1 rounded focus:border-none;
+}
+
 .info-window-produce {
   @apply flex w-full overflow-auto;
 }
