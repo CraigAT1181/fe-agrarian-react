@@ -45,7 +45,7 @@
 /* -- MAIN -- */
 
 .main {
-  @apply flex-grow mx-2 md:mx-10 lg:mx-52;
+  @apply flex-grow mx-4 md:mx-10 lg:mx-52;
 }
 
 /* -- NAVBAR -- */

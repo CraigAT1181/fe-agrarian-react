@@ -28,13 +28,7 @@ export default function CommentsCard({
   });
 
   const handleViewReplies = () => {
-    if (!viewReplies) {
-      setViewReplies(true);
-      setViewRepliesButton("Hide Replies");
-    } else {
-      setViewReplies(false);
-      setViewRepliesButton("View Replies");
-    }
+    setViewReplies(!viewReplies);
   };
 
   const handleDelete = (blog_id, comment_id) => {
@@ -111,10 +105,8 @@ export default function CommentsCard({
             </button>
             {user && user.userID !== comment.user_id && (
               <div>
-                <button
-                  type="button"
-                  onClick={handleShow}>
-                  <i className="fa-solid text-success fa-reply"></i>
+                <button type="button" onClick={handleShow}>
+                  <i className="fa-solid text-green-950 fa-reply"></i>
                 </button>
               </div>
             )}
@@ -132,7 +124,8 @@ export default function CommentsCard({
             <div>
               <button
                 onClick={() => handleDelete(blog_id, comment.comment_id)}
-                title="Delete Comment">
+                title="Delete Comment"
+              >
                 {isLoading ? (
                   <i className="fa-solid fa-spinner fa-spin"></i>
                 ) : (

@@ -21,9 +21,7 @@ export default function CommentInput({
       </div>
       <form onSubmit={handleSend}>
         <div className="w-full relative">
-          <label
-            htmlFor="comment-input"
-            className="form-label"></label>
+          <label htmlFor="comment-input" className="form-label"></label>
           <input
             id="comment-input"
             className="comment-input-box"
@@ -36,8 +34,9 @@ export default function CommentInput({
             <button
               id="comment-button"
               className="post-comment-button"
-              type="submit">
-              <i className="fa-solid fa-xl text-green-950 fa-circle-chevron-right"></i>
+              type="submit"
+            >
+              <i className="fa-solid fa-xl text-green-950 fa-arrow-right"></i>
             </button>
           )}
         </div>
