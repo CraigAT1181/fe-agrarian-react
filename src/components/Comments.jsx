@@ -67,12 +67,10 @@ export default function Comments({ blog_id }) {
             />
           </div>
         ) : (
-          <div>
-            <div className="bg-green-950 w-fit rounded">
-              <h5 className="text-white p-2 m-0">
-                Join the Community to Comment
-              </h5>
-            </div>
+          <div className="join-to-comment">
+            <h5 className="text-white p-2 m-0">
+              Join the Community to Comment
+            </h5>
           </div>
         )}
       </div>

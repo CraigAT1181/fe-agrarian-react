@@ -74,28 +74,29 @@ export default function CommentsCard({
     <div>
       <div>
         <div>
-          <div >
-            <div >
-              <div >
-                <h5 >{comment.username}</h5>
+          <div>
+            <div>
+              <div>
+                <h5>{comment.username}</h5>
                 {user && user.userID !== comment.user_id && (
                   <MessageButtonS partner={comment.user_id} />
                 )}
               </div>
+
               <div>
                 <p>{formattedDate}</p>
               </div>
             </div>
           </div>
         </div>
-        <div >
-          <div>{comment.comment}</div>
+        <div>
+          <div>
+            <p>{comment.comment}</p>
+          </div>
         </div>
-        <div >
-          <div >
-            <button
-        
-              onClick={() => handleViewReplies()}>
+        <div>
+          <div>
+            <button onClick={() => handleViewReplies()}>
               {`${
                 allComments.filter(
                   (reply) => reply.parent_comment_id === comment.comment_id
@@ -109,9 +110,8 @@ export default function CommentsCard({
               }`}
             </button>
             {user && user.userID !== comment.user_id && (
-              <div >
+              <div>
                 <button
-          
                   type="button"
                   onClick={handleShow}>
                   <i className="fa-solid text-success fa-reply"></i>
@@ -131,7 +131,6 @@ export default function CommentsCard({
           {user && user.username === comment.username && (
             <div>
               <button
-              
                 onClick={() => handleDelete(blog_id, comment.comment_id)}
                 title="Delete Comment">
                 {isLoading ? (

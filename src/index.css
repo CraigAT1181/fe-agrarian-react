@@ -282,6 +282,10 @@
 
 /* -- COMMENT INPUT -- */
 
+.join-to-comment {
+  @apply my-4 text-center bg-green-950 w-fit rounded;
+}
+
 .comment-input-box {
   @apply w-full pr-10 pl-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent;
 }

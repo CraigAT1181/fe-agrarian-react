@@ -34,14 +34,14 @@ export default function CommentsDisplay({ blog_id, commentPosted }) {
 
   if (isLoading)
     return (
-      <div >
+      <div>
         <i className="fa-solid fa-spinner fa-spin"></i>
         <p>Loading comments...</p>
       </div>
     );
   if (error)
     return (
-      <div >
+      <div>
         <i className="fa-solid fa-exclamation"></i>
         <p>
           Oops, there's been an error: {error.status} {error.message}
@@ -69,8 +69,8 @@ export default function CommentsDisplay({ blog_id, commentPosted }) {
             )
         )
       ) : (
-        <div >
-          <Alert variant="light">No one has commented on this blog yet.</Alert>
+        <div>
+          <span>No one has commented on this blog yet.</span>
         </div>
       )}
     </div>
