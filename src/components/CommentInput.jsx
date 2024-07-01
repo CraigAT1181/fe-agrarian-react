@@ -16,6 +16,9 @@ export default function CommentInput({
 
   return (
     <div className="my-4">
+      <div className="mb-2 text-center">
+        <span className="font-semibold">Leave a comment</span>
+      </div>
       <form onSubmit={handleSend}>
         <div className="w-full relative">
           <label
