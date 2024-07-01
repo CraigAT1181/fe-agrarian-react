@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import CommentsDisplay from "./CommentsDisplay";
-import { useAuth } from "./AuthContext";
-import CommentInput from "./CommentInput";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "./AuthContext";
 import { postComment } from "../api/api";
+import CommentInput from "./CommentInput";
+import CommentsDisplay from "./CommentsDisplay";
 
 export default function Comments({ blog_id }) {
   const [isLoading, setIsLoading] = useState(false);
@@ -57,7 +57,7 @@ export default function Comments({ blog_id }) {
 
   return (
     <div>
-      <div>
+      <div className="flex justify-center">
         {user ? (
           <div>
             <CommentInput
@@ -68,10 +68,10 @@ export default function Comments({ blog_id }) {
           </div>
         ) : (
           <div>
-            <h5>Join the Community to Comment</h5>
-            <div>
-              <button onClick={() => navigate("/login")}>Login</button>
-              <button onClick={() => navigate("/register")}>Register</button>
+            <div className="bg-green-950 w-fit rounded">
+              <h5 className="text-white p-2 m-0">
+                Join the Community to Comment
+              </h5>
             </div>
           </div>
         )}

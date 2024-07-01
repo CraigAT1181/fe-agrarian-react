@@ -1,7 +1,10 @@
 import React from "react";
-import "../App.css";
 
-export default function CommentInput({ commentInput, onPostComment, setCommentInput }) {
+export default function CommentInput({
+  commentInput,
+  onPostComment,
+  setCommentInput,
+}) {
   function handleChange(e) {
     setCommentInput(e.target.value);
   }
@@ -12,35 +15,28 @@ export default function CommentInput({ commentInput, onPostComment, setCommentIn
   }
 
   return (
-    <div
-   
->
-      <form
-        onSubmit={handleSend}
-        >
-        <div
-    
-        >
+    <div className="my-4">
+      <form onSubmit={handleSend}>
+        <div className="w-full relative">
           <label
             htmlFor="comment-input"
-          
-          ></label>
+            className="form-label"></label>
           <input
             id="comment-input"
-          
+            className="comment-input-box"
             type="text"
             placeholder="Type a comment here"
             value={commentInput}
             onChange={handleChange}
-           
           />
-          <button
-            id="comment-button"
-           
-            type="submit"
-           >
-            Post
-          </button>
+          {commentInput && (
+            <button
+              id="comment-button"
+              className="post-comment-button"
+              type="submit">
+              <i className="fa-solid fa-xl text-green-950 fa-circle-chevron-right"></i>
+            </button>
+          )}
         </div>
       </form>
     </div>

@@ -11,16 +11,20 @@ export default function MapsInfoWindow({ selectedUser }) {
       <div className="info-window-produce">
         {selectedUser.produce.map((produce) => {
           return (
-            <p key={produce} className="font-semibold mx-1">
+            <p
+              key={produce}
+              className="font-semibold mx-1">
               {produce}
             </p>
           );
         })}
       </div>
       <p>{selectedUser.postcode}</p>
-      <div className="info-window-message-button">
-        {user && <MessageButtonL partner={selectedUser} />}
-      </div>
+      {user && (
+        <div className="info-window-message-button">
+          <MessageButtonL partner={selectedUser} />
+        </div>
+      )}
     </div>
   );
 }
