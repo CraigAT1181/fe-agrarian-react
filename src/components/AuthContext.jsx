@@ -7,6 +7,7 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [commentPosted, setCommentPosted] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -93,7 +94,14 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ user, login, logout, updateUserProduceData }}>
+      value={{
+        user,
+        login,
+        logout,
+        updateUserProduceData,
+        commentPosted,
+        setCommentPosted,
+      }}>
       {children}
     </AuthContext.Provider>
   );

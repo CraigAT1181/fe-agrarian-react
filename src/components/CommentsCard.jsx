@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { formatDistanceToNow } from "date-fns";
 import { useAuth } from "./AuthContext";
-import "../App.css";
 import { deleteComment } from "../api/api";
 import MessageButtonS from "./MessageButtonS";
 import ReplyDisplay from "./ReplyDisplay";

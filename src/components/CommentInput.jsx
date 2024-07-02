@@ -1,10 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
+import { postComment } from "../api/api";
+import { useAuth } from "./AuthContext";
 
-export default function CommentInput({
-  commentInput,
-  onPostComment,
-  setCommentInput,
-}) {
+export default function CommentInput({ blog_id }) {
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [commentInput, setCommentInput] = useState("");
+  const { user, setCommentPosted } = useAuth();
+  let parent_comment_id;
+
+  const onPostComment = () => {
+    if (commentInput.trim() !== "") {
+      setIsLoading(true);
+      postComment(blog_id, user.userID, commentInput, parent_comment_id)
+        .then(() => {
+          setIsLoading(false);
+          setCommentPosted(true);
+        })
+        .catch(
+          ({
+            response: {
+              status,
+              data: { message },
+            },
+          }) => {
+            setIsLoading(false);
+            setError({ status, message });
+          }
+        );
+      setCommentInput("");
+      setCommentPosted(false);
+    }
+  };
+
   function handleChange(e) {
     setCommentInput(e.target.value);
   }
@@ -14,6 +42,23 @@ export default function CommentInput({
     onPostComment();
   }
 
+  if (isLoading)
+    return (
+      <div>
+        <i className="fa-solid fa-spinner fa-spin"></i>
+        <p>Posting your comment...</p>
+      </div>
+    );
+  if (error)
+    return (
+      <div>
+        <i className="fa-solid fa-exclamation"></i>
+        <p>
+          Oops, there's been an error: {error.status} {error.message}
+        </p>
+      </div>
+    );
+
   return (
     <div className="my-4">
       <div className="mb-2 text-center">
@@ -21,7 +66,9 @@ export default function CommentInput({
       </div>
       <form onSubmit={handleSend}>
         <div className="w-full relative">
-          <label htmlFor="comment-input" className="form-label"></label>
+          <label
+            htmlFor="comment-input"
+            className="form-label"></label>
           <input
             id="comment-input"
             className="comment-input-box"
@@ -34,8 +81,7 @@ export default function CommentInput({
             <button
               id="comment-button"
               className="post-comment-button"
-              type="submit"
-            >
+              type="submit">
               <i className="fa-solid fa-xl text-green-950 fa-arrow-right"></i>
             </button>
           )}

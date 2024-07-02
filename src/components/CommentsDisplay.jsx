@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { Alert } from "react-bootstrap";
+import { useAuth } from "./AuthContext";
 import CommentsCard from "./CommentsCard";
 import { getCommentsByBlogID } from "../api/api";
 
-export default function CommentsDisplay({ blog_id, commentPosted }) {
+export default function CommentsDisplay({ blog_id }) {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [blogComments, setBlogComments] = useState([]);
   const [commentDeleted, setCommentDeleted] = useState(false);
   const [replyPosted, setReplyPosted] = useState(false);
+  const [commentClicked, setCommentClicked] = useState(false);
+  const { commentPosted } = useAuth();
 
   useEffect(() => {
     getCommentsByBlogID(blog_id)
