@@ -9,7 +9,6 @@ export default function CommentsDisplay({ blog_id }) {
   const [blogComments, setBlogComments] = useState([]);
   const [commentDeleted, setCommentDeleted] = useState(false);
   const [replyPosted, setReplyPosted] = useState(false);
-  const [commentClicked, setCommentClicked] = useState(false);
   const { commentPosted } = useAuth();
 
   useEffect(() => {
