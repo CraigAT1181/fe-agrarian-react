@@ -9,6 +9,7 @@ export default function CommentsDisplay({ blog_id }) {
   const [blogComments, setBlogComments] = useState([]);
   const [commentDeleted, setCommentDeleted] = useState(false);
   const [replyPosted, setReplyPosted] = useState(false);
+  const [nestedComments, setNestedComments] = useState([]);
   const { commentPosted } = useAuth();
 
   useEffect(() => {
@@ -23,6 +24,9 @@ export default function CommentsDisplay({ blog_id }) {
         setIsLoading(false);
 
         setBlogComments(comments);
+
+        const nestedCommentfunc = transformComments(comments);
+        setNestedComments(nestedCommentfunc);
       })
       .catch(
         ({
@@ -35,6 +39,31 @@ export default function CommentsDisplay({ blog_id }) {
           setError({ status, message: message });
         }
       );
+  };
+
+  const transformComments = (comments) => {
+    const commentMap = new Map();
+    const rootComments = [];
+
+    // Initialize the map with all comments
+    comments.forEach((comment) => {
+      comment.replies = [];
+      commentMap.set(comment.comment_id, comment);
+    });
+
+    // Build the tree structure
+    comments.forEach((comment) => {
+      if (comment.parent_comment_id) {
+        const parentComment = commentMap.get(comment.parent_comment_id);
+        if (parentComment) {
+          parentComment.replies.push(comment);
+        }
+      } else {
+        rootComments.push(comment);
+      }
+    });
+
+    return rootComments;
   };
 
   if (isLoading)
@@ -56,8 +85,8 @@ export default function CommentsDisplay({ blog_id }) {
 
   return (
     <div>
-      {blogComments.length > 0 ? (
-        blogComments.map(
+      {nestedComments.length > 0 ? (
+        nestedComments.map(
           (comment) =>
             comment.parent_comment_id === null && (
               <div key={comment.comment_id}>
