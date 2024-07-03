@@ -64,7 +64,7 @@ export default function CommentsCard({
     );
 
   return (
-    <div>
+    <div className="comment-card-container">
       <div>
         <div>
           <div>

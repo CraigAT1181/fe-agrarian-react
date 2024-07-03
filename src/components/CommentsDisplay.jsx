@@ -13,6 +13,12 @@ export default function CommentsDisplay({ blog_id }) {
   const { commentPosted } = useAuth();
 
   useEffect(() => {
+    fetchBlogComments();
+
+    setCommentDeleted(false);
+  }, [commentPosted, commentDeleted, replyPosted]);
+
+  const fetchBlogComments = () => {
     getCommentsByBlogID(blog_id)
       .then(({ comments }) => {
         setIsLoading(false);
@@ -30,9 +36,7 @@ export default function CommentsDisplay({ blog_id }) {
           setError({ status, message: message });
         }
       );
-
-    setCommentDeleted(false);
-  }, [commentPosted, commentDeleted, replyPosted]);
+  };
 
   if (isLoading)
     return (
