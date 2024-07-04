@@ -1,55 +1,50 @@
 Updates / Fixes:
 
-Activities 
+ActivityCard
 
-- ~~ Functionality for date-picker ~~
-- Post / edit activity 
-- ~~ Search Bar ~~
-- Link activity to Calendar component
-- Add activity to MyActivities on Home
-- Render updated date
+- Update
+
+PostCard
+
+- Implement dropzone to allow user to add a picture to a post
+
+Comments
+
+- Deal with the nested comments to prevent visual issues with deep nesting
 
 Login / Registration
 
 - Email confirmation upon registration 
-- Add Alert to highlight Username already taken, or email already registered
 
 Database Management
 
-- Convert to SQLAlchemy 
+- Transfer to Supabase
+- Update full list of produce
 
-MyPosts 
+Maps
 
-- Add filter 
-- Add overflow
-
-Maps 
-
-- Redesign page 
-- Click markers to find user 
 - Connect to other components (Activities, etc)
 - Add distance functionality to accommodate usersearch and to work with
-     Activities 
+   Activities 
 
 Encyclopedia
 
-- Find an API 
+- Find an API
 - Build Encyclopedia component and connect to others
 
 UserCard / Home 
 
-- Add volunteer functionality 
+- Add volunteer functionality
 
 Exchange 
 
-- Redesign
 - Add functionality to store harvested date / expiry UI for foodbank collection 
 - Add functionality to store quantity of produce available
 
 Posts & BlogPage
 
 - Refactor to extract all search functionality out, and replace with SearchBar
-     component
+   component
 
 Messenger
 
@@ -61,20 +56,6 @@ Calendar
 - Implement Google Calendar with full interaction
 - Link to other components
 
-Shopify
+Overall
 
-- Finish building server and understanding how it works
-- Build page
-
-Site-wide
-
-- Re-theme all Main objects to the colour in Activities
-
-
-
-| ----- Useful Info ---- |
-
-CSS 
-
-1. min-vh-100
-2. flex-grow-1
+- Check all cards & pages for consistency (e.g. placement of buttons etc)
