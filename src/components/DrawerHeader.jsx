@@ -70,12 +70,15 @@ export default function DrawerHeader({ isDrawerOpen, toggleDrawer }) {
             onClick={toggleDrawer}>
             Activities
           </Link>
-          <Link
-            to="/messenger"
-            className="drawer-nav-item"
-            onClick={toggleDrawer}>
-            Messenger
-          </Link>
+          {user && (
+            <Link
+              to="/messenger"
+              className="drawer-nav-item"
+              onClick={toggleDrawer}>
+              Messenger
+            </Link>
+          )}
+
           {user ? (
             <div>
               {" "}

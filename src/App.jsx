@@ -72,8 +72,9 @@ export default function App() {
               <Route path="/shop" element={<Shop />} />
             </Routes>
           </Suspense>
-          <AdCarousel />
+          
         </main>
+        <AdCarousel />
         <Footer />
       </AuthProvider>
     </div>

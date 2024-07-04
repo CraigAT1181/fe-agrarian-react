@@ -34,11 +34,13 @@ export default function NavbarHeader() {
         className="nav-item">
         Activities
       </Link>
-      <Link
-        to="/messenger"
-        className="nav-item">
-        Messenger
-      </Link>
+      {user && (
+        <Link
+          to="/messenger"
+          className="nav-item">
+          Messenger
+        </Link>
+      )}
     </nav>
   );
 }
