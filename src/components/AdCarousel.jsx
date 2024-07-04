@@ -27,45 +27,47 @@ export default function AdCarousel() {
     slidesToShow: 3,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 5000,
-    arrows: true,
+    autoplaySpeed: 4000,
+    arrows: false,
     pauseOnHover: true,
     adaptiveHeight: false,
     innerWidth: "auto",
     centerMode: true,
-    centerPadding: "1rem",
+    centerPadding: "0rem",
     initialSlide: 0,
-    // responsive: [
-    //   {
-    //     breakpoint: 768,
-    //     settings: {
-    //       slidesToShow: 1,
-    //       slidesToScroll: 1,
-    //     },
-    //   },
-    //   {
-    //     breakpoint: 1024,
-    //     settings: {
-    //       slidesToShow: 3,
-    //       slidesToScroll: 1,
-    //     },
-    //   },
-    // ],
+    responsive: [
+      {
+        breakpoint: 640,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 1,
+        },
+      },
+    ],
   };
 
   return (
-    <div>
-      {/* <Slider {...settings}>
+    <div className="mt-14">
+      <Slider {...settings}>
         {ads.map((ad, index) => (
-          <div key={index}>
-            <span>Ad Example</span>
-            <img
-              src={ad.image_url}
-              alt={`Ad ${index}`}
-            />
+          <div
+            key={index}>
+            <div className="flex justify-center">
+              <img
+                src={ad.image_url}
+                alt={`Ad ${index}`}
+              />
+            </div>
           </div>
         ))}
-      </Slider> */}
+      </Slider>
     </div>
   );
 }

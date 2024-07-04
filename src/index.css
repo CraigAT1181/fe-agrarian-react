@@ -343,5 +343,5 @@
 /* -- FOOTER -- */
 
 .footer {
-  @apply bg-white text-green-950 p-4 flex-col text-center mt-4;
+  @apply bg-white text-green-950 p-4 flex-col text-center;
 }
