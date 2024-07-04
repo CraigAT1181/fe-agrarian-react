@@ -3,7 +3,6 @@ import { formatDistanceToNow } from "date-fns";
 import { useAuth } from "./AuthContext";
 import { deleteComment } from "../api/api";
 import MessageButtonS from "./MessageButtonS";
-import ReplyDisplay from "./ReplyDisplay";
 import ReplyInputModal from "./ReplyInputModal";
 
 export default function CommentsCard({
@@ -14,21 +13,18 @@ export default function CommentsCard({
   commentDeleted,
   replyPosted,
   setReplyPosted,
+  toggleViewReplies,
+  viewReplies,
+  isChild,
 }) {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [viewReplies, setViewReplies] = useState(false);
-  const [viewRepliesButton, setViewRepliesButton] = useState("View Replies");
   const [showModal, setShowModal] = useState(false);
   const { user } = useAuth();
 
   const formattedDate = formatDistanceToNow(new Date(comment.date_posted), {
     addSuffix: true,
   });
-
-  const handleViewReplies = () => {
-    setViewReplies(!viewReplies);
-  };
 
   const handleDelete = (blog_id, comment_id) => {
     setIsLoading(true);
@@ -63,94 +59,68 @@ export default function CommentsCard({
       </div>
     );
 
+  const replies = allComments.filter(
+    (reply) => reply.parent_comment_id === comment.comment_id
+  );
+
   return (
-    <div className="comment-card-container">
+    <div
+      className={`comment-card-container ${
+        isChild ? "child-comment" : "parent-comment"
+      } ${viewReplies ? "expanded" : ""}`}
+      onClick={() => toggleViewReplies(comment.comment_id)}>
       <div>
         <div>
-          <div>
-            <div>
-              <div>
-                <h5>{comment.username}</h5>
-                {user && user.userID !== comment.user_id && (
-                  <MessageButtonS partner={comment.user_id} />
-                )}
-              </div>
-
-              <div>
-                <p>{formattedDate}</p>
-              </div>
+          <h5>{comment.username}</h5>
+          {user && user.userID !== comment.user_id && (
+            <MessageButtonS partner={comment.user_id} />
+          )}
+        </div>
+      </div>
+      <div>
+        <p>{comment.comment}</p>
+      </div>
+      <div>
+        <div>
+          <div className="flex justify-between">
+            <div className="flex items-end">
+              <p className="mb-0">{formattedDate}</p>
+            </div>
+            <div className="flex items-end">
+              {replies.length} <i className="fa-solid ml-2 text-green-950 fa-comments"></i>
             </div>
           </div>
-        </div>
-        <div>
-          <div>
-            <p>{comment.comment}</p>
-          </div>
-        </div>
-        <div>
-          <div>
-            <button onClick={() => handleViewReplies()}>
-              {`${
-                allComments.filter(
-                  (reply) => reply.parent_comment_id === comment.comment_id
-                ).length
-              } ${
-                allComments.filter(
-                  (reply) => reply.parent_comment_id === comment.comment_id
-                ).length === 1
-                  ? "reply"
-                  : "replies"
-              }`}
-            </button>
-            {user && user.userID !== comment.user_id && (
-              <div>
-                <button type="button" onClick={handleShow}>
-                  <i className="fa-solid text-green-950 fa-reply"></i>
-                </button>
-              </div>
-            )}
-            <ReplyInputModal
-              show={showModal}
-              handleClose={handleClose}
-              blog_id={blog_id}
-              parent_comment_id={comment.comment_id}
-              comment_user={comment.username}
-              setReplyPosted={setReplyPosted}
-            />
-          </div>
-
-          {user && user.username === comment.username && (
+          {user && user.userID !== comment.user_id && (
             <div>
               <button
-                onClick={() => handleDelete(blog_id, comment.comment_id)}
-                title="Delete Comment"
-              >
-                {isLoading ? (
-                  <i className="fa-solid fa-spinner fa-spin"></i>
-                ) : (
-                  <i className="fa-solid fa-trash"></i>
-                )}
+                type="button"
+                onClick={handleShow}>
+                <i className="fa-solid text-green-950 fa-reply"></i>
               </button>
             </div>
           )}
+          <ReplyInputModal
+            show={showModal}
+            handleClose={handleClose}
+            blog_id={blog_id}
+            parent_comment_id={comment.comment_id}
+            comment_user={comment.username}
+            setReplyPosted={setReplyPosted}
+          />
         </div>
-        <div>
-          {viewReplies && (
-            <>
-              <hr className="my-5" />
-              <div>
-                <ReplyDisplay
-                  blog_id={blog_id}
-                  comment={comment}
-                  allComments={allComments}
-                  setCommentDeleted={setCommentDeleted}
-                  replyPosted={replyPosted}
-                  setReplyPosted={setReplyPosted}
-                />
-              </div>
-            </>
-          )}
-        </div>
+        {user && user.username === comment.username && (
+          <div>
+            <button
+              onClick={() => handleDelete(blog_id, comment.comment_id)}
+              title="Delete Comment">
+              {isLoading ? (
+                <i className="fa-solid fa-spinner fa-spin"></i>
+              ) : (
+                <i className="fa-solid fa-trash"></i>
+              )}
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

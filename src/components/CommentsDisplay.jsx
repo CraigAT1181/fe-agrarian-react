@@ -9,12 +9,11 @@ export default function CommentsDisplay({ blog_id }) {
   const [blogComments, setBlogComments] = useState([]);
   const [commentDeleted, setCommentDeleted] = useState(false);
   const [replyPosted, setReplyPosted] = useState(false);
-  const [nestedComments, setNestedComments] = useState([]);
+  const [viewReplies, setViewReplies] = useState({});
   const { commentPosted } = useAuth();
 
   useEffect(() => {
     fetchBlogComments();
-
     setCommentDeleted(false);
   }, [commentPosted, commentDeleted, replyPosted]);
 
@@ -22,49 +21,27 @@ export default function CommentsDisplay({ blog_id }) {
     getCommentsByBlogID(blog_id)
       .then(({ comments }) => {
         setIsLoading(false);
-
         setBlogComments(comments);
-
-        const nestedCommentfunc = transformComments(comments);
-        setNestedComments(nestedCommentfunc);
       })
-      .catch(
-        ({
-          response: {
-            status,
-            data: { message },
-          },
-        }) => {
-          setIsLoading(false);
-          setError({ status, message: message });
-        }
-      );
+      .catch(({ response: { status, data: { message } } }) => {
+        setIsLoading(false);
+        setError({ status, message: message });
+      });
   };
 
-  const transformComments = (comments) => {
-    const commentMap = new Map();
-    const rootComments = [];
-
-    // Initialize the map with all comments
-    comments.forEach((comment) => {
-      comment.replies = [];
-      commentMap.set(comment.comment_id, comment);
-    });
-
-    // Build the tree structure
-    comments.forEach((comment) => {
-      if (comment.parent_comment_id) {
-        const parentComment = commentMap.get(comment.parent_comment_id);
-        if (parentComment) {
-          parentComment.replies.push(comment);
-        }
-      } else {
-        rootComments.push(comment);
-      }
-    });
-
-    return rootComments;
+  const toggleViewReplies = (commentId) => {
+    setViewReplies((prevViewReplies) => ({
+      ...prevViewReplies,
+      [commentId]: !prevViewReplies[commentId],
+    }));
   };
+
+  const rootComments = blogComments.filter(
+    (comment) => comment.parent_comment_id === null
+  );
+
+  const replies = (parentId) =>
+    blogComments.filter((comment) => comment.parent_comment_id === parentId);
 
   if (isLoading)
     return (
@@ -83,30 +60,44 @@ export default function CommentsDisplay({ blog_id }) {
       </div>
     );
 
-  return (
-    <div>
-      {nestedComments.length > 0 ? (
-        nestedComments.map(
-          (comment) =>
-            comment.parent_comment_id === null && (
-              <div key={comment.comment_id}>
-                <CommentsCard
-                  blog_id={blog_id}
-                  comment={comment}
-                  allComments={blogComments}
-                  setCommentDeleted={setCommentDeleted}
-                  commentDeleted={commentDeleted}
-                  replyPosted={replyPosted}
-                  setReplyPosted={setReplyPosted}
-                />
+    const renderComments = (comments, parentCommentId) => {
+      return comments.map((comment) => (
+        <div key={comment.comment_id}>
+          <CommentsCard
+            blog_id={blog_id}
+            comment={comment}
+            allComments={blogComments}
+            setCommentDeleted={setCommentDeleted}
+            commentDeleted={commentDeleted}
+            replyPosted={replyPosted}
+            setReplyPosted={setReplyPosted}
+            toggleViewReplies={toggleViewReplies}
+            viewReplies={viewReplies[comment.comment_id] || false}
+            isChild={parentCommentId !== null}
+            
+          />
+          {viewReplies[comment.comment_id] && (
+            <div className="nested-comments-wrapper">
+              <div className="vertical-line"></div>
+              <div className="nested-comments">
+                {renderComments(replies(comment.comment_id), comment.comment_id)}
               </div>
-            )
-        )
-      ) : (
-        <div>
-          <span>No one has commented on this blog yet.</span>
+            </div>
+          )}
         </div>
-      )}
-    </div>
-  );
+      ));
+    };
+    
+    return (
+      <div>
+        {rootComments.length > 0 ? (
+          renderComments(rootComments, null)
+        ) : (
+          <div>
+            <span>No one has commented on this blog yet.</span>
+          </div>
+        )}
+      </div>
+    );
+    
 }
