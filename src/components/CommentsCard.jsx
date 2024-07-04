@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { formatDistanceToNow } from "date-fns";
 import { useAuth } from "./AuthContext";
 import { deleteComment } from "../api/api";
-import MessageButtonS from "./MessageButtonS";
 import ReplyInputModal from "./ReplyInputModal";
 
 export default function CommentsCard({
@@ -70,12 +69,9 @@ export default function CommentsCard({
       } ${viewReplies ? "expanded" : ""}`}
       onClick={() => toggleViewReplies(comment.comment_id)}>
       <div>
-        <div>
+   
           <h5>{comment.username}</h5>
-          {user && user.userID !== comment.user_id && (
-            <MessageButtonS partner={comment.user_id} />
-          )}
-        </div>
+
       </div>
       <div>
         <p>{comment.comment}</p>

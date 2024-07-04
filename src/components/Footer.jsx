@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import NavbarFooter from "./NavbarFooter";
 import DrawerFooter from "./DrawerFooter";
 
-
 export default function Footer() {
   const [isDrawerOpen, setDrawerOpen] = useState(false);
 
@@ -12,11 +11,6 @@ export default function Footer() {
 
   return (
     <footer className="footer">
-      <hr />
-
-
-
-
       <button
         onClick={toggleDrawer}
         className="hamburger">

@@ -2,7 +2,7 @@ import React from "react";
 import { formatDistanceToNow } from "date-fns";
 import { useAuth } from "./AuthContext";
 import { deletePost } from "../api/api";
-import MessageButtonL from "./MessageButtonL";
+import MessageButtonS from "./MessageButtonS";
 
 export default function PostCard({ post, setPostDeleted }) {
   const { user } = useAuth();
@@ -42,22 +42,23 @@ export default function PostCard({ post, setPostDeleted }) {
         <p className="text-sm text-green-950 mb-1">{formattedDate}</p>
       </div>
       <div className="flex justify-between p-2">
-      <p className="text-green-950 text-sm mb-0">{post.posted_by}</p>
-          <p className="text-green-950 text-sm mb-0">{post.postcode}</p>
+        <p className="text-green-950 text-sm mb-0">{post.posted_by}</p>
+        <p className="text-green-950 text-sm mb-0">{post.postcode}</p>
       </div>
-      <div className="post-card-user-banner">
-
-        <div className="post-card-user-banner-text">
-          {user &&
-            (user.userID === post.user_id ? (
-              <button onClick={() => handleDelete(post.post_id)}>
-                <i className="fa-solid fa-2x fa-trash"></i>
-              </button>
-            ) : (
-              <MessageButtonL partner={post.user_id} />
-            ))}
+      {user && (
+        <div className="post-card-user-banner">
+          <div className="post-card-user-banner-text">
+            {user &&
+              (user.userID === post.user_id ? (
+                <button onClick={() => handleDelete(post.post_id)}>
+                  <i className="fa-solid fa-trash"></i>
+                </button>
+              ) : (
+                <MessageButtonS partner={post.user_id} />
+              ))}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

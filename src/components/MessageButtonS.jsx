@@ -48,7 +48,7 @@ export default function MessageButtonS({ partner }) {
 
   return (
     <button
-      className="text-green-950"
+      className="text-white"
       style={{ marginLeft: "1em", padding: "0" }}
       title="Send Message"
       onClick={handleClick}>
