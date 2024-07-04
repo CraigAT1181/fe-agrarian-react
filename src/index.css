@@ -31,11 +31,11 @@
 /* -- HEADER -- */
 
 .header {
-  @apply bg-white text-green-950 p-4 flex justify-between items-center;
+  @apply bg-white text-green-950 p-4 mb-4 flex justify-between items-center;
 }
 
 .title {
-  @apply text-lg font-bold;
+  @apply text-lg lg:text-3xl font-bold mb-0;
 }
 
 .hamburger {
@@ -76,6 +76,10 @@
 
 .nav-item {
   @apply mx-4 no-underline text-green-950;
+}
+
+.selected-nav-item {
+  @apply font-semibold;
 }
 
 /* -- LOGIN / REG -- */
@@ -217,7 +221,13 @@
 /* -- BLOG PAGE -- */
 
 .blog-display {
-  @apply grid grid-cols-1 md:grid-cols-3 gap-4;
+  @apply grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4;
+}
+
+/* -- ACTIVITIES -- */
+
+.activities-display {
+  @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4;
 }
 
 /* -- MY ACTIVITIES -- */
@@ -230,8 +240,8 @@
   @apply bg-green-950 p-2 my-4;
 }
 
-.activities-display {
-  @apply grid grid-cols-1 md:grid-cols-2 gap-4;
+.my-activities-display {
+  @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4;
 }
 
 /* -- ACTIVITY CARD -- */
@@ -283,26 +293,23 @@
 /* -- COMMENTS -- */
 
 .comment-card-container.child-comment {
-  @apply bg-gray-100
+  @apply bg-gray-100;
 }
 
 .comment-card-container.expanded {
-  @apply shadow-md shadow-green-950 bg-white
+  @apply shadow-md shadow-green-950 bg-white;
 }
 
 .nested-comments-wrapper {
-  @apply flex relative
+  @apply flex relative;
 }
 
 .vertical-line {
-
-  @apply w-0.5 bg-gray-200 absolute top-0 bottom-0 left-0 
-
+  @apply w-0.5 bg-gray-200 absolute top-0 bottom-0 left-0;
 }
 
 .nested-comments {
-  @apply ml-2 w-full
-  
+  @apply ml-2 w-full;
 }
 
 /* -- COMMENT INPUT -- */

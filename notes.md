@@ -59,3 +59,4 @@ Calendar
 Overall
 
 - Check all cards & pages for consistency (e.g. placement of buttons etc)
+- Implement "notifications" functionality (in-app to begin with)

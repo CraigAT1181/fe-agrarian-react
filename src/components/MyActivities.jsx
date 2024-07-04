@@ -110,7 +110,7 @@ export default function MyActivities() {
             {groupedActivities[monthYearString] && (
               <Banner monthYear={monthYearString} />
             )}
-            <div className="activities-display">
+            <div className="my-activities-display">
               {groupedActivities[monthYearString]?.map((activity) => (
                 <ActivityCard
                   key={activity.activity_id}

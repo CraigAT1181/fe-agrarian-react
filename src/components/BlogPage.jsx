@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Alert } from "react-bootstrap";
 import { getBlogs } from "../api/api";
 import BlogCard from "./BlogCard";
-import { useAuth } from "./AuthContext";
-import { useNavigate } from "react-router-dom";
 
 export default function BlogPage() {
   const [isLoading, setIsLoading] = useState(true);
@@ -14,9 +12,6 @@ export default function BlogPage() {
   const [activeSearch, setActiveSearch] = useState(false);
   const [notFound, setNotFound] = useState("");
   const [blogDeleted, setBlogDeleted] = useState(false);
-
-  const { user } = useAuth();
-  const navigate = useNavigate();
 
   // Fetch blogs on mount and when blogDeleted changes
   useEffect(() => {
