@@ -68,10 +68,33 @@ export default function CommentsCard({
         isChild ? "child-comment" : "parent-comment"
       } ${viewReplies ? "expanded" : ""}`}
       onClick={() => toggleViewReplies(comment.comment_id)}>
-      <div>
-   
+      <div className="flex justify-between">
+        <div>
           <h5>{comment.username}</h5>
-
+        </div>
+        {user && user.userID !== comment.user_id ? (
+          <div>
+            <button
+              type="button"
+              onClick={handleShow}
+              title="Reply">
+              <i className="fa-solid text-green-900 fa-reply"></i>
+            </button>
+          </div>
+        ) : (
+          <div>
+            <button
+              type="button"
+              onClick={() => handleDelete(blog_id, comment.comment_id)}
+              title="Delete Comment">
+              {isLoading ? (
+                <i className="fa-solid fa-spinner fa-spin"></i>
+              ) : (
+                <i className="fa-solid text-green-900 fa-trash"></i>
+              )}
+            </button>
+          </div>
+        )}
       </div>
       <div>
         <p>{comment.comment}</p>
@@ -83,18 +106,11 @@ export default function CommentsCard({
               <p className="mb-0">{formattedDate}</p>
             </div>
             <div className="flex items-end">
-              {replies.length} <i className="fa-solid ml-2 text-green-950 fa-comments"></i>
+              {replies.length}{" "}
+              <i className="fa-solid ml-2 text-green-900 fa-comments"></i>
             </div>
           </div>
-          {user && user.userID !== comment.user_id && (
-            <div>
-              <button
-                type="button"
-                onClick={handleShow}>
-                <i className="fa-solid text-green-950 fa-reply"></i>
-              </button>
-            </div>
-          )}
+
           <ReplyInputModal
             show={showModal}
             handleClose={handleClose}
@@ -104,19 +120,6 @@ export default function CommentsCard({
             setReplyPosted={setReplyPosted}
           />
         </div>
-        {user && user.username === comment.username && (
-          <div>
-            <button
-              onClick={() => handleDelete(blog_id, comment.comment_id)}
-              title="Delete Comment">
-              {isLoading ? (
-                <i className="fa-solid fa-spinner fa-spin"></i>
-              ) : (
-                <i className="fa-solid fa-trash"></i>
-              )}
-            </button>
-          </div>
-        )}
       </div>
     </div>
   );

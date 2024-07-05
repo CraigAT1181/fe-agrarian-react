@@ -82,7 +82,7 @@ export default function CommentInput({ blog_id }) {
               id="comment-button"
               className="post-comment-button"
               type="submit">
-              <i className="fa-solid fa-xl text-green-950 fa-arrow-right"></i>
+              <i className="fa-solid fa-xl text-green-900 fa-arrow-right"></i>
             </button>
           )}
         </div>

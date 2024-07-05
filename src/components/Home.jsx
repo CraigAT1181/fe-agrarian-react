@@ -43,7 +43,7 @@ export default function Home() {
   };
 
   return (
-    <div className="text-green-950">
+    <div className="text-green-900">
       <div className="text-center">
         <h6>Hi {user.username}</h6>
       </div>
@@ -53,8 +53,7 @@ export default function Home() {
             <div>
               <div
                 className="cursor-pointer"
-                onClick={() => handleClick(index)}
-              >
+                onClick={() => handleClick(index)}>
                 <span className="font-semibold">{section}</span>
               </div>
               <hr className="mt-1" />

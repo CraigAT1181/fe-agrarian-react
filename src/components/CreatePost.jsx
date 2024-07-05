@@ -81,7 +81,7 @@ export default function CreatePostModal({ show, handleClose, setNewPost }) {
                 className={`p-2 rounded-lg mx-1 ${
                   status === "Available"
                     ? "bg-green-950 text-white"
-                    : "bg-white border border-green-950 text-green-950"
+                    : "bg-white border border-green-950 text-green-900"
                 }`}
                 type="button"
                 onClick={() => handleStatusSelection("Available")}>
@@ -91,7 +91,7 @@ export default function CreatePostModal({ show, handleClose, setNewPost }) {
                 className={`p-2 rounded-lg mx-1 ${
                   status === "Wanted"
                     ? "bg-green-950 text-white"
-                    : "bg-white border border-green-950 text-green-950"
+                    : "bg-white border border-green-950 text-green-900"
                 }`}
                 type="button"
                 onClick={() => handleStatusSelection("Wanted")}>
@@ -105,7 +105,7 @@ export default function CreatePostModal({ show, handleClose, setNewPost }) {
                 className={`p-2 rounded-lg mx-1 ${
                   type === "Seeds"
                     ? "bg-green-950 text-white"
-                    : "bg-white border border-green-950 text-green-950"
+                    : "bg-white border border-green-950 text-green-900"
                 }`}
                 type="button"
                 onClick={() => handleTypeSelection("Seeds")}>
@@ -115,7 +115,7 @@ export default function CreatePostModal({ show, handleClose, setNewPost }) {
                 className={`p-2 rounded-lg mx-1 ${
                   type === "Produce"
                     ? "bg-green-950 text-white"
-                    : "bg-white border border-green-950 text-green-950"
+                    : "bg-white border border-green-950 text-green-900"
                 }`}
                 type="button"
                 onClick={() => handleTypeSelection("Produce")}>

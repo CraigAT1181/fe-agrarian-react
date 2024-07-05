@@ -93,10 +93,9 @@ export default function Login() {
               style={{ paddingRight: "40px" }}
             />
             <button
-              className="text-green-950 cursor-pointer bg-transparent absolute top-8 right-2"
+              className="text-green-900 cursor-pointer bg-transparent absolute top-8 right-2"
               onClick={togglePasswordVisibility}
-              type="button"
->
+              type="button">
               <i
                 className={`fa-solid ${
                   showPassword ? "fa-eye" : "fa-eye-slash"

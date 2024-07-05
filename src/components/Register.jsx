@@ -108,10 +108,9 @@ export default function Register() {
                 style={{ paddingRight: "40px" }}
               />
               <button
-                className="text-green-950 cursor-pointer bg-transparent absolute top-2 right-2"
+                className="text-green-900 cursor-pointer bg-transparent absolute top-2 right-2"
                 onClick={togglePassword1Visibility}
-                type="button"
->
+                type="button">
                 <i
                   className={`fa-solid ${
                     showPassword1 ? "fa-eye" : "fa-eye-slash"
@@ -131,10 +130,9 @@ export default function Register() {
                   style={{ paddingRight: "40px" }}
                 />
                 <button
-                  className="text-green-950 cursor-pointer bg-transparent absolute top-8 right-2"
+                  className="text-green-900 cursor-pointer bg-transparent absolute top-8 right-2"
                   onClick={togglePassword2Visibility}
-                  type="button"
->
+                  type="button">
                   <i
                     className={`fa-solid ${
                       showPassword2 ? "fa-eye" : "fa-eye-slash"

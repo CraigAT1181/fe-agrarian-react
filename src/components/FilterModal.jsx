@@ -34,7 +34,7 @@ export default function FilterModal({ show, handleClose, applyFilters }) {
                   value="Available"
                   checked={selectedAvailability === "Available"}
                   onChange={(e) => setSelectedAvailability(e.target.value)}
-                  className="form-radio text-green-950"
+                  className="form-radio text-green-900"
                 />
               </div>
               <div className="flex items-center space-x-2">
@@ -45,7 +45,7 @@ export default function FilterModal({ show, handleClose, applyFilters }) {
                   value="Wanted"
                   checked={selectedAvailability === "Wanted"}
                   onChange={(e) => setSelectedAvailability(e.target.value)}
-                  className="form-radio text-green-950"
+                  className="form-radio text-green-900"
                 />
               </div>
             </div>
@@ -58,7 +58,7 @@ export default function FilterModal({ show, handleClose, applyFilters }) {
                   value="Produce"
                   checked={selectedType === "Produce"}
                   onChange={(e) => setSelectedType(e.target.value)}
-                  className="form-radio text-green-950"
+                  className="form-radio text-green-900"
                 />
               </div>
               <div className="flex items-center space-x-2">
@@ -69,7 +69,7 @@ export default function FilterModal({ show, handleClose, applyFilters }) {
                   value="Seed"
                   checked={selectedType === "Seed"}
                   onChange={(e) => setSelectedType(e.target.value)}
-                  className="form-radio text-green-950"
+                  className="form-radio text-green-900"
                 />
               </div>
             </div>

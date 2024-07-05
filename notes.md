@@ -11,6 +11,7 @@ PostCard
 Comments
 
 - Deal with the nested comments to prevent visual issues with deep nesting
+- Add a "--- show more ---" bar when the number of parent comments reaches 4 or 5
 
 Login / Registration
 

@@ -103,7 +103,7 @@ export default function ProduceFinder({
     <div>
       <div className="flex-col text-center">
         <div className="mt-4">
-          <span className="font-semibold text-green-950">
+          <span className="font-semibold text-green-900">
             Looking for anything in particular?
           </span>
         </div>

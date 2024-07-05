@@ -126,7 +126,7 @@ export default function BlogCard({ blog, setBlogDeleted }) {
         </div>
 
         <div title="Comments">
-          <i className="fa-solid fa-comment text-green-950"></i>
+          <i className="fa-solid fa-comment text-green-900"></i>
           <p className="mb-0">{blogComments.length}</p>
         </div>
       </div>
