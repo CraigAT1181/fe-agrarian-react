@@ -162,22 +162,24 @@ export default function ActivityDetail() {
               user.userID !== singleActivity.user_id &&
               (new Date(singleActivity.date_e_time) < new Date() &&
               !singleActivity.is_cancelled ? (
-                <span>This activity has now finished.</span>
-              ) : (
-                <span>
-                  If you'd like to find out more about this activity, contact{" "}
-                  {singleActivity.username}
-                </span>
-              ))
+                <div>
+                  <p>This activity has now finished.</p>
+                  <p>
+                    If you'd like to find out more about this activity, contact{" "}
+                    {singleActivity.username}
+                  </p>
+                </div>
+              ) : null)
             ) : new Date(singleActivity.date_e_time) < new Date() &&
               !singleActivity.is_cancelled ? (
-              <span>This activity has now finished.</span>
-            ) : (
-              <span>
-                If you'd like to find out more about this activity, contact{" "}
-                {singleActivity.username}
-              </span>
-            )}
+              <div>
+                <p>This activity has now finished.</p>
+                <p>
+                  If you'd like to find out more about this activity, contact{" "}
+                  {singleActivity.username}
+                </p>
+              </div>
+            ) : null}
           </div>
 
           {user && user.userID === singleActivity.user_id && (
