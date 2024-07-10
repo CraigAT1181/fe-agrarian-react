@@ -1,15 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useAuth } from "./AuthContext";
 import { deleteConversation, getConversationsByUserID } from "../api/api";
-import "../App.css";
 
-export default function ContactList({
-  conversations,
-  setConversations,
-  setConversationID,
-}) {
+export default function ContactList() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  const [fetchedConversations, setFetchedConversations] = useState([]);
+  const [selectedConversationID, setSelectedConversationID] = useState(null);
+
   const [conversationDeleted, setConversationDeleted] = useState(false);
   const { user } = useAuth();
   const topItemRef = useRef(null);
@@ -18,22 +17,7 @@ export default function ContactList({
     setIsLoading(true);
 
     if (user) {
-      getConversationsByUserID(user.userID)
-        .then(({ conversations }) => {
-          setIsLoading(false);
-          setConversations(conversations);
-        })
-        .catch(
-          ({
-            response: {
-              status,
-              data: { message },
-            },
-          }) => {
-            setIsLoading(false);
-            setError({ status, message: message });
-          }
-        );
+      fetchConversations();
     } else {
       setIsLoading(false);
     }
@@ -42,19 +26,39 @@ export default function ContactList({
   }, [user, conversationDeleted]);
 
   useEffect(() => {
-    // Focus on the top item when the component mounts
-    if (topItemRef.current) {
+    if (fetchedConversations.length > 0 && topItemRef.current) {
       topItemRef.current.focus();
-      setConversationID(conversations[0].conversation_id);
+      setSelectedConversationID(fetchedConversations[0].conversation_id);
     }
-  }, [conversations, setConversationID]);
+  }, [fetchedConversations]);
+
+  const fetchConversations = () => {
+    setIsLoading(true);
+    getConversationsByUserID(user.userID)
+      .then(({ conversations }) => {
+        setIsLoading(false);
+        setFetchedConversations(conversations);
+        console.log(conversations);
+      })
+      .catch(
+        ({
+          response: {
+            status,
+            data: { message },
+          },
+        }) => {
+          setIsLoading(false);
+          setError({ status, message: message });
+        }
+      );
+  };
 
   const handleDeleteConversation = (userID, conversationID) => {
     setIsLoading(true);
     deleteConversation(userID, conversationID)
       .then(() => {
         setIsLoading(false);
-        setConversationID(null);
+        setSelectedConversationID(null);
         setConversationDeleted(true);
       })
       .catch(
@@ -70,11 +74,15 @@ export default function ContactList({
       );
   };
 
+  const handleConversationClick = (conversationID) => {
+    setSelectedConversationID(conversationID);
+    console.log("click");
+  };
+
   if (isLoading)
     return (
-      <div className="d-flex-col text-center mt-4">
+      <div className="flex text-center mt-4">
         <i className="fa-solid fa-spinner fa-spin"></i>
-        <p>Loading conversations...</p>
       </div>
     );
   if (error)
@@ -88,61 +96,54 @@ export default function ContactList({
     );
 
   return (
-    <div
-      className="d-flex-col justify-content-center p-2"
-      style={{ overflowY: "auto" }}>
-      {conversations.length > 0
-        ? conversations.map((conversation, index) =>
+    <div>
+      {fetchedConversations.length > 0
+        ? fetchedConversations.map((conversation, index) =>
             conversation.user1_id === user.userID ? (
               <div
                 key={index}
-                className="contact-list-item rounded text-success"
+                className="border p-2 rounded-lg my-2 cursor-pointer"
                 ref={index === 0 ? topItemRef : null}
                 tabIndex={index === 0 ? 0 : -1}
                 onClick={() => {
-                  setConversationID(conversation.conversation_id);
+                  handleConversationClick(conversation.conversation_id);
                 }}>
-                <div
-                  className="contact-list-name"
-                  onClick={() => {
-                    setConversationID(conversation.conversation_id);
-                  }}>
-                  {conversation.user2_username}
-                </div>
-                <div className="position-absolute top-0 end-0 m-1 ">
+                <div className="flex justify-between">
+                  <span className="font-semibold">{conversation.user2_username}</span>
                   <span
-                    className="badge bg-success-subtle"
-                    style={{ cursor: "pointer" }}
+                    className="cursor-pointer"
                     onClick={() => {
                       handleDeleteConversation(
                         user.userID,
                         conversation.conversation_id
                       );
                     }}>
-                    X
+                    <i className="fa-solid text-green-900 fa-square-xmark"></i>
                   </span>
+                </div>
+                <div className="text-sm text-center">
+                  <span>Message is going to appear here...</span>
                 </div>
               </div>
             ) : (
               <div
                 key={index}
-                className="contact-list-item rounded text-success"
+                className=""
                 ref={index === 0 ? topItemRef : null}
                 tabIndex={index === 0 ? 0 : -1}
                 onClick={() => {
                   setConversationID(conversation.conversation_id);
                 }}>
                 <div
-                  className="contact-list-name"
+                  className=""
                   onClick={() => {
                     setConversationID(conversation.conversation_id);
                   }}>
                   {conversation.user1_username}
                 </div>
-                <div className="position-absolute top-0 end-0 m-1 ">
+                <div className="absolute">
                   <span
-                    className="badge bg-success-subtle"
-                    style={{ cursor: "pointer" }}
+                    className=""
                     onClick={() => {
                       handleDeleteConversation(
                         user.userID,

@@ -72,7 +72,7 @@ export default function CommentsCard({
         <div>
           <h5>{comment.username}</h5>
         </div>
-        {user && user.userID !== comment.user_id ? (
+        {user && (user.userID !== comment.user_id ? (
           <div>
             <button
               type="button"
@@ -94,7 +94,7 @@ export default function CommentsCard({
               )}
             </button>
           </div>
-        )}
+        ))}
       </div>
       <div>
         <p>{comment.comment}</p>
