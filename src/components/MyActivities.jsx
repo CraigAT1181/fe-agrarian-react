@@ -92,10 +92,7 @@ export default function MyActivities() {
   return (
     <div className="my-activities-container">
       <div>
-        <button
-          className="dropdown"
-          type="button"
-          onClick={handleShow}>
+        <button className="dropdown" type="button" onClick={handleShow}>
           New Activity
         </button>
         <CreateActivityModal
@@ -104,24 +101,30 @@ export default function MyActivities() {
           setNewActivity={setNewActivity}
         />
       </div>
-      <div className="my-4">
-        {monthsOfYear.map((monthYearString) => (
-          <div key={monthYearString}>
-            {groupedActivities[monthYearString] && (
-              <Banner monthYear={monthYearString} />
-            )}
-            <div className="my-activities-display">
-              {groupedActivities[monthYearString]?.map((activity) => (
-                <ActivityCard
-                  key={activity.activity_id}
-                  activity={activity}
-                  setCancelStatusChange={setCancelStatusChange}
-                />
-              ))}
+      {groupedActivities.length > 0 ? (
+        <div className="my-4">
+          {monthsOfYear.map((monthYearString) => (
+            <div key={monthYearString}>
+              {groupedActivities[monthYearString] && (
+                <Banner monthYear={monthYearString} />
+              )}
+              <div className="my-activities-display">
+                {groupedActivities[monthYearString]?.map((activity) => (
+                  <ActivityCard
+                    key={activity.activity_id}
+                    activity={activity}
+                    setCancelStatusChange={setCancelStatusChange}
+                  />
+                ))}
+              </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      ) : (
+        <div className="flex justify-center my-4">
+          <span>You haven't arranged any activities yet.</span>
+        </div>
+      )}
     </div>
   );
 }

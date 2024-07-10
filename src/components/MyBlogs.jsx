@@ -20,7 +20,6 @@ export default function MyBlogs() {
       .then(({ blogs }) => {
         setIsLoading(false);
         setUserBlogs(blogs);
-        
       })
       .catch(
         ({
@@ -57,25 +56,35 @@ export default function MyBlogs() {
       </div>
     );
 
-    return (
-      <div className="my-blogs-container">
-        <div className="mb-4">
-          <button className="dropdown" type="button" onClick={handleShow}>
-            New Blog
-          </button>
-          <CreateBlogModal show={showModal} handleClose={handleClose} setNewBlog={setNewBlog} />
-        </div>
-        <div className="my-blogs-display">
-          {userBlogs.length > 0 ? (
-            userBlogs.map((blog) => (
-              <BlogCard key={blog.blog_id} blog={blog} setBlogDeleted={setBlogDeleted} />
-            ))
-          ) : (
-            <div className="mt-2">
-              <p>You don't currently have any active blogs.</p>
-            </div>
-          )}
-        </div>
+  return (
+    <div className="my-blogs-container">
+      <div className="mb-4">
+        <button className="dropdown" type="button" onClick={handleShow}>
+          New Blog
+        </button>
+        <CreateBlogModal
+          show={showModal}
+          handleClose={handleClose}
+          setNewBlog={setNewBlog}
+        />
       </div>
-    );
+      <div>
+        {userBlogs.length > 0 ? (
+          <div className="my-blogs-display">
+            {userBlogs.map((blog) => (
+              <BlogCard
+                key={blog.blog_id}
+                blog={blog}
+                setBlogDeleted={setBlogDeleted}
+              />
+            ))}
+          </div>
+        ) : (
+          <div className="flex justify-center my-4">
+            <span>You don't currently have any active blogs.</span>
+          </div>
+        )}
+      </div>
+    </div>
+  );
 }
