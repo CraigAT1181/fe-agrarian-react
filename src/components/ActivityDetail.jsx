@@ -110,125 +110,98 @@ export default function ActivityDetail() {
     );
 
   return (
-    <div>
-      <div>
-        <div>
+    <div className="activity-detail-container">
+      <div className="flex flex-col text-center">
+        <img
+          className="w-full object-cover mb-4"
+          src={singleActivity.image_url}
+          alt="Activity Image"
+        />
+
+        {isLoading ? (
           <div>
-            <img
-              src={singleActivity.image_url}
-              alt=""
-
-            />
+            <i className="fa-solid fa-spinner fa-spin"></i>
           </div>
-
-          <div
-  >
-            {isLoading ? (
-              <div>
-                <i className="fa-solid fa-spinner fa-spin"></i>
-              </div>
-            ) : (
-              <>
-                <p>{`${singleActivity.formattedStart.fullDate}`}</p>
-                <p>{`${singleActivity.formattedStart.time} - ${singleActivity.formattedEnd.time}`}</p>
-              </>
-            )}
-
-            <p>{singleActivity.location}</p>
-
-            {singleActivity.updated_at !== singleActivity.created_at && (
-              <p>{singleActivity.updated_at}</p>
-            )}
+        ) : (
+          <div>
+            <p>{`${singleActivity.formattedStart.fullDate}`}</p>
+            <p>{`${singleActivity.formattedStart.time} - ${singleActivity.formattedEnd.time}`}</p>
           </div>
+        )}
+
+        <p>{singleActivity.location}</p>
+
+        {singleActivity.updated_at !== singleActivity.created_at && (
+          <p>{singleActivity.updated_at}</p>
+        )}
+
+        <h1>{singleActivity.title}</h1>
+
+        <div>
+          {singleActivity.description &&
+            singleActivity.description
+              .split("/n")
+              .map((paragraph, index) => <p key={index}>{paragraph}</p>)}
         </div>
         <div>
-          <div>
-            <h1>{singleActivity.title}</h1>
-            {new Date(singleActivity.date_e_time) < new Date() &&
-              !singleActivity.is_cancelled && (
-                <div>
-                  This activity has now finished.
-                </div>
-              )}
-          </div>
-          <div>
-            {singleActivity.description &&
-              singleActivity.description
-                .split("/n")
-                .map((paragraph, index) => <p key={index}>{paragraph}</p>)}
-          </div>
-          <div>
+          <div className="mb-2">
             {singleActivity.is_cancelled &&
               user?.userID !== singleActivity.user_id &&
               (new Date(singleActivity.date_e_time) < new Date() ? (
-                <div>
-                  <Alert
-                    variant="danger"
-                    >
-                    This activity was cancelled.
-                  </Alert>
-                </div>
+                <span className="bg-gray-600 text-white p-1 rounded">
+                  This activity was cancelled.
+                </span>
               ) : (
-                <div>
-                  <Alert
-                    variant="danger"
-                  >
-                    This activity has been cancelled.
-                  </Alert>
-                </div>
+                <span className="bg-gray-600 text-white p-1 rounded">
+                  This activity has been cancelled.
+                </span>
               ))}
-
-            {user && user.userID !== singleActivity.user_id && (
-              <div>
-                <Alert
-                  variant="success"
-                >
-                  If you'd like to find out more about this activity, contact{" "}
-                  {singleActivity.username} <br />
-                  <MessageButtonL partner={singleActivity.user_id} />
-                </Alert>
-              </div>
-            )}
-
-            {user && user.userID === singleActivity.user_id && (
-              <div>
-                <button
-                  onClick={handleShow}
-             >
-                  Edit
-                </button>
-                <EditActivityModal
-                  show={showModal}
-                  handleClose={handleClose}
-                  singleActivity={singleActivity}
-                  setEditedActivity={setEditedActivity}
-                />
-                <button
-                  onClick={handleCancel}
-             >
-                  {isLoading ? (
-                    <i className="fa-solid fa-spinner fa-spin"></i>
-                  ) : singleActivity.is_cancelled ? (
-                    "Reverse"
-                  ) : (
-                    "Cancel"
-                  )}
-                </button>
-              </div>
-            )}
-
-            {user &&
-              user.userID === singleActivity.user_id &&
-              singleActivity.is_cancelled && (
-                <div>
-                  <Alert
-       
-                    variant="danger">
-                    Activity now labelled as Cancelled.
-                  </Alert>
-                </div>
-              )}
           </div>
+          <div>
+            {user ? (
+              user.userID !== singleActivity.user_id &&
+              (new Date(singleActivity.date_e_time) < new Date() &&
+              !singleActivity.is_cancelled ? (
+                <span>This activity has now finished.</span>
+              ) : (
+                <span>
+                  If you'd like to find out more about this activity, contact{" "}
+                  {singleActivity.username}
+                </span>
+              ))
+            ) : new Date(singleActivity.date_e_time) < new Date() &&
+              !singleActivity.is_cancelled ? (
+              <span>This activity has now finished.</span>
+            ) : (
+              <span>
+                If you'd like to find out more about this activity, contact{" "}
+                {singleActivity.username}
+              </span>
+            )}
+          </div>
+
+          {user && user.userID === singleActivity.user_id && (
+            <div>
+              <button className="dropdown" onClick={handleShow}>
+                Edit
+              </button>
+              <EditActivityModal
+                show={showModal}
+                handleClose={handleClose}
+                singleActivity={singleActivity}
+                setEditedActivity={setEditedActivity}
+              />
+              <button className="dropdown" onClick={handleCancel}>
+                {isLoading ? (
+                  <i className="fa-solid fa-spinner fa-spin"></i>
+                ) : singleActivity.is_cancelled ? (
+                  "Reverse Cancellation"
+                ) : (
+                  "Cancel Activity"
+                )}
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </div>

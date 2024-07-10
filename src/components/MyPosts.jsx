@@ -68,21 +68,23 @@ export default function MyPosts() {
           setNewPost={setNewPost}
         />
       </div>
-      <div className="my-posts-display">
-        {userPosts.length > 0 &&
-          userPosts.map((post) => (
-            <PostCard
-              key={post.post_id}
-              post={post}
-              setPostDeleted={setPostDeleted}
-            />
-          ))}
+      <div>
+        {userPosts.length > 0 ? (
+          <div className="my-posts-display">
+            {userPosts.map((post) => (
+              <PostCard
+                key={post.post_id}
+                post={post}
+                setPostDeleted={setPostDeleted}
+              />
+            ))}
+          </div>
+        ) : (
+          <div className="my-4">
+            <p>You don't currently have any active posts.</p>
+          </div>
+        )}
       </div>
-      {userPosts.length === 0 && (
-        <div className="mt-2">
-          <p>You don't currently have any active posts.</p>
-        </div>
-      )}
     </div>
   );
 }

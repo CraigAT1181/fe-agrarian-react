@@ -55,7 +55,7 @@ export default function BlogCard({ blog, setBlogDeleted }) {
   };
 
   const shortenedTitle = (title) => {
-    const maxLength = 50;
+    const maxLength = 30;
     return title.length > maxLength ? `${title.slice(0, maxLength)}...` : title;
   };
 
@@ -99,15 +99,14 @@ export default function BlogCard({ blog, setBlogDeleted }) {
         {user && user.userID === blog.blog_id && (
           <div
             className="absolute top-2 right-2 bg-green-950 p-2 rounded-lg border shadow-sm shadow-green-950"
-            onClick={handleDelete}>
+            onClick={handleDelete}
+          >
             <i className="fa-solid xl fa-trash text-white"></i>
           </div>
         )}
       </div>
 
-      <Link
-        to={`/blogs/${blog.blog_id}`}
-        className="no-underline">
+      <Link to={`/blogs/${blog.blog_id}`} className="no-underline">
         <div className="blog-card-title">
           <h5 className="text-white mb-0">{shortenedTitle(blog.title)}</h5>
         </div>

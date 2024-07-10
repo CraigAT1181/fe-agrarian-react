@@ -201,7 +201,7 @@
 }
 
 .blog-card-title {
-  @apply flex justify-center p-2 mb-2 h-16 items-center bg-green-950 cursor-pointer;
+  @apply flex justify-center p-2 mb-2 h-auto items-center bg-green-950 cursor-pointer;
 }
 
 /* -- BLOG -- */
@@ -227,7 +227,13 @@
 /* -- ACTIVITIES -- */
 
 .activities-display {
-  @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4;
+  @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4;
+}
+
+/* -- ACTIVITY DETAIL -- */
+
+.activity-detail-container {
+  @apply my-4;
 }
 
 /* -- MY ACTIVITIES -- */
