@@ -12,8 +12,11 @@ export default function Header() {
 
   useEffect(() => {
     const path = location.pathname.substring(1);
+
+    const firstSegment = path.split("/")[0];
+
     const title = path
-      ? path.charAt(0).toUpperCase() + path.slice(1)
+      ? path.charAt(0).toUpperCase() + firstSegment.slice(1)
       : "Exchange";
     setPageTitle(title);
   }, [location]);
