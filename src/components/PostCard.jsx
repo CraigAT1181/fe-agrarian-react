@@ -2,7 +2,7 @@ import React from "react";
 import { formatDistanceToNow } from "date-fns";
 import { useAuth } from "./AuthContext";
 import { deletePost } from "../api/api";
-import MessageButtonS from "./MessageButtonS";
+import MessageButton from "./MessageButton";
 
 export default function PostCard({ post, setPostDeleted }) {
   const { user } = useAuth();
@@ -54,7 +54,11 @@ export default function PostCard({ post, setPostDeleted }) {
                   <i className="fa-solid fa-trash"></i>
                 </button>
               ) : (
-                <MessageButtonS partner={post.user_id} />
+                <MessageButton
+                  partner={post.user_id}
+                  size={"s"}
+                  colour={"white"}
+                />
               ))}
           </div>
         </div>

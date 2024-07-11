@@ -91,11 +91,11 @@
 /* -- MAPS -- */
 
 .info-window {
-  @apply flex flex-col items-center p-2 w-full rounded-lg;
+  @apply flex flex-col items-center p-2 ml-1 w-full rounded-lg;
 }
 
 .info-window-message-button {
-  @apply flex justify-center bg-green-950 p-1 rounded focus:border-none;
+  @apply flex justify-center;
 }
 
 .info-window-produce {

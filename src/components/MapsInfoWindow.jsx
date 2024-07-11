@@ -1,10 +1,10 @@
 import React from "react";
-import MessageButtonL from "./MessageButtonL";
+import MessageButton from "./MessageButton";
 import { useAuth } from "./AuthContext";
 
 export default function MapsInfoWindow({ selectedUser }) {
   const { user } = useAuth();
-  
+
   return (
     <div className="info-window">
       <h5 className="">{selectedUser.username}</h5>
@@ -22,7 +22,11 @@ export default function MapsInfoWindow({ selectedUser }) {
       <p>{selectedUser.postcode}</p>
       {user && selectedUser.user_id !== user.userID && (
         <div className="info-window-message-button">
-          <MessageButtonL partner={selectedUser} />
+          <MessageButton
+            partner={selectedUser}
+            size={"l"}
+            colour={"green"}
+          />
         </div>
       )}
     </div>
