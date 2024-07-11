@@ -4,7 +4,7 @@ import { useAuth } from "./AuthContext";
 
 export default function MapsInfoWindow({ selectedUser }) {
   const { user } = useAuth();
-  console.log(selectedUser);
+  
   return (
     <div className="info-window">
       <h5 className="">{selectedUser.username}</h5>
@@ -20,7 +20,7 @@ export default function MapsInfoWindow({ selectedUser }) {
         })}
       </div>
       <p>{selectedUser.postcode}</p>
-      {user && (
+      {user && selectedUser.user_id !== user.userID && (
         <div className="info-window-message-button">
           <MessageButtonL partner={selectedUser} />
         </div>

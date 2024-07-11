@@ -4,6 +4,7 @@ import ActivityDisplay from "./ActivityDisplay";
 import MyDatePicker from "./DatePicker";
 import SearchBar from "./SearchBar";
 
+// Activities component: fetches and displays activities with filtering and searching functionality
 export default function Activities() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -12,38 +13,36 @@ export default function Activities() {
   const [selectedDate, setSelectedDate] = useState(null);
   const [cancelStatusChange, setCancelStatusChange] = useState(false);
 
+  // Fetch all activities from the backend and sort by start date
   useEffect(() => {
     setIsLoading(true);
     getActivities()
       .then(({ activities }) => {
+        const sortedActivities = activities.sort(
+          (a, b) => new Date(a.date_s_time) - new Date(b.date_s_time)
+        );
+        setActivities(sortedActivities);
         setIsLoading(false);
-        const sortedActivities = activities
-        .sort((a, b) => new Date(a.date_s_time) - new Date(b.date_s_time));
-
-      setActivities(sortedActivities);
       })
-      .catch(
-        ({
-          response: {
-            status,
-            data: { message },
-          },
-        }) => {
-          setIsLoading(false);
-          setError({ status, message: message });
-        }
-      );
-    setCancelStatusChange(false);
-  }, [setSearchedActivities, cancelStatusChange]);
+      .catch(({ response: { status, data: { message } } }) => {
+        setError({ status, message });
+        setIsLoading(false);
+      });
 
-  if (isLoading)
+    setCancelStatusChange(false);
+  }, [cancelStatusChange]);
+
+  // Loading and error handling
+  if (isLoading) {
     return (
       <div>
         <i className="fa-solid fa-spinner fa-spin"></i>
         <p>Loading activities...</p>
       </div>
     );
-  if (error)
+  }
+
+  if (error) {
     return (
       <div>
         <i className="fa-solid fa-exclamation"></i>
@@ -52,6 +51,7 @@ export default function Activities() {
         </p>
       </div>
     );
+  }
 
   return (
     <div className="flex-col text-center my-4">

@@ -221,7 +221,7 @@
 /* -- BLOG PAGE -- */
 
 .blog-display {
-  @apply grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4;
+  @apply grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-4;
 }
 
 /* -- ACTIVITIES -- */
@@ -247,7 +247,7 @@
 }
 
 .my-activities-display {
-  @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 lg:p-4;
+  @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4;
 }
 
 /* -- ACTIVITY CARD -- */
@@ -271,7 +271,7 @@
 }
 
 .post-display {
-  @apply grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4;
+  @apply grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-4;
 }
 
 /* ---- SEARCH BAR ---- */

@@ -1,5 +1,6 @@
 import React from "react";
 
+// Banner component to display a month and year title
 const Banner = ({ monthYear }) => {
   return (
     <div className="banner-container">

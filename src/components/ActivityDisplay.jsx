@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import ActivityCard from "./ActivityCard";
 import Banner from "./Banner";
 
+// ActivityDisplay component: displays activities based on the selected date or search results
 export default function ActivityDisplay({
   activities,
   searchedActivities,
@@ -10,6 +11,7 @@ export default function ActivityDisplay({
 }) {
   const [currentDate, setCurrentDate] = useState(new Date());
 
+  // Update the current date at midnight every day
   useEffect(() => {
     const midnightUpdate = setInterval(() => {
       setCurrentDate(new Date());
@@ -18,9 +20,10 @@ export default function ActivityDisplay({
     return () => clearInterval(midnightUpdate);
   }, [searchedActivities, selectedDate]);
 
-  const currentMonth = currentDate.toLocaleString("default", { month: "long" });
+  // Format current year
   const currentYear = currentDate.getFullYear();
 
+  // Generate month/year strings for display
   const monthsOfYear = Array.from({ length: 14 }, (_, index) => {
     const month = (currentDate.getMonth() - 1 + index) % 12;
     const year =
@@ -30,21 +33,9 @@ export default function ActivityDisplay({
     })} ${year}`;
   });
 
-  const groupedActivities = activities.reduce((acc, activity) => {
-    const startDate = new Date(activity.date_s_time);
-    const endDate = new Date(activity.date_e_time);
-    const monthYearString = `${startDate.toLocaleString("default", {
-      month: "long",
-    })} ${startDate.getFullYear()}`;
-    if (!acc[monthYearString]) {
-      acc[monthYearString] = [];
-    }
-    acc[monthYearString].push({ ...activity, start: startDate, end: endDate });
-    return acc;
-  }, {});
-
-  const groupedSearchedActivities = searchedActivities.reduce(
-    (acc, activity) => {
+  // Group activities by their month and year
+  const groupActivitiesByMonthYear = (activities) => {
+    return activities.reduce((acc, activity) => {
       const startDate = new Date(activity.date_s_time);
       const endDate = new Date(activity.date_e_time);
       const monthYearString = `${startDate.toLocaleString("default", {
@@ -53,18 +44,16 @@ export default function ActivityDisplay({
       if (!acc[monthYearString]) {
         acc[monthYearString] = [];
       }
-      acc[monthYearString].push({
-        ...activity,
-        start: startDate,
-        end: endDate,
-      });
+      acc[monthYearString].push({ ...activity, start: startDate, end: endDate });
       return acc;
-    },
-    {}
-  );
+    }, {});
+  };
 
-  // Function to filter activities based on selected date
-  const filterActivities = (activities) => {
+  const groupedActivities = groupActivitiesByMonthYear(activities);
+  const groupedSearchedActivities = groupActivitiesByMonthYear(searchedActivities);
+
+  // Filter activities based on the selected date
+  const filterActivitiesByDate = (activities) => {
     return activities.filter((activity) => {
       const activityDate = new Date(activity.date_s_time);
       return activityDate.toDateString() === selectedDate.toDateString();
@@ -72,14 +61,14 @@ export default function ActivityDisplay({
   };
 
   return (
-    <div className="">
-      {selectedDate && (
+    <div>
+      {selectedDate ? (
         <div>
           {monthsOfYear.map((monthYearString) => (
             <div key={monthYearString}>
               <Banner monthYear={monthYearString} />
               <div className="activities-display">
-                {filterActivities(groupedActivities[monthYearString] || []).map(
+                {filterActivitiesByDate(groupedActivities[monthYearString] || []).map(
                   (activity) => (
                     <ActivityCard
                       key={activity.activity_id}
@@ -92,14 +81,11 @@ export default function ActivityDisplay({
             </div>
           ))}
         </div>
-      )}
-
-      {!selectedDate && (
+      ) : (
         <div className="my-4">
           {monthsOfYear.map((monthYearString) => (
             <div key={monthYearString}>
               <Banner monthYear={monthYearString} />
-
               <div className="activities-display">
                 {(searchedActivities.length > 0
                   ? groupedSearchedActivities[monthYearString] ?? []

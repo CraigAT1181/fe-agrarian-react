@@ -83,7 +83,7 @@ export default function DrawerHeader({ isDrawerOpen, toggleDrawer }) {
             <div>
               {" "}
               <button
-                className="mt-4"
+                className="drawer-nav-item mt-4"
                 onClick={handleLogout}>
                 Log out
               </button>

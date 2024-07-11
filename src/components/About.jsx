@@ -1,10 +1,11 @@
 import React from "react";
 
+// About component: displays the vision and purpose of the platform
 export default function About() {
   return (
     <div className="about">
       <h3>The Vision</h3>
-
+      
       <p>
         Step into a world where the bounty of our gardens becomes our pantries,
         and the act of trading fresh produce becomes a way of life. I want to

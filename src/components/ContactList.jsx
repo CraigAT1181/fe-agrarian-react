@@ -128,30 +128,28 @@ export default function ContactList() {
             ) : (
               <div
                 key={index}
-                className=""
+                className="border p-2 rounded-lg my-2 cursor-pointer"
                 ref={index === 0 ? topItemRef : null}
                 tabIndex={index === 0 ? 0 : -1}
                 onClick={() => {
-                  setConversationID(conversation.conversation_id);
+                  handleConversationClick(conversation.conversation_id);
                 }}>
-                <div
-                  className=""
-                  onClick={() => {
-                    setConversationID(conversation.conversation_id);
-                  }}>
-                  {conversation.user1_username}
-                </div>
-                <div className="absolute">
+                <div className="flex justify-between">
+                  <span className="font-semibold">{conversation.user1_username}</span>
                   <span
-                    className=""
+                    className="cursor-pointer"
                     onClick={() => {
                       handleDeleteConversation(
                         user.userID,
                         conversation.conversation_id
                       );
                     }}>
-                    X
+                    <i className="fa-solid text-green-900 fa-square-xmark"></i>
                   </span>
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span>Message is going to appear here...</span>
+                  <span>12:00</span>
                 </div>
               </div>
             )

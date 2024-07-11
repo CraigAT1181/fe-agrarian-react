@@ -2,10 +2,12 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { format } from "date-fns";
 
+// Function to format the date in a desired way
 function formatDate(dateString) {
   const date = new Date(dateString);
   const day = date.getDate();
 
+  // Determine the suffix for the day
   const suffix =
     day === 1 || day === 21 || day === 31
       ? "st"
@@ -15,6 +17,7 @@ function formatDate(dateString) {
       ? "rd"
       : "th";
 
+  // Format the date
   const formattedDate = format(date, `EEEE, do 'of' MMMM yyyy 'at' h:mma`);
 
   return {
@@ -27,6 +30,7 @@ function formatDate(dateString) {
   };
 }
 
+// ActivityCard component: displays information about a single activity
 export default function ActivityCard({ activity, setCancelStatusChange }) {
   const {
     activity_id,
@@ -44,6 +48,7 @@ export default function ActivityCard({ activity, setCancelStatusChange }) {
   const formattedStart = formatDate(start);
   const formattedEnd = formatDate(end);
 
+  // Shorten the description to a max length
   const shortenDescription = (description) => {
     const maxLength = 200;
     return description.length > maxLength
@@ -51,6 +56,7 @@ export default function ActivityCard({ activity, setCancelStatusChange }) {
       : description;
   };
 
+  // Shorten the title to a max length
   const shortenTitle = (title) => {
     const maxLength = 25;
     return title.length > maxLength ? `${title.slice(0, maxLength)}...` : title;
@@ -67,11 +73,9 @@ export default function ActivityCard({ activity, setCancelStatusChange }) {
           {formattedStart.day}
           {formattedStart.suffix}
         </h1>
-
         <p>
           {formattedStart.time} - {formattedEnd.time}
         </p>
-
         <p>{location}</p>
         <div className="flex flex-grow justify-center h-20">
           <h2>{shortenedTitle}</h2>
@@ -95,6 +99,7 @@ export default function ActivityCard({ activity, setCancelStatusChange }) {
           )}
         </Link>
       </div>
+
       <div className="flex flex-col flex-grow p-2">
         <div className="activity-card-description">
           <span>{shortenedDescription}</span>

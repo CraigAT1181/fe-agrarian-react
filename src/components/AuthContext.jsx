@@ -3,21 +3,25 @@ import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import { updateUserProduce } from "../api/api";
 
+// Create the AuthContext
 const AuthContext = createContext();
 
+// Provider component to manage authentication state
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [commentPosted, setCommentPosted] = useState(false);
   const navigate = useNavigate();
 
+  // Authenticate user on component mount
   useEffect(() => {
-    const storedToken = localStorage.getItem("token");
-
     const authenticateUser = async () => {
+      const storedToken = localStorage.getItem("token");
+
       try {
-        if (!user && storedToken) {
+        if (storedToken) {
           const decodedToken = jwtDecode(storedToken);
 
+          // Check if token is still valid
           if (decodedToken.exp * 1000 > new Date().getTime()) {
             setUser({
               userID: decodedToken.user_id,
@@ -27,25 +31,23 @@ export const AuthProvider = ({ children }) => {
               produce: decodedToken.produce,
             });
           } else {
-            setUser(null);
-            localStorage.removeItem("token");
-            navigate("/");
+            // Handle expired token
+            handleLogout();
           }
         }
-      } catch {
-        setUser(null);
-        localStorage.removeItem("token");
-        navigate("/");
+      } catch (error) {
+        // Handle token decode error
+        handleLogout();
       }
     };
 
     authenticateUser();
-  }, [user, navigate]);
+  }, [navigate]); // Only depend on navigate to avoid unnecessary re-renders
 
+  // Login function
   const login = (token) => {
     try {
       const decodedToken = jwtDecode(token);
-
       setUser({
         userID: decodedToken.user_id,
         username: decodedToken.sub,
@@ -53,34 +55,40 @@ export const AuthProvider = ({ children }) => {
         postcode: decodedToken.postcode,
         produce: decodedToken.produce,
       });
-
       localStorage.setItem("token", token);
-    } catch {
-      setUser(null);
-      localStorage.removeItem("token");
+    } catch (error) {
+      // Handle error during login
+      handleLogout();
     }
   };
 
+  // Logout function
   const logout = () => {
-    setUser(null);
-    localStorage.removeItem("token");
+    handleLogout();
   };
 
+  // Function to handle user logout
+  const handleLogout = () => {
+    setUser(null);
+    localStorage.removeItem("token");
+    navigate("/");
+  };
+
+  // Update user produce data
   const updateUserProduceData = async (newProduce) => {
     try {
-      let updatedProduce = [];
+      let updatedProduce;
 
       if (Array.isArray(newProduce)) {
-        updatedProduce = [...new Set(newProduce)];
+        updatedProduce = [...new Set(newProduce)]; // Remove duplicates
       } else {
-        updatedProduce = [...new Set([...user.produce, newProduce])];
+        updatedProduce = [...new Set([...user.produce, newProduce])]; // Add new produce and remove duplicates
       }
 
       const updatedUserData = await updateUserProduce(
         user.userID,
         updatedProduce
       );
-
       setUser((prevUser) => ({
         ...prevUser,
         produce: updatedUserData.produce,
@@ -88,6 +96,7 @@ export const AuthProvider = ({ children }) => {
 
       console.log("User produce updated successfully:", updatedProduce);
     } catch (error) {
+      // Handle error during produce update
       console.error("Error updating user produce:", error);
     }
   };
@@ -107,11 +116,12 @@ export const AuthProvider = ({ children }) => {
   );
 };
 
+// Custom hook to use AuthContext
 export const useAuth = () => {
   const context = useContext(AuthContext);
 
   if (!context) {
-    throw new Error("useAuth must be used with an AuthProvider.");
+    throw new Error("useAuth must be used within an AuthProvider.");
   }
 
   return context;

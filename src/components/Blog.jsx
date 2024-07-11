@@ -2,98 +2,85 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { deleteBlog, getSingleBlog } from "../api/api";
 import { useAuth } from "./AuthContext";
-import MessageButtonL from "./MessageButtonL";
 import EditBlogModal from "./EditBlog";
 import Comments from "./Comments";
 
+// Blog component: displays details of a single blog post
 export default function Blog() {
   const { user } = useAuth();
-  let [editedBlog, setEditedBlog] = useState(false);
   const [singleBlog, setSingleBlog] = useState({});
   const [showModal, setShowModal] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [editedBlog, setEditedBlog] = useState(false);
+  
+  // Routing and blog ID
   const { blog_id } = useParams();
   const navigate = useNavigate();
 
+  // Fetch single blog data
   useEffect(() => {
     setIsLoading(true);
-
-    getSingleBlog(blog_id)
-      .then((blog) => {
+    const fetchBlog = async () => {
+      try {
+        const blog = await getSingleBlog(blog_id);
+        setSingleBlog({
+          ...blog,
+          image_url: blog.image_url || "https://picsum.photos/300/300",
+        });
         setIsLoading(false);
+      } catch (error) {
+        const { response: { status, data: { message } } } = error;
+        setIsLoading(false);
+        setError({ status, message });
+      }
+    };
 
-        if (blog.image_url === "" || blog.image_url === null) {
-          setSingleBlog({
-            ...blog,
-            image_url: "https://picsum.photos/300/300",
-          });
-        } else {
-          setSingleBlog(blog);
-        }
-      })
-      .catch(
-        ({
-          response: {
-            status,
-            data: { message },
-          },
-        }) => {
-          setIsLoading(false);
-          setError({ status, message: message });
-        }
-      );
+    fetchBlog();
     setEditedBlog(false);
-  }, [editedBlog]);
+  }, [blog_id, editedBlog]);
 
+  // Handle modal visibility
   const handleShow = () => setShowModal(true);
   const handleClose = () => setShowModal(false);
 
-  const handleDelete = (blog_id) => {
+  // Handle blog deletion
+  const handleDelete = async (id) => {
     setIsLoading(true);
-
-    deleteBlog(blog_id)
-      .then(() => {
-        setIsLoading(false);
-        navigate("/");
-      })
-      .catch(
-        ({
-          response: {
-            status,
-            data: { message },
-          },
-        }) => {
-          setIsLoading(false);
-          setError({ status, message: message });
-        }
-      );
+    try {
+      await deleteBlog(id);
+      setIsLoading(false);
+      navigate("/");
+    } catch (error) {
+      const { response: { status, data: { message } } } = error;
+      setIsLoading(false);
+      setError({ status, message });
+    }
   };
 
-  if (isLoading)
+  // Loading and error handling
+  if (isLoading) {
     return (
-      <div>
+      <div className="loading-container">
         <i className="fa-solid fa-spinner fa-spin"></i>
-        <p>Loading blogs...</p>
+        <p>Loading blog...</p>
       </div>
     );
-  if (error)
+  }
+
+  if (error) {
     return (
-      <div>
+      <div className="error-container">
         <i className="fa-solid fa-exclamation"></i>
-        <p>
-          Oops, there's been an error: {error.status} {error.message}
-        </p>
+        <p>Oops, there's been an error: {error.status} {error.message}</p>
       </div>
     );
+  }
 
   return (
     <div className="blog-container">
       <div className="blog-image">
-        <img
-          src={singleBlog.image_url}
-          alt="Blog cover image"
-        />
+        <img src={singleBlog.image_url} alt="Blog cover" />
       </div>
 
       <div className="text-center my-4">
@@ -101,11 +88,11 @@ export default function Blog() {
         <p>Written by: {singleBlog.username}</p>
       </div>
 
-      <div className="my-4">
+      <div className="blog-content my-4">
         {singleBlog.content &&
-          singleBlog.content
-            .split("\n")
-            .map((paragraph, index) => <p key={index}>{paragraph}</p>)}
+          singleBlog.content.split("\n").map((paragraph, index) => (
+            <p key={index}>{paragraph}</p>
+          ))}
       </div>
 
       {user && user.userID === singleBlog.author_id && (
@@ -117,11 +104,16 @@ export default function Blog() {
             singleBlog={singleBlog}
             setEditedBlog={setEditedBlog}
           />
-          <button onClick={() => handleDelete(blog_id)} className="blog-buttons">Delete</button>
+          <button
+            onClick={() => handleDelete(blog_id)}
+            className="blog-buttons"
+          >
+            Delete
+          </button>
         </div>
       )}
 
-      <div>
+      <div className="comments-section">
         <Comments blog_id={blog_id} />
       </div>
     </div>
