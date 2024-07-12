@@ -3,22 +3,26 @@ import { contactForm } from "../api/api";
 import { useNavigate } from "react-router-dom";
 
 export default function Contact() {
+  // State to manage form data
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     message: "",
   });
 
+  // Hook to programmatically navigate
   const navigate = useNavigate();
 
+  // Handle input changes and update state
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
+    setFormData((prevFormData) => ({
+      ...prevFormData,
       [name]: value,
-    });
+    }));
   };
 
+  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -36,7 +40,7 @@ export default function Contact() {
   };
 
   return (
-    <div >
+    <div>
       <h1>Contact Us</h1>
       <form onSubmit={handleSubmit}>
         <div>

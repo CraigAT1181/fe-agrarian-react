@@ -9,8 +9,6 @@ export default function CommentsCard({
   comment,
   allComments,
   setCommentDeleted,
-  commentDeleted,
-  replyPosted,
   setReplyPosted,
   toggleViewReplies,
   viewReplies,
