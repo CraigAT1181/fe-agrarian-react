@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import { format } from "date-fns";
 import { Link } from "react-router-dom";
 import { useAuth } from "./AuthContext";
-import { getCommentsByBlogID } from "../api/api";
-import { deleteBlog } from "../api/api";
+import { getCommentsByBlogID, deleteBlog } from "../api/api";
 
+// Utility function to format the date with suffixes
 function formatDate(date) {
   const day = date.getDate();
 
@@ -20,12 +20,14 @@ function formatDate(date) {
   return format(date, `do 'of' MMMM, yyyy`).replace("do", `${day}${suffix}`);
 }
 
+// BlogCard component: displays information about a single blog
 export default function BlogCard({ blog, setBlogDeleted }) {
   const { user } = useAuth();
   const [blogComments, setBlogComments] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  // Fetch comments for the blog when the component mounts or blog changes
   useEffect(() => {
     setIsLoading(true);
     if (blog) {
@@ -42,23 +44,26 @@ export default function BlogCard({ blog, setBlogDeleted }) {
             },
           }) => {
             setIsLoading(false);
-            setError({ status, message: message });
+            setError({ status, message });
           }
         );
     }
   }, [blog]);
 
+  // Handle blog deletion
   const handleDelete = () => {
     deleteBlog(blog.blog_id).then(() => {
       setBlogDeleted(true);
     });
   };
 
+  // Shorten the title to a maximum length
   const shortenedTitle = (title) => {
     const maxLength = 30;
     return title.length > maxLength ? `${title.slice(0, maxLength)}...` : title;
   };
 
+  // Shorten the content to a maximum length
   const shortenedContent = (content) => {
     const maxLength = 50;
     return content.length > maxLength
@@ -69,14 +74,18 @@ export default function BlogCard({ blog, setBlogDeleted }) {
   const date = new Date(blog.date_published);
   const formattedDate = formatDate(date);
 
-  if (isLoading)
+  // Display loading spinner while fetching data
+  if (isLoading) {
     return (
       <div className="error-loading">
         <i className="fa-solid fa-spinner fa-spin"></i>
         <p>Loading blogs...</p>
       </div>
     );
-  if (error)
+  }
+
+  // Display error message if there is an error
+  if (error) {
     return (
       <div className="error-loading">
         <i className="fa-solid fa-exclamation"></i>
@@ -85,6 +94,7 @@ export default function BlogCard({ blog, setBlogDeleted }) {
         </p>
       </div>
     );
+  }
 
   return (
     <div className="blog-card">
@@ -115,15 +125,12 @@ export default function BlogCard({ blog, setBlogDeleted }) {
         <div>
           <p>{shortenedContent(blog.content)}</p>
         </div>
-
         <div>
           <p className="font-semibold">Written by: {blog.username}</p>
         </div>
-
         <div>
           <p>{formattedDate}</p>
         </div>
-
         <div title="Comments">
           <i className="fa-solid fa-comment text-green-900"></i>
           <p className="mb-0">{blogComments.length}</p>

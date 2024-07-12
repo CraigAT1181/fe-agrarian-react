@@ -44,10 +44,12 @@ export default function BlogPage() {
     return () => clearTimeout(timeout);
   }, [notFound]);
 
+  // Handle search input change
   const handleInputChange = (e) => {
     setSearchTerms(e.target.value);
   };
 
+  // Handle search form submission
   const handleSearch = (e) => {
     e.preventDefault();
     setActiveSearch(true);
@@ -74,6 +76,7 @@ export default function BlogPage() {
     }
   };
 
+  // Clear search results
   const handleClear = () => {
     setFilteredBlogs(blogs);
     setActiveSearch(false);
@@ -114,22 +117,22 @@ export default function BlogPage() {
               <label
                 htmlFor="item-search"
                 className="form-label"
-                aria-label="Search"></label>
+                aria-label="Search"
+              ></label>
               <input
                 id="item-search"
                 className="search-bar-input"
-                onChange={(e) => handleInputChange(e)}
+                onChange={handleInputChange}
                 type="text"
                 placeholder="What are you looking for?"
                 value={searchTerms}
               />
-              <button
-                type="submit"
-                className="search-button">
+              <button type="submit" className="search-button">
                 <i
                   className="fa-solid fa-magnifying-glass"
                   aria-label="search button"
-                  title="search button"></i>
+                  title="search button"
+                ></i>
               </button>
             </div>
           </form>
@@ -137,9 +140,7 @@ export default function BlogPage() {
       </div>
       {activeSearch && (
         <div className="flex flex-col justify-center">
-          <button
-            className="text-blue-700 text-sm"
-            onClick={handleClear}>
+          <button className="text-blue-700 text-sm" onClick={handleClear}>
             clear results
           </button>
           <div className="flex justify-center">

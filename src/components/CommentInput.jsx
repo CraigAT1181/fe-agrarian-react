@@ -3,18 +3,24 @@ import { postComment } from "../api/api";
 import { useAuth } from "./AuthContext";
 
 export default function CommentInput({ blog_id }) {
+  // State to manage comment input, loading status, and error messages
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [commentInput, setCommentInput] = useState("");
+
+  // Retrieve user info and context functions from AuthContext
   const { user, setCommentPosted } = useAuth();
   let parent_comment_id;
 
+  // Function to handle posting a comment
   const onPostComment = () => {
     if (commentInput.trim() !== "") {
       setIsLoading(true);
       postComment(blog_id, user.userID, commentInput, parent_comment_id)
         .then(() => {
           setIsLoading(false);
+
+          // Update state to re-render the comments when a new one is posted
           setCommentPosted(true);
         })
         .catch(
@@ -42,14 +48,16 @@ export default function CommentInput({ blog_id }) {
     onPostComment();
   }
 
-  if (isLoading)
+  if (isLoading) {
     return (
       <div>
         <i className="fa-solid fa-spinner fa-spin"></i>
         <p>Posting your comment...</p>
       </div>
     );
-  if (error)
+  }
+
+  if (error) {
     return (
       <div>
         <i className="fa-solid fa-exclamation"></i>
@@ -58,6 +66,7 @@ export default function CommentInput({ blog_id }) {
         </p>
       </div>
     );
+  }
 
   return (
     <div className="my-4">
@@ -66,9 +75,7 @@ export default function CommentInput({ blog_id }) {
       </div>
       <form onSubmit={handleSend}>
         <div className="w-full relative">
-          <label
-            htmlFor="comment-input"
-            className="form-label"></label>
+          <label htmlFor="comment-input" className="form-label"></label>
           <input
             id="comment-input"
             className="comment-input-box"
@@ -81,7 +88,8 @@ export default function CommentInput({ blog_id }) {
             <button
               id="comment-button"
               className="post-comment-button"
-              type="submit">
+              type="submit"
+            >
               <i className="fa-solid fa-xl text-green-900 fa-arrow-right"></i>
             </button>
           )}
