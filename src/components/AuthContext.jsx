@@ -10,6 +10,7 @@ const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [commentPosted, setCommentPosted] = useState(false);
+  const [selectedConversation, setSelectedConversation] = useState(null);
   const navigate = useNavigate();
 
   // Authenticate user on component mount
@@ -110,6 +111,8 @@ export const AuthProvider = ({ children }) => {
         updateUserProduceData,
         commentPosted,
         setCommentPosted,
+        selectedConversation,
+        setSelectedConversation
       }}>
       {children}
     </AuthContext.Provider>

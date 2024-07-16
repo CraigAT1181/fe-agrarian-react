@@ -343,6 +343,10 @@
 .messenger-container {
 }
 
+.message-display-container {
+  @apply flex flex-col text-center;
+}
+
 .search-results {
   @apply bg-gray-100 rounded p-2 mt-2 z-50;
 }

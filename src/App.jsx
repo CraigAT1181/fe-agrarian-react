@@ -11,6 +11,7 @@ import "./index.css";
 const Home = lazy(() => import("./components/Home"));
 const Exchange = lazy(() => import("./components/Exchange"));
 const Messenger = lazy(() => import("./components/Messenger"));
+const MessageDisplay = lazy(() => import("./components/MessageDisplay"));
 const Login = lazy(() => import("./components/Login"));
 const Register = lazy(() => import("./components/Register"));
 const Posts = lazy(() => import("./components/Posts"));
@@ -54,10 +55,13 @@ export default function App() {
                 path="/home"
                 element={<Home />}
               />
-
               <Route
                 path="/messenger"
                 element={<Messenger />}
+              />
+              <Route
+                path="/messenger/:partner/:conversationID"
+                element={<MessageDisplay />}
               />
               <Route
                 path="/posts"
