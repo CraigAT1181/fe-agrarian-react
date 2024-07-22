@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { useAuth } from "./AuthContext";
 import { sendMessage } from "../api/api";
 
-export default function MessageInput({ conversationID, setMessageSent }) {
+export default function MessageInput({ conversationID }) {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  const { user } = useAuth();
+  const { user, setMessageSent } = useAuth();
   const [messageInput, setMessageInput] = useState("");
 
   function handleChange(e) {

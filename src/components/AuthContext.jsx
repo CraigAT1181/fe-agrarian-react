@@ -10,6 +10,7 @@ const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [commentPosted, setCommentPosted] = useState(false);
+  const [messageSent, setMessageSent] = useState(false);
   const [selectedConversation, setSelectedConversation] = useState(null);
   const navigate = useNavigate();
 
@@ -112,7 +113,9 @@ export const AuthProvider = ({ children }) => {
         commentPosted,
         setCommentPosted,
         selectedConversation,
-        setSelectedConversation
+        setSelectedConversation,
+        messageSent,
+        setMessageSent
       }}>
       {children}
     </AuthContext.Provider>
