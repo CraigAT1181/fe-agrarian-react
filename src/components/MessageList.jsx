@@ -57,7 +57,7 @@ export default function MessageList({ conversationID }) {
     );
 
   return (
-    <div>
+    <div className="flex-grow">
       {messages && messages.length > 0 ? (
         messages.map((message) => (
           <div key={message.message_id} className="mb-2">

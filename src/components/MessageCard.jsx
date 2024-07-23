@@ -21,8 +21,6 @@ const formatDate = (dateString) => {
       ? "rd"
       : "th";
 
-  console.log(suffix);
-
   return {
     dayOfWeek: format(date, `EEE`),
     day: `${day}`,
@@ -52,11 +50,11 @@ export default function MessageCard({ message }) {
   );
 
   return (
-    <div className="p-2">
+    <div className="message-card">
       {message.sender_id === user.userID ? (
         <div>
           <div className="flex p-2 items-center">
-            <div className="border rounded p-2 mr-2"><h2>{profile}</h2></div>
+            <div className="border rounded-full p-2 mr-2"><h2 className="m-0">{profile}</h2></div>
             <div className="flex-grow">
               <div className="border rounded p-2">{message.message}</div>
             </div>
@@ -73,7 +71,7 @@ export default function MessageCard({ message }) {
             <div className="flex-grow">
               <div className="border rounded p-2">{message.message}</div>
             </div>
-            <div className="border rounded p-2 ml-2"><h2>{profile}</h2></div>
+            <div className="border rounded-full p-2 ml-2"><h2 className="m-0">{profile}</h2></div>
           </div>
           {messageDateOnly.getTime() === todayDate.getTime() ? (
             <div className="text-start text-sm">{`${timeStamp.time}`}</div>

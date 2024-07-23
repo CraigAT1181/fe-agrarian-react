@@ -8,12 +8,8 @@ export default function MessageInput({ conversationID }) {
   const { user, setMessageSent } = useAuth();
   const [messageInput, setMessageInput] = useState("");
 
-  function handleChange(e) {
-    setMessageInput(e.target.value);
-  }
-
-  function handleSend(e) {
-    e.preventDefault();
+  const onSendMessage = () => {
+    console.log(conversationID);
     if (messageInput.trim() !== "") {
       setIsLoading(true);
       sendMessage(conversationID, user.userID, messageInput)
@@ -37,6 +33,15 @@ export default function MessageInput({ conversationID }) {
     }
   }
 
+  function handleChange(e) {
+    setMessageInput(e.target.value);
+  }
+
+  function handleSend(e) {
+    e.preventDefault();
+    onSendMessage();
+  }
+
   if (isLoading)
     return (
       <div className="d-flex-col text-center mt-4">
@@ -55,30 +60,59 @@ export default function MessageInput({ conversationID }) {
     );
 
   return (
-    <div className="message-input mt-2">
+
+    <div className="my-4">
       <form onSubmit={handleSend}>
-        <div className="input-group">
-          <label
-            htmlFor="message-input"
-            className="form-label"></label>
+        <div className="w-full relative">
+          <label htmlFor="comment-input" className="form-label"></label>
           <input
-            id="message-input"
-            className="form-control"
+            id="comment-input"
+            className="comment-input-box"
             type="text"
             placeholder="Type your message here"
             value={messageInput}
             onChange={handleChange}
-            disabled={!conversationID}
           />
-          <button
-            id="message-button"
-            className="btn btn-success"
-            type="submit"
-            disabled={!conversationID}>
-            Send
-          </button>
+          {messageInput && (
+            <button
+              id="comment-button"
+              className="post-comment-button"
+              type="submit"
+            >
+              <i className="fa-solid fa-xl text-green-900 fa-arrow-right"></i>
+            </button>
+          )}
         </div>
       </form>
     </div>
+
+
+
+
+    // <div className="message-input">
+    //   <form onSubmit={handleSend}>
+    //     <div className="input-group">
+    //       <label
+    //         htmlFor="message-input"
+    //         className="form-label"></label>
+    //       <input
+    //         id="message-input"
+    //         className="form-control"
+    //         type="text"
+    //         placeholder="Type your message here"
+    //         value={messageInput}
+    //         onChange={handleChange}
+    //         disabled={!conversationID}
+    //       />
+    //       <button
+    //         id="message-button"
+    //         className="btn btn-success"
+    //         type="submit"
+    //         disabled={!conversationID}>
+    //         Send
+    //       </button>
+    //     </div>
+    //   </form>
+    // </div>
   );
 }

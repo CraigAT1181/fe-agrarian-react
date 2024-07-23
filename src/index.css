@@ -340,12 +340,16 @@
 
 /* -- MESSENGER -- */
 
-.messenger-container {
+.message-card {
+@apply p-2;
+}
 
+.message-input {
+  @apply mt-2
 }
 
 .message-display-container {
-  @apply flex flex-col text-center;
+  @apply flex flex-col flex-grow text-center;
 }
 
 .search-results {

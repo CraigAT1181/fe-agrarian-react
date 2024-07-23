@@ -9,7 +9,6 @@ export default function MessageDisplay() {
   const { selectedConversation } = useAuth();
   const navigate = useNavigate();
 
-  console.log(selectedConversation);
   return (
     <div className="message-display-container">
       <div

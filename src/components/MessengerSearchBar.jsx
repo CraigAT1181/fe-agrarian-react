@@ -129,7 +129,7 @@ export default function MessengerSearchBar() {
               <div
                 key={user.user_id}
                 className="text-center my-1 hover:bg-white">
-                <button className="p-1 rounded w-full">{user.username}</button>
+                <button className="p-1 rounded w-full" onClick={() => setSearchTerms(user.username)}>{user.username}</button>
               </div>
             ))
           ) : (
