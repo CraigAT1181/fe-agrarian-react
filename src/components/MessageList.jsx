@@ -57,15 +57,17 @@ export default function MessageList({ conversationID }) {
     );
 
   return (
-    <div className="flex-grow">
+    <div className="message-list">
       {messages && messages.length > 0 ? (
         messages.map((message) => (
           <div key={message.message_id} className="mb-2">
-            <MessageCard message={message}/>
+            <MessageCard message={message} />
           </div>
         ))
       ) : (
-        <div><p>No messages exchanged yet.</p></div>
+        <div>
+          <p>No messages exchanged yet.</p>
+        </div>
       )}
     </div>
 

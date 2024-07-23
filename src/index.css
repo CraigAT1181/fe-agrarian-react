@@ -340,8 +340,11 @@
 
 /* -- MESSENGER -- */
 
-.message-card {
+.message-card-container {
   @apply p-2;
+}
+
+.message-card {
 }
 
 .message-input {
@@ -350,6 +353,10 @@
 
 .message-display-container {
   @apply flex flex-col flex-grow text-center;
+}
+
+.message-list {
+  @apply flex-grow;
 }
 
 .search-results {
