@@ -89,77 +89,84 @@ export default function ContactList() {
 
   return (
     <div>
-      {fetchedConversations.length > 0
-        ? fetchedConversations.map((conversation, index) =>
-            conversation.user1_id === user.userID ? (
-              <div
-                key={index}
-                className="border p-2 rounded-lg my-2 cursor-pointer"
-                tabIndex={index === 0 ? 0 : -1}
-                onClick={() => {
-                  handleConversationClick(
-                    conversation,
-                    conversation.user2_username
-                  );
-                }}
-              >
-                <div className="flex justify-between">
-                  <span className="font-semibold">
-                    {conversation.user2_username}
-                  </span>
-                  <button
-                    className="cursor-pointer"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleDeleteConversation(
-                        user.userID,
-                        conversation.conversation_id
-                      );
-                    }}
-                  >
-                    <i className="fa-solid text-green-900 fa-square-xmark"></i>
-                  </button>
-                </div>
-                <div className="flex justify-between text-sm">
-                  <span>Click to view messages</span>
-                </div>
+      {fetchedConversations.length > 0 ? (
+        fetchedConversations.map((conversation, index) =>
+          conversation.user1_id === user.userID ? (
+            <div
+              key={index}
+              className="border p-2 rounded-lg my-2 cursor-pointer"
+              tabIndex={index === 0 ? 0 : -1}
+              onClick={() => {
+                handleConversationClick(
+                  conversation,
+                  conversation.user2_username
+                );
+              }}
+            >
+              <div className="flex justify-between">
+                <span className="font-semibold">
+                  {conversation.user2_username}
+                </span>
+                <button
+                  className="cursor-pointer"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleDeleteConversation(
+                      user.userID,
+                      conversation.conversation_id
+                    );
+                  }}
+                >
+                  <i className="fa-solid text-green-900 fa-square-xmark"></i>
+                </button>
               </div>
-            ) : (
-              <div
-                key={index}
-                className="border p-2 rounded-lg my-2 cursor-pointer"
-                tabIndex={index === 0 ? 0 : -1}
-                onClick={() => {
-                  handleConversationClick(
-                    conversation,
-                    conversation.user1_username
-                  );
-                }}
-              >
-                <div className="flex justify-between">
-                  <span className="font-semibold">
-                    {conversation.user1_username}
-                  </span>
-                  <button
-                    className="cursor-pointer"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleDeleteConversation(
-                        user.userID,
-                        conversation.conversation_id
-                      );
-                    }}
-                  >
-                    <i className="fa-solid text-green-900 fa-square-xmark"></i>
-                  </button>
-                </div>
-                <div className="flex justify-between text-sm">
-                  <span>Click to view messages</span>
-                </div>
+              <div className="flex justify-between text-sm">
+                <span>Click to view messages</span>
               </div>
-            )
+            </div>
+          ) : (
+            <div
+              key={index}
+              className="border p-2 rounded-lg my-2 cursor-pointer"
+              tabIndex={index === 0 ? 0 : -1}
+              onClick={() => {
+                handleConversationClick(
+                  conversation,
+                  conversation.user1_username
+                );
+              }}
+            >
+              <div className="flex justify-between">
+                <span className="font-semibold">
+                  {conversation.user1_username}
+                </span>
+                <button
+                  className="cursor-pointer"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleDeleteConversation(
+                      user.userID,
+                      conversation.conversation_id
+                    );
+                  }}
+                >
+                  <i className="fa-solid text-green-900 fa-square-xmark"></i>
+                </button>
+              </div>
+              <div className="flex justify-between text-sm">
+                <span>Click to view messages</span>
+              </div>
+            </div>
           )
-        : null}
+        )
+      ) : (
+        <div className="flex justify-center mt-4">
+          <p className="text-center">
+            No conversations found. Try searching for someone above, or browsing
+            posts, blogs or activities.
+          </p>
+        </div>
+      )}
     </div>
   );
 }

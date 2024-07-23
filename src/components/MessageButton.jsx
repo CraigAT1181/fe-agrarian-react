@@ -8,7 +8,7 @@ export default function MessageButton({ partner, size, colour }) {
   const { user } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
-
+  console.log(partner);
   const handleClick = async () => {
     try {
       setIsLoading(true);
@@ -18,15 +18,15 @@ export default function MessageButton({ partner, size, colour }) {
         (conversation) =>
           (user.userID === conversation.user1_id ||
             user.userID === conversation.user2_id) &&
-          (partner === conversation.user1_id ||
-            partner === conversation.user2_id)
+          (partner.user_id === conversation.user1_id ||
+            partner.user_id === conversation.user2_id)
       );
 
       if (conversationExists) {
         navigate("/messenger");
       } else {
         setIsLoading(true);
-        await addConversationByUserID(user.userID, partner);
+        await addConversationByUserID(user.userID, partner.user_id);
         setIsLoading(false);
         navigate("/messenger");
       }
@@ -54,7 +54,8 @@ export default function MessageButton({ partner, size, colour }) {
             className="text-white"
             style={{ margin: "0" }}
             title="Send Message"
-            onClick={handleClick}>
+            onClick={handleClick}
+          >
             {isLoading ? (
               <i className="fa-solid fa-spinner fa-spin"></i>
             ) : (
@@ -66,7 +67,8 @@ export default function MessageButton({ partner, size, colour }) {
             className="text-white"
             style={{ margin: "0" }}
             title="Send Message"
-            onClick={handleClick}>
+            onClick={handleClick}
+          >
             {isLoading ? (
               <i className="fa-solid fa-spinner fa-spin"></i>
             ) : (
@@ -79,7 +81,8 @@ export default function MessageButton({ partner, size, colour }) {
           className="text-white"
           style={{ margin: "0" }}
           title="Send Message"
-          onClick={handleClick}>
+          onClick={handleClick}
+        >
           {isLoading ? (
             <i className="fa-solid fa-spinner fa-spin"></i>
           ) : (
@@ -91,7 +94,8 @@ export default function MessageButton({ partner, size, colour }) {
           className="text-white"
           style={{ margin: "0" }}
           title="Send Message"
-          onClick={handleClick}>
+          onClick={handleClick}
+        >
           {isLoading ? (
             <i className="fa-solid fa-spinner fa-spin"></i>
           ) : (
