@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-
+import { useAuth } from "./AuthContext";
 import { getUsers } from "../api/api";
 
 export default function MessengerSearchBar() {
@@ -8,6 +8,7 @@ export default function MessengerSearchBar() {
   const [allUsers, setAllUsers] = useState([]);
   const [searchTerms, setSearchTerms] = useState("");
   const [results, setResults] = useState([]);
+  const { user } = useAuth();
 
   useEffect(() => {
     fetchUsers();
@@ -104,7 +105,8 @@ export default function MessengerSearchBar() {
             <label
               htmlFor="item-search"
               className="form-label"
-              aria-label="Search"></label>
+              aria-label="Search"
+            ></label>
             <input
               id="item-search"
               className="search-bar-input"
@@ -113,27 +115,36 @@ export default function MessengerSearchBar() {
               placeholder="Search for a user"
               value={searchTerms}
             />
-            <button
-              type="submit"
-              className="search-button">
+            <button type="submit" className="search-button">
               <i
                 className="fa-solid fa-magnifying-glass"
                 aria-label="search button"
-                title="search button"></i>
+                title="search button"
+              ></i>
             </button>
           </div>
         </form>
         <div className={`search-results ${searchTerms ? "" : "hidden"}`}>
           {results && results.length > 0 ? (
-            results.map((user) => (
-              <div
-                key={user.user_id}
-                className="text-center my-1 hover:bg-white">
-                <button className="p-1 rounded w-full" onClick={() => setSearchTerms(user.username)}>{user.username}</button>
-              </div>
-            ))
+            results.map((returnedUser) =>
+              returnedUser.user_id !== user.userID ? (
+                <div
+                  key={returnedUser.user_id}
+                  className="text-center my-1 hover:bg-white"
+                >
+                  <button
+                    className="p-1 rounded w-full"
+                    onClick={() => setSearchTerms(returnedUser.username)}
+                  >
+                    {returnedUser.username}
+                  </button>
+                </div>
+              ) : null
+            )
           ) : (
-            <p>No users found</p>
+            <div className="flex justify-center">
+              <p>No users found</p>
+            </div>
           )}
         </div>
       </div>

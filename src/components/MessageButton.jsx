@@ -8,7 +8,7 @@ export default function MessageButton({ partner, size, colour }) {
   const { user } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
-  console.log(partner);
+
   const handleClick = async () => {
     try {
       setIsLoading(true);
