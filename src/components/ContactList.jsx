@@ -97,8 +97,12 @@ export default function ContactList() {
                 className="border p-2 rounded-lg my-2 cursor-pointer"
                 tabIndex={index === 0 ? 0 : -1}
                 onClick={() => {
-                  handleConversationClick(conversation, conversation.user2_username);
-                }}>
+                  handleConversationClick(
+                    conversation,
+                    conversation.user2_username
+                  );
+                }}
+              >
                 <div className="flex justify-between">
                   <span className="font-semibold">
                     {conversation.user2_username}
@@ -111,13 +115,13 @@ export default function ContactList() {
                         user.userID,
                         conversation.conversation_id
                       );
-                    }}>
+                    }}
+                  >
                     <i className="fa-solid text-green-900 fa-square-xmark"></i>
                   </button>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span>Message is going to appear here...</span>
-                  <span>12:00</span>
+                  <span>Click to view messages</span>
                 </div>
               </div>
             ) : (
@@ -126,8 +130,12 @@ export default function ContactList() {
                 className="border p-2 rounded-lg my-2 cursor-pointer"
                 tabIndex={index === 0 ? 0 : -1}
                 onClick={() => {
-                  handleConversationClick(conversation, conversation.user1_username);
-                }}>
+                  handleConversationClick(
+                    conversation,
+                    conversation.user1_username
+                  );
+                }}
+              >
                 <div className="flex justify-between">
                   <span className="font-semibold">
                     {conversation.user1_username}
@@ -140,13 +148,13 @@ export default function ContactList() {
                         user.userID,
                         conversation.conversation_id
                       );
-                    }}>
+                    }}
+                  >
                     <i className="fa-solid text-green-900 fa-square-xmark"></i>
                   </button>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span>Message is going to appear here...</span>
-                  <span>12:00</span>
+                  <span>Click to view messages</span>
                 </div>
               </div>
             )
