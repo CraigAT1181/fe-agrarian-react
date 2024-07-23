@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useAuth } from "./AuthContext";
 import { getMessagesByConverationID } from "../api/api";
 import { useNavigate } from "react-router-dom";
@@ -10,6 +10,7 @@ export default function MessageList({ conversationID }) {
   const [messages, setMessages] = useState([]);
   const { messageSent } = useAuth();
   const navigate = useNavigate();
+  const lastMessageRef = useRef(null);
 
   useEffect(() => {
     setIsLoading(true);
@@ -40,6 +41,13 @@ export default function MessageList({ conversationID }) {
     setMessages([]);
   }, [conversationID, messageSent]);
 
+  useEffect(() => {
+    // Scroll to the last message
+    if (lastMessageRef.current) {
+      lastMessageRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messages]);
+
   if (isLoading)
     return (
       <div className="flex text-center mt-4">
@@ -59,8 +67,12 @@ export default function MessageList({ conversationID }) {
   return (
     <div className="message-list">
       {messages && messages.length > 0 ? (
-        messages.map((message) => (
-          <div key={message.message_id} className="mb-2">
+        messages.map((message, index) => (
+          <div
+            key={message.message_id}
+            className="mb-2"
+            ref={index === messages.length - 2 ? lastMessageRef : null}
+          >
             <MessageCard message={message} />
           </div>
         ))
