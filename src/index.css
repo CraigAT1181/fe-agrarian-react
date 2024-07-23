@@ -341,11 +341,11 @@
 /* -- MESSENGER -- */
 
 .message-card {
-@apply p-2;
+  @apply p-2;
 }
 
 .message-input {
-  @apply mt-2
+  @apply w-full pr-10 pl-4 py-2 border-2 border-green-900 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent;
 }
 
 .message-display-container {

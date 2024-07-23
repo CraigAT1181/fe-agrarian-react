@@ -31,7 +31,7 @@ export default function MessageInput({ conversationID }) {
       setMessageInput("");
       setMessageSent(false);
     }
-  }
+  };
 
   function handleChange(e) {
     setMessageInput(e.target.value);
@@ -60,14 +60,13 @@ export default function MessageInput({ conversationID }) {
     );
 
   return (
-
     <div className="my-4">
       <form onSubmit={handleSend}>
         <div className="w-full relative">
           <label htmlFor="comment-input" className="form-label"></label>
           <input
             id="comment-input"
-            className="comment-input-box"
+            className="message-input"
             type="text"
             placeholder="Type your message here"
             value={messageInput}
@@ -85,9 +84,6 @@ export default function MessageInput({ conversationID }) {
         </div>
       </form>
     </div>
-
-
-
 
     // <div className="message-input">
     //   <form onSubmit={handleSend}>

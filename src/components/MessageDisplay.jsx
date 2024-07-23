@@ -13,7 +13,8 @@ export default function MessageDisplay() {
     <div className="message-display-container">
       <div
         className="flex items-center justify-end mb-4 cursor-pointer"
-        onClick={() => navigate(-1)}>
+        onClick={() => navigate(-1)}
+      >
         <i className="fa-solid fa-arrow-left"></i>
         <p className="mb-0 ml-2">back</p>
       </div>
@@ -21,7 +22,7 @@ export default function MessageDisplay() {
       <h1>{partner}</h1>
 
       <MessageList conversationID={conversationID} />
-      <MessageInput />
+      <MessageInput conversationID={conversationID} />
     </div>
   );
 }

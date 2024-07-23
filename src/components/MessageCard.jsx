@@ -54,9 +54,13 @@ export default function MessageCard({ message }) {
       {message.sender_id === user.userID ? (
         <div>
           <div className="flex p-2 items-center">
-            <div className="border rounded-full p-2 mr-2"><h2 className="m-0">{profile}</h2></div>
+            <div className="border-2 border-green-900 rounded-full p-2 mr-2">
+              <h2 className="m-0">{profile}</h2>
+            </div>
             <div className="flex-grow">
-              <div className="border rounded p-2">{message.message}</div>
+              <div className="border-2 border-green-900 rounded p-2">
+                {message.message}
+              </div>
             </div>
           </div>
           {messageDateOnly.getTime() === todayDate.getTime() ? (
@@ -69,9 +73,13 @@ export default function MessageCard({ message }) {
         <div>
           <div className="flex p-2 items-center">
             <div className="flex-grow">
-              <div className="border rounded p-2">{message.message}</div>
+              <div className="border-2 border-green-900 rounded p-2">
+                {message.message}
+              </div>
             </div>
-            <div className="border rounded-full p-2 ml-2"><h2 className="m-0">{profile}</h2></div>
+            <div className="border-2 border-green-900 rounded-full p-2 ml-2">
+              <h2 className="m-0">{profile}</h2>
+            </div>
           </div>
           {messageDateOnly.getTime() === todayDate.getTime() ? (
             <div className="text-start text-sm">{`${timeStamp.time}`}</div>
