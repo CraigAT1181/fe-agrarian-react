@@ -58,7 +58,7 @@ export default function MessageCard({ message }) {
               <h2 className="m-0">{profile}</h2>
             </div>
             <div className="flex-grow">
-              <div className="bg-gray-400 rounded p-2">{message.message}</div>
+              <div className="bg-green-900 text-white rounded p-4">{message.message}</div>
             </div>
           </div>
           {messageDateOnly.getTime() === todayDate.getTime() ? (
@@ -71,9 +71,9 @@ export default function MessageCard({ message }) {
         <div>
           <div className="flex p-2 items-center">
             <div className="flex-grow">
-              <div className="bg-gray-200 rounded p-2">{message.message}</div>
+              <div className="bg-gray-200 rounded p-4">{message.message}</div>
             </div>
-            <div className="bg-gray-200 rounded-full p-2 ml-2">
+            <div className="bg-gray-400 rounded-full p-2 ml-2">
               <h2 className="m-0">{profile}</h2>
             </div>
           </div>

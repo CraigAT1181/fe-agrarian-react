@@ -340,6 +340,10 @@
 
 /* -- MESSENGER -- */
 
+.messenger-container {
+  @apply lg:mx-80
+}
+
 .message-card-container {
   @apply p-2;
 }
@@ -348,11 +352,11 @@
 }
 
 .message-input {
-  @apply w-full pr-10 pl-4 py-2 border-2 border-green-900 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent;
+  @apply w-full pr-10 pl-4 py-2 border-2 border-green-900 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent lg:w-96;
 }
 
 .message-display-container {
-  @apply flex flex-col flex-grow text-center;
+  @apply flex flex-col flex-grow border shadow-md rounded-lg p-2 text-center lg:mx-80;
 }
 
 .message-list {
