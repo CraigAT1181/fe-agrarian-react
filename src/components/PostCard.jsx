@@ -54,11 +54,7 @@ export default function PostCard({ post, setPostDeleted }) {
                   <i className="fa-solid fa-trash"></i>
                 </button>
               ) : (
-                <MessageButton
-                  partner={post.user_id}
-                  size={"s"}
-                  colour={"white"}
-                />
+                <MessageButton partner={post} size={"s"} colour={"white"} />
               ))}
           </div>
         </div>
