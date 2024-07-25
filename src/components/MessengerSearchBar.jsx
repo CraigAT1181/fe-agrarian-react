@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useAuth } from "./AuthContext";
 import { getUsers } from "../api/api";
 
-export default function MessengerSearchBar() {
+export default function MessengerSearchBar({ conversations }) {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [allUsers, setAllUsers] = useState([]);
@@ -57,28 +57,11 @@ export default function MessengerSearchBar() {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    // setActiveSearch(true);
-    // const searchTerm = searchTerms.toLowerCase();
-    // if (blogs.length > 0) {
-    //   const filtered = blogs.filter((blog) => {
-    //     const searchTermsArray = searchTerm.split(" ");
-    //     return (
-    //       blog.tags.some((tag) => tag.toLowerCase().includes(searchTerm)) ||
-    //       searchTermsArray.some((word) =>
-    //         blog.username.toLowerCase().includes(word)
-    //       ) ||
-    //       searchTermsArray.some((word) =>
-    //         blog.title.toLowerCase().includes(word)
-    //       )
-    //     );
-    //   });
-    //   setFilteredBlogs(filtered);
-    //   if (filtered.length === 0) {
-    //     setNotFound("Couldn't find any results.");
-    //   } else {
-    //     setNotFound("");
-    //   }
-    // }
+
+    // Check if conversation already exists
+
+    // If so: Scroll to the conversation card
+    //If not: Add the conversation
   };
 
   if (isLoading)
