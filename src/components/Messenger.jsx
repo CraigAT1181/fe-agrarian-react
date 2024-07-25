@@ -54,7 +54,10 @@ export default function Messenger() {
 
   return (
     <div className="messenger-container">
-      <MessengerSearchBar conversations={conversations} />
+      <MessengerSearchBar
+        conversations={conversations}
+        fetchConversations={fetchConversations}
+      />
       <ContactList
         conversations={conversations}
         setConversations={setConversations}

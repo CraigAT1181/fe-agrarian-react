@@ -1,13 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "./AuthContext";
-import { getUsers } from "../api/api";
+import { addConversationByUserID, getUsers } from "../api/api";
 
-export default function MessengerSearchBar({ conversations }) {
+export default function MessengerSearchBar({
+  conversations,
+  fetchConversations,
+}) {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [allUsers, setAllUsers] = useState([]);
   const [searchTerms, setSearchTerms] = useState("");
   const [results, setResults] = useState([]);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [userNotFound, setUserNotFound] = useState("");
   const { user } = useAuth();
 
   useEffect(() => {
@@ -28,7 +33,7 @@ export default function MessengerSearchBar({ conversations }) {
             data: { message },
           },
         }) => {
-          setError({ status, message: message });
+          setError({ status, message });
           setIsLoading(false);
         }
       );
@@ -44,7 +49,7 @@ export default function MessengerSearchBar({ conversations }) {
       } else {
         setResults([]);
       }
-    }, 300); // Delay of 300ms
+    }, 300);
 
     return () => {
       clearTimeout(handler);
@@ -53,15 +58,77 @@ export default function MessengerSearchBar({ conversations }) {
 
   const handleInputChange = (e) => {
     setSearchTerms(e.target.value);
+    setSelectedUser(null);
+    setUserNotFound("");
   };
 
   const handleSearch = (e) => {
     e.preventDefault();
 
-    // Check if conversation already exists
+    let userToSearch = selectedUser;
 
-    // If so: Scroll to the conversation card
-    //If not: Add the conversation
+    if (!userToSearch) {
+      userToSearch = results.find(
+        (u) => u.username.toLowerCase() === searchTerms.toLowerCase()
+      );
+      if (!userToSearch) {
+        setUserNotFound("We couldn't find that user! Try again.");
+        return;
+      }
+    }
+
+    const activeConversations = conversations.filter((conversation) => {
+      return (
+        (conversation.user1_id === user.userID &&
+          !conversation.user1_is_deleted) ||
+        (conversation.user2_id === user.userID &&
+          !conversation.user2_is_deleted)
+      );
+    });
+
+    console.log("active conversations:", activeConversations);
+
+    let conversationExists = false;
+    let partnerId = null;
+
+    activeConversations.forEach((conversation) => {
+      if (
+        conversation.user1_id === userToSearch.user_id &&
+        conversation.user1_id !== user.userID
+      ) {
+        conversationExists = true;
+        partnerId = conversation.user1_id;
+      }
+
+      if (
+        conversation.user2_id === userToSearch.user_id &&
+        conversation.user2_id !== user.userID
+      ) {
+        conversationExists = true;
+        partnerId = conversation.user2_id;
+      }
+    });
+
+    if (!conversationExists) {
+      partnerId = userToSearch.user_id;
+    }
+
+    if (conversationExists) {
+      console.log("Exists!");
+    } else {
+      if (partnerId !== null) {
+        setIsLoading(true);
+        addConversationByUserID(user.userID, partnerId)
+          .then(() => {
+            setIsLoading(false);
+            fetchConversations();
+          })
+          .catch((error) => {
+            setIsLoading(false);
+            setError(error.response?.data.message || "An error occurred");
+          });
+      }
+    }
   };
 
   if (isLoading)
@@ -83,6 +150,12 @@ export default function MessengerSearchBar({ conversations }) {
   return (
     <div className="flex justify-center">
       <div className="search-bar-container">
+        {userNotFound && (
+          <div className="flex justify-center">
+            <p className="text-red-700">{userNotFound}</p>
+          </div>
+        )}
+
         <form onSubmit={handleSearch}>
           <div className="w-full relative">
             <label
@@ -93,7 +166,7 @@ export default function MessengerSearchBar({ conversations }) {
             <input
               id="item-search"
               className="search-bar-input"
-              onChange={(e) => handleInputChange(e)}
+              onChange={handleInputChange}
               type="text"
               placeholder="Search for a user"
               value={searchTerms}
@@ -116,8 +189,16 @@ export default function MessengerSearchBar({ conversations }) {
                   className="text-center my-1 hover:bg-white"
                 >
                   <button
-                    className="p-1 rounded w-full"
-                    onClick={() => setSearchTerms(returnedUser.username)}
+                    className={`p-1 rounded w-full ${
+                      selectedUser &&
+                      selectedUser.user_id === returnedUser.user_id
+                        ? "bg-gray-200"
+                        : ""
+                    }`}
+                    onClick={() => {
+                      setSearchTerms(returnedUser.username);
+                      setSelectedUser(returnedUser);
+                    }}
                   >
                     {returnedUser.username}
                   </button>
