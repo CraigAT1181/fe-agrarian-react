@@ -5,6 +5,7 @@ import { addConversationByUserID, getUsers } from "../api/api";
 export default function MessengerSearchBar({
   conversations,
   fetchConversations,
+  setExistingChat,
 }) {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -98,6 +99,7 @@ export default function MessengerSearchBar({
       ) {
         conversationExists = true;
         partnerId = conversation.user1_id;
+        setExistingChat(conversation);
       }
 
       if (
@@ -106,16 +108,13 @@ export default function MessengerSearchBar({
       ) {
         conversationExists = true;
         partnerId = conversation.user2_id;
+        setExistingChat(conversation);
       }
     });
 
     if (!conversationExists) {
       partnerId = userToSearch.user_id;
-    }
 
-    if (conversationExists) {
-      console.log("Exists!");
-    } else {
       if (partnerId !== null) {
         setIsLoading(true);
         addConversationByUserID(user.userID, partnerId)

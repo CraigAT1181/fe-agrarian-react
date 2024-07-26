@@ -8,6 +8,7 @@ export default function Messenger() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [conversations, setConversations] = useState([]);
+  const [existingChat, setExistingChat] = useState({});
   const { user } = useAuth();
 
   const fetchConversations = useCallback(() => {
@@ -57,10 +58,12 @@ export default function Messenger() {
       <MessengerSearchBar
         conversations={conversations}
         fetchConversations={fetchConversations}
+        setExistingChat={setExistingChat}
       />
       <ContactList
         conversations={conversations}
         setConversations={setConversations}
+        existingChat={existingChat}
       />
     </div>
   );

@@ -341,7 +341,7 @@
 /* -- MESSENGER -- */
 
 .messenger-container {
-  @apply lg:mx-80
+  @apply lg:mx-64;
 }
 
 .message-card-container {
