@@ -150,15 +150,22 @@ export default function Posts() {
             </div>
           </div>
         ) : (
-          <div className="post-display">
-            {filteredPosts.length > 0 &&
-              filteredPosts.map((post) => (
-                <PostCard
-                  key={post.post_id}
-                  post={post}
-                  setPostDeleted={setPostDeleted}
-                />
-              ))}
+          <div>
+            <div className="post-display">
+              {filteredPosts.length > 0 &&
+                filteredPosts.map((post) => (
+                  <PostCard
+                    key={post.post_id}
+                    post={post}
+                    setPostDeleted={setPostDeleted}
+                  />
+                ))}
+            </div>
+            {filteredPosts.length === 0 && (
+              <div className="flex justify-center">
+                <p>No one has posted any ads yet.</p>
+              </div>
+            )}
           </div>
         )}
       </div>
