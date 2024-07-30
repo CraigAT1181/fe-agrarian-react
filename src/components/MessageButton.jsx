@@ -4,6 +4,7 @@ import { useAuth } from "./AuthContext";
 import { addConversationByUserID, getConversationsByUserID } from "../api/api";
 
 export default function MessageButton({ partner, size, colour }) {
+  console.log(partner, size, colour);
   const navigate = useNavigate();
   const { user } = useAuth();
   const [isLoading, setIsLoading] = useState(false);

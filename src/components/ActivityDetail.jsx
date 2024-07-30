@@ -4,6 +4,7 @@ import { useAuth } from "./AuthContext";
 import { format } from "date-fns";
 import { getActivityByActivityID, cancelActivity } from "../api/api";
 import EditActivityModal from "./EditActivity";
+import MessageButton from "./MessageButton";
 
 // Utility function to format dates with suffixes and other details
 function formatDate(dateString) {
@@ -29,7 +30,9 @@ function formatDate(dateString) {
     fullDate: formattedDate,
     time: format(date, `h:mma`),
     month: format(date, `MMMM`),
-    suffix: <span style={{ fontSize: "16px", fontWeight: "normal" }}>{suffix}</span>,
+    suffix: (
+      <span style={{ fontSize: "16px", fontWeight: "normal" }}>{suffix}</span>
+    ),
   };
 }
 
@@ -67,7 +70,12 @@ export default function ActivityDetail() {
 
         setIsLoading(false);
       } catch (error) {
-        const { response: { status, data: { message } } } = error;
+        const {
+          response: {
+            status,
+            data: { message },
+          },
+        } = error;
         setIsLoading(false);
         setError({ status, message });
       }
@@ -101,7 +109,9 @@ export default function ActivityDetail() {
     return (
       <div className="error-container">
         <i className="fa-solid fa-exclamation"></i>
-        <p>Oops, there's been an error: {error.status} {error.message}</p>
+        <p>
+          Oops, there's been an error: {error.status} {error.message}
+        </p>
       </div>
     );
   }
@@ -109,12 +119,13 @@ export default function ActivityDetail() {
   return (
     <div className="activity-detail-container">
       <div className="flex flex-col text-center">
-        <img
-          className="w-full object-cover mb-4"
-          src={singleActivity.image_url}
-          alt="Activity Image"
-        />
-
+        <div className="flex justify-center">
+          <img
+            className="w-full lg:w-1/2 object-cover mb-4"
+            src={singleActivity.image_url}
+            alt="Activity Image"
+          />
+        </div>
         {isLoading ? (
           <div>
             <i className="fa-solid fa-spinner fa-spin"></i>
@@ -142,31 +153,41 @@ export default function ActivityDetail() {
         </div>
 
         <div className="mb-2">
-          {singleActivity.is_cancelled && user?.userID !== singleActivity.user_id && (
-            <span className="bg-gray-600 text-white p-1 rounded">
-              {new Date(singleActivity.date_e_time) < new Date()
-                ? "This activity was cancelled."
-                : "This activity has been cancelled."}
-            </span>
-          )}
+          {singleActivity.is_cancelled &&
+            user?.userID !== singleActivity.user_id && (
+              <span className="bg-gray-600 text-white p-1 rounded">
+                {new Date(singleActivity.date_e_time) < new Date()
+                  ? "This activity was cancelled."
+                  : "This activity has been cancelled."}
+              </span>
+            )}
         </div>
 
-        <div>
-          {user && user.userID !== singleActivity.user_id && new Date(singleActivity.date_e_time) < new Date() && !singleActivity.is_cancelled && (
-            <div>
-              <p className="bg-gray-600 text-white p-1 rounded">
-                This activity has now finished.
-              </p>
-              <p className="bg-gray-600 text-white p-1 rounded">
-                If you'd like to find out more about this activity, contact {singleActivity.username}.
-              </p>
-            </div>
-          )}
+        <div className="flex justify-center">
+          {user &&
+            user.userID !== singleActivity.user_id &&
+            new Date(singleActivity.date_e_time) < new Date() &&
+            !singleActivity.is_cancelled && (
+              <div className="w-fit">
+                <p className="bg-gray-600 text-white p-2 rounded">
+                  This activity has now finished.
+                </p>
+                <p>
+                  Contact{" "}
+                  <span className="font-semibold">
+                    {singleActivity.username}
+                  </span>{" "}
+                  for more information
+                </p>
+              </div>
+            )}
         </div>
 
         {user && user.userID === singleActivity.user_id && (
           <div>
-            <button className="dropdown" onClick={handleShow}>
+            <button
+              className="dropdown"
+              onClick={handleShow}>
               Edit
             </button>
             <EditActivityModal
@@ -175,7 +196,9 @@ export default function ActivityDetail() {
               singleActivity={singleActivity}
               setEditedActivity={setEditedActivity}
             />
-            <button className="dropdown" onClick={handleCancel}>
+            <button
+              className="dropdown"
+              onClick={handleCancel}>
               {isLoading ? (
                 <i className="fa-solid fa-spinner fa-spin"></i>
               ) : singleActivity.is_cancelled ? (

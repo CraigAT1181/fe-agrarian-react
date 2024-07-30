@@ -12,6 +12,7 @@ export const AuthProvider = ({ children }) => {
   const [commentPosted, setCommentPosted] = useState(false);
   const [messageSent, setMessageSent] = useState(false);
   const [selectedConversation, setSelectedConversation] = useState(null);
+  const [notifications, setNotifications] = useState([]);
   const navigate = useNavigate();
 
   // Authenticate user on component mount
@@ -103,6 +104,18 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  // Manage new notfications
+  const addNotification = (message) => {
+    setNotifications([...notifications, { message, read: false }]);
+  };
+
+  // Handle read notifications
+  const markAsRead = (index) => {
+    const newNotifications = [...notifications];
+    newNotifications[index].read = true;
+    setNotifications(newNotifications);
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -115,7 +128,10 @@ export const AuthProvider = ({ children }) => {
         selectedConversation,
         setSelectedConversation,
         messageSent,
-        setMessageSent
+        setMessageSent,
+        notifications,
+        addNotification,
+        markAsRead
       }}>
       {children}
     </AuthContext.Provider>

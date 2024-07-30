@@ -63,6 +63,13 @@ export default function Exchange() {
           setFilteredProduce={setFilteredProduce}
         />
       </div>
+      <div className="flex justify-center mt-4">
+        <div className="p-2 bg-red-600 rounded-lg w-fit">
+          <span className="flex text-white text-center font-semibold">
+            Note: Users in London postcodes are currently test accounts.
+          </span>
+        </div>
+      </div>
     </div>
   );
 }
