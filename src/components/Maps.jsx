@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import MapsInfoWindow from "./MapsInfoWindow";
 import {
   GoogleMap,
-  LoadScript,
   Marker,
   InfoWindow,
   useJsApiLoader,
@@ -11,13 +10,59 @@ import {
 // Load additional libraries for Google Maps
 const libraries = ["geometry", "drawing"];
 
+// Function to geocode a postcode using Google Maps API
+const userMapMarkers = async (postcode) => {
+  return new Promise((resolve) => {
+    const geocoder = new window.google.maps.Geocoder();
+    geocoder.geocode({ address: postcode }, (results, status) => {
+      if (status === "OK") {
+        resolve(results[0].geometry.location.toJSON());
+      } else {
+        console.error(
+          "Geocode was not successful for the following reason: " + status
+        );
+        resolve(null); // Resolve with null to handle invalid postcodes gracefully
+      }
+    });
+  });
+};
+
+// Calculate optimal zoom level to fit all markers
+const getZoomLevel = (bounds, mapDim) => {
+  const WORLD_DIM = { height: 256, width: 256 };
+  const ZOOM_MAX = 21;
+
+  const latRad = (lat) => (lat * Math.PI) / 180;
+
+  const latFraction =
+    (latRad(bounds.getNorthEast().lat()) - latRad(bounds.getSouthWest().lat())) /
+    Math.PI;
+
+  const lngDiff = bounds.getNorthEast().lng() - bounds.getSouthWest().lng();
+  const lngFraction = (lngDiff < 0 ? lngDiff + 360 : lngDiff) / 360;
+
+  const latZoom = () =>
+    Math.round(
+      Math.log(mapDim.height / WORLD_DIM.height / latFraction) / Math.LN2
+    );
+
+  const lngZoom = () =>
+    Math.round(
+      Math.log(mapDim.width / WORLD_DIM.width / lngFraction) / Math.LN2
+    );
+
+  return Math.min(latZoom(), lngZoom(), ZOOM_MAX);
+};
+
 export default function Maps({ users }) {
-  const [postcodes, setPostcodes] = useState([]);
-  const [selectedUser, setSelectedUser] = useState(null);
-  const [center, setCenter] = useState({ lat: 0, lng: 0 });
-  const [zoom, setZoom] = useState(12);
-  const [selectedMarkerIndex, setSelectedMarkerIndex] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [state, setState] = useState({
+    postcodes: [],
+    selectedUser: null,
+    center: { lat: 0, lng: 0 },
+    zoom: 12,
+    selectedMarkerIndex: null,
+    loading: true,
+  });
 
   // Load the Google Maps API
   const { isLoaded } = useJsApiLoader({
@@ -28,9 +73,10 @@ export default function Maps({ users }) {
 
   // Fetch and process user postcodes
   useEffect(() => {
+    let isMounted = true;
     async function fetchPostcodes() {
       if (users.length > 0) {
-        setLoading(true);
+        setState((prevState) => ({ ...prevState, loading: true }));
         try {
           const userPostcodes = await Promise.all(
             users.map(async (user) => {
@@ -43,104 +89,81 @@ export default function Maps({ users }) {
             (postcode) => postcode.position
           );
 
-          if (validPostcodes.length > 0) {
+          if (isMounted && validPostcodes.length > 0) {
             const bounds = new window.google.maps.LatLngBounds();
             validPostcodes.forEach((postcode) => {
               bounds.extend(postcode.position);
             });
 
-            setCenter({
+            const center = {
               lat:
                 (bounds.getSouthWest().lat() + bounds.getNorthEast().lat()) / 2,
               lng:
                 (bounds.getSouthWest().lng() + bounds.getNorthEast().lng()) / 2,
-            });
+            };
 
             const newZoom = getZoomLevel(bounds, { width: 600, height: 400 });
-            setZoom(newZoom);
-          }
 
-          setPostcodes(validPostcodes);
+            setState((prevState) => ({
+              ...prevState,
+              postcodes: validPostcodes,
+              center,
+              zoom: newZoom,
+              loading: false,
+            }));
+          }
         } catch (error) {
           console.error("Error fetching postcodes:", error);
-        } finally {
-          setLoading(false);
+          if (isMounted) {
+            setState((prevState) => ({
+              ...prevState,
+              loading: false,
+            }));
+          }
         }
       } else {
-        setPostcodes([]);
-        setLoading(false);
+        setState((prevState) => ({
+          ...prevState,
+          postcodes: [],
+          loading: false,
+        }));
       }
     }
 
     fetchPostcodes();
+
+    return () => {
+      isMounted = false;
+    };
   }, [users]);
-
-  // Function to geocode a postcode using Google Maps API
-  const userMapMarkers = async (postcode) => {
-    return new Promise((resolve) => {
-      const geocoder = new window.google.maps.Geocoder();
-      geocoder.geocode({ address: postcode }, (results, status) => {
-        if (status === "OK") {
-          resolve(results[0].geometry.location.toJSON());
-        } else {
-          console.error(
-            "Geocode was not successful for the following reason: " + status
-          );
-          resolve(null); // Resolve with null to handle invalid postcodes gracefully
-        }
-      });
-    });
-  };
-
-  // Calculate optimal zoom level to fit all markers
-  const getZoomLevel = (bounds, mapDim) => {
-    const WORLD_DIM = { height: 256, width: 256 };
-    const ZOOM_MAX = 21;
-
-    const latRad = (lat) => (lat * Math.PI) / 180;
-
-    const latFraction =
-      (latRad(bounds.getNorthEast().lat()) -
-        latRad(bounds.getSouthWest().lat())) /
-      Math.PI;
-
-    const lngDiff = bounds.getNorthEast().lng() - bounds.getSouthWest().lng();
-    const lngFraction = (lngDiff < 0 ? lngDiff + 360 : lngDiff) / 360;
-
-    const latZoom = () =>
-      Math.round(
-        Math.log(mapDim.height / WORLD_DIM.height / latFraction) / Math.LN2
-      );
-
-    const lngZoom = () =>
-      Math.round(
-        Math.log(mapDim.width / WORLD_DIM.width / lngFraction) / Math.LN2
-      );
-
-    return Math.min(latZoom(), lngZoom(), ZOOM_MAX);
-  };
 
   // Handle marker click events
   const handleMarkerClick = (user, index) => {
-    setSelectedUser(user);
-    setSelectedMarkerIndex(index);
+    setState((prevState) => ({
+      ...prevState,
+      selectedUser: user,
+      selectedMarkerIndex: index,
+    }));
   };
 
   // Handle InfoWindow close events
   const handleInfoWindowClose = () => {
-    setSelectedUser(null);
-    setSelectedMarkerIndex(null);
+    setState((prevState) => ({
+      ...prevState,
+      selectedUser: null,
+      selectedMarkerIndex: null,
+    }));
   };
 
   return (
     <div>
       {isLoaded && (
         <GoogleMap
-          center={center}
-          zoom={zoom}
+          center={state.center}
+          zoom={state.zoom}
           mapContainerStyle={{ width: "100%", height: "400px" }}
         >
-          {postcodes.map((postcode, index) => (
+          {state.postcodes.map((postcode, index) => (
             <Marker
               key={index}
               position={postcode.position}
@@ -149,13 +172,13 @@ export default function Maps({ users }) {
             />
           ))}
 
-          {selectedMarkerIndex !== null && !loading && (
+          {state.selectedMarkerIndex !== null && !state.loading && (
             <InfoWindow
-              position={postcodes[selectedMarkerIndex].position}
+              position={state.postcodes[state.selectedMarkerIndex].position}
               onCloseClick={handleInfoWindowClose}
             >
               <div>
-                <MapsInfoWindow selectedUser={selectedUser} />
+                <MapsInfoWindow selectedUser={state.selectedUser} />
               </div>
             </InfoWindow>
           )}
