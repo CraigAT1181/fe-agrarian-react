@@ -137,7 +137,18 @@ export default function Maps({ users }) {
     };
   }, [users]);
 
-  // Handle marker click events
+  // Memoize the bounds calculation to improve performance
+  const bounds = useMemo(() => {
+    if (state.postcodes.length > 0) {
+      const bounds = new window.google.maps.LatLngBounds();
+      state.postcodes.forEach((postcode) => {
+        bounds.extend(postcode.position);
+      });
+      return bounds;
+    }
+    return null;
+  }, [state.postcodes]);
+
   const handleMarkerClick = (user, index) => {
     setState((prevState) => ({
       ...prevState,
@@ -146,7 +157,6 @@ export default function Maps({ users }) {
     }));
   };
 
-  // Handle InfoWindow close events
   const handleInfoWindowClose = () => {
     setState((prevState) => ({
       ...prevState,
