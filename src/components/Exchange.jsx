@@ -52,11 +52,9 @@ export default function Exchange() {
 
   return (
     <div className="grid">
-      {users && (
-        <div>
-          <Maps users={users} />
-        </div>
-      )}
+      <div>
+        <Maps users={users} />
+      </div>
 
       <div>
         <ProduceFinder

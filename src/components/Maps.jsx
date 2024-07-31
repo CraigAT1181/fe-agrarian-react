@@ -53,7 +53,7 @@ const getZoomLevel = (bounds, mapDim) => {
   return Math.min(latZoom(), lngZoom(), ZOOM_MAX);
 };
 
-export default function Maps({ users = [] }) {
+export default function Maps({ users }) {
   const [state, setState] = useState({
     postcodes: [],
     selectedUser: null,
