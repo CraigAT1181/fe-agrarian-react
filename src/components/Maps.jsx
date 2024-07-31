@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState, useMemo, useCallback } from "react";
 import MapsInfoWindow from "./MapsInfoWindow";
 import {
   GoogleMap,
@@ -8,12 +8,10 @@ import {
 } from "@react-google-maps/api";
 
 // Load additional libraries for Google Maps
-const libraries = ["geometry", "drawing"];
+const libraries = ["geometry", "drawing", "places"];
 
-// Function to geocode a postcode using Google Maps API
-const userMapMarkers = async (postcode) => {
+const userMapMarkers = async (postcode, geocoder) => {
   return new Promise((resolve) => {
-    const geocoder = new window.google.maps.Geocoder();
     geocoder.geocode({ address: postcode }, (results, status) => {
       if (status === "OK") {
         resolve(results[0].geometry.location.toJSON());
@@ -71,16 +69,20 @@ export default function Maps({ users }) {
     libraries,
   });
 
-  // Fetch and process user postcodes
+  const geocoder = useMemo(() => {
+    return isLoaded ? new window.google.maps.Geocoder() : null;
+  }, [isLoaded]);
+
   useEffect(() => {
     let isMounted = true;
+
     async function fetchPostcodes() {
-      if (users.length > 0) {
+      if (users.length > 0 && geocoder) {
         setState((prevState) => ({ ...prevState, loading: true }));
         try {
           const userPostcodes = await Promise.all(
             users.map(async (user) => {
-              const position = await userMapMarkers(user.postcode);
+              const position = await userMapMarkers(user.postcode, geocoder);
               return { position, title: user.postcode, user };
             })
           );
@@ -135,19 +137,7 @@ export default function Maps({ users }) {
     return () => {
       isMounted = false;
     };
-  }, [users]);
-
-  // Memoize the bounds calculation to improve performance
-  const bounds = useMemo(() => {
-    if (state.postcodes.length > 0) {
-      const bounds = new window.google.maps.LatLngBounds();
-      state.postcodes.forEach((postcode) => {
-        bounds.extend(postcode.position);
-      });
-      return bounds;
-    }
-    return null;
-  }, [state.postcodes]);
+  }, [users, geocoder]);
 
   const handleMarkerClick = (user, index) => {
     setState((prevState) => ({
