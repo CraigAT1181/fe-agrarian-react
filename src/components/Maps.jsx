@@ -33,7 +33,8 @@ const getZoomLevel = (bounds, mapDim) => {
   const latRad = (lat) => (lat * Math.PI) / 180;
 
   const latFraction =
-    (latRad(bounds.getNorthEast().lat()) - latRad(bounds.getSouthWest().lat())) /
+    (latRad(bounds.getNorthEast().lat()) -
+      latRad(bounds.getSouthWest().lat())) /
     Math.PI;
 
   const lngDiff = bounds.getNorthEast().lng() - bounds.getSouthWest().lng();
@@ -52,7 +53,7 @@ const getZoomLevel = (bounds, mapDim) => {
   return Math.min(latZoom(), lngZoom(), ZOOM_MAX);
 };
 
-export default function Maps({ users }) {
+export default function Maps({ users = [] }) {
   const [state, setState] = useState({
     postcodes: [],
     selectedUser: null,
@@ -161,8 +162,7 @@ export default function Maps({ users }) {
         <GoogleMap
           center={state.center}
           zoom={state.zoom}
-          mapContainerStyle={{ width: "100%", height: "400px" }}
-        >
+          mapContainerStyle={{ width: "100%", height: "400px" }}>
           {state.postcodes.map((postcode, index) => (
             <Marker
               key={index}
@@ -175,8 +175,7 @@ export default function Maps({ users }) {
           {state.selectedMarkerIndex !== null && !state.loading && (
             <InfoWindow
               position={state.postcodes[state.selectedMarkerIndex].position}
-              onCloseClick={handleInfoWindowClose}
-            >
+              onCloseClick={handleInfoWindowClose}>
               <div>
                 <MapsInfoWindow selectedUser={state.selectedUser} />
               </div>
