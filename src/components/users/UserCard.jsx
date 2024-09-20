@@ -11,7 +11,7 @@ export default function UserCard({ user }) {
                 <img
                   src={user.profile_pic}
                   alt="User's profile picture"
-                  className="w-48 h-48 shadow-md shadow-gray-700 object-cover rounded-full"
+                  className="w-48 h-48 shadow-md shadow-green-900 object-cover rounded-full"
                 />
               </div>
               <h2 className="mt-4">{user.user_name}</h2>

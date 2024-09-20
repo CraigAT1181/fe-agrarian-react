@@ -94,9 +94,7 @@ export default function Register() {
     );
 
   return (
-    <Modal
-      show={show}
-      onHide={handleClose}>
+    <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
         <Modal.Title>Register</Modal.Title>
       </Modal.Header>
@@ -161,7 +159,10 @@ export default function Register() {
           </div>
           <div className="form-group mt-2">
             <label htmlFor="profile_pic">
-              Profile Picture <span className="text-sm text-green-700">(.jpg, .jpeg or .png)</span>
+              Profile Picture{" "}
+              <span className="text-sm text-green-900">
+                (.jpg, .jpeg or .png)
+              </span>
             </label>
             <input
               id="profile_pic"
@@ -185,13 +186,15 @@ export default function Register() {
                 required
               />
               <button
-                className="text-gray-700 cursor-pointer bg-transparent absolute top-2 right-2"
+                className="text-green-900 cursor-pointer bg-transparent absolute top-2 right-2"
                 onClick={togglePassword1Visibility}
-                type="button">
+                type="button"
+              >
                 <i
                   className={`fa-solid ${
                     showPassword1 ? "fa-eye-slash" : "fa-eye"
-                  }`}></i>
+                  }`}
+                ></i>
               </button>
             </div>
           </div>
@@ -209,13 +212,15 @@ export default function Register() {
                 required
               />
               <button
-                className="text-gray-700 cursor-pointer bg-transparent absolute top-2 right-2"
+                className="text-green-900 cursor-pointer bg-transparent absolute top-2 right-2"
                 onClick={togglePassword2Visibility}
-                type="button">
+                type="button"
+              >
                 <i
                   className={`fa-solid ${
                     showPassword2 ? "fa-eye-slash" : "fa-eye"
-                  }`}></i>
+                  }`}
+                ></i>
               </button>
             </div>
           </div>
@@ -226,9 +231,7 @@ export default function Register() {
                 Registration failed, please try again.
               </p>
             )}
-            <button
-              className="confirm-button"
-              type="submit">
+            <button className="confirm-button" type="submit">
               Confirm
             </button>
           </div>
