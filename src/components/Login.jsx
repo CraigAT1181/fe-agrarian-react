@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import { userLogin } from "../api/api";
+import { loginUser } from "../api/api";
 import { useAuth } from "./AuthContext";
 import { useNavigate } from "react-router-dom";
-import { Modal, Alert } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 
 export default function Login() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [show, setShow] = useState(true);
   const { login } = useAuth();
@@ -27,59 +27,58 @@ export default function Login() {
   const loginHandler = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    userLogin(username, password)
-      .then(({ access_token }) => {
-        login(access_token);
+    loginUser(email, password)
+      .then(({ session, user }) => {
+        setIsLoading(false);
+
+        login(session, user);
 
         navigate("/");
       })
       .catch(() => {
         setIsLoading(false);
-        setError("Invalid username or password.");
+        setError("E-mail or password not recognised.");
       });
   };
 
   if (isLoading)
     return (
-      <div>
+      <div className="">
+        <p>Logging you in!</p>
         <i className="fa-solid fa-spinner fa-spin"></i>
-        <p>Logging you in...</p>
       </div>
     );
 
   return (
-    <Modal
-      show={show}
-      onHide={handleClose}>
+    <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
         <Modal.Title>Login</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         {error && (
-          <Alert variant="danger">
-            <div>{error}</div>
-            <div
-              style={{
-                fontSize: "13px",
-                textDecoration: "underline",
-                cursor: "pointer",
-              }}
-              onClick={() => {
-                navigate("/request-link");
-              }}>
-              Reset password.
+          <div className="flex flex-col text-center">
+            <p className="text-red-800 m-0">{error}</p>
+            <div>
+              <button
+                className="reset-password"
+                onClick={() => {
+                  navigate("/request-link");
+                }}
+              >
+                Reset password
+              </button>
             </div>
-          </Alert>
+          </div>
         )}
         <form onSubmit={loginHandler}>
           <div className="form-group my-2">
-            <label htmlFor="username">Username</label>
+            <label htmlFor="email">E-mail</label>
             <input
-              id="username"
+              id="email"
               type="text"
               className="form-control"
-              value={username}
-              onChange={({ target }) => setUsername(target.value)}
+              value={email}
+              onChange={({ target }) => setEmail(target.value)}
             />
           </div>
           <div className="relative">
@@ -90,22 +89,21 @@ export default function Login() {
               className="form-control"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              style={{ paddingRight: "40px" }}
             />
             <button
-              className="text-green-900 cursor-pointer bg-transparent absolute top-8 right-2"
+              className="text-gray-800 cursor-pointer bg-transparent absolute top-8 right-2"
               onClick={togglePasswordVisibility}
-              type="button">
+              type="button"
+            >
               <i
                 className={`fa-solid ${
                   showPassword ? "fa-eye" : "fa-eye-slash"
-                }`}></i>
+                }`}
+              ></i>
             </button>
           </div>
           <div className="d-flex justify-content-center mt-4">
-            <button
-              className="bg-green-950 text-white p-2 rounded-md"
-              type="submit">
+            <button className="confirm-button" type="submit">
               Confirm
             </button>
           </div>

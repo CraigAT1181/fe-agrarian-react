@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Maps from "./Maps";
 import ProduceFinder from "./ProduceFinder";
 import { getUsers } from "../api/api";
+import UserCardDisplay from "./users/UserCardDisplay";
 
 export default function Exchange() {
   const [filteredProduce, setFilteredProduce] = useState([]);
@@ -14,6 +15,7 @@ export default function Exchange() {
       getUsers()
         .then(({ users }) => {
           setIsLoading(false);
+          console.log(users);
 
           setUsers(users);
         })
@@ -52,23 +54,19 @@ export default function Exchange() {
 
   return (
     <div className="grid">
+      <div className="text-center p-2 border border-thin mb-2 rounded-md">
+        <i className="fa-solid fa-xl fa-sliders"></i>
+      </div>
       <div>
-        <Maps users={users} />
+        <UserCardDisplay users={users} />
       </div>
 
       <div>
-        <ProduceFinder
+        {/* <ProduceFinder
           setUsers={setUsers}
           filteredProduce={filteredProduce}
           setFilteredProduce={setFilteredProduce}
-        />
-      </div>
-      <div className="flex justify-center mt-4">
-        <div className="p-2 bg-red-600 rounded-lg w-fit">
-          <span className="flex text-white text-center font-semibold">
-            Note: Users in London postcodes are currently test accounts.
-          </span>
-        </div>
+        /> */}
       </div>
     </div>
   );

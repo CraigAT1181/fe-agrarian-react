@@ -9,6 +9,8 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import "./index.css";
 
 const Home = lazy(() => import("./components/Home"));
+const Welcome = lazy(() => import("./components/utilities/Welcome"));
+const Allotment = lazy(() => import("./components/Allotment"));
 const Exchange = lazy(() => import("./components/Exchange"));
 const Messenger = lazy(() => import("./components/Messenger"));
 const MessageDisplay = lazy(() => import("./components/MessageDisplay"));
@@ -45,7 +47,11 @@ export default function App() {
             <Routes>
               <Route
                 path="/"
-                element={<Exchange />}
+                element={<Welcome />}
+              />
+              <Route
+                path="/allotments/:site"
+                element={<Allotment />}
               />
               <Route
                 path="/exchange"
@@ -138,7 +144,7 @@ export default function App() {
             </Routes>
           </Suspense>
         </main>
-        <AdCarousel />
+        {/* <AdCarousel /> */}
         <Footer />
       </AuthProvider>
     </div>

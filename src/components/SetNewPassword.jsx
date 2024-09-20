@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Modal, Alert } from "react-bootstrap";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { passwordRequest } from "../api/api";
-import PasswordChecker from "./PasswordChecker";
+import PasswordChecker from "./utilities/PasswordChecker";
 
 export default function SetNewPassword() {
   const [isLoading, setIsLoading] = useState(false);

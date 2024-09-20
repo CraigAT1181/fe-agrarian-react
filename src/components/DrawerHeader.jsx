@@ -3,13 +3,8 @@ import { useAuth } from "./AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function DrawerHeader({ isDrawerOpen, toggleDrawer }) {
-  const { user, logout } = useAuth();
+  const { user, handleLogout } = useAuth();
   const navigate = useNavigate();
-
-  const handleLogout = () => {
-    logout();
-    navigate("/");
-  };
 
   return (
     <div

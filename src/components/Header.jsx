@@ -30,7 +30,6 @@ export default function Header() {
       <h1 className="title">cookingpot.live</h1>
 
       <div className="flex items-center lg:hidden">
-        <span className="text-sm lg:hidden">{pageTitle}</span>
         <button
           onClick={toggleDrawer}
           className="hamburger ml-1">
