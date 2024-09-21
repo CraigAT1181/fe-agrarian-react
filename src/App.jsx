@@ -57,7 +57,7 @@ export default function App() {
                 path="/messenger/:partner/:conversationID"
                 element={<MessageDisplay />}
               />
-              <Route path="/posts" element={<Posts />} />
+              <Route path="/ads" element={<Posts />} />
               <Route path="/calendar" element={<Calendar />} />
               <Route path="/*" element={<ErrorHandling />} />
               <Route path="/login" element={<Login />} />

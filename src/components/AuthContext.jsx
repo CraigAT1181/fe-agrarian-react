@@ -24,6 +24,7 @@ export const AuthProvider = ({ children }) => {
         setUser(userData);
       } catch (error) {
         setUser(null);
+        navigate("/");
         console.error("Failed to fetch user information", error);
       }
     };
@@ -131,7 +132,8 @@ export const AuthProvider = ({ children }) => {
         // notifications,
         // addNotification,
         // markAsRead
-      }}>
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

@@ -52,7 +52,9 @@ export default function DrawerHeader({ isDrawerOpen, toggleDrawer }) {
                   </p>
                   <p className="mb-0 font-thin ml-1">| {user.plot}</p>
                 </div>
-                <button className="logout-button-drawer">Logout</button>
+                <button className="logout-button-drawer" onClick={handleLogout}>
+                  Logout
+                </button>
               </div>
 
               <hr />
@@ -96,7 +98,7 @@ export default function DrawerHeader({ isDrawerOpen, toggleDrawer }) {
                 </div>
                 <div className="ml-4">
                   <Link
-                    to={`/towns/${user.towns.town_name}`}
+                    to="/ads"
                     className="drawer-nav-item"
                     onClick={toggleDrawer}
                   >
