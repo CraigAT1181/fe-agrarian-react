@@ -11,6 +11,7 @@ import "./index.css";
 const Home = lazy(() => import("./components/Home"));
 const Welcome = lazy(() => import("./components/utilities/Welcome"));
 const Allotment = lazy(() => import("./components/Allotment"));
+const Town = lazy(() => import("./components/Town"));
 const Exchange = lazy(() => import("./components/Exchange"));
 const Messenger = lazy(() => import("./components/Messenger"));
 const MessageDisplay = lazy(() => import("./components/MessageDisplay"));
@@ -43,104 +44,40 @@ export default function App() {
               <div className="flex justify-center">
                 <i className="fa-solid fa-spinner fa-spin"></i>
               </div>
-            }>
+            }
+          >
             <Routes>
-              <Route
-                path="/"
-                element={<Welcome />}
-              />
-              <Route
-                path="/allotments/:site"
-                element={<Allotment />}
-              />
-              <Route
-                path="/exchange"
-                element={<Exchange />}
-              />
-              <Route
-                path="/home"
-                element={<Home />}
-              />
-              <Route
-                path="/messenger"
-                element={<Messenger />}
-              />
+              <Route path="/" element={<Welcome />} />
+              <Route path="/allotments/:site" element={<Allotment />} />
+              <Route path="/towns/:town" element={<Town />} />
+              <Route path="/exchange" element={<Exchange />} />
+              <Route path="/home" element={<Home />} />
+              <Route path="/messenger" element={<Messenger />} />
               <Route
                 path="/messenger/:partner/:conversationID"
                 element={<MessageDisplay />}
               />
-              <Route
-                path="/posts"
-                element={<Posts />}
-              />
-              <Route
-                path="/calendar"
-                element={<Calendar />}
-              />
-              <Route
-                path="/*"
-                element={<ErrorHandling />}
-              />
-              <Route
-                path="/login"
-                element={<Login />}
-              />
-              <Route
-                path="/register"
-                element={<Register />}
-              />
-              <Route
-                path="/request-link"
-                element={<RequestLink />}
-              />
-              <Route
-                path="/set-new-password"
-                element={<SetNewPassword />}
-              />
-              <Route
-                path="/about"
-                element={<About />}
-              />
-              <Route
-                path="/offer-support"
-                element={<OfferSupport />}
-              />
-              <Route
-                path="/privacy"
-                element={<Privacy />}
-              />
-              <Route
-                path="/cookies"
-                element={<Cookies />}
-              />
-              <Route
-                path="/contact"
-                element={<Contact />}
-              />
-              <Route
-                path="/development"
-                element={<Development />}
-              />
-              <Route
-                path="/activities"
-                element={<Activities />}
-              />
-              <Route
-                path="/blogs"
-                element={<BlogPage />}
-              />
-              <Route
-                path="/blogs/:blog_id"
-                element={<Blog />}
-              />
+              <Route path="/posts" element={<Posts />} />
+              <Route path="/calendar" element={<Calendar />} />
+              <Route path="/*" element={<ErrorHandling />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/request-link" element={<RequestLink />} />
+              <Route path="/set-new-password" element={<SetNewPassword />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/offer-support" element={<OfferSupport />} />
+              <Route path="/privacy" element={<Privacy />} />
+              <Route path="/cookies" element={<Cookies />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/development" element={<Development />} />
+              <Route path="/activities" element={<Activities />} />
+              <Route path="/blogs" element={<BlogPage />} />
+              <Route path="/blogs/:blog_id" element={<Blog />} />
               <Route
                 path="/activities/:activity_id"
                 element={<ActivityDetail />}
               />
-              <Route
-                path="/shop"
-                element={<Shop />}
-              />
+              <Route path="/shop" element={<Shop />} />
             </Routes>
           </Suspense>
         </main>

@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 export default function DrawerHeader({ isDrawerOpen, toggleDrawer }) {
   const { user, handleLogout } = useAuth();
   const navigate = useNavigate();
-
+  console.log(user);
   return (
     <div
       className={`drawer-secondary transform ${
@@ -30,9 +30,12 @@ export default function DrawerHeader({ isDrawerOpen, toggleDrawer }) {
             ></path>
           </svg>
         </button>
+
+        {/* User section */}
         <div className="drawer-user-section">
-          {user ? (
+          {user && (
             <>
+              {/* User information */}
               <div className="flex justify-center overflow-hidden">
                 <img
                   src={user.profile_pic}
@@ -47,90 +50,105 @@ export default function DrawerHeader({ isDrawerOpen, toggleDrawer }) {
                   <p className="mb-0 font-thin mr-1">
                     {user.allotments.allotment_name}
                   </p>
-
                   <p className="mb-0 font-thin ml-1">| {user.plot}</p>
+                </div>
+                <button className="logout-button-drawer">Logout</button>
+              </div>
+
+              <hr />
+            </>
+          )}
+        </div>
+        <nav className="drawer-nav">
+          {user ? (
+            <>
+              <div className="flex items-center">
+                <div className="w-6">
+                  <i className="fa-solid fa-seedling"></i>
+                </div>
+                <div className=" ml-4">
+                  <Link
+                    to={`/allotments/${user.allotments.allotment_name}`}
+                    className="drawer-nav-item"
+                    onClick={toggleDrawer}
+                  >
+                    Allotment
+                  </Link>
+                </div>
+              </div>
+              <div className="flex items-center">
+                <div className="w-6">
+                  <i className="fa-solid fa-house-flag"></i>
+                </div>
+                <div className="ml-4">
+                  <Link
+                    to={`/towns/${user.towns.town_name}`}
+                    className="drawer-nav-item"
+                    onClick={toggleDrawer}
+                  >
+                    Town
+                  </Link>
+                </div>
+              </div>
+              <div className="flex items-center">
+                <div className="w-6">
+                  <i className="fa-solid fa-newspaper"></i>
+                </div>
+                <div className="ml-4">
+                  <Link
+                    to={`/towns/${user.towns.town_name}`}
+                    className="drawer-nav-item"
+                    onClick={toggleDrawer}
+                  >
+                    Ads
+                  </Link>
+                </div>
+              </div>
+              <div className="flex items-center">
+                <div className="w-6">
+                  <i className="fa-solid fa-feather-pointed"></i>
+                </div>
+                <div className="ml-4">
+                  <Link
+                    to={`/towns/${user.towns.town_name}`}
+                    className="drawer-nav-item"
+                    onClick={toggleDrawer}
+                  >
+                    Blogs
+                  </Link>
+                </div>
+              </div>
+              <div className="flex items-center">
+                <div className="w-6">
+                  <i className="fa-solid fa-envelope"></i>
+                </div>
+                <div className="ml-4">
+                  <Link
+                    to={`/towns/${user.towns.town_name}`}
+                    className="drawer-nav-item"
+                    onClick={toggleDrawer}
+                  >
+                    Inbox
+                  </Link>
+                </div>
+              </div>
+              <div className="flex items-center">
+                <div className="w-6">
+                  <i className="fa-solid fa-bell"></i>
+                </div>
+                <div className="ml-4">
+                  <Link
+                    to={`/towns/${user.towns.town_name}`}
+                    className="drawer-nav-item"
+                    onClick={toggleDrawer}
+                  >
+                    Notifications
+                  </Link>
                 </div>
               </div>
             </>
           ) : (
-            <>
-              <div className="text-center m-0 font-semibold">
-                <p>Join the Hive!</p>
-              </div>
-              <div className="flex justify-center">
-                <button
-                  className="login-button-drawer"
-                  onClick={() => navigate("/login")}
-                >
-                  Login
-                </button>
-                <button
-                  className="register-button-drawer"
-                  onClick={() => navigate("/register")}
-                >
-                  Register
-                </button>
-              </div>
-            </>
-          )}
-        </div>
-        <hr />
-
-        <nav className="drawer-nav">
-          <Link
-            to="/exchange"
-            className="drawer-nav-item"
-            onClick={toggleDrawer}
-          >
-            Exchange
-          </Link>
-          <Link to="/posts" className="drawer-nav-item" onClick={toggleDrawer}>
-            Posts
-          </Link>
-          <Link to="/blogs" className="drawer-nav-item" onClick={toggleDrawer}>
-            Blogs
-          </Link>
-          <Link
-            to="/activities"
-            className="drawer-nav-item"
-            onClick={toggleDrawer}
-          >
-            Activities
-          </Link>
-          {user && (
-            <Link
-              to="/messenger"
-              className="drawer-nav-item"
-              onClick={toggleDrawer}
-            >
-              Messenger
-            </Link>
-          )}
-
-          {user ? (
-            <div>
-              {" "}
-              <button className="drawer-nav-item mt-4" onClick={handleLogout}>
-                Log out
-              </button>
-            </div>
-          ) : (
-            <div>
-              <Link
-                to="/login"
-                className="drawer-nav-item mt-6"
-                onClick={toggleDrawer}
-              >
-                Login
-              </Link>
-              <Link
-                to="/register"
-                className="drawer-nav-item"
-                onClick={toggleDrawer}
-              >
-                Register
-              </Link>
-            </div>
+            <div></div>
           )}
         </nav>
       </div>
