@@ -6,6 +6,7 @@ export default function DrawerHeader({ isDrawerOpen, toggleDrawer }) {
   const { user, handleLogout } = useAuth();
   const navigate = useNavigate();
   console.log(user);
+  const newLocal = ".";
   return (
     <div
       className={`drawer-secondary transform ${
@@ -150,7 +151,18 @@ export default function DrawerHeader({ isDrawerOpen, toggleDrawer }) {
               </div>
             </>
           ) : (
-            <div></div>
+            <div className="mt-4 text-center">
+              <p>
+                Join a community of people who strive to maintain a connection
+                with nature, home-grown food and self-sufficiency.
+              </p>
+              <div className="absolute left-0 bottom-1 text-center">
+                <img src={"CookingPotLogo.jpg"} alt="" />
+                <span className="p-1 text-center">
+                  &copy; 2022 The Cooking Pot CIC
+                </span>
+              </div>
+            </div>
           )}
         </nav>
       </div>

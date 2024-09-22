@@ -56,7 +56,7 @@
 }
 
 .drawer-primary {
-  @apply flex flex-col bg-white w-64 h-full shadow-lg p-4 overflow-auto;
+  @apply flex flex-col bg-white w-64 h-full shadow-lg p-4 overflow-auto relative;
 }
 
 .drawer-close {
