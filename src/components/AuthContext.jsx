@@ -27,6 +27,9 @@ export const AuthProvider = ({ children }) => {
       try {
         const userData = await authenticateUser();
         setUser(userData);
+        if (!userData) {
+          navigate("/");
+        }
       } catch (error) {
         setUser(null);
         navigate("/");

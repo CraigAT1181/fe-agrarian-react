@@ -39,9 +39,10 @@ export default function PostCard({ post, parentName = null, handlePostClick }) {
         />
       </div>
       <div className="flex-grow">
-        <div className="flex lg:justify-start font-semibold">
+        <div className="flex justify-start items-center font-semibold">
           <p>{post.users.user_name}</p>
-          <p className="mx-4 font-thin">{post.users.plot}</p>
+          <p className="mx-2">|</p>
+          <p className="">{post.users.plot}</p>
         </div>
         {post.is_reply === true && parentName && (
           <div>
@@ -69,10 +70,11 @@ export default function PostCard({ post, parentName = null, handlePostClick }) {
           {formattedTime} <span className="font-thin">({formattedDate})</span>
         </p>
 
-        <div className="flex justify-between lg:justify-center mt-2">
+        <div className="flex justify-start mt-2">
           {/* Reply button */}
           <div
-            className="flex items-center mb-0 lg:mx-4 cursor-pointer"
+            className="flex items-center mb-0 mr-2 cursor-pointer"
+            title="Reply"
             onClick={(e) => {
               e.stopPropagation();
               handleReplyClick(post.post_id);
@@ -83,11 +85,11 @@ export default function PostCard({ post, parentName = null, handlePostClick }) {
           </div>
 
           {/* Other buttons */}
-          <div className="mb-0 lg:mx-4">
+          <div className="mb-0 ml-2 mr-4" title="Bookmark">
             <i className="fa-solid text-gray-400 fa-bookmark"></i>
           </div>
-          {"|"}
-          <div className="mb-0 lg:mx-4">
+          <p className="m-0">|</p>
+          <div className="mb-0 ml-4" title="Share">
             <i className="fa-solid text-gray-400 fa-share-from-square"></i>
           </div>
         </div>

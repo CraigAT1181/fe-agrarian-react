@@ -39,7 +39,7 @@ export default function DrawerHeader() {
               <div className="flex justify-center overflow-hidden">
                 <img
                   src={user.profile_pic}
-                  className="drawer-profile-icon border-3 border-green-900 rounded-lg mb-4"
+                  className="drawer-profile-icon border-3 border-green-900 rounded-lg mb-2"
                   alt="User's profile picture"
                 />
               </div>
@@ -57,7 +57,7 @@ export default function DrawerHeader() {
                 </button>
               </div>
 
-              <hr />
+              <hr className="mb-0" />
             </>
           )}
         </div>
@@ -122,6 +122,20 @@ export default function DrawerHeader() {
               </div>
               <div className="flex items-center">
                 <div className="w-6">
+                  <i className="fa-solid fa-bookmark"></i>
+                </div>
+                <div className="ml-4">
+                  <Link
+                    to={`/towns/${user.towns.town_name}`}
+                    className="drawer-nav-item"
+                    onClick={toggleDrawer}
+                  >
+                    Bookmarks
+                  </Link>
+                </div>
+              </div>
+              <div className="flex items-center">
+                <div className="w-6">
                   <i className="fa-solid fa-envelope"></i>
                 </div>
                 <div className="ml-4">
@@ -168,12 +182,6 @@ export default function DrawerHeader() {
                     Register
                   </button>
                 </div>
-              </div>
-              <div className="absolute left-0 bottom-1 text-center">
-                <img src={"CookingPotLogo.jpg"} alt="" />
-                <span className="p-1 text-center">
-                  &copy; 2022 The Cooking Pot CIC
-                </span>
               </div>
             </div>
           )}
