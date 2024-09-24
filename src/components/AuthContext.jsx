@@ -1,7 +1,11 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
-import { updateUserProduce, authenticateUser, logout } from "../api/api";
+import {
+  // updateUserProduce,
+  authenticateUser,
+  logout,
+} from "../api/api";
 
 // Create the AuthContext
 const AuthContext = createContext();

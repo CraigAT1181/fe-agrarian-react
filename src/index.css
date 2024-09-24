@@ -145,7 +145,7 @@
   @apply grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 lg:p-4;
 }
 
-/* -- POST CARD -- */
+/* -- POST CARD NOW ADS -- */
 
 .post-card {
   @apply flex flex-col shadow-gray-950 shadow-md rounded-lg overflow-hidden text-green-900 min-h-full;
@@ -425,4 +425,46 @@
 
 .reset-password {
   @apply w-fit p-1 text-sm text-red-800 underline;
+}
+
+/* ------------ NEW ---------- */
+
+.post-display-container {
+  @apply overflow-auto h-fit;
+}
+
+.post-thread-container {
+  @apply overflow-auto h-fit py-2;
+}
+
+.parent-post-container {
+}
+
+.selected-post-container {
+}
+
+.replies-container {
+  @apply pl-4;
+}
+
+/* -- POST CARD -- */
+
+.post-card-container {
+  @apply flex rounded my-6 shadow-sm;
+}
+
+.post-card-profile-pic {
+}
+
+.post-card-message {
+}
+
+/* -- POST INPUT PANEL -- */
+
+.media-input-panel {
+  @apply flex;
+}
+
+.media-icons {
+  @apply text-gray-700 mx-4;
 }

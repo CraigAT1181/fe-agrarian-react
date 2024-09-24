@@ -12,6 +12,7 @@ const Home = lazy(() => import("./components/Home"));
 const Welcome = lazy(() => import("./components/utilities/Welcome"));
 const Allotment = lazy(() => import("./components/Allotment"));
 const Town = lazy(() => import("./components/Town"));
+const PostThread = lazy(() => import("./components/posts/PostThread"));
 const Exchange = lazy(() => import("./components/Exchange"));
 const Messenger = lazy(() => import("./components/Messenger"));
 const MessageDisplay = lazy(() => import("./components/MessageDisplay"));
@@ -50,6 +51,7 @@ export default function App() {
               <Route path="/" element={<Welcome />} />
               <Route path="/allotments/:site" element={<Allotment />} />
               <Route path="/towns/:town" element={<Town />} />
+              <Route path="/posts/:postId" element={<PostThread />} />
               <Route path="/exchange" element={<Exchange />} />
               <Route path="/home" element={<Home />} />
               <Route path="/messenger" element={<Messenger />} />
