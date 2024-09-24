@@ -8,6 +8,7 @@ const AuthContext = createContext();
 
 // Provider component to manage authentication state
 export const AuthProvider = ({ children }) => {
+  const [isDrawerOpen, setDrawerOpen] = useState(false);
   const [user, setUser] = useState(null);
 
   // const [commentPosted, setCommentPosted] = useState(false);
@@ -77,6 +78,10 @@ export const AuthProvider = ({ children }) => {
     navigate("/");
   };
 
+  const toggleDrawer = () => {
+    setDrawerOpen(!isDrawerOpen);
+  };
+
   // Update user produce data
   // const updateUserProduceData = async (newProduce) => {
   //   try {
@@ -122,6 +127,9 @@ export const AuthProvider = ({ children }) => {
         user,
         login,
         handleLogout,
+        isDrawerOpen,
+        setDrawerOpen,
+        toggleDrawer,
         // updateUserProduceData,
         // commentPosted,
         // setCommentPosted,

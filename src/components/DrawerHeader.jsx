@@ -2,11 +2,10 @@ import React from "react";
 import { useAuth } from "./AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 
-export default function DrawerHeader({ isDrawerOpen, toggleDrawer }) {
-  const { user, handleLogout } = useAuth();
+export default function DrawerHeader() {
+  const { user, handleLogout, isDrawerOpen, toggleDrawer } = useAuth();
   const navigate = useNavigate();
-  console.log(user);
-  const newLocal = ".";
+
   return (
     <div
       className={`drawer-secondary transform ${
@@ -152,10 +151,24 @@ export default function DrawerHeader({ isDrawerOpen, toggleDrawer }) {
             </>
           ) : (
             <div className="mt-4 text-center">
-              <p>
-                Join a community of people who strive to maintain a connection
-                with nature, home-grown food and self-sufficiency.
-              </p>
+              <div className="absolute left-10 text-center">
+                <h1 className="font-semibold mb-4">Welcome!</h1>
+                <p className="mb-6">Sign up or log in below...</p>
+                <div className="flex justify-center">
+                  <button
+                    className="login-button-drawer"
+                    onClick={() => navigate("/login")}
+                  >
+                    Login
+                  </button>
+                  <button
+                    className="register-button-drawer"
+                    onClick={() => navigate("/register")}
+                  >
+                    Register
+                  </button>
+                </div>
+              </div>
               <div className="absolute left-0 bottom-1 text-center">
                 <img src={"CookingPotLogo.jpg"} alt="" />
                 <span className="p-1 text-center">
