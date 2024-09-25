@@ -7,11 +7,13 @@ export default function PostCard({ post, parentName = null, handlePostClick }) {
 
   const [selectedMedia, setSelectedMedia] = useState(null);
 
-  const handleImageClick = (mediaUrl) => {
+  const handleImageClick = (e, mediaUrl) => {
+    e.stopPropagation();
     setSelectedMedia(mediaUrl);
   };
 
-  const closeModal = () => {
+  const closeModal = (e) => {
+    e.stopPropagation();
     setSelectedMedia(null);
   };
 
@@ -71,7 +73,7 @@ export default function PostCard({ post, parentName = null, handlePostClick }) {
                   src={media.media_url}
                   alt="Attached media"
                   className="cursor-pointer w-20 h-20 object-cover"
-                  onClick={() => handleImageClick(media.media_url)}
+                  onClick={(e) => handleImageClick(e, media.media_url)}
                 />
               </div>
             ))}
@@ -121,7 +123,7 @@ export default function PostCard({ post, parentName = null, handlePostClick }) {
           />
           <button
             className="absolute top-4 right-4 text-white text-2xl"
-            onClick={closeModal}>
+            onClick={(e) => closeModal(e)}>
             &times;
           </button>
         </div>

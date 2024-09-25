@@ -434,13 +434,14 @@
 }
 
 .post-thread-container {
-  @apply overflow-auto h-fit py-2;
+  @apply overflow-auto h-fit py-2 space-y-6;
 }
 
 .parent-post-container {
 }
 
 .selected-post-container {
+  @apply bg-gray-100 py-1
 }
 
 .replies-container {
@@ -450,7 +451,7 @@
 /* -- POST CARD -- */
 
 .post-card-container {
-  @apply flex rounded my-6 shadow-sm;
+  @apply flex rounded-lg shadow-sm;
 }
 
 .post-card-profile-pic {

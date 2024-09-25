@@ -11,7 +11,7 @@ export default function PostDisplay({ posts }) {
   };
 
   return (
-    <div>
+    <div className="mt-4">
       {posts.map((post) => {
         if (!post.is_reply) {
           return (

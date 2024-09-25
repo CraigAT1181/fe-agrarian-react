@@ -78,13 +78,12 @@ export default function PostThread() {
       <div className="flex justify-end pb-2">
         <button
           className="flex border-2 border-gray-700 rounded-full px-8 relative"
-          onClick={() => navigate(-1)}
-        >
+          onClick={() => navigate(-1)}>
           <i className="fa-solid absolute top-1 left-1 fa-chevron-left"></i>
           <span>Back</span>
         </button>
       </div>
-      {parentPost && (
+      {/* {parentPost && (
         <div className="parent-post-container">
           <div onClick={() => handlePostClick(parentPost.post_id)}>
             <PostCard
@@ -95,9 +94,11 @@ export default function PostThread() {
           </div>
           <hr className="mb-4" />
         </div>
-      )}
+      )} */}
       {selectedPost && (
-        <div className="selected-post-container" ref={selectedPostRef}>
+        <div
+          className="selected-post-container"
+          ref={selectedPostRef}>
           <div onClick={() => handlePostClick(selectedPost.post_id)}>
             <PostCard
               post={selectedPost}
@@ -107,13 +108,13 @@ export default function PostThread() {
           </div>
         </div>
       )}
+      <hr className="border-4" />
       <div className="replies-container">
         {replies &&
           replies.map((reply) => (
             <div
               key={reply.post_id}
-              onClick={() => handlePostClick(reply.post_id)}
-            >
+              onClick={() => handlePostClick(reply.post_id)}>
               <PostCard
                 post={reply}
                 parentName={selectedPost.users.user_name}
