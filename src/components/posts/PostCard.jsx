@@ -5,7 +5,17 @@ import PostSubmit from "./PostSubmit";
 export default function PostCard({ post, parentName = null, handlePostClick }) {
   const [replyingToPostId, setReplyingToPostId] = useState(null);
 
-  // Format dates for rendering
+  const [selectedMedia, setSelectedMedia] = useState(null);
+
+  const handleImageClick = (mediaUrl) => {
+    setSelectedMedia(mediaUrl);
+  };
+
+  const closeModal = () => {
+    setSelectedMedia(null);
+  };
+
+  // ---------------- Format dates for rendering
 
   const formattedTime = formatDistanceToNow(new Date(post.created_at), {
     addSuffix: true,
@@ -18,7 +28,7 @@ export default function PostCard({ post, parentName = null, handlePostClick }) {
 
   const formattedDate = formatDate(post.created_at);
 
-  // Handle media upload
+  // ---------------- Handle media upload
 
   // const handleMediaUpload = () => {};
 
@@ -27,7 +37,7 @@ export default function PostCard({ post, parentName = null, handlePostClick }) {
     setReplyingToPostId(replyingToPostId === postId ? null : postId);
   };
 
-  // Handle reply submission
+  // ---------------- Handle reply submission
 
   return (
     <div className="post-card-container relative">
@@ -52,6 +62,7 @@ export default function PostCard({ post, parentName = null, handlePostClick }) {
           </div>
         )}
         <div onClick={() => handlePostClick(post.post_id)}>{post.content}</div>
+
         {post.posts_media && post.posts_media.length > 0 && (
           <div className="grid grid-cols-2 gap-1 md:flex">
             {post.posts_media.map((media) => (
@@ -60,6 +71,7 @@ export default function PostCard({ post, parentName = null, handlePostClick }) {
                   src={media.media_url}
                   alt="Attached media"
                   className="cursor-pointer w-20 h-20 object-cover"
+                  onClick={() => handleImageClick(media.media_url)}
                 />
               </div>
             ))}
@@ -78,18 +90,21 @@ export default function PostCard({ post, parentName = null, handlePostClick }) {
             onClick={(e) => {
               e.stopPropagation();
               handleReplyClick(post.post_id);
-            }}
-          >
+            }}>
             <i className="fa-solid text-gray-400 fa-comment-dots"></i>
             <p className="mb-0 ml-1 font-thin text-sm">{post.reply_count}</p>
           </div>
 
           {/* Other buttons */}
-          <div className="mb-0 ml-2 mr-4" title="Bookmark">
+          <div
+            className="mb-0 ml-2 mr-4"
+            title="Bookmark">
             <i className="fa-solid text-gray-400 fa-bookmark"></i>
           </div>
           <p className="m-0">|</p>
-          <div className="mb-0 ml-4" title="Share">
+          <div
+            className="mb-0 ml-4"
+            title="Share">
             <i className="fa-solid text-gray-400 fa-share-from-square"></i>
           </div>
         </div>
@@ -97,6 +112,20 @@ export default function PostCard({ post, parentName = null, handlePostClick }) {
         {/* Conditionally render reply input for this post */}
         {replyingToPostId === post.post_id && <PostSubmit />}
       </div>
+      {selectedMedia && (
+        <div className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50">
+          <img
+            src={selectedMedia}
+            alt="Enlarged image"
+            className="max-w-full max-h-full"
+          />
+          <button
+            className="absolute top-4 right-4 text-white text-2xl"
+            onClick={closeModal}>
+            &times;
+          </button>
+        </div>
+      )}
     </div>
   );
 }
