@@ -77,6 +77,13 @@ export const fetchAllotmentPosts = async (allotmentId) => {
   return data;
 };
 
+export const fetchTownPosts = async (townId) => {
+  
+  const { data } = await api.get(`/posts/towns/${townId}`);
+
+  return data;
+};
+
 export const fetchSinglePost = async (postId) => {
   
   try {

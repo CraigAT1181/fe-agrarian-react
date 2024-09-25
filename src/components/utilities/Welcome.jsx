@@ -7,14 +7,16 @@ export default function Welcome() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (user) {
-      handleRedirect();
-    }
+    handleRedirect();
   }, [user]);
 
   const handleRedirect = () => {
+    if (user) {
+      navigate(`/allotments/${user.allotments.allotment_name}`);
+    } else {
+      navigate("/towns/Hartlepool");
+    }
     console.log("user", user);
-    navigate(`/allotments/${user.allotments.allotment_name}`);
   };
 
   return (

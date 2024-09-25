@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { format, formatDistanceToNow } from "date-fns";
 import PostSubmit from "./PostSubmit";
+import { useAuth } from "../AuthContext";
 
 export default function PostCard({ post, parentName = null, handlePostClick }) {
   const [replyingToPostId, setReplyingToPostId] = useState(null);
-
   const [selectedMedia, setSelectedMedia] = useState(null);
+
+  const { user, toggleDrawer } = useAuth();
 
   const handleImageClick = (e, mediaUrl) => {
     e.stopPropagation();
@@ -35,8 +37,11 @@ export default function PostCard({ post, parentName = null, handlePostClick }) {
   // const handleMediaUpload = () => {};
 
   const handleReplyClick = (postId) => {
-    // Toggle reply input for the selected post
-    setReplyingToPostId(replyingToPostId === postId ? null : postId);
+    if (user) {
+      setReplyingToPostId(replyingToPostId === postId ? null : postId);
+    } else {
+      toggleDrawer();
+    }
   };
 
   // ---------------- Handle reply submission
@@ -48,13 +53,16 @@ export default function PostCard({ post, parentName = null, handlePostClick }) {
           className="w-16 h-16 object-cover rounded"
           src={post.users.profile_pic}
           alt="profile pic"
+          onClick={(e) => handleImageClick(e, post.users.profile_pic)}
         />
       </div>
       <div className="flex-grow">
         <div className="flex justify-start items-center font-semibold">
           <p>{post.users.user_name}</p>
           <p className="mx-2">|</p>
-          <p className="">{post.users.plot}</p>
+          <p className="">
+            {post.users.plot || post.users.allotments.allotment_name}
+          </p>
         </div>
         {post.is_reply === true && parentName && (
           <div>
