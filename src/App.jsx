@@ -13,6 +13,10 @@ const Welcome = lazy(() => import("./components/utilities/Welcome"));
 const Allotment = lazy(() => import("./components/Allotment"));
 const Town = lazy(() => import("./components/Town"));
 const PostThread = lazy(() => import("./components/posts/PostThread"));
+const Bookmarks = lazy(() => import("./components/bookmarks/Bookmarks"));
+const Inbox = lazy(() => import("./components/inbox/Inbox"));
+const Notifications = lazy(() => import("./components/notifications/Notifications"));
+const Settings = lazy(() => import("./components/settings/Settings"));
 const Exchange = lazy(() => import("./components/Exchange"));
 const Messenger = lazy(() => import("./components/Messenger"));
 const MessageDisplay = lazy(() => import("./components/MessageDisplay"));
@@ -45,41 +49,128 @@ export default function App() {
               <div className="flex justify-center">
                 <i className="fa-solid fa-spinner fa-spin"></i>
               </div>
-            }
-          >
+            }>
             <Routes>
-              <Route path="/" element={<Welcome />} />
-              <Route path="/allotments/:site" element={<Allotment />} />
-              <Route path="/towns/:town" element={<Town />} />
-              <Route path="/posts/:postId" element={<PostThread />} />
-              <Route path="/exchange" element={<Exchange />} />
-              <Route path="/home" element={<Home />} />
-              <Route path="/messenger" element={<Messenger />} />
               <Route
-                path="/messenger/:partner/:conversationID"
+                path="/"
+                element={<Welcome />}
+              />
+              <Route
+                path="/allotments/:site"
+                element={<Allotment />}
+              />
+              <Route
+                path="/towns/:town"
+                element={<Town />}
+              />
+              <Route
+                path="/posts/:postId"
+                element={<PostThread />}
+              />
+              <Route
+                path="/bookmarks"
+                element={<Bookmarks />}
+              />
+                            <Route
+                path="/inbox"
+                element={<Inbox />}
+              />
+                            <Route
+                path="/notifications"
+                element={<Notifications />}
+              />
+                                        <Route
+                path="/settings"
+                element={<Settings />}
+              />
+              <Route
+                path="#"
+                element={<Exchange />}
+              />
+              <Route
+                path="#"
+                element={<Home />}
+              />
+              <Route
+                path="#"
+                element={<Messenger />}
+              />
+              <Route
+                path="#"
                 element={<MessageDisplay />}
               />
-              <Route path="/ads" element={<Posts />} />
-              <Route path="/calendar" element={<Calendar />} />
-              <Route path="/*" element={<ErrorHandling />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
-              <Route path="/request-link" element={<RequestLink />} />
-              <Route path="/set-new-password" element={<SetNewPassword />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/offer-support" element={<OfferSupport />} />
-              <Route path="/privacy" element={<Privacy />} />
-              <Route path="/cookies" element={<Cookies />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/development" element={<Development />} />
-              <Route path="/activities" element={<Activities />} />
-              <Route path="/blogs" element={<BlogPage />} />
-              <Route path="/blogs/:blog_id" element={<Blog />} />
+              <Route
+                path="/ads"
+                element={<Posts />}
+              />
+              <Route
+                path="/calendar"
+                element={<Calendar />}
+              />
+              <Route
+                path="/*"
+                element={<ErrorHandling />}
+              />
+              <Route
+                path="/login"
+                element={<Login />}
+              />
+              <Route
+                path="/register"
+                element={<Register />}
+              />
+              <Route
+                path="/request-link"
+                element={<RequestLink />}
+              />
+              <Route
+                path="/set-new-password"
+                element={<SetNewPassword />}
+              />
+              <Route
+                path="/about"
+                element={<About />}
+              />
+              <Route
+                path="/offer-support"
+                element={<OfferSupport />}
+              />
+              <Route
+                path="/privacy"
+                element={<Privacy />}
+              />
+              <Route
+                path="/cookies"
+                element={<Cookies />}
+              />
+              <Route
+                path="/contact"
+                element={<Contact />}
+              />
+              <Route
+                path="/development"
+                element={<Development />}
+              />
+              <Route
+                path="/activities"
+                element={<Activities />}
+              />
+              <Route
+                path="/blogs"
+                element={<BlogPage />}
+              />
+              <Route
+                path="/blogs/:blog_id"
+                element={<Blog />}
+              />
               <Route
                 path="/activities/:activity_id"
                 element={<ActivityDetail />}
               />
-              <Route path="/shop" element={<Shop />} />
+              <Route
+                path="/shop"
+                element={<Shop />}
+              />
             </Routes>
           </Suspense>
         </main>
