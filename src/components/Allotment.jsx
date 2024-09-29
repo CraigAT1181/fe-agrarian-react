@@ -1,37 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { useAuth } from "./AuthContext";
 import { useParams } from "react-router-dom";
-import { fetchAllotmentPosts } from "../api/api";
 import PostDisplay from "./posts/PostDisplay";
 
 export default function Allotment() {
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(false);
 
-  const [posts, setPosts] = useState([]);
-
-  const { user } = useAuth();
+  const { error, user, getAllotmentPosts, posts } = useAuth();
   const { site } = useParams();
 
   useEffect(() => {
     if (user?.allotment_id) {
-      getPosts(user.allotment_id);
+      getAllotmentPosts(user.allotment_id);
+      setIsLoading(false);
     }
   }, [user]);
-
-  const getPosts = (allotment_id) => {
-    setIsLoading(true);
-
-    fetchAllotmentPosts(allotment_id)
-      .then(({ posts }) => {
-        setIsLoading(false);
-        setPosts(posts);
-      })
-      .catch(({ error }) => {
-        setIsLoading(false);
-        setError(error);
-      });
-  };
 
   if (error) {
     return (
@@ -51,7 +34,7 @@ export default function Allotment() {
         <h1 className="mb-0 text-white font-thin">{site}</h1>
       </div>
       <div>
-        <PostDisplay posts={posts} />
+        <PostDisplay />
       </div>
     </div>
   );

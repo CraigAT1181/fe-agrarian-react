@@ -96,9 +96,19 @@ export const fetchSinglePost = async (postId) => {
   }
 };
 
-export const deletePost = async (post_id) => {
-  await api.delete(`/posts`, {
-    "post_id": post_id
+export const addPost = async (formData) => {
+  try {
+    const data = await api.post("/posts", formData);
+
+    return data;
+  } catch (error) {
+    console.error("Error adding post:", error);
+    throw error;
+  }
+}
+export const deletePost = async (postId) => {
+  await api.delete("/posts", {
+    data: { post_id: postId }, // Axios supports sending data in delete requests
   });
 };
 

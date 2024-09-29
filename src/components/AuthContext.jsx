@@ -1,10 +1,12 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { jwtDecode } from "jwt-decode";
 import {
   // updateUserProduce,
+  fetchAllotmentPosts,
+  fetchTownPosts,
   authenticateUser,
   logout,
+  deletePost,
 } from "../api/api";
 
 // Create the AuthContext
@@ -12,8 +14,10 @@ const AuthContext = createContext();
 
 // Provider component to manage authentication state
 export const AuthProvider = ({ children }) => {
+  const [error, setError] = useState(false);
   const [isDrawerOpen, setDrawerOpen] = useState(false);
   const [user, setUser] = useState(null);
+  const [posts, setPosts] = useState([]);
 
   // const [commentPosted, setCommentPosted] = useState(false);
   // const [messageSent, setMessageSent] = useState(false);
@@ -34,6 +38,7 @@ export const AuthProvider = ({ children }) => {
         setUser(null);
         navigate("/");
         console.error("Failed to fetch user information", error);
+        setError(error);
       }
     };
 
@@ -89,6 +94,40 @@ export const AuthProvider = ({ children }) => {
     setDrawerOpen(!isDrawerOpen);
   };
 
+  // Fetch posts for the user's allotment
+  const getAllotmentPosts = async (allotment_id) => {
+    try {
+      const { posts } = await fetchAllotmentPosts(allotment_id);
+      setPosts(posts);
+    } catch (error) {
+      console.error("Failed to fetch posts", error);
+    }
+  };
+
+  // Fetch posts for the user's allotment
+  const getTownPosts = async (town_id) => {
+    try {
+      const { posts } = await fetchTownPosts(town_id);
+      setPosts(posts);
+    } catch (error) {
+      console.error("Failed to fetch posts", error);
+    }
+  };
+
+  const handleNewPost = (newPost) => {
+    setPosts((prevPosts) => [newPost, ...prevPosts]);
+  };
+
+  const handlePostClick = (postId) => {
+    navigate(`/posts/${postId}`);
+  };
+
+  const handleDeletePost = async (postId) => {
+    setPosts((prevPosts) =>
+      prevPosts.filter((post) => post.post_id !== postId)
+    );
+  };
+
   // Update user produce data
   // const updateUserProduceData = async (newProduce) => {
   //   try {
@@ -137,6 +176,12 @@ export const AuthProvider = ({ children }) => {
         isDrawerOpen,
         setDrawerOpen,
         toggleDrawer,
+        posts,
+        getAllotmentPosts,
+        getTownPosts,
+        handleDeletePost,
+        handlePostClick,
+        handleNewPost,
         // updateUserProduceData,
         // commentPosted,
         // setCommentPosted,

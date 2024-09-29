@@ -25,9 +25,7 @@ export default function PostThread() {
       .then(({ data: { post, parentPost, replies } }) => {
         setIsLoading(false);
         setSelectedPost(post);
-        console.log("post:", post);
-        console.log("parent post:", parentPost);
-        console.log("replies:", replies);
+
         setParentPost(parentPost || null);
         setReplies(replies);
       })
@@ -78,7 +76,8 @@ export default function PostThread() {
       <div className="flex justify-end pb-2">
         <button
           className="flex border-2 border-gray-700 rounded-full px-8 relative"
-          onClick={() => navigate(-1)}>
+          onClick={() => navigate(-1)}
+        >
           <i className="fa-solid absolute top-1 left-1 fa-chevron-left"></i>
           <span>Back</span>
         </button>
@@ -96,9 +95,7 @@ export default function PostThread() {
         </div>
       )} */}
       {selectedPost && (
-        <div
-          className="selected-post-container"
-          ref={selectedPostRef}>
+        <div className="selected-post-container" ref={selectedPostRef}>
           <div onClick={() => handlePostClick(selectedPost.post_id)}>
             <PostCard
               post={selectedPost}
@@ -114,7 +111,8 @@ export default function PostThread() {
           replies.map((reply) => (
             <div
               key={reply.post_id}
-              onClick={() => handlePostClick(reply.post_id)}>
+              onClick={() => handlePostClick(reply.post_id)}
+            >
               <PostCard
                 post={reply}
                 parentName={selectedPost.users.user_name}

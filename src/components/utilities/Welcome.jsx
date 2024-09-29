@@ -16,7 +16,6 @@ export default function Welcome() {
     } else {
       navigate("/towns/Hartlepool");
     }
-    console.log("user", user);
   };
 
   return (

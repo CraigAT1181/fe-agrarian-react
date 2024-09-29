@@ -4,20 +4,20 @@ import { useParams } from "react-router-dom";
 import { fetchTownPosts } from "../api/api";
 import PostDisplay from "./posts/PostDisplay";
 
-export default function Allotment() {
+export default function Town() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(false);
 
-  const [posts, setPosts] = useState([]);
-
-  const { user } = useAuth();
+  const { user, getTownPosts, posts } = useAuth();
   const { town } = useParams();
 
   useEffect(() => {
     if (user?.town_id) {
-      getPosts(user.town_id);
+      getTownPosts(user.town_id);
+      setIsLoading(false);
     } else {
-      getPosts("21ffcbff-aecd-4209-93fd-57a55c9d3da7")
+      getTownPosts("21ffcbff-aecd-4209-93fd-57a55c9d3da7");
+      setIsLoading(false);
     }
   }, [user]);
 

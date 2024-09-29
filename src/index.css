@@ -441,17 +441,17 @@
 }
 
 .selected-post-container {
-  @apply bg-gray-100 py-1
+  @apply bg-gray-100 py-1;
 }
 
 .replies-container {
-  @apply pl-4;
+  @apply pl-4 space-y-4;
 }
 
 /* -- POST CARD -- */
 
 .post-card-container {
-  @apply flex rounded-lg shadow-sm;
+  @apply flex rounded-lg shadow-sm relative max-w-full;
 }
 
 .post-card-profile-pic {
@@ -468,4 +468,12 @@
 
 .media-icons {
   @apply text-gray-700 mx-4;
+}
+
+.media-preview-panel {
+  @apply grid grid-cols-2 gap-1;
+}
+
+.remove-media-button {
+  @apply absolute top-0 right-0 bg-gray-700 font-bold text-white rounded-full w-6 h-6 flex items-center justify-center;
 }
