@@ -84,14 +84,14 @@ export const fetchTownPosts = async (townId) => {
   return data;
 };
 
-export const fetchSinglePost = async (postId) => {
+export const fetchSelectedPost = async (postId) => {
   
   try {
     const data = await api.get(`/post/${postId}`);
 
     return data;
   } catch (error) {
-    console.error("Error fetching single post data:", error);
+    console.error("Error fetching selected post:", error);
     throw error;
   }
 };

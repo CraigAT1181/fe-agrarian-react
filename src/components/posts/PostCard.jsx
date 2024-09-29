@@ -13,20 +13,6 @@ export default function PostCard({ post, parentName = null }) {
 
   const { user, toggleDrawer, handlePostClick, handleDeletePost } = useAuth();
 
-  const handleImageClick = (e, mediaUrl) => {
-    e.stopPropagation();
-    setSelectedMedia(mediaUrl);
-  };
-
-  const toggleMenu = () => {
-    setMenuVisible(!menuVisible);
-  };
-
-  const closeModal = (e) => {
-    e.stopPropagation();
-    setSelectedMedia(null);
-  };
-
   // ---------------- Format dates for rendering
 
   const formattedTime = post.created_at
@@ -43,6 +29,22 @@ export default function PostCard({ post, parentName = null }) {
 
   const formattedDate = formatDate(post.created_at);
 
+  // ----------------------------------------------
+
+  const handleImageClick = (e, mediaUrl) => {
+    e.stopPropagation();
+    setSelectedMedia(mediaUrl);
+  };
+
+  const toggleMenu = () => {
+    setMenuVisible(!menuVisible);
+  };
+
+  const closeModal = (e) => {
+    e.stopPropagation();
+    setSelectedMedia(null);
+  };
+
   const handleReplyClick = (postId) => {
     if (user) {
       setReplyingToPostId(replyingToPostId === postId ? null : postId);
@@ -50,7 +52,13 @@ export default function PostCard({ post, parentName = null }) {
       toggleDrawer();
     }
   };
+
   console.log("Post:", post, "profile_pic", post.users.profile_pic);
+
+  const handleDelete = () => {
+    handleDeletePost(post.post_id, post.scope);
+  };
+
   return (
     <div className="post-card-container">
       <div className="min-w-16 mx-2">
@@ -76,8 +84,7 @@ export default function PostCard({ post, parentName = null }) {
           <div className="relative inline-block mr-2">
             <i
               className="fa-solid fa-ellipsis-vertical"
-              onClick={toggleMenu}
-            ></i>
+              onClick={toggleMenu}></i>
             {menuVisible && (
               <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-300 rounded shadow-lg z-50">
                 <ul>
@@ -89,10 +96,8 @@ export default function PostCard({ post, parentName = null }) {
                       className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
                       onClick={(e) => {
                         e.stopPropagation;
-                        handleDeletePost(post.post_id);
-                        navigate(-1);
-                      }}
-                    >
+                        handleDelete();
+                      }}>
                       Delete Post
                     </li>
                   )}
@@ -140,18 +145,21 @@ export default function PostCard({ post, parentName = null }) {
             onClick={(e) => {
               e.stopPropagation();
               handleReplyClick(post.post_id);
-            }}
-          >
+            }}>
             <i className="fa-solid text-gray-400 fa-comment-dots"></i>
             <p className="mb-0 ml-1 font-thin text-sm">{post.reply_count}</p>
           </div>
 
           {/* Other buttons */}
-          <div className="mb-0 ml-2 mr-4" title="Bookmark">
+          <div
+            className="mb-0 ml-2 mr-4"
+            title="Bookmark">
             <i className="fa-solid text-gray-400 fa-bookmark"></i>
           </div>
           <p className="m-0">|</p>
-          <div className="mb-0 ml-4" title="Share">
+          <div
+            className="mb-0 ml-4"
+            title="Share">
             <i className="fa-solid text-gray-400 fa-share-from-square"></i>
           </div>
         </div>
@@ -159,7 +167,10 @@ export default function PostCard({ post, parentName = null }) {
         {/* Conditionally render reply input for this post */}
         {replyingToPostId === post.post_id && (
           <div>
-            <PostSubmit parent_id={post.post_id} scope={post.scope} />
+            <PostSubmit
+              parent_id={post.post_id}
+              scope={post.scope}
+            />
           </div>
         )}
       </div>
@@ -172,8 +183,7 @@ export default function PostCard({ post, parentName = null }) {
           />
           <button
             className="absolute top-4 right-4 text-white text-2xl"
-            onClick={(e) => closeModal(e)}
-          >
+            onClick={(e) => closeModal(e)}>
             &times;
           </button>
         </div>

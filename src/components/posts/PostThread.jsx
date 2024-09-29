@@ -1,16 +1,14 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
-import { fetchSinglePost } from "../../api/api";
+import { useAuth } from "../AuthContext";
 import { useNavigate } from "react-router-dom";
 import PostCard from "./PostCard";
 
 export default function PostThread() {
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(false);
 
-  const [selectedPost, setSelectedPost] = useState(null);
-  const [parentPost, setParentPost] = useState(null);
-  const [replies, setReplies] = useState([]);
+  const { error, getSelectedPost, selectedPost, parentPost, replies } =
+    useAuth();
 
   const { postId } = useParams();
 
@@ -19,20 +17,13 @@ export default function PostThread() {
   const selectedPostRef = useRef(null);
 
   useEffect(() => {
-    setIsLoading(true);
+    const loadSelectedPost = async () => {
+      setIsLoading(true);
+      await getSelectedPost(postId);
+      setIsLoading(false);
+    };
 
-    fetchSinglePost(postId)
-      .then(({ data: { post, parentPost, replies } }) => {
-        setIsLoading(false);
-        setSelectedPost(post);
-
-        setParentPost(parentPost || null);
-        setReplies(replies);
-      })
-      .catch((error) => {
-        setIsLoading(false);
-        setError(error.message);
-      });
+    loadSelectedPost();
 
     const handleBackButton = (e) => {
       e.preventDefault();
@@ -55,10 +46,6 @@ export default function PostThread() {
     };
   }, [postId]);
 
-  const handlePostClick = (postId) => {
-    navigate(`/posts/${postId}`);
-  };
-
   if (error) {
     return (
       <div>
@@ -76,8 +63,7 @@ export default function PostThread() {
       <div className="flex justify-end pb-2">
         <button
           className="flex border-2 border-gray-700 rounded-full px-8 relative"
-          onClick={() => navigate(-1)}
-        >
+          onClick={() => navigate(-1)}>
           <i className="fa-solid absolute top-1 left-1 fa-chevron-left"></i>
           <span>Back</span>
         </button>
@@ -95,12 +81,13 @@ export default function PostThread() {
         </div>
       )} */}
       {selectedPost && (
-        <div className="selected-post-container" ref={selectedPostRef}>
-          <div onClick={() => handlePostClick(selectedPost.post_id)}>
+        <div
+          className="selected-post-container"
+          ref={selectedPostRef}>
+          <div>
             <PostCard
               post={selectedPost}
               parentName={parentPost?.users?.user_name}
-              handlePostClick={handlePostClick}
             />
           </div>
         </div>
@@ -109,14 +96,10 @@ export default function PostThread() {
       <div className="replies-container">
         {replies &&
           replies.map((reply) => (
-            <div
-              key={reply.post_id}
-              onClick={() => handlePostClick(reply.post_id)}
-            >
+            <div key={reply.post_id}>
               <PostCard
                 post={reply}
                 parentName={selectedPost.users.user_name}
-                handlePostClick={handlePostClick}
               />
             </div>
           ))}

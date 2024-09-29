@@ -1,23 +1,27 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {
-  // updateUserProduce,
   fetchAllotmentPosts,
   fetchTownPosts,
   authenticateUser,
   logout,
   deletePost,
+  addPost,
+  fetchSelectedPost,
 } from "../api/api";
 
-// Create the AuthContext
 const AuthContext = createContext();
 
 // Provider component to manage authentication state
 export const AuthProvider = ({ children }) => {
-  const [error, setError] = useState(false);
+  const [error, setError] = useState(null);
   const [isDrawerOpen, setDrawerOpen] = useState(false);
   const [user, setUser] = useState(null);
+
   const [posts, setPosts] = useState([]);
+  const [selectedPost, setSelectedPost] = useState(null);
+  const [parentPost, setParentPost] = useState(null);
+  const [replies, setReplies] = useState([]);
 
   // const [commentPosted, setCommentPosted] = useState(false);
   // const [messageSent, setMessageSent] = useState(false);
@@ -94,38 +98,77 @@ export const AuthProvider = ({ children }) => {
     setDrawerOpen(!isDrawerOpen);
   };
 
-  // Fetch posts for the user's allotment
   const getAllotmentPosts = async (allotment_id) => {
     try {
       const { posts } = await fetchAllotmentPosts(allotment_id);
       setPosts(posts);
     } catch (error) {
       console.error("Failed to fetch posts", error);
+      setError(error);
     }
   };
 
-  // Fetch posts for the user's allotment
   const getTownPosts = async (town_id) => {
     try {
       const { posts } = await fetchTownPosts(town_id);
       setPosts(posts);
     } catch (error) {
       console.error("Failed to fetch posts", error);
+      setError(error);
     }
-  };
-
-  const handleNewPost = (newPost) => {
-    setPosts((prevPosts) => [newPost, ...prevPosts]);
   };
 
   const handlePostClick = (postId) => {
     navigate(`/posts/${postId}`);
   };
 
-  const handleDeletePost = async (postId) => {
-    setPosts((prevPosts) =>
-      prevPosts.filter((post) => post.post_id !== postId)
-    );
+  const getSelectedPost = async (postId) => {
+    try {
+      const {
+        data: { post, parentPost, replies },
+      } = await fetchSelectedPost(postId);
+
+      setSelectedPost(post);
+      setParentPost(parentPost || null);
+      setReplies(replies);
+    } catch (error) {
+      console.error("Failed to fetch selected post", error);
+      setError(error);
+    }
+  };
+
+  const handleNewPost = async (newPost, scope) => {
+    try {
+      if (scope === "allotment") {
+        await addPost(newPost);
+        await getAllotmentPosts(user.allotment_id);
+      } else if (scope === "town") {
+        console.log("NEW POST IN TOWN DETECTED!", scope);
+        await addPost(newPost);
+        await getTownPosts(user.town_id);
+      }
+    } catch (error) {
+      console.error("Failed to add post", error);
+      setError(error);
+    }
+  };
+
+  const handleDeletePost = async (postId, scope) => {
+    try {
+      setPosts((prevPosts) =>
+        prevPosts.filter((post) => post.post_id !== postId)
+      );
+      await deletePost(postId);
+
+      if (scope === "allotment") {
+        await getAllotmentPosts(user.allotment_id);
+      } else if (scope === "town") {
+        await getTownPosts(user.town_id);
+      }
+    } catch (error) {
+      console.error("Failed to delete post", error);
+      setError(error);
+    }
   };
 
   // Update user produce data
@@ -170,6 +213,8 @@ export const AuthProvider = ({ children }) => {
   return (
     <AuthContext.Provider
       value={{
+        error,
+        setError,
         user,
         login,
         handleLogout,
@@ -180,8 +225,12 @@ export const AuthProvider = ({ children }) => {
         getAllotmentPosts,
         getTownPosts,
         handleDeletePost,
-        handlePostClick,
         handleNewPost,
+        handlePostClick,
+        getSelectedPost,
+        selectedPost,
+        parentPost,
+        replies,
         // updateUserProduceData,
         // commentPosted,
         // setCommentPosted,
@@ -192,8 +241,7 @@ export const AuthProvider = ({ children }) => {
         // notifications,
         // addNotification,
         // markAsRead
-      }}
-    >
+      }}>
       {children}
     </AuthContext.Provider>
   );

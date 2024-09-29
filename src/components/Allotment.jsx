@@ -6,10 +6,11 @@ import PostDisplay from "./posts/PostDisplay";
 export default function Allotment() {
   const [isLoading, setIsLoading] = useState(true);
 
-  const { error, user, getAllotmentPosts, posts } = useAuth();
+  const { error, user, getAllotmentPosts } = useAuth();
   const { site } = useParams();
 
   useEffect(() => {
+    setIsLoading(true);
     if (user?.allotment_id) {
       getAllotmentPosts(user.allotment_id);
       setIsLoading(false);
