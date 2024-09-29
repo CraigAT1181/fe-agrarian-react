@@ -60,7 +60,7 @@ export default function PostThread() {
 
   return (
     <div className="post-thread-container">
-      <div className="flex justify-end pb-2">
+      <div className="flex justify-end">
         <button
           className="flex border-2 border-gray-700 rounded-full px-8 relative"
           onClick={() => navigate(-1)}>

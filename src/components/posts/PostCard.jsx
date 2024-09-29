@@ -86,14 +86,14 @@ export default function PostCard({ post, parentName = null }) {
               className="fa-solid fa-ellipsis-vertical"
               onClick={toggleMenu}></i>
             {menuVisible && (
-              <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-300 rounded shadow-lg z-50">
-                <ul>
+              <div className="absolute right-0 mt-2 w-40 h-auto bg-white border border-gray-300 rounded shadow-lg z-50">
+                <ul className="p-0">
                   {/* <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
                       Edit Post
                     </li> */}
                   {user && user.user_name === post.users.user_name && (
                     <li
-                      className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                      className="px-2 py-2 text-center hover:bg-gray-100 cursor-pointer"
                       onClick={(e) => {
                         e.stopPropagation;
                         handleDelete();
@@ -101,7 +101,7 @@ export default function PostCard({ post, parentName = null }) {
                       Delete Post
                     </li>
                   )}
-                  {/* <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                  {/* <li className="px-2 py-2 text-center hover:bg-gray-100 cursor-pointer">
                       Report Post
                     </li> */}
                 </ul>
