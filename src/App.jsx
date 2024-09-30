@@ -127,7 +127,7 @@ export default function App() {
                 path="/set-new-password"
                 element={<SetNewPassword />}
               /> */}
-              <Route
+              {/* <Route
                 path="/about"
                 element={<About />}
               />
@@ -150,7 +150,7 @@ export default function App() {
               <Route
                 path="/development"
                 element={<Development />}
-              />
+              /> */}
               {/* <Route
                 path="/activities"
                 element={<Activities />}
