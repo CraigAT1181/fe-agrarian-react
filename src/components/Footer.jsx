@@ -11,7 +11,7 @@ export default function Footer() {
 
   return (
     <footer className="footer">
-      <button onClick={toggleDrawer} className="hamburger">
+      {/* <button onClick={toggleDrawer} className="hamburger">
         <svg
           className="w-6 h-6"
           fill="none"
@@ -29,11 +29,11 @@ export default function Footer() {
       </button>
       <div className="hidden lg:block">
         <NavbarFooter />
-      </div>
+      </div> */}
 
-      <div className="text-start">
+      {/* <div className="text-start">
         <DrawerFooter isDrawerOpen={isDrawerOpen} toggleDrawer={toggleDrawer} />
-      </div>
+      </div> */}
     </footer>
   );
 }
