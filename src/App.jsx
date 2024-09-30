@@ -3,12 +3,12 @@ import { Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./components/AuthContext";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import AdCarousel from "./components/AdCarousel";
+// import AdCarousel from "./components/AdCarousel";
 import ErrorHandling from "./components/ErrorHandling";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "./index.css";
 
-const Home = lazy(() => import("./components/Home"));
+// const Home = lazy(() => import("./components/Home"));
 const Welcome = lazy(() => import("./components/utilities/Welcome"));
 const Allotment = lazy(() => import("./components/Allotment"));
 const Town = lazy(() => import("./components/Town"));
@@ -17,26 +17,26 @@ const Bookmarks = lazy(() => import("./components/bookmarks/Bookmarks"));
 const Inbox = lazy(() => import("./components/inbox/Inbox"));
 const Notifications = lazy(() => import("./components/notifications/Notifications"));
 const Settings = lazy(() => import("./components/settings/Settings"));
-const Exchange = lazy(() => import("./components/Exchange"));
-const Messenger = lazy(() => import("./components/Messenger"));
-const MessageDisplay = lazy(() => import("./components/MessageDisplay"));
+// const Exchange = lazy(() => import("./components/Exchange"));
+// const Messenger = lazy(() => import("./components/Messenger"));
+// const MessageDisplay = lazy(() => import("./components/MessageDisplay"));
 const Login = lazy(() => import("./components/Login"));
 const Register = lazy(() => import("./components/Register"));
-const Posts = lazy(() => import("./components/Posts"));
-const Calendar = lazy(() => import("./components/Calendar"));
-const RequestLink = lazy(() => import("./components/RequestLink"));
-const SetNewPassword = lazy(() => import("./components/SetNewPassword"));
+// const Posts = lazy(() => import("./components/Posts"));
+// const Calendar = lazy(() => import("./components/Calendar"));
+// const RequestLink = lazy(() => import("./components/RequestLink"));
+// const SetNewPassword = lazy(() => import("./components/SetNewPassword"));
 const About = lazy(() => import("./components/About"));
 const OfferSupport = lazy(() => import("./components/OfferSupport"));
 const Privacy = lazy(() => import("./components/Privacy"));
 const Cookies = lazy(() => import("./components/Cookies"));
 const Contact = lazy(() => import("./components/Contact"));
 const Development = lazy(() => import("./components/Development"));
-const Activities = lazy(() => import("./components/Activities"));
-const ActivityDetail = lazy(() => import("./components/ActivityDetail"));
-const BlogPage = lazy(() => import("./components/BlogPage"));
-const Blog = lazy(() => import("./components/Blog"));
-const Shop = lazy(() => import("./components/Shop"));
+// const Activities = lazy(() => import("./components/Activities"));
+// const ActivityDetail = lazy(() => import("./components/ActivityDetail"));
+// const BlogPage = lazy(() => import("./components/BlogPage"));
+// const Blog = lazy(() => import("./components/Blog"));
+// const Shop = lazy(() => import("./components/Shop"));
 
 export default function App() {
   return (
@@ -83,11 +83,11 @@ export default function App() {
                 path="/settings"
                 element={<Settings />}
               />
-              <Route
+              {/* <Route
                 path="#"
                 element={<Exchange />}
-              />
-              <Route
+              /> */}
+              {/* <Route
                 path="#"
                 element={<Home />}
               />
@@ -98,15 +98,15 @@ export default function App() {
               <Route
                 path="#"
                 element={<MessageDisplay />}
-              />
-              <Route
+              /> */}
+              {/* <Route
                 path="/ads"
                 element={<Posts />}
-              />
-              <Route
+              /> */}
+              {/* <Route
                 path="/calendar"
                 element={<Calendar />}
-              />
+              /> */}
               <Route
                 path="/*"
                 element={<ErrorHandling />}
@@ -119,14 +119,14 @@ export default function App() {
                 path="/register"
                 element={<Register />}
               />
-              <Route
+              {/* <Route
                 path="/request-link"
                 element={<RequestLink />}
               />
               <Route
                 path="/set-new-password"
                 element={<SetNewPassword />}
-              />
+              /> */}
               <Route
                 path="/about"
                 element={<About />}
@@ -151,7 +151,7 @@ export default function App() {
                 path="/development"
                 element={<Development />}
               />
-              <Route
+              {/* <Route
                 path="/activities"
                 element={<Activities />}
               />
@@ -170,7 +170,7 @@ export default function App() {
               <Route
                 path="/shop"
                 element={<Shop />}
-              />
+              /> */}
             </Routes>
           </Suspense>
         </main>
