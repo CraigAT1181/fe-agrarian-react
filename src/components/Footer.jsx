@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import NavbarFooter from "./NavbarFooter";
-import DrawerFooter from "./DrawerFooter";
+// import NavbarFooter from "./NavbarFooter";
+// import DrawerFooter from "./DrawerFooter";
 
 export default function Footer() {
   const [isDrawerOpen, setDrawerOpen] = useState(false);
