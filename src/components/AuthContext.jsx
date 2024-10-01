@@ -1,7 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {
-  fetchAllotmentPosts,
   fetchTownPosts,
   authenticateUser,
   logout,
@@ -18,7 +17,6 @@ export const AuthProvider = ({ children }) => {
   const [isDrawerOpen, setDrawerOpen] = useState(false);
   const [user, setUser] = useState(null);
 
-  const [posts, setPosts] = useState([]);
   const [selectedPost, setSelectedPost] = useState(null);
   const [parentPost, setParentPost] = useState(null);
   const [replies, setReplies] = useState([]);
@@ -96,16 +94,6 @@ export const AuthProvider = ({ children }) => {
 
   const toggleDrawer = () => {
     setDrawerOpen(!isDrawerOpen);
-  };
-
-  const getAllotmentPosts = async (allotment_id) => {
-    try {
-      const { posts } = await fetchAllotmentPosts(allotment_id);
-      setPosts(posts);
-    } catch (error) {
-      console.error("Failed to fetch posts", error);
-      setError(error);
-    }
   };
 
   const getTownPosts = async (town_id) => {
@@ -221,8 +209,6 @@ export const AuthProvider = ({ children }) => {
         isDrawerOpen,
         setDrawerOpen,
         toggleDrawer,
-        posts,
-        getAllotmentPosts,
         getTownPosts,
         handleDeletePost,
         handleNewPost,
@@ -241,7 +227,8 @@ export const AuthProvider = ({ children }) => {
         // notifications,
         // addNotification,
         // markAsRead
-      }}>
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

@@ -2,9 +2,7 @@ import React from "react";
 import PostCard from "./PostCard";
 import { useAuth } from "../AuthContext";
 
-export default function PostDisplay() {
-  const { posts } = useAuth();
-
+export default function PostDisplay({ posts }) {
   return (
     <div className="mt-4">
       {posts.map((post) => {
