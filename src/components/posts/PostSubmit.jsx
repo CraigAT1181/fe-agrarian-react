@@ -72,7 +72,8 @@ export default function PostSubmit({
   return (
     <div
       className="border-2 border-green-900 p-2 rounded-lg max-w-full text-center"
-      onClick={(e) => e.stopPropagation()}>
+      onClick={(e) => e.stopPropagation()}
+    >
       <form onSubmit={handlePostSubmission}>
         <textarea
           className="w-full p-2 border-1 border-green-900 rounded outline-none"
@@ -99,7 +100,8 @@ export default function PostSubmit({
         <button
           type="submit"
           className="mt-2 bg-white border-1 border-green-900 text-green-900 font-semibold px-4 py-2 rounded"
-          onClick={(e) => e.stopPropagation()}>
+          onClick={(e) => e.stopPropagation()}
+        >
           {isLoading ? (
             <i className="fa-solid fa-spinner fa-spin"></i>
           ) : (

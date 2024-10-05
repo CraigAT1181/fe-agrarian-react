@@ -2,22 +2,17 @@ import React, { useState } from "react";
 import { format, formatDistanceToNow } from "date-fns";
 import { useAuth } from "../contexts/AuthContext";
 import { usePosts } from "../contexts/PostContext";
-import { useNavigate } from "react-router-dom";
 
 export default function PostCard({
   post,
+  handleDeletePost,
   parentName = null,
-  // onDeletePost,
-  // onReply,
 }) {
-  const [replyingToPostId, setReplyingToPostId] = useState(null);
   const [selectedMedia, setSelectedMedia] = useState(null);
   const [menuVisible, setMenuVisible] = useState(false);
 
-  const navigate = useNavigate();
-
   const { user, toggleDrawer } = useAuth();
-  const { handleDeletePost, handlePostClick } = usePosts();
+  const { handlePostClick } = usePosts();
 
   // ---------------- Format dates for rendering
 
@@ -51,10 +46,6 @@ export default function PostCard({
     setSelectedMedia(null);
   };
 
-  const handleDelete = () => {
-    handleDeletePost(post.post_id, post.scope);
-  };
-
   return (
     <div className="post-card-container">
       <div className="min-w-16 mx-2">
@@ -80,7 +71,8 @@ export default function PostCard({
             <div className="relative inline-block mr-2">
               <i
                 className="fa-solid fa-ellipsis-vertical"
-                onClick={toggleMenu}></i>
+                onClick={toggleMenu}
+              ></i>
               {menuVisible && (
                 <div className="absolute right-0 mt-2 w-40 h-auto bg-white border border-gray-300 rounded shadow-lg z-50">
                   <ul className="p-0">
@@ -88,8 +80,9 @@ export default function PostCard({
                       className="px-2 py-2 text-center hover:bg-gray-100 cursor-pointer"
                       onClick={(e) => {
                         e.stopPropagation;
-                        handleDelete();
-                      }}>
+                        handleDeletePost(post.post_id);
+                      }}
+                    >
                       Delete Post
                     </li>
                   </ul>
@@ -128,40 +121,35 @@ export default function PostCard({
 
         <div className="flex justify-start mt-2">
           {/* Reply button */}
+
           <div
             className="flex items-center mb-0 mr-2 cursor-pointer"
             title="Reply"
-            onClick={(e) => {
-              e.stopPropagation();
-              onReply(post.post_id, post.scope);
-            }}>
+            onClick={
+              user
+                ? (e) => {
+                    e.stopPropagation();
+                    handlePostClick(post.post_id);
+                  }
+                : (e) => {
+                    e.stopPropagation();
+                    toggleDrawer();
+                  }
+            }
+          >
             <i className="fa-solid text-gray-400 fa-comment-dots"></i>
             <p className="mb-0 ml-1 font-thin text-sm">{post.reply_count}</p>
           </div>
 
           {/* Other buttons */}
-          <div
-            className="mb-0 ml-2 mr-4"
-            title="Bookmark">
+          <div className="mb-0 ml-2 mr-4" title="Bookmark">
             <i className="fa-solid text-gray-400 fa-bookmark"></i>
           </div>
           <p className="m-0">|</p>
-          <div
-            className="mb-0 ml-4"
-            title="Share">
+          <div className="mb-0 ml-4" title="Share">
             <i className="fa-solid text-gray-400 fa-share-from-square"></i>
           </div>
         </div>
-
-        {/* Conditionally render reply input for this post */}
-        {replyingToPostId === post.post_id && (
-          <div>
-            <PostSubmit
-              parent_id={post.post_id}
-              scope={post.scope}
-            />
-          </div>
-        )}
       </div>
       {selectedMedia && (
         <div className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50">
@@ -172,7 +160,8 @@ export default function PostCard({
           />
           <button
             className="absolute top-4 right-4 text-white text-2xl"
-            onClick={(e) => closeModal(e)}>
+            onClick={(e) => closeModal(e)}
+          >
             &times;
           </button>
         </div>

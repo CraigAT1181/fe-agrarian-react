@@ -1,9 +1,11 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
+import { usePosts } from "../contexts/PostContext";
 import { useNavigate } from "react-router-dom";
 import { fetchSelectedPost } from "../../api/api";
 import PostCard from "./PostCard";
+import PostSubmit from "./PostSubmit";
 
 export default function PostThread() {
   const [isLoading, setIsLoading] = useState(true);
@@ -14,6 +16,7 @@ export default function PostThread() {
   const [replies, setReplies] = useState([]);
 
   const { user } = useAuth();
+  const { postAddition, postDeletion } = usePosts();
 
   const { postId } = useParams();
 
@@ -21,25 +24,25 @@ export default function PostThread() {
 
   const selectedPostRef = useRef(null);
 
+  const loadSelectedPost = async () => {
+    setIsLoading(true);
+    try {
+      const {
+        data: { post, parentPost, replies },
+      } = await fetchSelectedPost(postId);
+
+      setSelectedPost(post);
+      setParentPost(parentPost || null);
+      setReplies(replies);
+      setIsLoading(false);
+    } catch (error) {
+      console.error("Failed to fetch selected post", error);
+      setError(error);
+      setIsLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const loadSelectedPost = async () => {
-      setIsLoading(true);
-      try {
-        const {
-          data: { post, parentPost, replies },
-        } = await fetchSelectedPost(postId);
-
-        setSelectedPost(post);
-        setParentPost(parentPost || null);
-        setReplies(replies);
-        setIsLoading(false);
-      } catch (error) {
-        console.error("Failed to fetch selected post", error);
-        setError(error);
-        setIsLoading(false);
-      }
-    };
-
     loadSelectedPost();
 
     const handleBackButton = (e) => {
@@ -63,6 +66,16 @@ export default function PostThread() {
     };
   }, [postId]);
 
+  const handleDeletePost = async (postId) => {
+    await postDeletion(postId);
+    loadSelectedPost();
+  };
+
+  const handleAddPost = async (newPost) => {
+    await postAddition(newPost);
+    loadSelectedPost();
+  };
+
   if (error) {
     return (
       <div>
@@ -78,33 +91,19 @@ export default function PostThread() {
   return (
     <div className="post-thread-container">
       <div className="flex justify-end">
-        <button
-          className="flex border-2 border-gray-700 rounded-full px-8 relative"
-          onClick={() => navigate(-1)}>
+        <button className="flex px-8 relative" onClick={() => navigate(-1)}>
           <i className="fa-solid absolute top-1 left-1 fa-chevron-left"></i>
           <span>Back</span>
         </button>
       </div>
-      {/* {parentPost && (
-        <div className="parent-post-container">
-          <div onClick={() => handlePostClick(parentPost.post_id)}>
-            <PostCard
-              post={parentPost}
-              parentName={parentPost?.users?.user_name}
-              handlePostClick={handlePostClick}
-            />
-          </div>
-          <hr className="mb-4" />
-        </div>
-      )} */}
+
       {selectedPost && (
-        <div
-          className="selected-post-container"
-          ref={selectedPostRef}>
+        <div className="selected-post-container" ref={selectedPostRef}>
           <div>
             <PostCard
               post={selectedPost}
               parentName={parentPost?.users?.user_name}
+              handleDeletePost={handleDeletePost}
             />
           </div>
         </div>
@@ -117,9 +116,19 @@ export default function PostThread() {
               <PostCard
                 post={reply}
                 parentName={selectedPost.users.user_name}
+                handleDeletePost={handleDeletePost}
               />
             </div>
           ))}
+      </div>
+      <div className="sticky bottom-4">
+        {user && (
+          <PostSubmit
+            parent_id={selectedPost.post_id}
+            scope={"town"}
+            onAddPost={handleAddPost}
+          />
+        )}
       </div>
     </div>
   );

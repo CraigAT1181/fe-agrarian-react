@@ -22,7 +22,6 @@ export default function Town() {
     if (user) {
       try {
         const { posts: townPostsData } = await fetchTownPosts(user.town_id);
-        console.log(townPostsData);
 
         if (!townPostsData) {
           console.error("Unable to fetch Town posts from database.");
@@ -59,34 +58,26 @@ export default function Town() {
     fetchPosts();
   }, [user]);
 
-  const handleDeletePost = (postId) => {
-    postDeletion(postId);
+  const handleDeletePost = async (postId) => {
+    await postDeletion(postId);
     fetchPosts();
   };
 
-  const handleAddPost = (newPost) => {
-    postAddition(newPost);
+  const handleAddPost = async (newPost) => {
+    await postAddition(newPost);
     fetchPosts();
   };
 
   return (
-    <div className="h-full flex flex-col">
+    <div className="town">
       <div className="bg-green-900 rounded-lg flex justify-center p-2 mb-4">
         <h1 className="mb-0 text-white font-thin">{town}</h1>
       </div>
-      <div className="flex-grow">
-        <PostDisplay
-          posts={townPostsArray}
-          onDeletePost={handleDeletePost}
-        />
-      </div>
+
+      <PostDisplay posts={townPostsArray} handleDeletePost={handleDeletePost} />
+
       <div className="sticky bottom-4">
-        {user && (
-          <PostSubmit
-            scope={"town"}
-            onAddPost={handleAddPost}
-          />
-        )}
+        {user && <PostSubmit scope={"town"} onAddPost={handleAddPost} />}
       </div>
     </div>
   );

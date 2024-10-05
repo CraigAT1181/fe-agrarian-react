@@ -11,6 +11,7 @@ export default function Footer() {
 
   return (
     <footer className="footer">
+      <i className="fa-solid text-white fa-magnifying-glass"></i>
       {/* <button onClick={toggleDrawer} className="hamburger">
         <svg
           className="w-6 h-6"

@@ -50,31 +50,28 @@ export default function Allotment() {
     fetchPosts();
   }, [user]);
 
-  const handleDeletePost = (postId) => {
-    postDeletion(postId);
+  const handleDeletePost = async (postId) => {
+    await postDeletion(postId);
     fetchPosts();
   };
 
-  const handleAddPost = (newPost) => {
-    postAddition(newPost);
+  const handleAddPost = async (newPost) => {
+    await postAddition(newPost);
     fetchPosts();
   };
 
   return (
-    <div className="h-full flex flex-col">
+    <div className="allotment">
       <div className="bg-green-900 rounded-lg flex justify-center p-2 mb-4">
         <h1 className="mb-0 text-white font-thin">{site}</h1>
       </div>
       <PostDisplay
         posts={allotmentPostsArray}
-        onDeletePost={handleDeletePost}
+        handleDeletePost={handleDeletePost}
       />
-      {user && (
-        <PostSubmit
-          scope={"allotment"}
-          onAddPost={handleAddPost}
-        />
-      )}
+      <div className="sticky bottom-0">
+        {user && <PostSubmit scope={"allotment"} onAddPost={handleAddPost} />}
+      </div>
     </div>
   );
 }
