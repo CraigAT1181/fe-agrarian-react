@@ -1,14 +1,19 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
-import { useAuth } from "../AuthContext";
+import { useAuth } from "../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { fetchSelectedPost } from "../../api/api";
 import PostCard from "./PostCard";
 
 export default function PostThread() {
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const { error, getSelectedPost, selectedPost, parentPost, replies } =
-    useAuth();
+  const [selectedPost, setSelectedPost] = useState(null);
+  const [parentPost, setParentPost] = useState(null);
+  const [replies, setReplies] = useState([]);
+
+  const { user } = useAuth();
 
   const { postId } = useParams();
 
@@ -19,8 +24,20 @@ export default function PostThread() {
   useEffect(() => {
     const loadSelectedPost = async () => {
       setIsLoading(true);
-      await getSelectedPost(postId);
-      setIsLoading(false);
+      try {
+        const {
+          data: { post, parentPost, replies },
+        } = await fetchSelectedPost(postId);
+
+        setSelectedPost(post);
+        setParentPost(parentPost || null);
+        setReplies(replies);
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Failed to fetch selected post", error);
+        setError(error);
+        setIsLoading(false);
+      }
     };
 
     loadSelectedPost();

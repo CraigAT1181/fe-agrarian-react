@@ -22,7 +22,7 @@ export default function MediaInputPanel({ handleMediaUpload }) {
         className="media-icons"
         onClick={handleCameraClick}
       >
-        <i className="fa-solid fa-camera"></i>
+        <i className="fa-solid text-green-900 fa-camera"></i>
       </div>
 
       {/* Media icon to trigger file input for media selection */}
@@ -31,7 +31,7 @@ export default function MediaInputPanel({ handleMediaUpload }) {
         className="media-icons"
         onClick={handleMediaClick}
       >
-        <i className="fa-solid fa-image"></i>
+        <i className="fa-solid text-green-900 fa-image"></i>
       </div>
 
       {/* Hidden input for camera capture */}

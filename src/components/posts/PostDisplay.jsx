@@ -1,19 +1,41 @@
-import React from "react";
+import React, { useState } from "react";
 import PostCard from "./PostCard";
-import { useAuth } from "../AuthContext";
+import PostSubmit from "./PostSubmit";
 
-export default function PostDisplay({ posts }) {
+const PostDisplay = ({ posts = [], onDeletePost }) => {
+  
+  
+  // const [replyingTo, setReplyingTo] = useState(null);
+  // const [scope, setScope] = useState(null);
+
+  // const handleReply = (postId, scope) => {
+  //   setReplyingTo(postId); // Set the post ID to reply to
+  //   setScope(scope);
+  // };
+
+  // const handleAddPost = async (newPostContent) => {
+  //   await onAddPost({ content: newPostContent, parentId: replyingTo }); // Include parent ID in new post details
+  //   setReplyingTo(null); // Reset replying state after adding the post
+  //   setScope(null);
+  // };
+
   return (
-    <div className="mt-4">
-      {posts.map((post) => {
-        if (!post.is_reply) {
-          return (
+    <div className="post-display">
+      {posts.length > 0 ? (
+        <div>
+          {posts.map((post) => (
             <div key={post.post_id}>
               <PostCard post={post} />
             </div>
-          );
-        }
-      })}
+          ))}
+        </div>
+      ) : (
+        <div className="text-center">
+          <p>Posts will appear here.</p>
+        </div>
+      )}
     </div>
   );
-}
+};
+
+export default PostDisplay;

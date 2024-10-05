@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { loginUser } from "../api/api";
-import { useAuth } from "./AuthContext";
+import { useAuth } from "./contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { Modal } from "react-bootstrap";
 
@@ -50,7 +50,9 @@ export default function Login() {
     );
 
   return (
-    <Modal show={show} onHide={handleClose}>
+    <Modal
+      show={show}
+      onHide={handleClose}>
       <Modal.Header closeButton>
         <Modal.Title>Login</Modal.Title>
       </Modal.Header>
@@ -63,8 +65,7 @@ export default function Login() {
                 className="reset-password"
                 onClick={() => {
                   navigate("/request-link");
-                }}
-              >
+                }}>
                 Reset password
               </button>
             </div>
@@ -93,17 +94,17 @@ export default function Login() {
             <button
               className="text-gray-800 cursor-pointer bg-transparent absolute top-8 right-2"
               onClick={togglePasswordVisibility}
-              type="button"
-            >
+              type="button">
               <i
                 className={`fa-solid ${
                   showPassword ? "fa-eye" : "fa-eye-slash"
-                }`}
-              ></i>
+                }`}></i>
             </button>
           </div>
           <div className="d-flex justify-content-center mt-4">
-            <button className="confirm-button" type="submit">
+            <button
+              className="confirm-button"
+              type="submit">
               Confirm
             </button>
           </div>

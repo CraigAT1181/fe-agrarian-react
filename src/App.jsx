@@ -1,6 +1,7 @@
 import React, { Suspense, lazy } from "react";
 import { Routes, Route } from "react-router-dom";
-import { AuthProvider } from "./components/AuthContext";
+import { AuthProvider } from "./components/contexts/AuthContext";
+import { PostProvider } from "./components/contexts/PostContext";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 // import AdCarousel from "./components/AdCarousel";
@@ -15,7 +16,9 @@ const Town = lazy(() => import("./components/Town"));
 const PostThread = lazy(() => import("./components/posts/PostThread"));
 const Bookmarks = lazy(() => import("./components/bookmarks/Bookmarks"));
 const Inbox = lazy(() => import("./components/inbox/Inbox"));
-const Notifications = lazy(() => import("./components/notifications/Notifications"));
+const Notifications = lazy(() =>
+  import("./components/notifications/Notifications")
+);
 const Settings = lazy(() => import("./components/settings/Settings"));
 // const Exchange = lazy(() => import("./components/Exchange"));
 // const Messenger = lazy(() => import("./components/Messenger"));
@@ -42,52 +45,53 @@ export default function App() {
   return (
     <div className="flex flex-col min-h-screen">
       <AuthProvider>
-        <Header />
-        <main className="main">
-          <Suspense
-            fallback={
-              <div className="flex justify-center">
-                <i className="fa-solid fa-spinner fa-spin"></i>
-              </div>
-            }>
-            <Routes>
-              <Route
-                path="/"
-                element={<Welcome />}
-              />
-              <Route
-                path="/allotments/:site"
-                element={<Allotment />}
-              />
-              <Route
-                path="/towns/:town"
-                element={<Town />}
-              />
-              <Route
-                path="/posts/:postId"
-                element={<PostThread />}
-              />
-              <Route
-                path="/bookmarks"
-                element={<Bookmarks />}
-              />
-                            <Route
-                path="/inbox"
-                element={<Inbox />}
-              />
-                            <Route
-                path="/notifications"
-                element={<Notifications />}
-              />
-                                        <Route
-                path="/settings"
-                element={<Settings />}
-              />
-              {/* <Route
+        <PostProvider>
+          <Header />
+          <main className="main">
+            <Suspense
+              fallback={
+                <div className="flex justify-center">
+                  <i className="fa-solid fa-spinner fa-spin"></i>
+                </div>
+              }>
+              <Routes>
+                <Route
+                  path="/"
+                  element={<Welcome />}
+                />
+                <Route
+                  path="/allotments/:site"
+                  element={<Allotment />}
+                />
+                <Route
+                  path="/towns/:town"
+                  element={<Town />}
+                />
+                <Route
+                  path="/posts/:postId"
+                  element={<PostThread />}
+                />
+                <Route
+                  path="/bookmarks"
+                  element={<Bookmarks />}
+                />
+                <Route
+                  path="/inbox"
+                  element={<Inbox />}
+                />
+                <Route
+                  path="/notifications"
+                  element={<Notifications />}
+                />
+                <Route
+                  path="/settings"
+                  element={<Settings />}
+                />
+                {/* <Route
                 path="#"
                 element={<Exchange />}
               /> */}
-              {/* <Route
+                {/* <Route
                 path="#"
                 element={<Home />}
               />
@@ -99,27 +103,27 @@ export default function App() {
                 path="#"
                 element={<MessageDisplay />}
               /> */}
-              {/* <Route
+                {/* <Route
                 path="/ads"
                 element={<Posts />}
               /> */}
-              {/* <Route
+                {/* <Route
                 path="/calendar"
                 element={<Calendar />}
               /> */}
-              <Route
-                path="/*"
-                element={<ErrorHandling />}
-              />
-              <Route
-                path="/login"
-                element={<Login />}
-              />
-              <Route
-                path="/register"
-                element={<Register />}
-              />
-              {/* <Route
+                <Route
+                  path="/*"
+                  element={<ErrorHandling />}
+                />
+                <Route
+                  path="/login"
+                  element={<Login />}
+                />
+                <Route
+                  path="/register"
+                  element={<Register />}
+                />
+                {/* <Route
                 path="/request-link"
                 element={<RequestLink />}
               />
@@ -127,7 +131,7 @@ export default function App() {
                 path="/set-new-password"
                 element={<SetNewPassword />}
               /> */}
-              {/* <Route
+                {/* <Route
                 path="/about"
                 element={<About />}
               />
@@ -151,7 +155,7 @@ export default function App() {
                 path="/development"
                 element={<Development />}
               /> */}
-              {/* <Route
+                {/* <Route
                 path="/activities"
                 element={<Activities />}
               />
@@ -171,11 +175,12 @@ export default function App() {
                 path="/shop"
                 element={<Shop />}
               /> */}
-            </Routes>
-          </Suspense>
-        </main>
-        {/* <AdCarousel /> */}
-        <Footer />
+              </Routes>
+            </Suspense>
+          </main>
+          {/* <AdCarousel /> */}
+          <Footer />
+        </PostProvider>
       </AuthProvider>
     </div>
   );

@@ -14,7 +14,7 @@ export default function MediaPreviewPanel({ mediaUploads, setMediaUploads }) {
           <img
             src={URL.createObjectURL(preview)}
             alt="Uploaded media preview"
-            className="w-20 h-20 object-cover"
+            className="w-full h-20 object-cover"
           />
           <button
             className="remove-media-button"

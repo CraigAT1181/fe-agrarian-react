@@ -1,5 +1,5 @@
 import React from "react";
-import { useAuth } from "./AuthContext";
+import { useAuth } from "./contexts/AuthContext";
 import { Link } from "react-router-dom";
 
 export default function NavbarHeader({ pageTitle }) {
@@ -25,23 +25,23 @@ export default function NavbarHeader({ pageTitle }) {
       </Link>
       <Link
         to="/posts"
-          className={`nav-item ${
-            pageTitle === "Posts" ? "selected-nav-item" : ""
-          }`}>
+        className={`nav-item ${
+          pageTitle === "Posts" ? "selected-nav-item" : ""
+        }`}>
         Posts
       </Link>
       <Link
         to="/blogs"
-          className={`nav-item ${
-            pageTitle === "Blogs" ? "selected-nav-item" : ""
-          }`}>
+        className={`nav-item ${
+          pageTitle === "Blogs" ? "selected-nav-item" : ""
+        }`}>
         Blogs
       </Link>
       <Link
         to="/activities"
-          className={`nav-item ${
-            pageTitle === "Activities" ? "selected-nav-item" : ""
-          }`}>
+        className={`nav-item ${
+          pageTitle === "Activities" ? "selected-nav-item" : ""
+        }`}>
         Activities
       </Link>
       {user && (

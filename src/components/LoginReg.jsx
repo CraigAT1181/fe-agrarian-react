@@ -1,5 +1,5 @@
 import React from "react";
-import { useAuth } from "./AuthContext";
+import { useAuth } from "./contexts/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function LoginReg() {

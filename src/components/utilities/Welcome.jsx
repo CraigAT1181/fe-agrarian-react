@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../AuthContext";
+import { useAuth } from "../contexts/AuthContext";
 
 export default function Welcome() {
   const { user } = useAuth();

@@ -1,17 +1,23 @@
 import React, { useState } from "react";
 import { format, formatDistanceToNow } from "date-fns";
-import PostSubmit from "./PostSubmit";
-import { useAuth } from "../AuthContext";
+import { useAuth } from "../contexts/AuthContext";
+import { usePosts } from "../contexts/PostContext";
 import { useNavigate } from "react-router-dom";
 
-export default function PostCard({ post, parentName = null }) {
+export default function PostCard({
+  post,
+  parentName = null,
+  // onDeletePost,
+  // onReply,
+}) {
   const [replyingToPostId, setReplyingToPostId] = useState(null);
   const [selectedMedia, setSelectedMedia] = useState(null);
   const [menuVisible, setMenuVisible] = useState(false);
 
   const navigate = useNavigate();
 
-  const { user, toggleDrawer, handlePostClick, handleDeletePost } = useAuth();
+  const { user, toggleDrawer } = useAuth();
+  const { handleDeletePost, handlePostClick } = usePosts();
 
   // ---------------- Format dates for rendering
 
@@ -45,16 +51,6 @@ export default function PostCard({ post, parentName = null }) {
     setSelectedMedia(null);
   };
 
-  const handleReplyClick = (postId) => {
-    if (user) {
-      setReplyingToPostId(replyingToPostId === postId ? null : postId);
-    } else {
-      toggleDrawer();
-    }
-  };
-
-  console.log("Post:", post, "profile_pic", post.users.profile_pic);
-
   const handleDelete = () => {
     handleDeletePost(post.post_id, post.scope);
   };
@@ -74,24 +70,20 @@ export default function PostCard({ post, parentName = null }) {
           <div className="flex justify-start items-center font-semibold">
             <p>{post.users.user_name}</p>
             <p className="mx-2">|</p>
-            <p className="">
+            <p>
               {post.scope === "allotment"
                 ? post.users.plot
                 : post.users.allotments.allotment_name}
             </p>
           </div>
-
-          <div className="relative inline-block mr-2">
-            <i
-              className="fa-solid fa-ellipsis-vertical"
-              onClick={toggleMenu}></i>
-            {menuVisible && (
-              <div className="absolute right-0 mt-2 w-40 h-auto bg-white border border-gray-300 rounded shadow-lg z-50">
-                <ul className="p-0">
-                  {/* <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                      Edit Post
-                    </li> */}
-                  {user && user.user_name === post.users.user_name && (
+          {user && user.user_name === post.users.user_name && (
+            <div className="relative inline-block mr-2">
+              <i
+                className="fa-solid fa-ellipsis-vertical"
+                onClick={toggleMenu}></i>
+              {menuVisible && (
+                <div className="absolute right-0 mt-2 w-40 h-auto bg-white border border-gray-300 rounded shadow-lg z-50">
+                  <ul className="p-0">
                     <li
                       className="px-2 py-2 text-center hover:bg-gray-100 cursor-pointer"
                       onClick={(e) => {
@@ -100,14 +92,11 @@ export default function PostCard({ post, parentName = null }) {
                       }}>
                       Delete Post
                     </li>
-                  )}
-                  {/* <li className="px-2 py-2 text-center hover:bg-gray-100 cursor-pointer">
-                      Report Post
-                    </li> */}
-                </ul>
-              </div>
-            )}
-          </div>
+                  </ul>
+                </div>
+              )}
+            </div>
+          )}
         </div>
         {post.is_reply === true && parentName && (
           <div>
@@ -144,7 +133,7 @@ export default function PostCard({ post, parentName = null }) {
             title="Reply"
             onClick={(e) => {
               e.stopPropagation();
-              handleReplyClick(post.post_id);
+              onReply(post.post_id, post.scope);
             }}>
             <i className="fa-solid text-gray-400 fa-comment-dots"></i>
             <p className="mb-0 ml-1 font-thin text-sm">{post.reply_count}</p>
