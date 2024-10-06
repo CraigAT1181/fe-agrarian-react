@@ -5,6 +5,7 @@ import MediaPreviewPanel from "./MediaPreviewPanel";
 
 export default function PostSubmit({
   parent_id = null,
+  parent_user_name = null,
   scope = null,
   onAddPost,
 }) {
@@ -71,20 +72,35 @@ export default function PostSubmit({
 
   return (
     <div
-      className="border-2 border-green-900 p-2 rounded-lg max-w-full text-center"
+      className="p-2 rounded-lg max-w-full text-center mx-2"
       onClick={(e) => e.stopPropagation()}
     >
       <form onSubmit={handlePostSubmission}>
-        <textarea
-          className="w-full p-2 border-1 border-green-900 rounded outline-none"
-          onClick={(e) => {
-            e.stopPropagation();
-            setError(null);
-          }}
-          placeholder="What's on your mind?"
-          value={replyContent}
-          onChange={(e) => setReplyContent(e.target.value)}
-        />
+        <div className="relative">
+          <textarea
+            className="w-full p-2 border-1 border-green-900 rounded outline-none"
+            onClick={(e) => {
+              e.stopPropagation();
+              setError(null);
+            }}
+            placeholder={
+              parent_user_name
+                ? `Replying to ${parent_user_name}`
+                : "What's on your mind?"
+            }
+            value={replyContent}
+            onChange={(e) => setReplyContent(e.target.value)}
+          />
+          {replyContent && (
+            <button
+              type="submit"
+              className="absolute inset-y-0 right-0 pr-3 flex items-center"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <i className="fa-solid fa-arrow-right-long"></i>
+            </button>
+          )}
+        </div>
         <MediaInputPanel handleMediaUpload={handleMediaUpload} />
         {mediaUploads && mediaUploads.length > 0 && (
           <MediaPreviewPanel
@@ -97,17 +113,6 @@ export default function PostSubmit({
             <p className="text-red-500 bg-white rounded-md p-1 mt-2">{error}</p>
           </div>
         )}
-        <button
-          type="submit"
-          className="mt-2 bg-white border-1 border-green-900 text-green-900 font-semibold px-4 py-2 rounded"
-          onClick={(e) => e.stopPropagation()}
-        >
-          {isLoading ? (
-            <i className="fa-solid fa-spinner fa-spin"></i>
-          ) : (
-            "Confirm"
-          )}
-        </button>
       </form>
     </div>
   );

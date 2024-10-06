@@ -89,7 +89,7 @@ export default function PostThread() {
   }
 
   return (
-    <div className="post-thread-container">
+    <div className="post-thread">
       <div className="flex justify-end">
         <button className="flex px-8 relative" onClick={() => navigate(-1)}>
           <i className="fa-solid absolute top-1 left-1 fa-chevron-left"></i>
@@ -109,7 +109,15 @@ export default function PostThread() {
         </div>
       )}
       <hr className="border-4" />
-      <div className="replies-container">
+      {replies && (
+        <div className="pl-4">
+          <h4>
+            {replies.length} {replies.length === 1 ? "reply" : "replies"}
+          </h4>
+        </div>
+      )}
+
+      <div className="replies-display-container">
         {replies &&
           replies.map((reply) => (
             <div key={reply.post_id}>
@@ -125,6 +133,7 @@ export default function PostThread() {
         {user && (
           <PostSubmit
             parent_id={selectedPost.post_id}
+            parent_user_name={selectedPost.users.user_name}
             scope={"town"}
             onAddPost={handleAddPost}
           />

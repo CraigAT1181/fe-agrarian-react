@@ -62,16 +62,20 @@ export default function Allotment() {
 
   return (
     <div className="allotment">
-      <div className="bg-green-900 rounded-lg flex justify-center p-2 mb-4">
+      <div className="bg-green-900 flex justify-center p-2 mb-4">
         <h1 className="mb-0 text-white font-thin">{site}</h1>
       </div>
-      <PostDisplay
-        posts={allotmentPostsArray}
-        handleDeletePost={handleDeletePost}
-      />
-      <div className="sticky bottom-0">
-        {user && <PostSubmit scope={"allotment"} onAddPost={handleAddPost} />}
+      <div className="post-display-container">
+        <PostDisplay
+          posts={allotmentPostsArray}
+          handleDeletePost={handleDeletePost}
+        />
       </div>
+      {user && (
+        <div className="sticky bottom-0">
+          <PostSubmit scope={"allotment"} onAddPost={handleAddPost} />
+        </div>
+      )}
     </div>
   );
 }

@@ -12,7 +12,7 @@
 }
 
 .header {
-  @apply bg-white p-4 mb-4 flex justify-between items-center;
+  @apply bg-white p-4 flex justify-between items-center;
 }
 
 .main {
@@ -31,6 +31,20 @@
 
 .town {
   @apply flex-grow flex flex-col;
+}
+
+.post-thread {
+  @apply flex-grow flex flex-col;
+}
+
+/* -- CONTAINERS -- */
+
+.post-display-container {
+  @apply flex-grow overflow-y-auto;
+}
+
+.replies-display-container {
+  @apply flex-grow;
 }
 
 /* -- GENERAL -- */
@@ -443,22 +457,11 @@
 
 /* ------------ NEW ---------- */
 
-.post-display-container {
-}
-
-.post-thread-container {
-  @apply overflow-auto h-fit py-2 space-y-6;
-}
-
 .parent-post-container {
 }
 
 .selected-post-container {
-  @apply bg-gray-100 py-1;
-}
-
-.replies-container {
-  @apply pl-4 space-y-4;
+  @apply py-2;
 }
 
 /* -- POST CARD -- */
