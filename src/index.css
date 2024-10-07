@@ -26,11 +26,11 @@
 /* -- ROUTES -- */
 
 .allotment {
-  @apply flex flex-col;
+  @apply flex flex-col flex-grow pb-2;
 }
 
 .town {
-  @apply flex-grow flex flex-col;
+  @apply flex-grow flex flex-col pb-2;
 }
 
 .post-thread {
@@ -40,7 +40,7 @@
 /* -- CONTAINERS -- */
 
 .post-display-container {
-  @apply overflow-y-auto mb-4;
+  @apply flex-grow overflow-y-auto mb-4;
 }
 
 .replies-display-container {
