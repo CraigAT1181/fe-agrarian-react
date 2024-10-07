@@ -50,7 +50,7 @@ export default function App() {
               </Routes>
             </Suspense>
           </main>
-          <Footer />
+          {/* <Footer /> */}
         </PostProvider>
       </AuthProvider>
     </div>

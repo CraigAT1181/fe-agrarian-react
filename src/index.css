@@ -16,7 +16,7 @@
 }
 
 .main {
-  @apply flex-grow flex flex-col md:mx-10 lg:mx-52;
+  @apply flex-grow flex flex-col mx-4 md:mx-10 lg:mx-52;
 }
 
 .footer {
@@ -26,7 +26,7 @@
 /* -- ROUTES -- */
 
 .allotment {
-  @apply flex-grow flex flex-col;
+  @apply flex flex-col;
 }
 
 .town {
@@ -40,11 +40,21 @@
 /* -- CONTAINERS -- */
 
 .post-display-container {
-  @apply flex-grow overflow-y-auto;
+  @apply overflow-y-auto mb-4;
 }
 
 .replies-display-container {
   @apply flex-grow;
+}
+
+/* -- UTILITY -- */
+
+.post-display {
+  @apply grid grid-cols-1 gap-6 overflow-y-auto mb-4;
+}
+
+.media-preview-panel {
+  @apply grid grid-cols-2 gap-1;
 }
 
 /* -- GENERAL -- */
@@ -309,10 +319,6 @@
   @apply text-center;
 }
 
-.post-display {
-  @apply grid grid-cols-1 gap-4 overflow-y-auto;
-}
-
 /* ---- SEARCH BAR ---- */
 
 .search-bar-container {
@@ -484,10 +490,6 @@
 
 .media-icons {
   @apply text-gray-700 mx-4;
-}
-
-.media-preview-panel {
-  @apply grid grid-cols-2 gap-1;
 }
 
 .remove-media-button {

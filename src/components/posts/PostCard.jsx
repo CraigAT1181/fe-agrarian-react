@@ -98,7 +98,9 @@ export default function PostCard({
             </span>
           </div>
         )}
-        <div onClick={() => handlePostClick(post.post_id)}>{post.content}</div>
+        <div className="pb-2" onClick={() => handlePostClick(post.post_id)}>
+          {post.content}
+        </div>
 
         {post.posts_media && post.posts_media.length > 0 && (
           <div className="grid grid-cols-2 gap-1 md:flex">

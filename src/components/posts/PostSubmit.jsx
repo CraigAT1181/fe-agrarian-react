@@ -72,7 +72,7 @@ export default function PostSubmit({
 
   return (
     <div
-      className="p-2 rounded-lg max-w-full text-center mx-2"
+      className="p-2 max-w-full text-center bg-green-900"
       onClick={(e) => e.stopPropagation()}
     >
       <form onSubmit={handlePostSubmission}>
