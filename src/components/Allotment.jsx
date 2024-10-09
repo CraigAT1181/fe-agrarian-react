@@ -11,6 +11,7 @@ import PostSubmit from "./posts/PostSubmit";
 export default function Allotment() {
   const { postAddition, postDeletion } = usePosts();
   const { user } = useAuth();
+
   const { site } = useParams();
   const [allotmentPosts, setAllotmentPosts] = useState({});
 
@@ -48,6 +49,7 @@ export default function Allotment() {
 
   useEffect(() => {
     fetchPosts();
+    console.log(user);
   }, [user]);
 
   const handleDeletePost = async (postId) => {

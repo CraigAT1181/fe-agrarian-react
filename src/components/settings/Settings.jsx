@@ -20,7 +20,7 @@ export default function Settings() {
     ) {
       setIsLoading(true);
 
-      deleteUser(user.user_id)
+      deleteUser(user.user_id, user.auth_user_id)
         .then(() => {
           setIsLoading(false);
           handleLogout();
@@ -41,7 +41,8 @@ export default function Settings() {
       <div className="flex justify-end pb-2">
         <button
           className="flex border-2 border-gray-700 rounded-full px-8 relative"
-          onClick={() => navigate(-1)}>
+          onClick={() => navigate(-1)}
+        >
           <i className="fa-solid absolute top-1 left-1 fa-chevron-left"></i>
           <span>Back</span>
         </button>
@@ -53,7 +54,8 @@ export default function Settings() {
           disabled={isLoading}
           className={`bg-red-500 text-white py-2 px-4 rounded ${
             isLoading ? "opacity-50" : "hover:bg-red-600"
-          }`}>
+          }`}
+        >
           {isLoading ? "Deleting..." : "Delete Account"}
         </button>
       </div>

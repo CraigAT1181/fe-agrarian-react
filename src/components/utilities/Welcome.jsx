@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 
@@ -17,12 +17,4 @@ export default function Welcome() {
       navigate("/towns/Hartlepool");
     }
   };
-
-  return (
-    <div>
-      {
-        "Insert a post display here of conversations taking place in a random allotment or town."
-      }
-    </div>
-  );
 }

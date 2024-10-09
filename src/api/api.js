@@ -60,10 +60,12 @@ export const logout = async () => {
   }
 };
 
-export const deleteUser = async (userId) => {
+export const deleteUser = async (user_id, auth_id) => {
   try {
-    const { data } = await api.delete(`/users/${userId}`);
-    return data.message;
+    const { data } = await api.delete(`/users/${user_id}/${auth_id}`);
+    
+    return data;
+
   } catch (error) {
     console.error("Error deleting user:", error);
     throw error;
