@@ -88,7 +88,7 @@ export default function Allotment() {
         />
       </div>
       {user && (
-        <div className="sticky bottom-0">
+        <div className="post-submit-container">
           <PostSubmit scope={"allotment"} onAddPost={handleAddPost} />
         </div>
       )}

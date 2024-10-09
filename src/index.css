@@ -47,6 +47,10 @@
   @apply flex-grow;
 }
 
+.post-submit-container {
+  @apply sticky bottom-4 flex justify-center;
+}
+
 /* -- UTILITY -- */
 
 .post-display {
@@ -55,6 +59,15 @@
 
 .media-preview-panel {
   @apply grid grid-cols-2 gap-1;
+}
+
+/* -- STYLES -- */
+
+.nav-item {
+  @apply mx-4 no-underline text-green-900;
+}
+.selected-nav-item {
+  @apply font-semibold underline;
 }
 
 /* -- GENERAL -- */
@@ -121,14 +134,6 @@
 
 .navbar {
   @apply flex;
-}
-
-.nav-item {
-  @apply mx-4 no-underline text-green-900;
-}
-
-.selected-nav-item {
-  @apply font-semibold;
 }
 
 /* -- LOGIN / REG -- */

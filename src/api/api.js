@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:9090",
+  baseURL: "https://cookingpot.onrender.com",
 });
 
 export default api;
@@ -63,9 +63,8 @@ export const logout = async () => {
 export const deleteUser = async (user_id, auth_id) => {
   try {
     const { data } = await api.delete(`/users/${user_id}/${auth_id}`);
-    
-    return data;
 
+    return data;
   } catch (error) {
     console.error("Error deleting user:", error);
     throw error;
@@ -73,21 +72,18 @@ export const deleteUser = async (user_id, auth_id) => {
 };
 
 export const fetchAllotmentPosts = async (allotmentId) => {
-  
   const { data } = await api.get(`/posts/allotments/${allotmentId}`);
 
   return data;
 };
 
 export const fetchTownPosts = async (townId) => {
-  
   const { data } = await api.get(`/posts/towns/${townId}`);
 
   return data;
 };
 
 export const fetchSelectedPost = async (postId) => {
-  
   try {
     const data = await api.get(`/post/${postId}`);
 
@@ -107,7 +103,7 @@ export const addPost = async (formData) => {
     console.error("Error adding post:", error);
     throw error;
   }
-}
+};
 export const deletePost = async (postId) => {
   await api.delete("/posts", {
     data: { post_id: postId }, // Axios supports sending data in delete requests
@@ -352,8 +348,6 @@ export const deletePost = async (postId) => {
 
 //   return data;
 // };
-
-
 
 // export const contactForm = async (name, email, message) => {
 //   await api.post("/contact", {

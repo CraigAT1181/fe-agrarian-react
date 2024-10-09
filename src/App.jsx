@@ -12,6 +12,8 @@ const ErrorHandling = lazy(() => import("./components/ErrorHandling"));
 const Allotment = lazy(() => import("./components/Allotment"));
 const Town = lazy(() => import("./components/Town"));
 const PostThread = lazy(() => import("./components/posts/PostThread"));
+const Ads = lazy(() => import("./components/ads/Ads"));
+const Blogs = lazy(() => import("./components/blogs/Blogs"));
 const Bookmarks = lazy(() => import("./components/bookmarks/Bookmarks"));
 const Inbox = lazy(() => import("./components/inbox/Inbox"));
 const Notifications = lazy(() =>
@@ -36,17 +38,58 @@ export default function App() {
             // }
             >
               <Routes>
-                <Route path="/" element={<Welcome />} />
-                <Route path="/allotments/:site" element={<Allotment />} />
-                <Route path="/towns/:town" element={<Town />} />
-                <Route path="/posts/:postId" element={<PostThread />} />
-                <Route path="/bookmarks" element={<Bookmarks />} />
-                <Route path="/inbox" element={<Inbox />} />
-                <Route path="/notifications" element={<Notifications />} />
-                <Route path="/settings" element={<Settings />} />
-                <Route path="/*" element={<ErrorHandling />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/register" element={<Register />} />
+                <Route
+                  path="/"
+                  element={<Welcome />}
+                />
+                <Route
+                  path="/allotments/:site"
+                  element={<Allotment />}
+                />
+                <Route
+                  path="/towns/:town"
+                  element={<Town />}
+                />
+                <Route
+                  path="/posts/:postId"
+                  element={<PostThread />}
+                />
+                <Route
+                  path="/ads"
+                  element={<Ads />}
+                />
+                <Route
+                  path="/blogs"
+                  element={<Blogs />}
+                />
+                <Route
+                  path="/bookmarks"
+                  element={<Bookmarks />}
+                />
+                <Route
+                  path="/inbox"
+                  element={<Inbox />}
+                />
+                <Route
+                  path="/notifications"
+                  element={<Notifications />}
+                />
+                <Route
+                  path="/settings"
+                  element={<Settings />}
+                />
+                <Route
+                  path="/*"
+                  element={<ErrorHandling />}
+                />
+                <Route
+                  path="/login"
+                  element={<Login />}
+                />
+                <Route
+                  path="/register"
+                  element={<Register />}
+                />
               </Routes>
             </Suspense>
           </main>

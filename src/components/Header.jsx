@@ -10,7 +10,7 @@ export default function Header() {
 
   const location = useLocation();
 
-  const { toggleDrawer } = useAuth();
+  const { user, toggleDrawer } = useAuth();
 
   useEffect(() => {
     const path = location.pathname.substring(1);
@@ -45,9 +45,14 @@ export default function Header() {
           </svg>
         </button>
       </div>
-      <div className="hidden lg:block">
-        <NavbarHeader pageTitle={pageTitle} />
-      </div>
+      {user && (
+        <div className="hidden lg:block">
+          {console.log(pageTitle)
+          }
+          <NavbarHeader pageTitle={pageTitle} />
+        </div>
+      )}
+
       <div className="hidden lg:block">
         <LoginReg />
       </div>

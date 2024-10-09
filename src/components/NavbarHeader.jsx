@@ -9,7 +9,7 @@ export default function NavbarHeader({ pageTitle }) {
       <Link
         to={`/allotments/${user?.allotments.allotment_name}`}
         className={`nav-item ${
-          pageTitle === "Allotment" ? "selected-nav-item" : ""
+          pageTitle === "Allotments" ? "selected-nav-item" : ""
         }`}
       >
         Allotment
@@ -18,15 +18,15 @@ export default function NavbarHeader({ pageTitle }) {
       <Link
         to={`/towns/${user?.towns.town_name}`}
         className={`nav-item ${
-          pageTitle === "Town" ? "selected-nav-item" : ""
+          pageTitle === "Towns" ? "selected-nav-item" : ""
         }`}
       >
         Town
       </Link>
       <Link
-        to="/posts"
+        to="/ads"
         className={`nav-item ${
-          pageTitle === "Posts" ? "selected-nav-item" : ""
+          pageTitle === "Ads" ? "selected-nav-item" : ""
         }`}
       >
         Ads
@@ -42,7 +42,7 @@ export default function NavbarHeader({ pageTitle }) {
       <Link
         to="/bookmarks"
         className={`nav-item ${
-          pageTitle === "Activities" ? "selected-nav-item" : ""
+          pageTitle === "Bookmarks" ? "selected-nav-item" : ""
         }`}
       >
         Bookmarks
@@ -51,7 +51,7 @@ export default function NavbarHeader({ pageTitle }) {
       <Link
         to="/inbox"
         className={`nav-item ${
-          pageTitle === "Messenger" ? "selected-nav-item" : ""
+          pageTitle === "Inbox" ? "selected-nav-item" : ""
         }`}
       >
         Inbox
@@ -59,7 +59,7 @@ export default function NavbarHeader({ pageTitle }) {
       <Link
         to="/notifications"
         className={`nav-item ${
-          pageTitle === "Messenger" ? "selected-nav-item" : ""
+          pageTitle === "Notifications" ? "selected-nav-item" : ""
         }`}
       >
         Notifications

@@ -72,9 +72,8 @@ export default function PostSubmit({
 
   return (
     <div
-      className="p-2 max-w-full text-center bg-green-900"
-      onClick={(e) => e.stopPropagation()}
-    >
+      className="p-2 max-w-full md:w-1/2 text-center bg-green-900"
+      onClick={(e) => e.stopPropagation()}>
       <form onSubmit={handlePostSubmission}>
         <div className="relative">
           <textarea
@@ -95,8 +94,7 @@ export default function PostSubmit({
             <button
               type="submit"
               className="absolute inset-y-0 right-0 pr-3 flex items-center"
-              onClick={(e) => e.stopPropagation()}
-            >
+              onClick={(e) => e.stopPropagation()}>
               <i className="fa-solid fa-arrow-right-long"></i>
             </button>
           )}
