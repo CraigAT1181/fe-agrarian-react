@@ -29,11 +29,11 @@ export default function App() {
           <Header />
           <main className="main">
             <Suspense
-              fallback={
-                <div className="flex justify-center">
-                  <i className="fa-solid fa-spinner fa-spin"></i>
-                </div>
-              }
+            // fallback={
+            //   <div className="flex justify-center">
+            //     <i className="fa-solid fa-spinner fa-spin"></i>
+            //   </div>
+            // }
             >
               <Routes>
                 <Route path="/" element={<Welcome />} />

@@ -9,6 +9,9 @@ import PostDisplay from "./posts/PostDisplay";
 import PostSubmit from "./posts/PostSubmit";
 
 export default function Town() {
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+
   const { postAddition, postDeletion } = usePosts();
   const { user } = useAuth();
   const { town } = useParams();
@@ -20,6 +23,7 @@ export default function Town() {
 
   const fetchPosts = async () => {
     if (user) {
+      setIsLoading(true);
       try {
         const { posts: townPostsData } = await fetchTownPosts(user.town_id);
 
@@ -35,8 +39,11 @@ export default function Town() {
         setTownPosts(normalisedTownPosts);
       } catch (error) {
         console.error("Failed to fetch Town posts", error);
+      } finally {
+        setIsLoading(false);
       }
     } else {
+      setIsLoading(true);
       try {
         const { posts: townPostsData } = await fetchTownPosts(
           "21ffcbff-aecd-4209-93fd-57a55c9d3da7"
@@ -50,6 +57,9 @@ export default function Town() {
         setTownPosts(normalizedTownPosts);
       } catch (error) {
         console.error("Failed to fetch Town posts", error);
+        setError(error);
+      } finally {
+        setIsLoading(false);
       }
     }
   };
@@ -68,6 +78,15 @@ export default function Town() {
     fetchPosts();
   };
 
+  if (error) {
+    return (
+      <div className="flex flex-col text-center">
+        <h1>!</h1>
+        <p>{error}</p>
+      </div>
+    );
+  }
+
   return (
     <div className="town">
       <div className="bg-green-900 flex justify-center p-2 mb-4">
@@ -77,6 +96,7 @@ export default function Town() {
         <PostDisplay
           posts={townPostsArray}
           handleDeletePost={handleDeletePost}
+          isLoading={isLoading}
         />
       </div>
       <div className="sticky bottom-4">

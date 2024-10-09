@@ -9,6 +9,9 @@ import PostDisplay from "./posts/PostDisplay";
 import PostSubmit from "./posts/PostSubmit";
 
 export default function Allotment() {
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+
   const { postAddition, postDeletion } = usePosts();
   const { user } = useAuth();
 
@@ -21,11 +24,11 @@ export default function Allotment() {
 
   const fetchPosts = async () => {
     if (user) {
+      setIsLoading(true);
       try {
         const { posts: allotmentPostsData } = await fetchAllotmentPosts(
           user.allotment_id
         );
-        console.log(allotmentPostsData);
 
         if (!allotmentPostsData) {
           console.error("Unable to fetch Allotment posts from database.");
@@ -38,18 +41,19 @@ export default function Allotment() {
           },
           {}
         );
-        console.log(normalisedAllotmentPosts);
 
         setAllotmentPosts(normalisedAllotmentPosts);
       } catch (error) {
         console.error("Failed to fetch Allotment posts", error);
+        setError(error);
+      } finally {
+        setIsLoading(false);
       }
     }
   };
 
   useEffect(() => {
     fetchPosts();
-    console.log(user);
   }, [user]);
 
   const handleDeletePost = async (postId) => {
@@ -62,6 +66,15 @@ export default function Allotment() {
     fetchPosts();
   };
 
+  if (error) {
+    return (
+      <div className="flex flex-col text-center">
+        <h1>!</h1>
+        <p>{error}</p>
+      </div>
+    );
+  }
+
   return (
     <div className="allotment">
       <div className="bg-green-900 flex justify-center p-2 mb-4">
@@ -71,6 +84,7 @@ export default function Allotment() {
         <PostDisplay
           posts={allotmentPostsArray}
           handleDeletePost={handleDeletePost}
+          isLoading={isLoading}
         />
       </div>
       {user && (
