@@ -87,7 +87,7 @@ export default function Allotment() {
           isLoading={isLoading}
         />
       </div>
-      {user && (
+      {user && user.allotments.allotment_name === site && (
         <div className="post-submit-container">
           <PostSubmit scope={"allotment"} onAddPost={handleAddPost} />
         </div>

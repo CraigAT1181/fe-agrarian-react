@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { format, formatDistanceToNow } from "date-fns";
 import { useAuth } from "../contexts/AuthContext";
 import { usePosts } from "../contexts/PostContext";
+import { useNavigate } from "react-router-dom";
 
 export default function PostCard({
   post,
@@ -13,6 +14,8 @@ export default function PostCard({
 
   const { user, toggleDrawer } = useAuth();
   const { handlePostClick } = usePosts();
+
+  const navigate = useNavigate();
 
   // ---------------- Format dates for rendering
 
@@ -61,7 +64,15 @@ export default function PostCard({
           <div className="flex justify-start items-center font-semibold">
             <p>{post.users.user_name}</p>
             <p className="mx-2">|</p>
-            <p>
+            <p
+              onClick={
+                post.scope === "town" &&
+                (() =>
+                  navigate(
+                    `/allotments/${post.users.allotments.allotment_name}`
+                  ))
+              }
+            >
               {post.scope === "allotment"
                 ? post.users.plot
                 : post.users.allotments.allotment_name}

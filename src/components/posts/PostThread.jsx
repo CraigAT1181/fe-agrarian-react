@@ -113,7 +113,7 @@ export default function PostThread() {
           )}
           <hr className="border-4" />
           {replies && (
-            <div className="pl-4">
+            <div className="pl-4 mb-4">
               <h4>
                 {replies.length} {replies.length === 1 ? "reply" : "replies"}
               </h4>
@@ -132,7 +132,7 @@ export default function PostThread() {
                 </div>
               ))}
           </div>
-          <div className="sticky bottom-4">
+          <div className="sticky bottom-4 mt-4">
             {user && (
               <PostSubmit
                 parent_id={selectedPost.post_id}

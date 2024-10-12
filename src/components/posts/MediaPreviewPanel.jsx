@@ -10,7 +10,7 @@ export default function MediaPreviewPanel({ mediaUploads, setMediaUploads }) {
   return (
     <div className="media-preview-panel">
       {mediaUploads.map((preview, index) => (
-        <div key={index} className="relative">
+        <div key={index} className="media-preview-image-container">
           <img
             src={URL.createObjectURL(preview)}
             alt="Uploaded media preview"

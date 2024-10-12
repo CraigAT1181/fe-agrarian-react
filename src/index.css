@@ -34,7 +34,7 @@
 }
 
 .post-thread {
-  @apply flex-grow flex flex-col;
+  @apply flex flex-grow flex-col;
 }
 
 /* -- CONTAINERS -- */
@@ -48,7 +48,15 @@
 }
 
 .post-submit-container {
-  @apply sticky bottom-4 flex justify-center;
+  @apply sticky bottom-4 w-full md:flex md:justify-center;
+}
+
+.media-preview-container {
+  /* @apply flex md:justify-center; */
+}
+
+.media-preview-image-container {
+  @apply relative w-20 mx-1;
 }
 
 /* -- UTILITY -- */
@@ -58,7 +66,11 @@
 }
 
 .media-preview-panel {
-  @apply grid grid-cols-2 gap-1;
+  @apply flex justify-center;
+}
+
+.media-input-panel {
+  @apply flex justify-center my-1;
 }
 
 /* -- STYLES -- */
@@ -68,6 +80,14 @@
 }
 .selected-nav-item {
   @apply font-semibold underline;
+}
+
+.user-menu {
+  @apply absolute right-0 w-60 mt-2 p-2 bg-white top-full z-50 border-2 border-green-900;
+}
+
+.user-menu-item {
+  @apply text-green-900 no-underline hover:bg-gray-200 font-semibold flex items-center justify-center mt-4 cursor-pointer;
 }
 
 /* -- GENERAL -- */
@@ -488,10 +508,6 @@
 }
 
 /* -- POST INPUT PANEL -- */
-
-.media-input-panel {
-  @apply flex justify-center;
-}
 
 .media-icons {
   @apply text-gray-700 mx-4;

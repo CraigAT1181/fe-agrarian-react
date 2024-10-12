@@ -92,30 +92,22 @@ export default function Town() {
       <div className="bg-green-900 flex justify-center p-2 mb-4">
         <h1 className="mb-0 text-white font-thin">{town}</h1>
       </div>
-      {user ? (
-        <div className="post-display-container">
-          <PostDisplay
-            posts={townPostsArray}
-            handleDeletePost={handleDeletePost}
-            isLoading={isLoading}
-          />
-        </div>
-      ) : (
-        <div className="text-center">
-          <p className="font-semibold">
-            Login or register to join a local community of growers!
-          </p>
-        </div>
+      {user && (
+        <>
+          <div className="post-display-container">
+            <PostDisplay
+              posts={townPostsArray}
+              handleDeletePost={handleDeletePost}
+              isLoading={isLoading}
+            />
+          </div>
+          {user.towns.town_name === town && (
+            <div className="post-submit-container">
+              <PostSubmit scope={"town"} onAddPost={handleAddPost} />
+            </div>
+          )}
+        </>
       )}
-
-      <div className="post-submit-container">
-        {user && (
-          <PostSubmit
-            scope={"town"}
-            onAddPost={handleAddPost}
-          />
-        )}
-      </div>
     </div>
   );
 }
