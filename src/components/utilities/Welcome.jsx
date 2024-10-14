@@ -9,8 +9,6 @@ export default function Welcome() {
   useEffect(() => {
     if (user) {
       navigate(`/allotments/${user.allotments.allotment_name}`);
-    } else {
-      toggleDrawer();
     }
   }, [user, navigate]);
 

@@ -60,6 +60,23 @@ export const logout = async () => {
   }
 };
 
+export const requestLink = async (email) => {
+  const { data } = await api.post("/password-reset-request", {
+    email,
+  });
+
+  return data;
+};
+
+export const passwordRequest = async (access_token, newPassword) => {
+  const { data } = await api.post("/reset-password", {
+    access_token,
+    newPassword,
+  });
+
+  return data;
+};
+
 export const deleteUser = async (user_id, auth_id) => {
   try {
     const { data } = await api.delete(`/users/${user_id}/${auth_id}`);
@@ -293,22 +310,6 @@ export const deletePost = async (postId) => {
 // //   return data;
 // // };
 
-// export const requestLink = async (email) => {
-//   const { data } = await api.post("/reset-request", {
-//     email: email,
-//   });
-
-//   return data;
-// };
-
-// export const passwordRequest = async (newPassword, token) => {
-//   const { data } = await api.post("/set-new-password", {
-//     new_password: newPassword,
-//     token: token,
-//   });
-
-//   return data;
-// };
 
 // export const register = async (username, email, password, postcode) => {
 //   const { data } = await api.post("/users", {

@@ -22,6 +22,10 @@ const Notifications = lazy(() =>
 const Settings = lazy(() => import("./components/settings/Settings"));
 const Login = lazy(() => import("./components/Login"));
 const Register = lazy(() => import("./components/Register"));
+const PasswordResetRequest = lazy(() =>
+  import("./components/PasswordResetRequest")
+);
+const SetNewPassword = lazy(() => import("./components/SetNewPassword"));
 
 export default function App() {
   return (
@@ -38,58 +42,24 @@ export default function App() {
             // }
             >
               <Routes>
+                <Route path="/" element={<Welcome />} />
+                <Route path="/allotments/:site" element={<Allotment />} />
+                <Route path="/towns/:town" element={<Town />} />
+                <Route path="/posts/:postId" element={<PostThread />} />
+                <Route path="/ads" element={<Ads />} />
+                <Route path="/blogs" element={<Blogs />} />
+                <Route path="/bookmarks" element={<Bookmarks />} />
+                <Route path="/inbox" element={<Inbox />} />
+                <Route path="/notifications" element={<Notifications />} />
+                <Route path="/settings" element={<Settings />} />
+                <Route path="/*" element={<ErrorHandling />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
                 <Route
-                  path="/"
-                  element={<Welcome />}
+                  path="/password-reset-request"
+                  element={<PasswordResetRequest />}
                 />
-                <Route
-                  path="/allotments/:site"
-                  element={<Allotment />}
-                />
-                <Route
-                  path="/towns/:town"
-                  element={<Town />}
-                />
-                <Route
-                  path="/posts/:postId"
-                  element={<PostThread />}
-                />
-                <Route
-                  path="/ads"
-                  element={<Ads />}
-                />
-                <Route
-                  path="/blogs"
-                  element={<Blogs />}
-                />
-                <Route
-                  path="/bookmarks"
-                  element={<Bookmarks />}
-                />
-                <Route
-                  path="/inbox"
-                  element={<Inbox />}
-                />
-                <Route
-                  path="/notifications"
-                  element={<Notifications />}
-                />
-                <Route
-                  path="/settings"
-                  element={<Settings />}
-                />
-                <Route
-                  path="/*"
-                  element={<ErrorHandling />}
-                />
-                <Route
-                  path="/login"
-                  element={<Login />}
-                />
-                <Route
-                  path="/register"
-                  element={<Register />}
-                />
+                <Route path="/set-new-password" element={<SetNewPassword />} />
               </Routes>
             </Suspense>
           </main>

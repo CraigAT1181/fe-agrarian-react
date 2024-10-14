@@ -10,7 +10,7 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [show, setShow] = useState(true);
-  const { login } = useAuth();
+  const { login, toggleDrawer } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
 
   const navigate = useNavigate();
@@ -50,9 +50,7 @@ export default function Login() {
     );
 
   return (
-    <Modal
-      show={show}
-      onHide={handleClose}>
+    <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
         <Modal.Title>Login</Modal.Title>
       </Modal.Header>
@@ -64,8 +62,10 @@ export default function Login() {
               <button
                 className="reset-password"
                 onClick={() => {
-                  navigate("/request-link");
-                }}>
+                  toggleDrawer();
+                  navigate("/password-reset-request");
+                }}
+              >
                 Reset password
               </button>
             </div>
@@ -94,17 +94,17 @@ export default function Login() {
             <button
               className="text-gray-800 cursor-pointer bg-transparent absolute top-8 right-2"
               onClick={togglePasswordVisibility}
-              type="button">
+              type="button"
+            >
               <i
                 className={`fa-solid ${
                   showPassword ? "fa-eye" : "fa-eye-slash"
-                }`}></i>
+                }`}
+              ></i>
             </button>
           </div>
           <div className="d-flex justify-content-center mt-4">
-            <button
-              className="confirm-button"
-              type="submit">
+            <button className="confirm-button" type="submit">
               Confirm
             </button>
           </div>
