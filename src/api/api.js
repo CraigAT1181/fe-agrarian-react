@@ -121,9 +121,37 @@ export const addPost = async (formData) => {
     throw error;
   }
 };
+
 export const deletePost = async (postId) => {
   await api.delete("/posts", {
     data: { post_id: postId }, // Axios supports sending data in delete requests
+  });
+};
+
+export const getAds = async (townId) => {
+
+  try {
+    const {data} = await api.get(`/ads?townId=${townId}`);
+
+    return data;
+    
+  } catch (error) {
+    console.error("Error fetching ads:", error);
+
+    return {error};
+  }
+};
+
+export const postAd = async (formData) => {
+
+  const { data } = await api.post("/ads", formData);
+
+  return data;
+};
+
+export const deleteAd = async (adId) => {
+  await api.delete("/ads", {
+    data: { ad_id: adId }, // Axios supports sending data in delete requests
   });
 };
 
@@ -139,11 +167,7 @@ export const deletePost = async (postId) => {
 //   return data;
 // };
 
-// export const getAds = async () => {
-//   const { data } = await api.get("/ads");
 
-//   return data;
-// };
 
 // export const getActivities = async () => {
 //   const { data } = await api.get("/activities");

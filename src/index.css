@@ -59,10 +59,32 @@
   @apply relative w-20 mx-1;
 }
 
+.ad-display-container {
+  @apply flex-grow overflow-y-auto mb-4;
+}
+
+/* -- CARDS -- */
+
+.ad-card {
+}
+
+.user-section {
+}
+
+.ad-card-user-section-profile-pic {
+}
+
+.ad-section {
+}
+
 /* -- UTILITY -- */
 
 .post-display {
   @apply grid grid-cols-1 gap-6 overflow-y-auto mb-4;
+}
+
+.ad-display {
+  @apply grid grid-cols-1 gap-6 overflow-y-auto min-w-0 w-full mb-4;
 }
 
 .media-preview-panel {
@@ -505,6 +527,12 @@
 }
 
 .post-card-message {
+}
+
+/* -- AD CARD -- */
+
+.ad-card-container {
+  @apply flex rounded-lg shadow-sm relative max-w-full;
 }
 
 /* -- POST INPUT PANEL -- */

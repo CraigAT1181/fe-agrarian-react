@@ -66,11 +66,12 @@ export default function PostCard({
             <p className="mx-2">|</p>
             <p
               onClick={
-                post.scope === "town" &&
-                (() =>
-                  navigate(
-                    `/allotments/${post.users.allotments.allotment_name}`
-                  ))
+                post.scope === "town"
+                  ? () =>
+                      navigate(
+                        `/allotments/${post.users.allotments.allotment_name}`
+                      )
+                  : null
               }
             >
               {post.scope === "allotment"
@@ -114,7 +115,7 @@ export default function PostCard({
         </div>
 
         {post.posts_media && post.posts_media.length > 0 && (
-          <div className="grid grid-cols-2 gap-1 md:flex">
+          <div className="grid grid-cols-4 gap-1 md:flex">
             {post.posts_media.map((media) => (
               <div key={media.media_url}>
                 <img
