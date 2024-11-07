@@ -1,6 +1,8 @@
 import React, { Suspense, lazy } from "react";
 import { Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./components/contexts/AuthContext";
+import { NotificationProvider } from "./components/contexts/NotificationContext";
+import { MessagingProvider } from "./components/contexts/MessagingContext";
 import { PostProvider } from "./components/contexts/PostContext";
 import { AdProvider } from "./components/contexts/AdContext";
 import Header from "./components/Header";
@@ -33,46 +35,53 @@ export default function App() {
   return (
     <div className="wrapper">
       <AuthProvider>
-        <PostProvider>
-          <AdProvider>
-            <Header />
-            <main className="main">
-              <Suspense
-              // fallback={
-              //   <div className="flex justify-center">
-              //     <i className="fa-solid fa-spinner fa-spin"></i>
-              //   </div>
-              // }
-              >
-                <Routes>
-                  <Route path="/" element={<Welcome />} />
-                  <Route path="/allotments/:site" element={<Allotment />} />
-                  <Route path="/towns/:town" element={<Town />} />
-                  <Route path="/posts/:postId" element={<PostThread />} />
-                  <Route path="/ads" element={<Ads />} />
+        <NotificationProvider>
+          <MessagingProvider>
+            <PostProvider>
+              <AdProvider>
+                <Header />
+                <main className="main">
+                  <Suspense
+                  // fallback={
+                  //   <div className="flex justify-center">
+                  //     <i className="fa-solid fa-spinner fa-spin"></i>
+                  //   </div>
+                  // }
+                  >
+                    <Routes>
+                      <Route path="/" element={<Welcome />} />
+                      <Route path="/allotments/:site" element={<Allotment />} />
+                      <Route path="/towns/:town" element={<Town />} />
+                      <Route path="/posts/:postId" element={<PostThread />} />
+                      <Route path="/ads" element={<Ads />} />
 
-                  <Route path="/blogs" element={<Blogs />} />
-                  <Route path="/bookmarks" element={<Bookmarks />} />
-                  <Route path="/inbox" element={<Inbox />} />
-                  <Route path="/notifications" element={<Notifications />} />
-                  <Route path="/settings" element={<Settings />} />
-                  <Route path="/*" element={<ErrorHandling />} />
-                  <Route path="/login" element={<Login />} />
-                  <Route path="/register" element={<Register />} />
-                  <Route
-                    path="/password-reset-request"
-                    element={<PasswordResetRequest />}
-                  />
-                  <Route
-                    path="/set-new-password"
-                    element={<SetNewPassword />}
-                  />
-                </Routes>
-              </Suspense>
-            </main>
-            {/* <Footer /> */}
-          </AdProvider>
-        </PostProvider>
+                      <Route path="/blogs" element={<Blogs />} />
+                      <Route path="/bookmarks" element={<Bookmarks />} />
+                      <Route path="/inbox" element={<Inbox />} />
+                      <Route
+                        path="/notifications"
+                        element={<Notifications />}
+                      />
+                      <Route path="/settings" element={<Settings />} />
+                      <Route path="/*" element={<ErrorHandling />} />
+                      <Route path="/login" element={<Login />} />
+                      <Route path="/register" element={<Register />} />
+                      <Route
+                        path="/password-reset-request"
+                        element={<PasswordResetRequest />}
+                      />
+                      <Route
+                        path="/set-new-password"
+                        element={<SetNewPassword />}
+                      />
+                    </Routes>
+                  </Suspense>
+                </main>
+                {/* <Footer /> */}
+              </AdProvider>
+            </PostProvider>
+          </MessagingProvider>
+        </NotificationProvider>
       </AuthProvider>
     </div>
   );

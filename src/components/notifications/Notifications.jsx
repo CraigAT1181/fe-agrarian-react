@@ -1,9 +1,6 @@
 import React from "react";
+import NotificationDisplay from "./NotificationDisplay";
 
 export default function Notifications() {
-  return (
-    <div>
-      <h1>Notifications page coming soon!</h1>
-    </div>
-  );
+  return <NotificationDisplay />;
 }

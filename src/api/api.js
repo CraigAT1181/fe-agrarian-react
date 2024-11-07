@@ -1,10 +1,12 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:9090",
+  baseURL: "http://localhost:4000",
 });
 
 export default api;
+
+/* -- USER -- */
 
 export const registerUser = async (userDetails) => {
   try {
@@ -88,6 +90,8 @@ export const deleteUser = async (user_id, auth_id) => {
   }
 };
 
+/* -- POSTS -- */
+
 export const fetchAllotmentPosts = async (allotmentId) => {
   const { data } = await api.get(`/posts/allotments/${allotmentId}`);
 
@@ -128,6 +132,8 @@ export const deletePost = async (postId) => {
   });
 };
 
+/* -- ADS -- */
+
 export const getAds = async (townId) => {
 
   try {
@@ -154,6 +160,27 @@ export const deleteAd = async (adId) => {
     data: { ad_id: adId }, // Axios supports sending data in delete requests
   });
 };
+
+/* -- MESSAGING -- */
+
+export const getConversations = async () => {
+
+};
+
+export const getMessages = async () => {
+
+};
+
+/* -- NOTIFICATIONS -- */
+
+export const getNotifications = async (userId) => {
+
+  const notifications = await api.get(`/users/${userId}/notifications`);
+console.log("detailed notifications received at frontend:", notifications);
+  return notifications;
+}
+
+/* -------------------- OLD CODE --------------------- */
 
 // export const getUsers = async () => {
 //   const { data } = await api.get(`/users`);

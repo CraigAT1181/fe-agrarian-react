@@ -4,6 +4,7 @@ import NavbarHeader from "./NavbarHeader";
 import LoginReg from "./LoginReg";
 import { useLocation } from "react-router-dom";
 import { useAuth } from "./contexts/AuthContext";
+import { useNotification } from "./contexts/NotificationContext";
 
 export default function Header() {
   const [pageTitle, setPageTitle] = useState("");
@@ -11,6 +12,7 @@ export default function Header() {
   const location = useLocation();
 
   const { user, toggleDrawer } = useAuth();
+  const { unreadCount } = useNotification();
 
   useEffect(() => {
     const path = location.pathname.substring(1);
@@ -47,14 +49,14 @@ export default function Header() {
       </div>
       {user && (
         <div className="hidden lg:block">
-          <NavbarHeader pageTitle={pageTitle} />
+          <NavbarHeader pageTitle={pageTitle} unreadCount={unreadCount} />
         </div>
       )}
 
       <div className="hidden lg:block">
         <LoginReg />
       </div>
-      <DrawerHeader />
+      <DrawerHeader unreadCount={unreadCount} />
     </header>
   );
 }

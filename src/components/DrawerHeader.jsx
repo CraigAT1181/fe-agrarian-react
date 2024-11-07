@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useAuth } from "./contexts/AuthContext";
+import { useNotification } from "./contexts/NotificationContext";
 import { Link, useNavigate } from "react-router-dom";
 
-export default function DrawerHeader() {
+export default function DrawerHeader({ unreadCount }) {
   const { user, handleLogout, isDrawerOpen, toggleDrawer } = useAuth();
+
   const navigate = useNavigate();
 
   return (
@@ -11,24 +13,23 @@ export default function DrawerHeader() {
       className={`drawer-secondary transform ${
         isDrawerOpen ? "translate-x-0" : "-translate-x-full"
       } transition-transform`}
-      onClick={toggleDrawer}>
-      <div
-        className="drawer-primary"
-        onClick={(e) => e.stopPropagation()}>
-        <button
-          onClick={toggleDrawer}
-          className="drawer-close">
+      onClick={toggleDrawer}
+    >
+      <div className="drawer-primary" onClick={(e) => e.stopPropagation()}>
+        <button onClick={toggleDrawer} className="drawer-close">
           <svg
             className="w-6 h-6"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg">
+            xmlns="http://www.w3.org/2000/svg"
+          >
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
               strokeWidth="2"
-              d="M6 18L18 6M6 6l12 12"></path>
+              d="M6 18L18 6M6 6l12 12"
+            ></path>
           </svg>
         </button>
 
@@ -70,7 +71,8 @@ export default function DrawerHeader() {
                   <Link
                     to={`/allotments/${user.allotments.allotment_name}`}
                     className="drawer-nav-item"
-                    onClick={toggleDrawer}>
+                    onClick={toggleDrawer}
+                  >
                     Allotment
                   </Link>
                 </div>
@@ -83,7 +85,8 @@ export default function DrawerHeader() {
                   <Link
                     to={`/towns/${user.towns.town_name}`}
                     className="drawer-nav-item"
-                    onClick={toggleDrawer}>
+                    onClick={toggleDrawer}
+                  >
                     Town
                   </Link>
                 </div>
@@ -96,7 +99,8 @@ export default function DrawerHeader() {
                   <Link
                     to="/ads"
                     className="drawer-nav-item"
-                    onClick={toggleDrawer}>
+                    onClick={toggleDrawer}
+                  >
                     Ads
                   </Link>
                 </div>
@@ -109,7 +113,8 @@ export default function DrawerHeader() {
                   <Link
                     to={`/blogs`}
                     className="drawer-nav-item"
-                    onClick={toggleDrawer}>
+                    onClick={toggleDrawer}
+                  >
                     Blogs
                   </Link>
                 </div>
@@ -122,7 +127,8 @@ export default function DrawerHeader() {
                   <Link
                     to={`/bookmarks`}
                     className="drawer-nav-item"
-                    onClick={toggleDrawer}>
+                    onClick={toggleDrawer}
+                  >
                     Bookmarks
                   </Link>
                 </div>
@@ -135,12 +141,13 @@ export default function DrawerHeader() {
                   <Link
                     to={`/inbox`}
                     className="drawer-nav-item"
-                    onClick={toggleDrawer}>
+                    onClick={toggleDrawer}
+                  >
                     Inbox
                   </Link>
                 </div>
               </div>
-              <div className="flex items-center">
+              <div className="flex items-center relative">
                 <div className="w-6">
                   <i className="fa-solid fa-bell"></i>
                 </div>
@@ -148,10 +155,20 @@ export default function DrawerHeader() {
                   <Link
                     to={`/notifications`}
                     className="drawer-nav-item"
-                    onClick={toggleDrawer}>
+                    onClick={toggleDrawer}
+                  >
                     Notifications
                   </Link>
                 </div>
+                {unreadCount > 0 && (
+                  <div className="absolute right-0">
+                    <div className="bg-red-700 border-2 border-white w-6 h-6 rounded-full flex items-center justify-center p-1">
+                      <span className="text-white text-xs font-semibold">
+                        {unreadCount}
+                      </span>
+                    </div>
+                  </div>
+                )}
               </div>
               <div className="flex items-center mt-14">
                 <div className="w-6">
@@ -161,7 +178,8 @@ export default function DrawerHeader() {
                   <Link
                     to={`/settings`}
                     className="drawer-nav-item"
-                    onClick={toggleDrawer}>
+                    onClick={toggleDrawer}
+                  >
                     Settings
                   </Link>
                 </div>
@@ -171,9 +189,7 @@ export default function DrawerHeader() {
                   <i className="fa-solid fa-right-from-bracket"></i>
                 </div>
                 <div className="ml-4">
-                  <Link
-                    className="drawer-nav-item"
-                    onClick={handleLogout}>
+                  <Link className="drawer-nav-item" onClick={handleLogout}>
                     Log out
                   </Link>
                 </div>
@@ -187,12 +203,14 @@ export default function DrawerHeader() {
                 <div className="flex justify-center">
                   <button
                     className="login-button-drawer"
-                    onClick={() => navigate("/login")}>
+                    onClick={() => navigate("/login")}
+                  >
                     Login
                   </button>
                   <button
                     className="register-button-drawer"
-                    onClick={() => navigate("/register")}>
+                    onClick={() => navigate("/register")}
+                  >
                     Register
                   </button>
                 </div>

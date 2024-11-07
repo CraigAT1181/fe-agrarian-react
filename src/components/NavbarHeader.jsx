@@ -2,7 +2,7 @@ import React from "react";
 import { useAuth } from "./contexts/AuthContext";
 import { Link } from "react-router-dom";
 
-export default function NavbarHeader({ pageTitle }) {
+export default function NavbarHeader({ pageTitle, unreadCount }) {
   const { user } = useAuth();
   return (
     <nav className="navbar">
@@ -25,9 +25,7 @@ export default function NavbarHeader({ pageTitle }) {
       </Link>
       <Link
         to="/ads"
-        className={`nav-item ${
-          pageTitle === "Ads" ? "selected-nav-item" : ""
-        }`}
+        className={`nav-item ${pageTitle === "Ads" ? "selected-nav-item" : ""}`}
       >
         Ads
       </Link>

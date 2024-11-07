@@ -8,8 +8,6 @@ export default function AdCard({ ad, handleDeleteAd }) {
 
   const { user } = useAuth();
 
-  console.log(ad);
-
   // ---------------- Format dates for rendering
 
   const formattedTime = ad.created_at
