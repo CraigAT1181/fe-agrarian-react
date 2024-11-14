@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useNotification } from "../contexts/NotificationContext";
+import NotificationCard from "./NotificationCard";
 
 export default function NotificationDisplay() {
   const { notifications, isLoading } = useNotification();
@@ -10,7 +11,9 @@ export default function NotificationDisplay() {
     <div>
       {notifications &&
         (notifications.length > 0 ? (
-          notifications.map((notification, index) => <p key={index}>X</p>)
+          notifications.map((notification, index) => (
+            <NotificationCard key={index} notification={notification} />
+          ))
         ) : (
           <p>Looks like you're all up to date!</p>
         ))}

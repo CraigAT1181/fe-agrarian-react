@@ -544,3 +544,9 @@
 .remove-media-button {
   @apply absolute top-0 right-0 bg-gray-700 font-bold text-white rounded-full w-6 h-6 flex items-center justify-center;
 }
+
+/* -- NOTIFICATION CARD -- */
+
+.notification-card {
+  @apply flex rounded-lg shadow-sm relative max-w-full p-1 cursor-pointer border-2;
+}

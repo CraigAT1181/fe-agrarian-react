@@ -135,21 +135,18 @@ export const deletePost = async (postId) => {
 /* -- ADS -- */
 
 export const getAds = async (townId) => {
-
   try {
-    const {data} = await api.get(`/ads?townId=${townId}`);
+    const { data } = await api.get(`/ads?townId=${townId}`);
 
     return data;
-    
   } catch (error) {
     console.error("Error fetching ads:", error);
 
-    return {error};
+    return { error };
   }
 };
 
 export const postAd = async (formData) => {
-
   const { data } = await api.post("/ads", formData);
 
   return data;
@@ -163,22 +160,39 @@ export const deleteAd = async (adId) => {
 
 /* -- MESSAGING -- */
 
-export const getConversations = async () => {
+export const getConversations = async () => {};
 
-};
-
-export const getMessages = async () => {
-
-};
+export const getMessages = async () => {};
 
 /* -- NOTIFICATIONS -- */
 
 export const getNotifications = async (userId) => {
+  console.log("User ID sent to backend:", userId);
 
-  const notifications = await api.get(`/users/${userId}/notifications`);
-console.log("detailed notifications received at frontend:", notifications);
-  return notifications;
-}
+  try {
+    const notifications = await api.get(`/users/${userId}/notifications`);
+    console.log("detailed notifications received at frontend:", notifications);
+    return notifications;
+  } catch (error) {
+    console.error("Error fetching notifications", error);
+    throw error;
+  }
+};
+
+export const setNotificationRead = async (notificationId, isRead) => {
+  try {
+    const { error } = await api.patch(
+      `/notifications/${notificationId}`,
+      isRead
+    );
+
+    if (error) {
+      return error;
+    }
+  } catch (error) {
+    console.error("Error patching notification:", error);
+  }
+};
 
 /* -------------------- OLD CODE --------------------- */
 
@@ -193,8 +207,6 @@ console.log("detailed notifications received at frontend:", notifications);
 
 //   return data;
 // };
-
-
 
 // export const getActivities = async () => {
 //   const { data } = await api.get("/activities");
@@ -360,7 +372,6 @@ console.log("detailed notifications received at frontend:", notifications);
 
 // //   return data;
 // // };
-
 
 // export const register = async (username, email, password, postcode) => {
 //   const { data } = await api.post("/users", {

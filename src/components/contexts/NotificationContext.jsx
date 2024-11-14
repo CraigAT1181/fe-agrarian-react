@@ -50,7 +50,6 @@ export const NotificationProvider = ({ children }) => {
   return (
     <NotificationContext.Provider
       value={{
-        fetchNotifications,
         notifications,
         unreadCount,
         isLoading,
