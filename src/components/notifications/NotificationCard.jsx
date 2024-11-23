@@ -1,15 +1,13 @@
 import React, { useState } from "react";
 import { format, formatDistanceToNow } from "date-fns";
-import { useNavigate } from "react-router-dom";
-import { setNotificationRead } from "../../api/api";
 
-export default function NotificationCard({ notification }) {
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
+export default function NotificationCard({
+  notification,
+  handleNotificationClick,
+}) {
+  const [isProcessing, setIsProcessing] = useState(false);
 
   const associatedData = notification.associated_data[0];
-
-  const navigate = useNavigate();
 
   // ---------------- Format dates for rendering
 
@@ -29,28 +27,17 @@ export default function NotificationCard({ notification }) {
 
   // ----------------------------------------------
 
-  const handleNotificationClick = async (associatedId) => {
-    setIsLoading(true);
-    const isRead = true;
-
-    try {
-      await setNotificationRead(notification.notification_id, isRead);
-      navigate(`/posts/${associatedId}`);
-      setIsLoading(false);
-    } catch (error) {
-      setError(error);
-      setIsLoading(false);
-    }
+  const handleClick = async () => {
+    setIsProcessing(true);
+    await handleNotificationClick(notification);
+    setIsProcessing(false);
   };
-
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error!</div>;
 
   return (
     <div
-      onClick={() => handleNotificationClick(notification.associated_id)}
+      onClick={!isProcessing ? handleClick : null}
       className={`notification-card ${
-        notification.is_read === false ? "font-bold" : "font-normal"
+        notification.is_read ? "font-normal" : "font-bold"
       }`}
     >
       <div className="flex items-center min-w-16 mx-2">

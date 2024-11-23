@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { getNotifications } from "../../api/api";
+import { getNotifications, setNotificationRead } from "../../api/api";
 import { useNavigate } from "react-router-dom";
 
 import { useAuth } from "./AuthContext";
@@ -13,6 +13,7 @@ export const NotificationProvider = ({ children }) => {
   const [unreadCount, setUnreadCount] = useState(0);
 
   const [isLoading, setIsLoading] = useState(false);
+  const [contextError, setContextError] = useState(null);
 
   const { user } = useAuth();
   const navigate = useNavigate();
@@ -34,16 +35,59 @@ export const NotificationProvider = ({ children }) => {
       setUnreadCount(unread.length);
       setIsLoading(false);
     } catch (error) {
-      console.error("Error fetching notifications in context.");
+      console.error("Error fetching notifications in context:", error);
+      setContextError(error);
       setIsLoading(false);
     }
   };
 
-  const handleNotificationClick = (notification) => {
-    if (notification.associated_type === "post") {
-      navigate(`/posts/${notification.associated_id}`);
-    } else if (notification.associated_type === "message") {
-      navigate(`/messages`);
+  const handleNotificationClick = async (notification) => {
+    let isRead = notification.is_read;
+    try {
+      // isLoading(true);
+
+      // Optimistic rendering
+      const updatedNotifications = notifications.map((n) =>
+        n.notification_id === notification.notification_id
+          ? { ...n, is_read: true }
+          : n
+      );
+
+      setNotifications(updatedNotifications);
+
+      setUnreadCount((prevCount) =>
+        notification.is_read ? prevCount : prevCount - 1
+      );
+
+      // Make request after optimistic rendering
+      await setNotificationRead(notification.notification_id, isRead);
+      fetchNotifications(user.user_id);
+      // setIsLoading(false);
+      if (notification.associated_type === "post") {
+        navigate(`/posts/${notification.associated_id}`);
+      } else if (notification.associated_type === "message") {
+        navigate(`/messages`);
+      }
+    } catch (error) {
+      console.error(
+        "Error in handleNotificationClick context function:",
+        error
+      );
+      setContextError(error);
+
+      // Reverse optimistic rendering on fail
+      const revertedNotifications = notifications.map((n) =>
+        n.notification_id === notification.notification_id
+          ? { ...n, is_read: notification.is_read }
+          : n
+      );
+      setNotifications(revertedNotifications);
+
+      setUnreadCount((prevCount) =>
+        notification.is_read ? prevCount : prevCount + 1
+      );
+
+      // setIsLoading(false);
     }
   };
 
@@ -53,6 +97,7 @@ export const NotificationProvider = ({ children }) => {
         notifications,
         unreadCount,
         isLoading,
+        contextError,
         handleNotificationClick,
       }}
     >
